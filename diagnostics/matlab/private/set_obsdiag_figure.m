@@ -7,8 +7,6 @@ function figdata = set_obsdiag_figure(orientation,varargin)
 %% DART software - Copyright UCAR. This open source software is provided
 % by UCAR, "as is", without charge, subject to all terms of use at
 % http://www.image.ucar.edu/DAReS/DART/DART_download
-%
-% DART $Id$
 
 default_nexp = 1; % The number of experiments
 p = inputParser;
@@ -73,8 +71,10 @@ anl_linestyle = '-';
 dashed        = '--';
 solid         = '-';
 
+%                   black     blue     mgnta    green    cyan     yellow   red
+%    'expcolors',  {[0 0 0], [0 0 1], [1 0 1], [0 1 0], [0 1 1], [1 1 0], [1 0 0]};
 figdata = struct( ...
-    'expcolors',  {{'k','b','m','g','c','y','r'}}, ...
+    'expcolors',  {{'k','b','m','g','c','r','y'}}, ...
     'expsymbols', {{'o','s','d','p','h','s','*'}}, ...
     'prpolines',  {{'-','--'}}, ...
     'position'     , position, ...
@@ -96,7 +96,3 @@ figdata = struct( ...
     'dashed'       , dashed, ...
     'solid'        , solid );
 
-% <next few lines under version control, do not edit>
-% $URL$
-% $Revision$
-% $Date$

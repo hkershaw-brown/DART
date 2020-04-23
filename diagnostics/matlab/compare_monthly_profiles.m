@@ -420,9 +420,19 @@ figure(iregion);
 clf(iregion); orient(figuredata.orientation);
 ax1 = subplot('position',figuredata.position);
 
+switch upper(plotdat{1}.varname)
+    case 'GPSRO_REFRACTIVITY_VPGUESS'
+        set(ax1,'YScale','log')
+end
+
 Stripes(Drange, plotdat{1}.level_edges, plotdat{1}.level_units, Nexp);
 set(ax1,'YDir',plotdat{1}.YDir,'YTick',sort(plotdat{1}.levels),'Layer','top')
 set(ax1,'YAxisLocation','left','FontSize',figuredata.fontsize)
+
+switch upper(plotdat{1}.varname)
+    case 'GPSRO_REFRACTIVITY_VPGUESS'
+        set(ax1,'YScale','log')
+end
 
 % draw the results of the experiments - each with their own line type.
 hd     = [];   % handle to an unknown number of data lines
@@ -434,7 +444,7 @@ for i = 1:Nexp
         'Marker',          figuredata.expsymbols{i}, ...
         'MarkerSize',      figuredata.MarkerSize, ...
         'MarkerFaceColor', figuredata.expcolors{i}, ...
-        'LineStyle',       figuredata.prpolines{1}, ...
+        'LineStyle',       figuredata.dashed, ...
         'LineWidth',       figuredata.LineWidth,'Parent',ax1); %#ok<AGROW>
 
     [grand_metric,~] = compute_grand(plotdat{i}.data, ...
@@ -445,6 +455,8 @@ for i = 1:Nexp
     legstr{i} = sprintf('%s %s',plotdat{i}.title,grand_metric);
     
 end
+
+set(hd(Nexp),'LineWidth',figuredata.LineWidth*1.5, 'LineStyle', figuredata.prpolines{1});
 
 switch plotdat{1}.copystring
     case {'bias','rmse'}
@@ -485,10 +497,11 @@ ax2 = axes('position',get(ax1,'Position'), ...
     'YColor',get(ax1,'YColor'), ...
     'YLim',get(ax1,'YLim'), ...
     'YDir',get(ax1,'YDir'), ...
+    'YScale',get(ax1,'YScale'), ...
     'FontSize',get(ax1,'FontSize'));
 
 % Plot the data, which sets the range of the axis
-for i = 1:Nexp
+for i = 1:(Nexp-1)
     ax2h1 = line(plotdat{i}.nposs, plotdat{i}.levels, 'Parent', ax2);
     ax2h2 = line(plotdat{i}.nused, plotdat{i}.levels, 'Parent', ax2);
     
@@ -501,6 +514,21 @@ for i = 1:Nexp
         'Color',     figuredata.expcolors{i}, ...
         'Marker',    figuredata.ges_marker, ...
         'MarkerSize',figuredata.MarkerSize);
+end
+
+for i = Nexp:Nexp
+    ax2h1 = line(plotdat{i}.nposs, plotdat{i}.levels, 'Parent', ax2);
+    ax2h2 = line(plotdat{i}.nused, plotdat{i}.levels, 'Parent', ax2);
+    
+    set(ax2h1,'LineStyle','none', ...
+        'Color',     figuredata.expcolors{i}, ...
+        'Marker',    figuredata.obs_marker, ...
+        'MarkerSize',figuredata.MarkerSize*2);
+    
+    set(ax2h2,'LineStyle','none', ...
+        'Color',     figuredata.expcolors{i}, ...
+        'Marker',    figuredata.ges_marker, ...
+        'MarkerSize',figuredata.MarkerSize*2);
 end
 
 % use same Y ticks but no labels

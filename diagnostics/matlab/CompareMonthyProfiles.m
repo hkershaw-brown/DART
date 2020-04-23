@@ -1,5 +1,9 @@
+function  CompareMonthlyProfiles(month)
 
 % crude script to compare the same month across years.
+%
+% USAGE (compare January of all years):
+%    CompareMonthlyProfiles(1)
 
 %% DART software - Copyright UCAR. This open source software is provided
 % by UCAR, "as is", without charge, subject to all terms of use at
@@ -15,25 +19,17 @@
 
 DOUT_S_ROOT = '/glade/scratch/raeder/f.e21.FHIST_BGC.f09_025.CAM6assim.011/archive/esp/hist';
 
-fnames = {'Diags_NTrS_2011-08/obs_diag_output.nc', ...
-          'Diags_NTrS_2012-08/obs_diag_output.nc', ...
-          'Diags_NTrS_2013-08/obs_diag_output.nc', ...
-          'Diags_NTrS_2014-08/obs_diag_output.nc', ...
-          'Diags_NTrS_2015-08/obs_diag_output.nc', ...
-   'BadSST/Diags_NTrS_2016-08/obs_diag_output.nc', ...
-           };
+years   = 2011:2016;
+nyears  = length(years);
+files   = cell(1,nyears);
+titiles = cell(1,nyears);
 
-files = cell(length(fnames),1);
-for i = 1:length(fnames)
-   files{i,1} = sprintf('%s/%s',DOUT_S_ROOT,fnames{i});
+for i = 1:nyears
+
+   titles{1,i} = sprintf('%d-%02d',years(i),month);
+   files{1,i}  = sprintf('%s/Diags_NTrS_%s/obs_diag_output.nc',DOUT_S_ROOT,titles{1,i});
+
 end
-
-titles = {'2011-08',
-          '2012-08',
-          '2013-08',
-          '2014-08',
-          '2015-08',
-          '2016-08'};
 
 obsnames = {  ...
         'ACARS_HORIZONTAL_WIND', ...
