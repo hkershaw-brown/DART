@@ -52,15 +52,15 @@ else
     
 end
 
-fontsize      = 16;
+fontsize      = 14;
 linewidth     = 2.5;
-obs_color     = [215/255  10/255  83/255]; % obs_red
-ges_color     = [  0/255 128/255   0/255]; % prior_green
-anl_color     = [  0/255   0/255 255/255]; % poste_blue
-rmse_color    = [  0/255   0/255   0/255]; % black
-copy_color    = [  0/255 128/255 128/255]; % teal
-purple        = [ 153,51,255 ]/255;
-orange        = [ 255,153,51 ]/255;
+obs_color     = [215  10  83]/255; % obs_red
+ges_color     = [  0 128   0]/255; % prior_green
+anl_color     = [  0   0 255]/255; % poste_blue
+rmse_color    = [  0   0   0]/255; % black
+copy_color    = [  0 128 128]/255; % teal
+purple        = [153  51 255]/255;
+orange        = [255 153  51]/255;
 obs_marker    = 'o';
 ges_marker    = '*';
 anl_marker    = 'd';
@@ -71,10 +71,29 @@ anl_linestyle = '-';
 dashed        = '--';
 solid         = '-';
 
-%                   black     blue     mgnta    green    cyan     yellow   red
-%    'expcolors',  {[0 0 0], [0 0 1], [1 0 1], [0 1 0], [0 1 1], [1 1 0], [1 0 0]};
+% from https://www.rapidtables.com/web/color/RGB_Color.html, mostly
+x.white       = [255 255 255]/255;
+x.background  = [225 225 225]/255;
+x.black       = [  0   0   0]/255;
+x.blue        = [  0   0 255]/255;
+x.navy        = [  0   0 128]/255;
+x.teal        = [  0 128 128]/255;
+x.lightblue   = [173 235 255]/255;
+x.cyan        = [  0 255 255]/255;
+x.magenta     = [255   0 255]/255;
+x.green       = [  0 128   0]/255;
+x.olive       = [128 128   0]/255;
+x.lime        = [  0 255   0]/255;
+x.yellow      = [255 255   0]/255;
+x.orange      = [255 153  51]/255;
+x.red         = [215  10  83]/255;
+x.maroon      = [128   0   0]/255;
+x.purple      = [153  51 255]/255;
+
+%   'expcolors',  {{'k','b','m','g','c','y','r'}}, ...
 figdata = struct( ...
-    'expcolors',  {{'k','b','m','g','c','r','y'}}, ...
+    'expcolors',  {{[x.purple], [x.black], [x.blue  ], [x.magenta], [x.green ], [x.cyan], ...
+                    [x.red   ], [x.olive], [x.purple], [x.orange ], [x.maroon], [x.teal]}}, ...
     'expsymbols', {{'o','s','d','p','h','s','*'}}, ...
     'prpolines',  {{'-','--'}}, ...
     'position'     , position, ...

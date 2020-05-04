@@ -19,10 +19,11 @@ function  CompareMonthlyProfiles(month)
 
 DOUT_S_ROOT = '/glade/scratch/raeder/f.e21.FHIST_BGC.f09_025.CAM6assim.011/archive/esp/hist';
 
-years   = 2011:2016;
+years   = 2010:2016;
 nyears  = length(years);
 files   = cell(1,nyears);
 titiles = cell(1,nyears);
+prpo    = 'prior';
 
 for i = 1:nyears
 
@@ -52,12 +53,15 @@ obsnames = {  ...
         'SAT_U_WIND_COMPONENT', ...
         'SAT_V_WIND_COMPONENT'};
 
-copy = 'rmse';
-prpo = 'prior';
-
 figure; set(gcf,'Position',[  20, 500,625,900])
 figure; set(gcf,'Position',[ 660, 500,625,900])
 figure; set(gcf,'Position',[1300, 500,625,900])
 
+copy = 'rmse';
 compare_monthly_profiles(files,titles,obsnames,copy,prpo,'MarkerSize',5,'LineWidth',1.5);
 
+copy = 'bias';
+compare_monthly_profiles(files,titles,obsnames,copy,prpo,'MarkerSize',5,'LineWidth',1.5);
+
+copy = 'totalspread';
+compare_monthly_profiles(files,titles,obsnames,copy,prpo,'MarkerSize',5,'LineWidth',1.5);
