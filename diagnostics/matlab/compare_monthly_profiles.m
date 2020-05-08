@@ -435,7 +435,7 @@ switch upper(plotdat{1}.varname)
 end
 
 % draw the results of the experiments - each with their own line type.
-hd     = [];   % handle to an unknown number of data lines
+hd     = [];   % handle to all the data lines
 legstr = {[]}; % strings for the legend
 
 for i = 1:Nexp
