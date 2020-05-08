@@ -19,11 +19,11 @@ function  CompareMonthlyProfiles(month)
 
 DOUT_S_ROOT = '/glade/scratch/raeder/f.e21.FHIST_BGC.f09_025.CAM6assim.011/archive/esp/hist';
 
-years   = 2010:2016;
-nyears  = length(years);
-files   = cell(1,nyears);
-titiles = cell(1,nyears);
-prpo    = 'prior';
+years  = [2010, 2011, 2012, 2013, 2014, 2015, 2016];
+nyears = length(years);
+files  = cell(1,nyears);
+titles = cell(1,nyears);
+prpo   = 'prior';
 
 for i = 1:nyears
 
