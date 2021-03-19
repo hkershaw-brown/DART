@@ -37,7 +37,7 @@
 &obs_sequence_tool_nml
    filename_seq       = '../data/obs_seq.ascii'
    filename_out       = 'obs_seq.xx'
-   obs_types          = 'RAW_STATE_VARIABLE'
+   obs_types          = 'RAW_STATE_VARIABLE', 'RAW_STATE_1D_INTEGRAL' 
    keep_types         = .true.,
    gregorian_cal      = .false.
 /

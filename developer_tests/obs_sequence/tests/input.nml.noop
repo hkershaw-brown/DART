@@ -1,0 +1,23 @@
+
+&obs_kind_nml
+/
+
+&obs_sequence_nml
+/
+
+&obs_sequence_tool_nml
+   filename_seq       = '../data/obs_seq.FO.1'
+   filename_out       = 'obs_seq.xx'
+   gregorian_cal      = .true.
+/
+
+
+&utilities_nml
+   TERMLEVEL      = 1,
+   logfilename    = 'dart_log.out'
+   nmlfilename    = 'dart_log.nml'
+   module_details = .false.
+   print_debug    = .false.
+   write_nml      = 'file'
+/
+
