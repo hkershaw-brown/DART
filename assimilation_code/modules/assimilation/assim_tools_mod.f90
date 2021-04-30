@@ -4,18 +4,6 @@ subroutine filter_assim(ens_handle, obs_ens_handle, obs_seq, keys,           &
    OBS_PRIOR_MEAN_START, OBS_PRIOR_MEAN_END, OBS_PRIOR_VAR_START,            &
    OBS_PRIOR_VAR_END, inflate_only)
 
-type(ensemble_type),         intent(inout) :: ens_handle, obs_ens_handle
-type(obs_sequence_type),     intent(in)    :: obs_seq
-integer,                     intent(in)    :: keys(:)
-integer,                     intent(in)    :: ens_size, num_groups, obs_val_index
-type(adaptive_inflate_type), intent(inout) :: inflate
-integer,                     intent(in)    :: ENS_MEAN_COPY, ENS_SD_COPY, ENS_INF_COPY
-integer,                     intent(in)    :: ENS_INF_SD_COPY
-integer,                     intent(in)    :: OBS_KEY_COPY, OBS_GLOBAL_QC_COPY
-integer,                     intent(in)    :: OBS_PRIOR_MEAN_START, OBS_PRIOR_MEAN_END
-integer,                     intent(in)    :: OBS_PRIOR_VAR_START, OBS_PRIOR_VAR_END
-logical,                     intent(in)    :: inflate_only
-
 (1) if (timing(MLOOP)) allocate(elapse_array(obs_ens_handle%num_vars))
 
 ! we are going to read/write the copies array
