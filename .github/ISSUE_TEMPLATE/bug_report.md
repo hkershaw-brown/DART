@@ -8,8 +8,7 @@ assignees: ''
 ---
 
 :bug: Your bug may already be reported!
-Please search on the [issue tracker](https://github.com/NCAR/DART/issues)
-before creating a new issue.
+Please search on the [issue tracker](https://github.com/NCAR/DART/issues) before creating a new issue.
 
 **Describe the bug**
 
