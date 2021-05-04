@@ -15,7 +15,7 @@ If so, give a clear and concise description of what the problem is.
 For example, " I'm always frustrated when [...]"
 
 **Describe the your prefered solution**  
-Please provide enough details here to help people have a discussion about your proposal
+Please provide enough detail here to help people have a discussion about your proposal
 
 **Describe any alternatives you have considered**  
 List any alternative solutions or workarounds you have considered.
