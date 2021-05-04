@@ -7,17 +7,17 @@ assignees: ''
 
 ---
 
-**Use case**
+**Use case**  
 What are you trying to accomplish?  Sometimes there may already be 
 a way to do what you need.  
 
-**Is your feature request related to a problem?**
+**Is your feature request related to a problem?**  
 If so, give a clear and concise description of what the problem is.
 For example, " I'm always frustrated when [...]"
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+**Describe the your prefered solution**  
+Please provide enough details here to help people have a discussion about your proposal
 
-**Describe alternatives you haveve considered**
+**Describe any alternatives you have considered**  
 List any alternative solutions or workarounds you have considered.
 
