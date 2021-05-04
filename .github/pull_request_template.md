@@ -1,4 +1,4 @@
-### Description:
+## Description:
 <!--- Describe your changes -->
 Please provide a summary of the change and include any relevant motivation and context. 
 
@@ -19,3 +19,9 @@ Please provide a summary of the change and include any relevant motivation and c
 
 ### Tests
 Please describe any tests you ran to verify your changes.
+
+## Checklist for merging
+
+- [ ] Updated changelog entry
+- [ ] Documentation updated
+- [ ] Version tag 
