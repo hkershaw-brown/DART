@@ -37,8 +37,8 @@ pids+=( "$!" )
 dirs+=( "$f" )
 cd $my_dir
 
-done < ../all_quickbuilds
-#done < some_quickbuilds
+#done < ../all_quickbuilds
+done < ../removed_broken_quickbuilds
 
 for pid in ${pids[@]}; do
   #echo "${pid}"
@@ -50,10 +50,10 @@ done
 i=0
 for st in ${status[@]}; do
     if [[ ${st} -ne 0 ]]; then
-        echo "$i ${dirs[$i]} failed"
+        echo "$i ${dirs[$i]} FAILED"
         OVERALL_EXIT=1
     else
-        echo "$i  ${dirs[$i]} finished"
+        echo "$i  ${dirs[$i]} sucessful"
     fi
     ((i+=1))
 done
