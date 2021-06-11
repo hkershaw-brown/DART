@@ -710,8 +710,8 @@ allow_missing_in_state = get_missing_ok_status()
 ! Main loop for iterative PF updates
 ITERATIONS: do iter = 1,maxiter
 
-  ens_init = ens_handle%copies
-  obs_ens_init = obs_ens_handle%copies
+  ens_init = ens_handle%copies(1:ens_size,:)
+  obs_ens_init = obs_ens_handle%copies(1:ens_size,:)
 
   ! Initiate local PF arrays
   if (filter_kind == 9) then
