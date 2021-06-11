@@ -66,7 +66,7 @@ use ensemble_manager_mod, only : ensemble_type, get_my_num_vars, get_my_vars,   
 
 use mpi_utilities_mod,    only : my_task_id, broadcast_send, broadcast_recv,              &
                                  sum_across_tasks, task_count, start_mpi_timer,           &
-                                 read_mpi_timer, get_global_max
+                                 read_mpi_timer, task_sync, get_global_max
 
 use adaptive_inflate_mod, only : do_obs_inflate,  do_single_ss_inflate, do_ss_inflate,    &
                                  do_varying_ss_inflate,                                   &
@@ -122,11 +122,7 @@ real(r8), allocatable  :: exp_true_correl(:), alpha(:)
 ! and fill this 2d impact table.
 real(r8), allocatable  :: obs_impact_table(:,:)
 
-! version controlled file description for error handling, do not edit
-character(len=256), parameter :: source   = &
-   "$URL: https://svn-dares-dart.cgd.ucar.edu/DART/releases/Manhattan/assimilation_code/modules/assimilation/assim_tools_mod.pf.f90 $"
-character(len=32 ), parameter :: revision = "$Revision: 12591 $"
-character(len=128), parameter :: revdate  = "$Date: 2018-05-21 16:49:26 -0400 (Mon, 21 May 2018) $"
+character(len=*), parameter :: source = 'assim_tools_mod.f90'
 
 !============================================================================
 
@@ -212,7 +208,7 @@ logical :: convert_all_state_verticals_first = .false.
 logical :: convert_all_obs_verticals_first   = .true.
 
 ! Not in the namelist; this var disables the experimental
-! linear and spherical case code in the adaptive localization 
+! linear and spherical case code in the adaptive localization
 ! sections.  to try out the alternatives, set this to .false.
 logical  :: only_area_adapt  = .true.
 
@@ -395,7 +391,7 @@ integer  :: indx(ens_size), filter_kind_orig
 real(r8) :: res(ens_handle%my_num_vars), res_y(obs_ens_handle%my_num_vars)
 integer  :: iter, maxiter
 
-integer :: my_num_obs, i, j, owner, owners_index, my_num_state
+integer :: my_num_obs, i, j, n, owner, owners_index, my_num_state
 integer :: this_obs_key, obs_mean_index, obs_var_index
 integer :: grp_beg(num_groups), grp_end(num_groups), grp_size, grp_bot, grp_top, group
 integer :: num_close_obs, obs_index, num_close_states
@@ -434,19 +430,20 @@ logical :: local_varying_ss_inflate
 logical :: local_ss_inflate
 logical :: local_obs_inflate
 
-! HK observation location conversion
-real(r8) :: vertvalue_obs_in_localization_coord
-integer  :: whichvert_obs_in_localization_coord
-real(r8) :: whichvert_real
 type(location_type) :: lc(1)
 integer             :: kd(1)
 
-! timing - set one or both of the parameters to true
-! to get timing info printed out.
-real(digits12) :: base, elapsed, base2
-logical, parameter :: timing = .false.
-!logical, parameter :: timing = .true.
-logical, parameter :: timing1 = .false.
+! timing related vars:
+! set timing(N) true to collect and print timing info
+integer, parameter :: Ntimers = 5
+integer, parameter :: MLOOP  = 1  ! main assimilation loop
+integer, parameter :: LG_GRN = 2  ! large section timings
+integer, parameter :: SM_GRN = 3  ! inner loops - use carefully!
+integer, parameter :: GC     = 4  ! get_close() related loops
+logical        :: timing(Ntimers)   ! enable or disable w/ this
+real(digits12) :: t_base(Ntimers)   ! storage for time info
+integer(i8)    :: t_items(Ntimers)  ! count of number of calls
+integer(i8)    :: t_limit(Ntimers)  ! limit on number printed
 real(digits12), allocatable :: elapse_array(:)
 
 integer, allocatable :: n_close_state_items(:), n_close_obs_items(:)
@@ -730,6 +727,7 @@ ITERATIONS: do iter = 1,maxiter
 
    ! Regularization strategy requires calculating the -log() of localized
    ! obs-and model-space weights prior to DA step
+   if (timing(LG_GRN)) call start_timer(t_base(LG_GRN))
 
    REGULARIZATION: do i = 1, obs_ens_handle%num_vars
 
@@ -929,14 +927,6 @@ ITERATIONS: do iter = 1,maxiter
 
    end do REGULARIZATION
 
-   if (timing(LG_GRN)) call read_timer(t_base(LG_GRN), 'Obs error inflation')
-
-   if (my_task_id() == 0) then
-      call date_and_time( date, time )
-      write(msgstring,*) 'Obs error inflation end time: ',time(1:2),':',time(3:4),':',time(5:6)
-      call error_handler(E_MSG,'',msgstring)
-   endif
-   
 
    ! Calculate model-space regularization coefficients 
    max_res = 0.0_r8
@@ -996,10 +986,7 @@ ITERATIONS: do iter = 1,maxiter
 
    call get_global_max(max_res)
 
-   if (timing) then
-      elapsed = read_mpi_timer(base)
-      print*, 'regularization calculation time :', elapsed, 'rank ', my_task_id()
-   end if
+   if (timing(LG_GRN)) call read_timer(t_base(LG_GRN), 'regularization time')
 
    ! Reset -log() weights to zero for sequential udpate step
    lw  = 0.0_r8
@@ -1689,10 +1676,8 @@ ITERATIONS: do iter = 1,maxiter
                ! IS A TABLE LOOKUP POSSIBLE TO ACCELERATE THIS?
                ! Update the inflation values
                if (timing(SM_GRN)) call start_timer(t_base(SM_GRN), t_items(SM_GRN), t_limit(SM_GRN), do_sync=.false.)
-               if ( obs_err_infl < max_infl ) then
                   call update_inflation(inflate, varying_ss_inflate, varying_ss_inflate_sd, &
                   r_mean, r_var, grp_size, obs(1), obs_err_var, gamma)
-               endif
                if (timing(SM_GRN)) call read_timer(t_base(SM_GRN), 'update_inflation_V', &
                                                    t_items(SM_GRN), t_limit(SM_GRN), do_sync=.false.)
             else
@@ -2213,7 +2198,7 @@ else
       call obs_increment_boxcar(ens, ens_size, obs, obs_var, obs_inc, rel_weights)
    else if(filter_kind == 8) then
       call obs_increment_rank_histogram(ens, ens_size, prior_var, obs, obs_var, obs_inc)
-   else 
+   else
       call error_handler(E_ERR,'obs_increment', &
               'Illegal value of filter_kind in assim_tools namelist [1-8 OK]', source)
    endif
@@ -3786,7 +3771,7 @@ do i = 1, ens_size
                   endif
                endif
                !********* End block for quadratic interpolation *******************
-            
+
             endif
 
             ! Don't need to search lower boxes again
