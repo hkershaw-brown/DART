@@ -1676,7 +1676,7 @@ ITERATIONS: do iter = 1,maxiter
                ! IS A TABLE LOOKUP POSSIBLE TO ACCELERATE THIS?
                ! Update the inflation values
                if (timing(SM_GRN)) call start_timer(t_base(SM_GRN), t_items(SM_GRN), t_limit(SM_GRN), do_sync=.false.)
-                  call update_inflation(inflate, varying_ss_inflate, varying_ss_inflate_sd, &
+               call update_inflation(inflate, varying_ss_inflate, varying_ss_inflate_sd, &
                   r_mean, r_var, grp_size, obs(1), obs_err_var, gamma)
                if (timing(SM_GRN)) call read_timer(t_base(SM_GRN), 'update_inflation_V', &
                                                    t_items(SM_GRN), t_limit(SM_GRN), do_sync=.false.)
@@ -1815,8 +1815,8 @@ ITERATIONS: do iter = 1,maxiter
             grp_top = grp_end(group)
             call update_from_obs_inc(obs_prior(grp_bot:grp_top), obs_prior_mean(group), &
                obs_prior_var(group), obs_inc(grp_bot:grp_top), &
-               obs_ens_handle%copies(grp_bot:grp_top, obs_index), grp_size, &
-               increment(grp_bot:grp_top), reg_coef(group), net_a(group))
+                obs_ens_handle%copies(grp_bot:grp_top, obs_index), grp_size, &
+                increment(grp_bot:grp_top), reg_coef(group), net_a(group))
          end do
          if (timing(SM_GRN)) call read_timer(t_base(SM_GRN), 'update_from_obs_inc_O', &
                                              t_items(SM_GRN), t_limit(SM_GRN), do_sync=.false.)
@@ -1825,7 +1825,7 @@ ITERATIONS: do iter = 1,maxiter
 
          ! Compute an information factor for impact of this observation on this state
          if(num_groups == 1) then
-            reg_factor = 1.0_r8
+             reg_factor = 1.0_r8
          else
             ! Pass the time along with the index for possible diagnostic output
             ! Compute regression factor for this obs-state pair
@@ -3365,7 +3365,7 @@ subroutine obs_increment_boxcar(ens, ens_size, obs, obs_var, obs_inc, rel_weight
 ! An observation space update that uses a set of boxcar kernels plus two
 ! half-gaussians on the wings to represent the prior distribution. If N is
 ! the ensemble size, 1/(N+1) of the mass is placed between each ensemble
-! member. This is reminiscent of the ranked historgram approach for 
+! member. This is reminiscent of the ranked historgram approach for
 ! evaluating ensembles. The prior distribution on the wings is
 ! represented by a half gaussian with mean being the outermost ensemble
 ! member (left or right) and variance being somewhat arbitrarily chosen
