@@ -986,7 +986,7 @@ ITERATIONS: do iter = 1,maxiter
 
    call get_global_max(max_res)
 
-   if (timing(LG_GRN)) call read_timer(t_base(LG_GRN), 'regularization time')
+   if (timing(LG_GRN)) call read_timer(t_base(LG_GRN), 'regularization')
 
    ! Reset -log() weights to zero for sequential udpate step
    lw  = 0.0_r8
