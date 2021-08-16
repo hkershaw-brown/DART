@@ -28,42 +28,23 @@ else
 endif
 
 
-# make a backup copy of the path_names file, and then use
-# sed to make sure it includes either the non-mpi subroutines,
-# or the subroutines which really call mpi.
-cp -f path_names_filter path_names_filter.back
-
 if ( $usingmpi ) then
 
   echo "Making Makefile with MPI"
-  touch using_mpi_for_filter
-  sed -e 's#/null_mpi_util#/mpi_util#' \
-      -e 's#/null_win_mod#/no_cray_win_mod#' path_names_filter.back >! path_names_filter
 
-  setenv wrapper_arg -w
+  touch using_mpi_for_filter
+  ../../../build_templates/mkmf -p filter -t ../../../build_templates/mkmf.template   \
+        -a "../../.." -w path_names_filter ../../../src/ensemble_manager ../../../src/mpi
 
 else
 
   echo "Making Makefile without MPI"
   rm -f using_mpi_for_filter
-  sed -e 's#/mpi_util#/null_mpi_util#' \
-      -e '\#no_cray_win_mod.f90#d' \
-      -e '\#cray_win_mod.f90#d' path_names_filter.back >! path_names_filter
+  ../../../build_templates/mkmf -d -p filter -t ../../../build_templates/mkmf.template   \
+        -a "../../.." path_names_filter ../../../src/ensemble_manager ../../../src/null_mpi
 
-  set p=`grep null_win_mod.f90 path_names_filter | wc -w`
-  if ( $p == 0) then
-     echo assimilation_code/modules/utilities/null_win_mod.f90 >> path_names_filter
-  endif
-
-  setenv wrapper_arg ""
 
 endif
-
-# remove temp file and now really call mkmf to generate makefile
-rm -f path_names_filter.back
-
-../../../build_templates/mkmf -p filter -t ../../../build_templates/mkmf.template   \
-        -a "../../.." ${wrapper_arg} path_names_filter
 
 exit $status
 
