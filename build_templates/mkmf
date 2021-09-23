@@ -120,7 +120,11 @@ if ( $opt_t ) {
     open TEMPLATE, "<$opt_t" or die "\aERROR: could not read resource file $opt_t: $!\n" 
 }
 
-print  MAKEFILE "include $opt_t\n\n" if $opt_t; #include template if supplied
+if ( $opt_t ) {
+    print  MAKEFILE "include $opt_t\n\n" if $opt_t; #include template if supplied
+} else {
+    print  MAKEFILE "include \${DART}/build_templates/mkmf.template"
+}
 
 if ( $opt_c ) {
    if ( $Config{archname} eq "aix" ) {
