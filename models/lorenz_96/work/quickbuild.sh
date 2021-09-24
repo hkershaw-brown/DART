@@ -7,7 +7,7 @@ set -e
 # Build for DART programs
 
 function buildit() {
- $DART/build_templates/mkmf -p $1 -a $DART \ $DART/src/programs/$1/path_names_$1 \
+ $DART/build_templates/mkmf -p $1 -a $DART $DART/src/programs/$1/path_names_$1 \
      $DART/src/programs/$1 \
      $DART/src/core \
      $DART/src/location/oned \
