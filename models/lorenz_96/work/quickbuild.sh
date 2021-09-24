@@ -55,3 +55,6 @@ for p in ${programs[@]}; do
   ((i++))
 done
 
+# clean up
+\rm -f *.o *.mod
+
