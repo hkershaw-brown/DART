@@ -77,12 +77,12 @@ wakeup_filter \
 wrf_programs=(
 add_pert_where_high_refl \
 advance_cymdh \
-convertdate \ 
+convertdate \
 ensemble_init \
 pert_wrf_bc \
 replace_wrf_fields \
 select \
-update_wrf_bc \ 
+update_wrf_bc \
 wrf_dart_obs_preprocess
 )
 
