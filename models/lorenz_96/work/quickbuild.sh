@@ -3,7 +3,7 @@
 # Build for DART programs
 
 function buildit() {
- $DART/build_templates/mkmf -p $1 -a $DART path_names_$1
+ $DART/build_templates/mkmf -v -p $1 -a $DART $DART/src/programs/$1 path_names_$1
  make
 }
 
@@ -12,6 +12,7 @@ function buildit() {
 
 # build and run preprocess before making any other DART executables
 buildit preprocess
+exit
 ./preprocess
 
 programs=( \
