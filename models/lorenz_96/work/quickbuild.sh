@@ -2,7 +2,7 @@
 
 set -e
 
-[ -z "$DART2" ] && echo "ERROR: Must set DART environment variable"; exit 9
+[ -z "$DART" ] && echo "ERROR: Must set DART environment variable" && exit 9
 
 # Build for DART programs
 
