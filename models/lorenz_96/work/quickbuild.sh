@@ -3,7 +3,13 @@
 # Build for DART programs
 
 function buildit() {
- $DART/build_templates/mkmf -v -p $1 -a $DART $DART/src/programs/$1 path_names_$1
+ $DART/build_templates/mkmf -v -p $1 -a $DART $DART/src/programs/$1 \
+     $DART/src/core \
+     $DART/src/location \
+     $DART/src/null_mpi \
+     $DART/src/programs \
+     $DART/src/quantities \
+
  make
 }
 
