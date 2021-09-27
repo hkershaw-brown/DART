@@ -75,7 +75,7 @@ done
 #  core - directory containing core DART source code
 #-------------------------
 function buildit() {
- $DART/build_templates/mkmf -v -p $1  $DART/src/programs/$1/path_names_$1 \
+ $DART/build_templates/mkmf -v -p $1 \
      $DART/src/programs/$1 \
      $core \
      $modelsrc \
