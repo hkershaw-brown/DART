@@ -9,7 +9,7 @@ set -e
 \rm -f *.o *.mod Makefile .cppdefs
 
 # DART source files
-findsrc
+findsrc threed_sphere
 
 # build and run preprocess before making any other DART executables
 buildpreprocess
@@ -65,13 +65,19 @@ done
 
 }
 
-#
+#-------------------------
+# Collect the source files needed to build DART
+# Arguments:
+#  location module (e.g. threed_sphere, oned)
+# Globals:
+#  dartsrc - created buy this function
+#-------------------------
 function findsrc() {
 
 local core=$(find $DART/src/core -type f -name "*.f90") 
 local modelsrc=$(find ../src -type d -name programs -prune -o -type f -name "*.f90" -print)
-local location="$DART/src/location/threed_sphere \
-                $DART/src/model_mod_tools/test_interpolate_threed_sphere.f90"
+local loc="$DART/src/location/$1 \
+                $DART/src/model_mod_tools/test_interpolate_$1.f90"
 
 local misc="$DART/src/location/utilities \
             $DART/src/null_mpi \
@@ -79,7 +85,7 @@ local misc="$DART/src/location/utilities \
             $DART/observations/forward_operators/obs_def_mod.f90 \
             $DART/observations/forward_operators/obs_def_utilities_mod.f90"
 
-dartsrc="${core} ${modelsrc} ${misc} ${location}"
+dartsrc="${core} ${modelsrc} ${misc} ${loc}"
 }
 
 #-------------------------
