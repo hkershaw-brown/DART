@@ -1,15 +1,16 @@
-#!/bin/bash -v
+#!/bin/bash -x
 
 set -e
 
 [ -z "$DART" ] && echo "ERROR: Must set DART environment variable" && exit 9
 
-# Build for DART programs
-
+#----------------------
+# Functions
+#----------------------
 function buildit() {
- $DART/build_templates/mkmf -p $1 -a $DART $DART/src/programs/$1/path_names_$1 \
+ $DART/build_templates/mkmf -v -p $1 -a $DART $DART/src/programs/$1/path_names_$1 \
      $DART/src/programs/$1 \
-     $DART/src/core \
+     $core \
      $DART/src/location/oned \
      $DART/src/location/utilities \
      $DART/src/null_mpi \
@@ -27,8 +28,15 @@ function buildpreprocess() {
  make
 }
 
+#----------------------
+# Build DART
+#---------------------
+
 # clean the directory
 \rm -f *.o *.mod Makefile .cppdefs
+
+# DART source files
+core=$(find $DART/src/core -type f -name "*.f90") 
 
 # build and run preprocess before making any other DART executables
 buildpreprocess
