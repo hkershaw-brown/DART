@@ -36,7 +36,15 @@ function buildit() {
  make $1
 }
 
-
+#-------------------------
+# Build a model specific program
+# looks in ../src for {main}.f90 
+# Arguements: 
+#  program name
+# Globals:
+#  DART - root of DART
+#  dartsrc - source files
+#-------------------------
 function build() {
  $DART/build_templates/mkmf -p $1 ../src/programs/$1.f90 \
      $dartsrc
