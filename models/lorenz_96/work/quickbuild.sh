@@ -10,6 +10,7 @@ set -e
 
 # DART source files
 core=$(find $DART/src/core -type f -name "*.f90") 
+modelsrc=$(find ../src/ -type d -name programs -prune -o -type f -name "*.f90" -print)
 
 # build and run preprocess before making any other DART executables
 buildpreprocess
@@ -52,10 +53,10 @@ function buildit() {
  $DART/build_templates/mkmf -p $1 \
      $DART/src/programs/$1 \
      $core \
+     $modelsrc \
      $DART/src/location/oned \
      $DART/src/location/utilities \
      $DART/src/null_mpi \
-     .. \
      $DART/models/utilities/default_model_mod.f90 \
      $DART/observations/forward_operators/obs_def_mod.f90 \
      $DART/observations/forward_operators/obs_def_utilities_mod.f90 \
