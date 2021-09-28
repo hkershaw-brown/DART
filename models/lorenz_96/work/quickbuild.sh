@@ -33,7 +33,8 @@ findsrc oned
 # build and run preprocess before making any other DART executables
 buildpreprocess
 
-if [ ! -z "$1" ] ; then
+# build a single program
+if [ ! -z "$1" ] ; then # build a single program
     if [[ " ${programs[*]} " =~ " ${1} " ]]; then
        # whatever you want to do when array contains value
        echo "building " $1
@@ -45,11 +46,9 @@ if [ ! -z "$1" ] ; then
        exit
     else
        echo "ERROR: unknown program" $1
+       exit 4
     fi
-else 
-   echo "no args"
 fi
-exit
 
 i=1
 for p in ${programs[@]}; do
