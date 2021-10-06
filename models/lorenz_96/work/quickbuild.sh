@@ -32,7 +32,7 @@ model_programs=(\
 findsrc oned
 
 # build and run preprocess before making any other DART executables
-#buildpreprocess
+buildpreprocess
 
 # build a single program
 if [ ! -z "$1" ] ; then # build a single program
