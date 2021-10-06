@@ -47,9 +47,8 @@ function buildit() {
 #  dartsrc - source files
 #-------------------------
 function build() {
- $DART/build_templates/mkmf -p $1 ../src/programs/$1.f90 \
+ $DART/build_templates/mkmf -x -p $1 ../src/programs/$1.f90 \
      $dartsrc
- make $1
 }
 
 #-------------------------
@@ -60,7 +59,6 @@ function build() {
 #  DART - root of DART
 #-------------------------
 function buildpreprocess() {
- $DART/build_templates/mkmf -p preprocess -a $DART $DART/src/programs/preprocess/path_names_preprocess
- make
+ $DART/build_templates/mkmf -x -p preprocess -a $DART $DART/src/programs/preprocess/path_names_preprocess
  ./preprocess
 }
