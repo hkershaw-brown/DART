@@ -5,6 +5,7 @@ set -e
 
 [ -z "$DART" ] && echo "ERROR: Must set DART environment variable" && exit 9
 
+MODEL=lorenz_96
 source $DART/build_templates/buildfunctions.sh
 
 programs=( \
@@ -31,17 +32,17 @@ model_programs=(\
 findsrc oned
 
 # build and run preprocess before making any other DART executables
-buildpreprocess
+#buildpreprocess
 
 # build a single program
 if [ ! -z "$1" ] ; then # build a single program
     if [[ " ${programs[*]} " =~ " ${1} " ]]; then
        # whatever you want to do when array contains value
-       echo "building " $1
+       echo "building dart program " $1
        buildit $1
        exit
     elif [[ " ${model_programs[*]} " =~ " ${1} " ]];then 
-       echo "building " $1
+       echo "building model program" $1
        build $1
        exit
     else

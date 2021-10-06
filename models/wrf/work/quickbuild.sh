@@ -6,6 +6,7 @@ set -e
 [ -z "$DART" ] && echo "ERROR: Must set DART environment variable" && exit 9
 
 source $DART/build_templates/buildfunctions.sh
+MODEL=wrf
 
 # clean the directory
 \rm -f *.o *.mod Makefile .cppdefs
@@ -25,6 +26,7 @@ fill_inflation_restart \
 filter \
 model_mod_check \
 obs_common_subset \
+obs_diag \
 obs_selection \
 obs_seq_coverage \
 obs_seq_to_netcdf \
@@ -35,7 +37,6 @@ perturb_single_instance \
 wakeup_filter \
 )
 
-#obs_diag \
 #radiance_obs_to_netcdf \  # needs rttov
 
 wrf_programs=(
