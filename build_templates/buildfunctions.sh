@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #-------------------------
 # Collect the source files needed to build DART
 # Arguments:
@@ -30,10 +32,9 @@ dartsrc="${core} ${modelsrc} ${misc} ${loc}"
 #  dartsrc - source files
 #-------------------------
 function buildit() {
- $DART/build_templates/mkmf -p $1 \
+ $DART/build_templates/mkmf -x -p $1 \
      $DART/src/programs/$1 \
      $dartsrc
- make $1
 }
 
 #-------------------------
