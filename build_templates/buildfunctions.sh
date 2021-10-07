@@ -53,7 +53,7 @@ fi
 
 #-------------------------
 # Build a model specific program
-# looks in $DART/models/$MODEL/src for {main}.f90 
+# looks in $DART/models/$MODEL/src/programs for {main}.f90 
 # Arguements: 
 #  program name
 # Globals:
@@ -73,6 +73,7 @@ function build() {
 #  DART - root of DART
 #-------------------------
 function buildpreprocess() {
- $DART/build_templates/mkmf -x -p preprocess -a $DART $DART/src/programs/preprocess/path_names_preprocess
- ./preprocess
+ $DART/build_templates/mkmf -x -p $DART/src/programs/preprocess/preprocess -a $DART $DART/src/programs/preprocess/path_names_preprocess
+ ln -s $DART/src/programs/preprocess/preprocess $DART/models/$MODEL/work/
+ $DART/src/programs/preprocess/preprocess
 }
