@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 #-------------------------
 # Collect the source files needed to build DART
 # Arguments:
@@ -73,7 +74,23 @@ function build() {
 #  DART - root of DART
 #-------------------------
 function buildpreprocess() {
+
+ # run preprocess if it is in the current directory
+ if [ -f preprocess ]; then
+   echo "already there"
+   ./preprocess
+   return
+
+ # link to preprocess if it is already built
+ if [ -f $DART/src/programs/preprocess/preprocess ]; then
+    echo "not there but built"
+    ln -s $DART/src/programs/preprocess/preprocess .
+    ./preprocess 
+    return
+ fi
+
+ # build preproces
  $DART/build_templates/mkmf -x -p $DART/src/programs/preprocess/preprocess -a $DART $DART/src/programs/preprocess/path_names_preprocess
- ln -s $DART/src/programs/preprocess/preprocess $DART/models/$MODEL/work/
- $DART/src/programs/preprocess/preprocess
+ ln -s $DART/src/programs/preprocess/preprocess .
+ ./preprocess
 }
