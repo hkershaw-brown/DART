@@ -1,5 +1,7 @@
 #!/bin/bash
 
+declare -a programs
+declare -a model_programs
 
 #-------------------------
 # Collect the source files needed to build DART
@@ -35,7 +37,7 @@ dartsrc="${core} ${modelsrc} ${misc} ${loc}"
 #  DART - root of DART
 #  dartsrc - source files
 #-------------------------
-function buildit() {
+function dartbuild() {
 
 #look in $program directory for {main}.f90 
 local program
@@ -61,7 +63,7 @@ fi
 #  DART - root of DART
 #  dartsrc - source files
 #-------------------------
-function build() {
+function modelbuild() {
  $DART/build_templates/mkmf -x -p $1 $DART/models/$MODEL/src/programs/$1.f90 \
      $dartsrc
 }
@@ -80,6 +82,7 @@ function buildpreprocess() {
    echo "already there"
    ./preprocess
    return
+ fi
 
  # link to preprocess if it is already built
  if [ -f $DART/src/programs/preprocess/preprocess ]; then
@@ -94,3 +97,48 @@ function buildpreprocess() {
  ln -s $DART/src/programs/preprocess/preprocess .
  ./preprocess
 }
+
+#-------------------------
+# Build executables
+# Arguments:
+#  name of executable (optional)
+# Globals:
+#  programs - array of DART programs
+#  model_programs - array of model specific programs 
+#-------------------------
+function buildit() {
+
+if [ ! -z "$1" ] ; then # build a single program
+    if [[ " ${programs[*]} " =~ " ${1} " ]]; then
+       echo "building dart program " $1
+       dartbuild $1
+       exit
+    elif [[ " ${model_programs[*]} " =~ " ${1} " ]];then 
+       echo "building model program" $1
+       modelbuild $1
+       exit
+    else
+       echo "ERROR: unknown program" $1
+       exit 4
+    fi  
+fi
+
+# if no argument given, build everything
+
+n=$((${#programs[@]}+${#model_programs[@]}))
+
+i=1
+for p in ${programs[@]}; do
+  echo "Building " $p "modelbuild " $i " of " $n
+  dartbuild $p
+  ((i++))
+done
+
+for p in ${model_programs[@]}; do
+  echo "Building " $p "modelbuild " $i " of " $n
+  modelbuild $p
+  ((i++))
+done
+
+}
+
