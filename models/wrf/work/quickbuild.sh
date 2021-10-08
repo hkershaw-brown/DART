@@ -53,6 +53,9 @@ wrf_dart_obs_preprocess
 
 buildit $1
 
+# clean up
+\rm -f *.o *.mod
+
 }
 
 main "$@"
