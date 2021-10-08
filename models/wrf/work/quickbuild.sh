@@ -39,7 +39,7 @@ wakeup_filter \
 
 #radiance_obs_to_netcdf \  # needs rttov
 
-wrf_programs=(
+model_programs=(
 add_pert_where_high_refl \
 advance_cymdh \
 convertdate \
@@ -51,20 +51,7 @@ update_wrf_bc \
 wrf_dart_obs_preprocess
 )
 
-n=$((${#programs[@]}+${#wrf_programs[@]}))
-
-i=1
-for p in ${programs[@]}; do
-  echo "Building " $p "build " $i " of " $n
-  buildit $p
-  ((i++))
-done
-
-for p in ${wrf_programs[@]}; do
-  echo "Building " $p "build " $i " of " $n
-  build $p
-  ((i++))
-done
+buildit $1
 
 }
 
