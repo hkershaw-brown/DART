@@ -93,7 +93,9 @@ function buildpreprocess() {
  fi
 
  # build preproces
+ cd $DART/src/programs/preprocess
  $DART/build_templates/mkmf -x -p $DART/src/programs/preprocess/preprocess -a $DART $DART/src/programs/preprocess/path_names_preprocess
+ cd -
  ln -s $DART/src/programs/preprocess/preprocess .
  ./preprocess
 }
