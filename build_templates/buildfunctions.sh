@@ -1,7 +1,9 @@
 #!/bin/bash
 
 declare -a programs
+declare -a serial_programs
 declare -a model_programs
+declare -a model_serial_programs
 
 #-------------------------
 # print usage and exit
@@ -23,6 +25,16 @@ function print_usage() {
   echo "   " 
   exit
 }
+
+#-------------------------
+#-------------------------
+function set_null_mpi() {
+
+mpisrc="null_mpi"
+windowsrc=""
+m=""
+}
+
 
 
 #-------------------------
@@ -62,11 +74,9 @@ single_prog=$1
 
 #-------------------------
 # Collect the source files needed to build DART
-# Arguments:
-#  location module (e.g. threed_sphere, oned)
 # Globals:
 #  dartsrc - created buy this function
-#  location - stores the location module
+#  LOCATION - stores the location module
 #  DART - expected in the enviroment
 #  mpisrc  - quickbuild argument
 #  windosrc - just no_cray win 
@@ -75,13 +85,12 @@ function findsrc() {
 
 local core=$(find $DART/src/core -type f -name "*.f90") 
 local modelsrc=$(find $DART/models/$MODEL/src -type d -name programs -prune -o -type f -name "*.f90" -print)
-local loc="$DART/src/location/$1 \
-           $DART/src/model_mod_tools/test_interpolate_$1.f90"
+local loc="$DART/src/location/$LOCATION \
+           $DART/src/model_mod_tools/test_interpolate_$LOCATION.f90"
 local misc="$DART/src/location/utilities \
             $DART/models/utilities/default_model_mod.f90 \
             $DART/observations/forward_operators/obs_def_mod.f90 \
             $DART/observations/forward_operators/obs_def_utilities_mod.f90"
-location=$1
 
 mpi=$DART/src/$mpisrc
 window=$DART/src/$windowsrc
@@ -96,8 +105,8 @@ dartsrc="${core} ${modelsrc} ${misc} ${loc} ${mpi} ${window}"
 # Globals:
 #  DART - root of DART
 #  dartsrc - source files
-#  m - mpi wrapper for mkmf
-#  location - location mod (3D sphere, oned, etc.)
+#  LOCATION - location mod (3D sphere, oned, etc.)
+#  m - mpi mkmf wrapper
 #-------------------------
 function dartbuild() {
 
@@ -106,7 +115,7 @@ local program
 
 if [ $1 == "obs_diag" ]; then
  echo "Doing obs_diag" 
- program=$DART/src/programs/obs_diag/$location
+ program=$DART/src/programs/obs_diag/$LOCATION
 else
  program=$DART/src/programs/$1
 fi
@@ -121,12 +130,13 @@ fi
 # looks in $DART/models/$MODEL/src/programs for {main}.f90 
 # Arguements: 
 #  program name
+#  mpi wrapper arg for mkmf
 # Globals:
 #  DART - root of DART
 #  dartsrc - source files
 #-------------------------
 function modelbuild() {
- $DART/build_templates/mkmf -x $m -p $1 $DART/models/$MODEL/src/programs/$1.f90 \
+ $DART/build_templates/mkmf -x $2 -p $1 $DART/models/$MODEL/src/programs/$1.f90 \
      $dartsrc
 }
 
@@ -175,10 +185,28 @@ function buildit() {
 if [ ! -z "$single_prog" ] ; then # build a single program
     if [[ " ${programs[*]} " =~ " ${single_prog} " ]]; then
        echo "building dart program " $single_prog
+       findsrc
+       dartbuild $single_prog
+       exit
+    elif [[ " ${serial_programs[*]} " =~ " ${single_prog} " ]]; then
+       echo "building serial dart program " $single_prog
+       mpisrc="null_mpi"
+       windowsrc=""
+       m=""
+       findsrc
        dartbuild $single_prog
        exit
     elif [[ " ${model_programs[*]} " =~ " ${single_prog} " ]];then 
        echo "building model program" $single_prog
+       findsrc
+       modelbuild $single_prog
+       exit
+    elif [[ " ${model_serial_programs[*]} " =~ " ${single_prog} " ]];then 
+       echo "building model program" $single_prog
+       mpisrc="null_mpi"
+       windowsrc=""
+       m=""
+       findsrc
        modelbuild $single_prog
        exit
     else
@@ -188,19 +216,44 @@ if [ ! -z "$single_prog" ] ; then # build a single program
 fi
 
 # if no single program argument, build everything
-
-n=$((${#programs[@]}+${#model_programs[@]}))
+n=$((${#programs[@]}+${#model_programs[@]}+${#serial_programs[@]}+${#model_serial_programs[@]}))
 
 i=1
+
+# MPI programs 
+findsrc
 for p in ${programs[@]}; do
-  echo "Building " $p "modelbuild " $i " of " $n
-  dartbuild $p
+  echo "Building " $p " build " $i " of " $n
+  dartbuild $p 
   ((i++))
 done
 
 for p in ${model_programs[@]}; do
-  echo "Building " $p "modelbuild " $i " of " $n
-  modelbuild $p
+  echo "Building " $p " build " $i " of " $n
+  modelbuild $p 
+  ((i++))
+done
+
+# clean before building serial programs
+# if using mpi
+[ $mpisrc == "mpi" ] && \rm -f *.o *.mod
+
+mpisrc="null_mpi"
+windowsrc=""
+m=""
+
+# Serial programs
+findsrc
+
+for p in ${serial_programs[@]}; do
+  echo "Building " $p " build " $i " of " $n
+  dartbuild $p  
+  ((i++))
+done
+
+for p in ${model_serial_programs[@]}; do
+  echo "Building " $p " build " $i " of " $n
+  modelbuild $p  
   ((i++))
 done
 

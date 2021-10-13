@@ -5,35 +5,40 @@ set -e
 
 [ -z "$DART" ] && echo "ERROR: Must set DART environment variable" && exit 9
 
-source $DART/build_templates/buildfunctions.sh
 MODEL=wrf
+LOCATION=threed_sphere
+source $DART/build_templates/buildfunctions.sh
 
 # clean the directory
 \rm -f *.o *.mod Makefile .cppdefs
 
 programs=( \
-advance_time \
 closest_member_tool \
+filter \
+model_mod_check \
+perfect_model_obs \
+perturb_single_instance \
+wakeup_filter
+)
+
+serial_programs=( \
+advance_time \
 create_fixed_network_seq \
 create_obs_sequence \
 fill_inflation_restart \
-filter \
-model_mod_check \
 obs_common_subset \
 obs_diag \
 obs_selection \
 obs_seq_coverage \
 obs_seq_to_netcdf \
 obs_seq_verify \
-obs_sequence_tool \
-perfect_model_obs \
-perturb_single_instance \
-wakeup_filter \
+obs_sequence_tool
 )
+
 
 #radiance_obs_to_netcdf \  # needs rttov
 
-model_programs=(
+model_serial_programs=(
 add_pert_where_high_refl \
 advance_cymdh \
 convertdate \
@@ -47,8 +52,8 @@ wrf_dart_obs_preprocess
 
 arguments "$@"
 
-# DART source files
-findsrc threed_sphere
+# clean the directory
+\rm -f *.o *.mod Makefile .cppdefs
 
 # build and run preprocess before making any other DART executables
 buildpreprocess

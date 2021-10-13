@@ -6,20 +6,24 @@ set -e
 [ -z "$DART" ] && echo "ERROR: Must set DART environment variable" && exit 9
 
 MODEL=lorenz_96
+LOCATION=oned
 source $DART/build_templates/buildfunctions.sh
 
 programs=( \
 closest_member_tool \
+filter \
+model_mod_check \
+perfect_model_obs
+)
+
+serial_programs=( \
 create_fixed_network_seq \
 create_obs_sequence \
 fill_inflation_restart \
-filter \
 integrate_model \
-model_mod_check \
 obs_common_subset \
 obs_diag \
-obs_sequence_tool \
-perfect_model_obs \
+obs_sequence_tool
 )
 
 # quickbuild arguments
@@ -27,9 +31,6 @@ arguments "$@"
 
 # clean the directory
 \rm -f *.o *.mod Makefile .cppdefs
-
-# DART source files
-findsrc oned
 
 # build and run preprocess before making any other DART executables
 buildpreprocess
