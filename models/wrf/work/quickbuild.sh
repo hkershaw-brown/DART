@@ -11,12 +11,6 @@ MODEL=wrf
 # clean the directory
 \rm -f *.o *.mod Makefile .cppdefs
 
-# DART source files
-findsrc threed_sphere
-
-# build and run preprocess before making any other DART executables
-buildpreprocess
-
 programs=( \
 advance_time \
 closest_member_tool \
@@ -51,7 +45,16 @@ update_wrf_bc \
 wrf_dart_obs_preprocess
 )
 
-buildit $1
+arguments "$@"
+
+# DART source files
+findsrc threed_sphere
+
+# build and run preprocess before making any other DART executables
+buildpreprocess
+
+# build DART
+buildit
 
 # clean up
 \rm -f *.o *.mod

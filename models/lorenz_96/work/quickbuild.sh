@@ -22,8 +22,8 @@ obs_sequence_tool \
 perfect_model_obs \
 )
 
-model_programs=(\
-)
+# quickbuild arguments
+arguments "$@"
 
 # clean the directory
 \rm -f *.o *.mod Makefile .cppdefs
@@ -34,7 +34,8 @@ findsrc oned
 # build and run preprocess before making any other DART executables
 buildpreprocess
 
-buildit $1
+# build 
+buildit
 
 # clean up
 \rm -f *.o *.mod

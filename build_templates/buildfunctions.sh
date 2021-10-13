@@ -3,31 +3,33 @@
 declare -a programs
 declare -a model_programs
 
-# Default to build with mpi
-mpisrc=mpi
-windowsrc=no_cray_win
-
 #-------------------------
+# print usage and exit
 #-------------------------
 function print_usage() {
   echo ""
   echo " Usage:   "
   echo "  quicbkbuild.sh      build everything"
   echo "   " 
-  echo "  quicbkbuild.sh [mpi/nompi] [program]"
-  echo "  optional arguments: [mpi] build with mpi"
-  echo "                      [nompi] build serial verison"
-  echo "                      [program] build single program"
+  echo "  quicbkbuild.sh [nompi] [program]"
+  echo "  optional arguments: [nompi] build without mpi"
+  echo "                      [program] build a single program"
+  echo "   " 
+  echo "  Example 1. Build filter without mpi:"
+  echo "           quickbuild.sh nompi filter"
+  echo "   " 
+  echo "  Example 2. Build perfect_model_obs with mpi"
+  echo "           quickbuild.sh perfect_model_obs"
   echo "   " 
   exit
 }
 
 
 #-------------------------
-# special arguments:
-# mpi
-# nompi
-# help
+# parse quicbuild.sh arguments:
+#   nompi - compile without mpi
+#   help - print usage and exit
+#   program_name - compile single program
 #-------------------------
 function arguments() {
 
@@ -35,46 +37,28 @@ if [ $# -gt 2 ]; then
    print_usage
 fi
 
+# Default to build with mpi
+mpisrc=mpi
+windowsrc=no_cray_win
+m="-w" # mkmf wrapper arg
+
 # if the first argument is mpi or nompi
 case $1 in
   help)
     print_usage
     ;;
 
-  mpi)
-    mpisrc="mpi"
-    windowsrc="no_cray_win"
-    m="-w" # mkmf wrapper arg
-    shift 1
-    ;;
-
   nompi)
     mpisrc="null_mpi"
     windowsrc=""
-    m="" # mkmf wrapper arg
+    m=""
     shift 1
     ;;
 
 esac
 
-prog=$1
-echo $1
+single_prog=$1
 }
-
-function print_usage() {
-  echo ""
-  echo " Usage:   "
-  echo "  quicbkbuild.sh      build everything"
-  echo "   " 
-  echo "  quicbkbuild.sh [mpi/nompi] [program]"
-  echo "  optional arguments: [mpi] build with mpi"
-  echo "                      [nompi] build serial verison"
-  echo "                      [program] build single program"
-  echo "   " 
-  exit
-}
-
-
 
 #-------------------------
 # Collect the source files needed to build DART
@@ -84,6 +68,8 @@ function print_usage() {
 #  dartsrc - created buy this function
 #  location - stores the location module
 #  DART - expected in the enviroment
+#  mpisrc  - quickbuild argument
+#  windosrc - just no_cray win 
 #-------------------------
 function findsrc() {
 
@@ -110,6 +96,8 @@ dartsrc="${core} ${modelsrc} ${misc} ${loc} ${mpi} ${window}"
 # Globals:
 #  DART - root of DART
 #  dartsrc - source files
+#  m - mpi wrapper for mkmf
+#  location - location mod (3D sphere, oned, etc.)
 #-------------------------
 function dartbuild() {
 
@@ -168,7 +156,8 @@ fi
 
  # build preproces
  cd $DART/src/programs/preprocess
- $DART/build_templates/mkmf -x -p $DART/src/programs/preprocess/preprocess -a $DART $DART/src/programs/preprocess/path_names_preprocess
+ $DART/build_templates/mkmf -x -p $DART/src/programs/preprocess/preprocess \
+      -a $DART $DART/src/programs/preprocess/path_names_preprocess
  cd -
  ln -s $DART/src/programs/preprocess/preprocess .
  ./preprocess
@@ -176,30 +165,29 @@ fi
 
 #-------------------------
 # Build executables
-# Arguments:
-#  name of executable (optional)
 # Globals:
 #  programs - array of DART programs
 #  model_programs - array of model specific programs 
+#  single_prog - name of a single program to build
 #-------------------------
 function buildit() {
 
-if [ ! -z "$1" ] ; then # build a single program
-    if [[ " ${programs[*]} " =~ " ${1} " ]]; then
-       echo "building dart program " $1
-       dartbuild $1
+if [ ! -z "$single_prog" ] ; then # build a single program
+    if [[ " ${programs[*]} " =~ " ${single_prog} " ]]; then
+       echo "building dart program " $single_prog
+       dartbuild $single_prog
        exit
-    elif [[ " ${model_programs[*]} " =~ " ${1} " ]];then 
-       echo "building model program" $1
-       modelbuild $1
+    elif [[ " ${model_programs[*]} " =~ " ${single_prog} " ]];then 
+       echo "building model program" $single_prog
+       modelbuild $single_prog
        exit
     else
-       echo "ERROR: unknown program" $1
+       echo "ERROR: unknown program" $single_prog
        exit 4
     fi  
 fi
 
-# if no argument given, build everything
+# if no single program argument, build everything
 
 n=$((${#programs[@]}+${#model_programs[@]}))
 
