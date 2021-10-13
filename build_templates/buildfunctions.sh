@@ -11,11 +11,13 @@ declare -a model_serial_programs
 function print_usage() {
   echo ""
   echo " Usage:   "
-  echo "  quicbkbuild.sh      build everything"
+  echo "  quickbuild.sh                     : build everything"
+  echo "  quickbuild.sh clean               : clean the build" 
+  echo "  quickbuild.sh help                : print help message"
   echo "   " 
-  echo "  quicbkbuild.sh [nompi] [program]"
-  echo "  optional arguments: [nompi] build without mpi"
-  echo "                      [program] build a single program"
+  echo "  quicbkbuild.sh [nompi] [program]  : optional arguments " 
+  echo "                                      [nompi] build without mpi"
+  echo "                                      [program] build a single program"
   echo "   " 
   echo "  Example 1. Build filter without mpi:"
   echo "           quickbuild.sh nompi filter"
@@ -26,11 +28,21 @@ function print_usage() {
   exit
 }
 
+cleanup() {
+\rm -f *.o *.mod Makefile
+all_programs=("${programs[@]}" "${model_programs[@]}" "${serial_programs[@]}" "${model_serial_programs[@]}")
+
+for p in ${all_programs[@]}; do 
+  \rm -f $p
+done
+}
+
 #-------------------------
 # parse quicbuild.sh arguments:
 #   nompi - compile without mpi
 #   help - print usage and exit
 #   program_name - compile single program
+#   clean - remove programs
 #-------------------------
 function arguments() {
 
@@ -56,6 +68,10 @@ case $1 in
     shift 1
     ;;
 
+  clean)
+    cleanup
+    exit
+    ;;
 esac
 
 single_prog=$1
