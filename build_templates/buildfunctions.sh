@@ -27,17 +27,6 @@ function print_usage() {
 }
 
 #-------------------------
-#-------------------------
-function set_null_mpi() {
-
-mpisrc="null_mpi"
-windowsrc=""
-m=""
-}
-
-
-
-#-------------------------
 # parse quicbuild.sh arguments:
 #   nompi - compile without mpi
 #   help - print usage and exit
@@ -136,7 +125,7 @@ fi
 #  dartsrc - source files
 #-------------------------
 function modelbuild() {
- $DART/build_templates/mkmf -x $2 -p $1 $DART/models/$MODEL/src/programs/$1.f90 \
+ $DART/build_templates/mkmf -x $m -p $1 $DART/models/$MODEL/src/programs/$1.f90 \
      $dartsrc
 }
 
