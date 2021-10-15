@@ -10,8 +10,9 @@ LOCATION=threed_sphere
 source $DART/build_templates/buildconvfunctions.sh
 
 programs=( \
+dwl_to_obs \
 obs_sequence_tool \
-path_names_advance_time
+advance_time
 )
 
 # don't need arguments

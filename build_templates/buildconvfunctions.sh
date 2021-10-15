@@ -58,7 +58,9 @@ local misc="$DART/src/location/utilities \
             $DART/observations/forward_operators/obs_def_utilities_mod.f90 \
             $DART/observations/obs_converters/utilities"
 local obserrsrc=$DART/observations/obs_converters/obs_error/$OBS_ERROR"_obs_err_mod.f90"
-local dew=$DART/observations/obs_converters/obs_error/dewpoint_obs_err_mod.f90
+local dew="$DART/observations/obs_converters/obs_error/dewpoint_obs_err_mod.f90 \
+           $DART/observations/obs_converters/MADIS/meteor_mod.f90"
+
 
 mpi=$DART/src/$mpisrc
 window=$DART/src/$windowsrc  # TODO be carefull of this for null window
