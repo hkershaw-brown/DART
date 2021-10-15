@@ -15,7 +15,7 @@ function print_usage() {
   echo "  quickbuild.sh clean               : clean the build" 
   echo "  quickbuild.sh help                : print help message"
   echo "   " 
-  echo "  quicbkbuild.sh [nompi] [program]  : optional arguments " 
+  echo "  quickbuild.sh [nompi] [program]   : optional arguments " 
   echo "                                      [nompi] build without mpi"
   echo "                                      [program] build a single program"
   echo "   " 

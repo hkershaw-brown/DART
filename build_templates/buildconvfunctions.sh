@@ -6,6 +6,65 @@ mpisrc="null_mpi"
 windowsrc=""
 m=""
 
+
+#-------------------------
+# print usage and exit
+#-------------------------
+function print_usage() {
+  echo ""
+  echo " Usage:   "
+  echo "  buildconverter.sh               : build everything"
+  echo "  buildconverter.sh clean         : clean the build" 
+  echo "  buildconverter.sh help          : print help message"
+  echo "   " 
+  echo "  buildconverter.sh [program]     : optional argument " 
+  echo "                                    [program] build a single program"
+  echo "   " 
+  exit
+}
+
+
+#-------------------------
+# Remove programs, .o. .mod
+#-------------------------
+cleanup() {
+\rm -f *.o *.mod Makefile
+
+for p in ${programs[@]}; do  
+  \rm -f $p
+done
+}
+
+#-------------------------
+# parse quicbuild.sh arguments:
+#   nompi - compile without mpi
+#   help - print usage and exit
+#   program_name - compile single program
+#   clean - remove programs
+#-------------------------
+function arguments() {
+
+if [ $# -gt 2 ]; then
+   print_usage
+fi
+
+
+# if the first argument is mpi or nompi
+case $1 in
+  help)
+    print_usage
+    ;;
+
+  clean)
+    cleanup
+    exit
+    ;;
+esac
+
+single_prog=$1
+}
+
+
 #-------------------------
 # Build and run preprocess
 # Arguements: 

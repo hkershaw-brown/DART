@@ -17,7 +17,7 @@ advance_time
 
 # don't need arguments
 # quickbuild arguments
-#arguments "$@"
+arguments "$@"
 
 # clean the directory
 \rm -f *.o *.mod Makefile .cppdefs
