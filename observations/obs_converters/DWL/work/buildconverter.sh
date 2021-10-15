@@ -15,8 +15,7 @@ obs_sequence_tool \
 advance_time
 )
 
-# don't need arguments
-# quickbuild arguments
+# build arguments
 arguments "$@"
 
 # clean the directory
