@@ -5,12 +5,14 @@ set -e
 
 [ -z "$DART" ] && echo "ERROR: Must set DART environment variable" && exit 9
 
-CONVERTER=DWL
+CONVERTER=gps
 LOCATION=threed_sphere
 source $DART/build_templates/buildconvfunctions.sh
 
 programs=( \
-dwl_to_obs \
+cosmic_gps_cdf \
+cosmic_ionosphere \
+gpsro_bufr \
 obs_sequence_tool \
 advance_time
 )

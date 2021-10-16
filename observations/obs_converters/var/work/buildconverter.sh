@@ -5,12 +5,14 @@ set -e
 
 [ -z "$DART" ] && echo "ERROR: Must set DART environment variable" && exit 9
 
-CONVERTER=DWL
+CONVERTER=var
 LOCATION=threed_sphere
 source $DART/build_templates/buildconvfunctions.sh
 
 programs=( \
-dwl_to_obs \
+gts_to_dart \
+littler_tf_dart \
+rad_3dvar_to_dart \
 obs_sequence_tool \
 advance_time
 )

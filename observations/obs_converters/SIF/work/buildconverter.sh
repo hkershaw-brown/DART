@@ -5,12 +5,12 @@ set -e
 
 [ -z "$DART" ] && echo "ERROR: Must set DART environment variable" && exit 9
 
-CONVERTER=DWL
+CONVERTER=SIF
 LOCATION=threed_sphere
 source $DART/build_templates/buildconvfunctions.sh
 
 programs=( \
-dwl_to_obs \
+SIF_to_obs_netcdf \
 obs_sequence_tool \
 advance_time
 )

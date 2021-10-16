@@ -5,12 +5,14 @@ set -e
 
 [ -z "$DART" ] && echo "ERROR: Must set DART environment variable" && exit 9
 
-CONVERTER=DWL
+CONVERTER=cice
 LOCATION=threed_sphere
 source $DART/build_templates/buildconvfunctions.sh
 
 programs=( \
-dwl_to_obs \
+cice_to_obs
+modis_ist_to_obs_netcdf
+seaice_aggre_to_obs_netcdf
 obs_sequence_tool \
 advance_time
 )
