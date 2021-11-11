@@ -13,6 +13,9 @@ _site/
 # Nuisance files
 
 # Makefile
+Makefile
+!developer_tests/time_manager/Makefile
+!developer_tests/mpi_utilities/tests/Makefile
 build_templates/mkmf.template
 dart_log.*
 mkmf.template
@@ -69,6 +72,13 @@ restart_file_tool
 system_simulation
 rttov_test
 rttov_unit_tests
+wakeup_filter
+mpas_dart_obs_preprocess
+update_bc
+update_mpas_states
+advance_cymdh
+cice_to_dart
+dart_to_cice
 
 # Directories to NOT IGNORE ... same as executable names
 # as far as I know, these must be listed after the executables
