@@ -1,0 +1,35 @@
+Check mpi_utilities_mod.f90?
+     null_...
+      work/path_names_filter
+     reanalysis_git/CHANGELOG
+
+#!/bin/tcsh
+git add assimilation_code/modules/assimilation/filter_mod.f90
+git add assimilation_code/modules/utilities/ensemble_manager_mod.f90
+git add assimilation_code/programs/obs_diag/threed_sphere/obs_diag.f90
+git add build_templates/mkmf.template
+git add build_templates/mkmf.template.intel.linux
+git add diagnostics/matlab/link_obs.m
+git add models/cam-fv/shell_scripts/cesm2_0/assimilate.csh.template
+git add models/cam-fv/shell_scripts/cesm2_0/setup_advanced
+git add models/cam-fv/shell_scripts/cesm2_0/spinup_single
+git add models/cam-fv/shell_scripts/cesm2_0/spinup_single_sst.25
+git add models/cam-fv/shell_scripts/cesm2_1/DART_config.template
+git add models/cam-fv/shell_scripts/cesm2_1/assimilate.csh.template
+git add models/cam-fv/shell_scripts/cesm2_1/compress.csh
+git add models/cam-fv/shell_scripts/cesm2_1/launch_cf.sh
+git add models/cam-fv/shell_scripts/cesm2_1/mv_to_campaign.csh
+git add models/cam-fv/shell_scripts/cesm2_1/no_assimilate.csh.template
+git add models/cam-fv/shell_scripts/cesm2_1/purge.csh
+git add models/cam-fv/shell_scripts/cesm2_1/repack_st_arch.csh
+git add models/cam-fv/shell_scripts/cesm2_1/setup_advanced
+git add models/cam-fv/shell_scripts/cesm2_1/setup_hybrid
+git add models/cam-fv/shell_scripts/cesm2_1/setup_single_from_ens
+git add models/cam-fv/shell_scripts/cesm2_1/spinup_single
+git add models/cam-fv/shell_scripts/cesm2_1/test_assimilate.csh
+git add models/cam-fv/work/input.nml
+git add models/cam-fv/work/minimal_build.csh
+git add models/cam-fv/work/path_names_filter
+git add observations/obs_converters/obs_error/ncep_obs_err_mod.f90
+git add models/cam-fv/shell_scripts/cesm2_1/submit
+

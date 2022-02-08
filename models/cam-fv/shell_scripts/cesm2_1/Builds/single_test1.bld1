@@ -1,0 +1,131 @@
+user_grid is --gridfile /glade/work/raeder/Models/CAM_init/SST/config_grids+fv1+2deg_oi0.25_gland20.xml
+===============================================: Command not found.
+removing old files from /glade/work/raeder/Exp/single_test1
+removing old directory /glade/scratch/raeder/single_test1/bld
+removing old directory /glade/scratch/raeder/single_test1/run
+Did not find an alias or longname compset match for HIST_CAM60_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV 
+Warning: missing non-idmap ROF2OCN_LIQ_RMAPNAME for ocn_grid, d.25x.25 and rof_grid r05 
+Warning: missing non-idmap ROF2OCN_ICE_RMAPNAME for ocn_grid, d.25x.25 and rof_grid r05 
+Compset forcing is Historic transient 
+ATM component is CAM cam6 physics:
+LND component is clm5.0:BGC (vert. resol. CN and methane) with prognostic crop:
+ICE component is Sea ICE (cice) model version 5 :prescribed cice
+OCN component is DOCN   prescribed ocean mode
+ROF component is MOSART: MOdel for Scale Adaptive River Transport
+GLC component is Stub glacier (land ice) component
+WAV component is Stub wave component
+ESP component is 
+Pes     specification file is /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/../components/cam//cime_config/config_pes.xml
+Compset specific settings: name is RUN_STARTDATE and value is 1979-01-01
+Compset specific settings: name is SSTICE_DATA_FILENAME and value is $DIN_LOC_ROOT/atm/cam/sst/sst_HadOIBl_bc_1x1_1850_2017_c180507.nc
+Compset specific settings: name is SSTICE_GRID_FILENAME and value is $DIN_LOC_ROOT/ocn/docn7/domain.ocn.1x1.111007.nc
+Compset specific settings: name is SSTICE_YEAR_END and value is 2016
+Machine is cheyenne
+ Compset is: HIST_CAM60_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV 
+ Grid is: a%0.9x1.25_l%0.9x1.25_oi%d.25x.25_r%r05_g%null_w%null_m%d.25x.25 
+ Components in compset are: ['cam', 'clm', 'cice', 'docn', 'mosart', 'sglc', 'swav', 'sesp', 'drv', 'dart'] 
+No charge_account info available, using value from PROJECT
+Using project from env PROJECT: P86850054
+cesm model version found: cesm2_1_alpha01d-9-g34fe639
+Batch_system_type is pbs
+job is case.run USER_REQUESTED_WALLTIME 6:00 USER_REQUESTED_QUEUE premium
+job is case.st_archive USER_REQUESTED_WALLTIME None USER_REQUESTED_QUEUE None
+ Creating Case directory /glade/work/raeder/Exp/single_test1
+HIST_CAM60_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV
+CLM_BLDNML_OPTS has been changed to -bgc bgc -crop -ignore_warnings
+Setting up the case ...
+Setting resource.RLIMIT_STACK to -1 from (-1, -1)
+/glade/work/raeder/Exp/single_test1/env_mach_specific.xml already exists, delete to replace
+job is case.run USER_REQUESTED_WALLTIME 6:00 USER_REQUESTED_QUEUE premium
+Creating batch scripts
+Writing case.run script from input template /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/config/cesm/machines/template.case.run
+Creating file .case.run
+Writing case.st_archive script from input template /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/config/cesm/machines/template.st_archive
+Creating file case.st_archive
+Creating user_nl_xxx files for components and cpl
+If an old case build already exists, might want to run 'case.build --clean' before building
+You can now run './preview_run' to get more info on how your case will be run
+
+Updating the run script to set wallclock and queue.
+
+Setting resource.RLIMIT_STACK to -1 from (-1, -1)
+Creating component namelists
+
+WARNING: Using local buildnml file /glade/work/raeder/Exp/single_test1/SourceMods/src.cam/buildnml
+
+   Calling /glade/work/raeder/Exp/single_test1/SourceMods/src.cam/buildnml
+     ...calling cam buildcpp to set build time options
+CAM namelist copy: file1 /glade/work/raeder/Exp/single_test1/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/single_test1/run/atm_in 
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/components/clm//cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/components/cice//cime_config/buildnml
+     ...calling cice buildcpp to set build time options
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/src/components/data_comps/docn/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/components/mosart//cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/src/components/stub_comps/sglc/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/src/components/stub_comps/swav/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/src/components/stub_comps/sesp/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/src/drivers/mct/cime_config/buildnml
+   NOTE: ignoring setting of rof2ocn_liq_rmapname=idmap in seq_maps.rc
+   NOTE: ignoring setting of rof2ocn_ice_rmapname=idmap in seq_maps.rc
+Finished creating component namelists
+
+Building the case
+
+Building case in directory /gpfs/fs1/work/raeder/Exp/single_test1
+sharedlib_only is False
+model_only is False
+Setting resource.RLIMIT_STACK to -1 from (-1, -1)
+Generating component namelists as part of build
+Creating component namelists
+
+WARNING: Using local buildnml file /glade/work/raeder/Exp/single_test1/SourceMods/src.cam/buildnml
+
+   Calling /glade/work/raeder/Exp/single_test1/SourceMods/src.cam/buildnml
+     ...calling cam buildcpp to set build time options
+CAM namelist copy: file1 /glade/work/raeder/Exp/single_test1/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/single_test1/run/atm_in 
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/components/clm//cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/components/cice//cime_config/buildnml
+     ...calling cice buildcpp to set build time options
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/src/components/data_comps/docn/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/components/mosart//cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/src/components/stub_comps/sglc/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/src/components/stub_comps/swav/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/src/components/stub_comps/sesp/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/src/drivers/mct/cime_config/buildnml
+   NOTE: ignoring setting of rof2ocn_liq_rmapname=idmap in seq_maps.rc
+   NOTE: ignoring setting of rof2ocn_ice_rmapname=idmap in seq_maps.rc
+Finished creating component namelists
+Building gptl with output to file /glade/scratch/raeder/single_test1/bld/gptl.bldlog.190320-114700
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/src/build_scripts/buildlib.gptl
+Building mct with output to file /glade/scratch/raeder/single_test1/bld/mct.bldlog.190320-114700
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/src/build_scripts/buildlib.mct
+Building pio with output to file /glade/scratch/raeder/single_test1/bld/pio.bldlog.190320-114700
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/src/build_scripts/buildlib.pio
+Component pio build complete with 2 warnings
+Building csm_share with output to file /glade/scratch/raeder/single_test1/bld/csm_share.bldlog.190320-114700
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_maint-5.6/cime/src/build_scripts/buildlib.csm_share
+Component csm_share build complete with 20 warnings
+         - Building clm4_5/clm5_0 Library 
+Building lnd with output to /glade/scratch/raeder/single_test1/bld/lnd.bldlog.190320-114700
+Component lnd build complete with 6 warnings
+clm built in 145.017292 seconds
+Building atm with output to /glade/scratch/raeder/single_test1/bld/atm.bldlog.190320-114700
+Building ice with output to /glade/scratch/raeder/single_test1/bld/ice.bldlog.190320-114700
+Building ocn with output to /glade/scratch/raeder/single_test1/bld/ocn.bldlog.190320-114700
+Building rof with output to /glade/scratch/raeder/single_test1/bld/rof.bldlog.190320-114700
+Building glc with output to /glade/scratch/raeder/single_test1/bld/glc.bldlog.190320-114700
+Building wav with output to /glade/scratch/raeder/single_test1/bld/wav.bldlog.190320-114700
+Building esp with output to /glade/scratch/raeder/single_test1/bld/esp.bldlog.190320-114700
+sesp built in 2.986494 seconds
+sglc built in 3.134782 seconds
+swav built in 3.292636 seconds
+Component ice build complete with 1 warnings
+cice built in 59.458803 seconds
+mosart built in 59.458529 seconds
+docn built in 59.489597 seconds
+Component atm build complete with 14 warnings
+cam built in 194.246057 seconds
+Building cesm with output to /glade/scratch/raeder/single_test1/bld/cesm.bldlog.190320-114700 
+Time spent not building: 1.664532 sec
+Time spent building: 511.634838 sec
+MODEL BUILD HAS FINISHED SUCCESSFULLY

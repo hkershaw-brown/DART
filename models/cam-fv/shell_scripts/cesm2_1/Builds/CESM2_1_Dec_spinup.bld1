@@ -1,0 +1,2281 @@
+Removing existing case
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/bld'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0017.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0003'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0055'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0060'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0043'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0033'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0012'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0027'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0017'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0041'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0075'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0051'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0010'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0016'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0045'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0016'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0056'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0033'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0043'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0008'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0055'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0035'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0004.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0006'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0065'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0010'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0076'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0009'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0010'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0042'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0055'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0043.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0013.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0019'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0019'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0073'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0047'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0039'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0002.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0068'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0041'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0044'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0007'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0051'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0007'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0018'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0001'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0015.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0020.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0001.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0053'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0056'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0036'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0024.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0048'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0038'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0028.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0051'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0030'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0017.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0022'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0021.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0003'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0030'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0048'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0021'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0077'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0002'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0010'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0074'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0074'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0060'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0031.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0071'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0001'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0013'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0039'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0060.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0067'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0034'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0025'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0016'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0040'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0053'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0036'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0075'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0057'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0041.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0007'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CASEROOT'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0044'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0030.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0031'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0077'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0005'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0069.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0002'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0012'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0062.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0029'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0016'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0057'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0032'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0007'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0012'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0063'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0023'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0016'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0030'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0014'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0069'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0076'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0008.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0010.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0061'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0063'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0071'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0027'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0080'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0031'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0028'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0031'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0013'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0068'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0050'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0040'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0019'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0056'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0004'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0078.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0001'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0074'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0077'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0014'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0056'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0042'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0061'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0038'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0001'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0012'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0064'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0011'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0002'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0029'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0013'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0021'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0033'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0013'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0030.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0023'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0065.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0066'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0040'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0037'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0072'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0004'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0021'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0007'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0047.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0005.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0073'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0075'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0050'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0037'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0033.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0020'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0032'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0068'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0002'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0073'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0033'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0057'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0029'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0059.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0075'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0048'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0004'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0069'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0069'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0011.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0063'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0039.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0048'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0054'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0023.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0065'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0009'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0007'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0044'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0074'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0034'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0065.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0053'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0076'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0042.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0001'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0046.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0003'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0038.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0056.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0021'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0035'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0024'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0035.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0031'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0052.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0068'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0055'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0013.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0041'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0049.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0060'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0048'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0020'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0014'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0043'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0034'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0016.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0025'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0031'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0062'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0051'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0060'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0076'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0050'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0013'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0070'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0005'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0044.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0003'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0065'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0080'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0068'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0054'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0054'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0045.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0035'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0074'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0064.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0012'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0007'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0077.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0040'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0028'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0048'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0004.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0056'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0075'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0041'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0043'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0026'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0039.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0002'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0017'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0043'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0075'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0050.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0078'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0004.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0067.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0057'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0080.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0031'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0052'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0015'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0076.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0005'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0017'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0034'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0069.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0002'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0072'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0054'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0057'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0018'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0027'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0078'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0068'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0077.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0028'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0019'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0007'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0052'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0036'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0051'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0047'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0026.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0033'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0028'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0046'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0059'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0058'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0011.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0078'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0013.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0054.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0009'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0050'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0052'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0029'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0040'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0022'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0071.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0031'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0025'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0074.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0025'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0053.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0021'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0026'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0031'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0022'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0070'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0062'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0078'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0007.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0005'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0058.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0022'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0062.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0034.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0009.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0058'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0002'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0011'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0033'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0037.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0047'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0066'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0055'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0022'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0010'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0043'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0012'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0057'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0013'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0045'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0034'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0014'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0015.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0032'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0027'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0003.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0077'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0051'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0024'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0080'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0076'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0060'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0057'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0037'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0065'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0027'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0017'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0041'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0029.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0005'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0023'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0035'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0034.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0059'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0026'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0012.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0061'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0022.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0055'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0034'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0023'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0047'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0010'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0008'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0067'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0027.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0042'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0020'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0023'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0042'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0040'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0024.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0005.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0007'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0038'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0060'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0064'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0069'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0058'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0008'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0023.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0070'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0070'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0027'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0025'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0079.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0066'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0041'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0024'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0036'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0063'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0013'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0066'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/drv_in'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0008'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0012.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0006'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0059'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0061'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0038'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0050'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0079.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0042'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0024'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0016'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0069'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0065'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0069'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0002.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0071'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0041'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0056'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0044'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0013'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0010'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0079'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0076'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0065.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0067'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0026.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0032.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0027'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0064'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0032'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0001'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0043.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0049'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0041'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0049'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0080.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0012.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0030'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0030'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0043'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0054'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/da.log.3950380.chadmin1.190114-152759'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0080'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0011'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0027.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0034'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0059'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0015'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0080'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0026'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0064'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0067'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0057'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0004'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0050.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0051'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0028'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0015'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0075'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0055'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0066.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0028'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0060'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0032.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0015'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0017'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0045.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0052'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0015'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0072'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0037'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0036'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0044'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0036.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0035'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0078'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0047'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0045'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0026'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0006.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0012'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0013'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0071.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0004'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0006'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0041'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0068'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0046'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0079'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0064'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0025'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0059'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0040'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0014'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0066'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0053'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0068'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0078'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0012'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0038'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0047'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0019'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0063'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0004.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0064'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0061.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0045.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0072'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0038'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0068'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0016.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0053'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0063'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0055'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0043.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0069.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0061'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0067.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0021.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0058.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0048.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0020'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0054'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0052.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0011'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0068'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0073.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0053'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0048'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0057.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0050'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0036.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0070'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0009'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0019.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0054.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0072'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0077.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0051'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0047'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0032'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0070'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0066'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0072'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0027'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0049'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0017.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0038'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0058'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0024'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0023'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0061'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0065'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0028'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0025'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0012'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0035.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0006'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0055'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0031'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0018'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0074'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0069'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0053'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0070'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0057'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0035'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0015'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0071'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0057'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0028'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0040.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0033'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0023'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0049'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0044'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0025'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0007'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0001'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0053'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0006'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0045'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0069'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0026'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0075.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0072'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0035'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0018'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0073'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0010'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0044'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0066'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0001'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0010'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0032'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0038'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0059'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0009.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0047'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0009'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0052'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0045'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0072'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0019'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0061'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0040'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0024'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0055'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0019'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0023'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0024.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0051'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0021.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0054'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0059'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0056.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0052'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0058'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0067'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0063.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0072.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0001'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0055'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0009'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0009'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0060.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0054'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0079'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0064'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0048'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0011'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0009'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0015.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0025'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0048'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0056'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0028.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0058'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0068'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0016'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0055'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0004'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0063'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0080'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0072'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0071'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0067'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0039'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0076'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0036'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0049'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0078.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0046'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0064.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0050'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0044'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0070'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0036'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0066'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0014'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0037'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0005'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0068.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0020.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0032'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0047.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0016'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0044'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0039'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0045'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0054'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0042'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0007'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0010.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0058.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0029'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0052.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0006'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0051.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0066'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0029'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0024'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0037'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0057'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0026'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0033'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0021'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0016'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0018.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0067'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0027'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0063.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0015'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0030'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0065.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0018'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0018'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0046.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0066'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0011'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0058'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0026.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0067'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0062'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0060.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0006'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0049'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0003'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0035'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0013'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0050.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0008'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0014'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0025'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0077'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0039.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0050'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0042'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0026'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0011'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0031'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0051'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0019'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0025.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0062'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0079'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0014'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0076'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0002'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0060'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0072'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0049'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0047'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0073'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0011'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0012'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0038'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0029.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0009'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0019'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0076'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0021'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0051.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0080'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0034'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0046'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0078'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0058.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0046'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0047'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0032'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0027.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0029'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0061.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0022'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0058'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0074'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0060'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0008'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0008'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0023'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0055'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/seq_maps.rc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0049'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0075.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0007.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0059'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0077'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0044'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0010'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0010'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0072.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0070'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0014.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0051'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0024'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0020.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0068.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0047'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0027'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0007'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0056'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0001'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0003'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0014'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0026'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0060'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0018'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0074.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0053'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0048'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0014'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0051'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0049'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0012'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0076'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0080'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0025.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0030.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0064'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0018.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0040.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0016'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0079.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0024'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0017'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0037'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0057.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0023.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0061'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0027'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0004'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0037'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0031'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0047'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0050'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0020'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0049'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0015'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0043'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0026.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0079'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0044.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0034'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0050'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0006.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0051.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0020'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0020'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0001'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0056'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0036'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0031.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0048.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0039'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0042'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0037'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0030'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0035'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0073'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0010'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0074'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0024.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0073'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0036'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0010'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0061.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0079'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0066'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0053'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0028'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0049'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0035'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0027'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0031'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0056.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0040'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0075'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0041'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0040'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0005'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0037'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0067'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0006'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0077'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0019.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0024'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0067'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0067'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0023.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0068.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0003'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0059'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0027.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0049.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0020'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0064'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0029'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0011'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0018'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0006'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0004'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0030'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0046'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0055.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0077.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0024'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0032'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0064'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0076'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0078.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0077'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0062'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0075'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0017'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0078'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0003'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0045'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0072'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0010'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0028'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0019'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0051'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0012.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0033'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0041'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0074'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0061'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0025'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0033'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0005.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0046'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0049'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0031'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0002'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0015'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0071.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0043.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0015'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0074'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0071'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0002'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0070'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0030'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0056'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0053.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0064'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0033'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0018'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0040'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0017.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0045'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0077'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0023'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0070.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0068'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0013'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0041.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0004'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0067.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0056.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0049.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0077'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0030'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0069'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0006.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0036.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0067'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0012'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0043'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0026'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0028'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0022.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0036'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0007.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0063.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0075'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0059'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0001.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0053.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0073'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0018'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0041'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0063'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0055.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0070.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0080'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0048'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0055.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0076.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0026'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0047'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0040'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0048.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0017'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0050'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0069'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0018'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0039'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0038'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0016'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0067'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0071.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0029.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0063'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0037'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0053'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0002.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0008.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0017'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0080'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0074'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0003'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0073.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0052'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0033'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0067.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0075'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0028.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0048'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0032'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0070.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0019.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0029'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0073'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0006'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0026'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0034'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0050'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0057.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0030'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0009'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0024'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0020.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0056'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0061.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0078'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0032'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0020'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0048.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0063'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0038.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0047.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0013'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0038'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0047'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0037.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0021.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0016.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0015'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0045.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0077'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0014'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0015'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0077'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0001.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0021'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0027'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0046'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0040'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0065'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0003'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0073'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0025'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0014'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0029.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0072'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0059.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0006'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0080'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0033.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0025.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0043'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0071'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0062'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0063.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0056'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0008'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0017'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0030'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0005.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0049'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0011'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0050'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0019'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0046'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0008'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0067'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0040'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0039'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0016'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0028.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0009'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0042.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0017'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0053'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0059'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0043'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0046'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0031.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0048'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0021'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0052'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0044.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0014'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0046.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0069'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0014.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0065'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0025.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0045'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0078'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0011'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0068'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0060'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0007'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0015'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0019'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0049'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0008'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0058'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0061'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0064'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0022'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0013'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0042'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0042.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0070'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0054'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0065'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0062'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0003'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0011'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0023'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0014.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0024'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0060'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0071'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0031'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0017'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0030'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0071'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0053'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0005'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0003'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0041.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0005'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0063'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0023'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0044'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0055.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0058'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0018'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0019'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0074'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0057.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0006'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0022'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0004'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0008.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0008'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0059'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0034'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0079'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0007'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0064'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0007'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0009.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0007.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0062'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0016.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0039'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0039'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0026'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0076'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0044'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0054'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0045'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0041'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0077'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0015.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0022'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0055'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0074'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0009'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0075'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0038.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0077'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0045'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0060'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0014'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0063'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0078'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0003.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0043'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0079'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0068.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0042'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0049'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0028'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0076'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0038'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0080.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0069'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0015'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0004'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0042.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0022'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0051'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0042'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0021'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0079.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0008.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0005'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0008'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0040'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0037'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0018.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0002'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0078.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0067'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0041.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0043'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0039'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0017'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0045'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0058'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0074'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0035.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0069.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0062'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0037'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0001.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0044'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0045'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0035.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0053'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0064'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0025'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0058'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0017'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0042'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0044'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0061'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0022.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0029'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0058'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0034.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0052'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0022'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0062'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0044'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0022'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/drv_flds_in'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0002'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0079'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0039.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0016'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0023'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0024'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0003.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0059.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0016'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0065'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0063'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0072.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0079'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0054.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0075.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0025'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0040.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0020'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0014.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0062'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0042'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0036'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0038'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0045'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0004'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0005'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0021'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0033'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0012'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0038'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0070'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0020'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0061'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0039'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0064.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0066.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0070.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0062'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0022'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0057'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0018'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0032'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0076'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0004'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0048'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0036'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0005'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0016'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0037.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0001'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0002.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0039'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0058'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0065'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0010'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0078'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0065'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0066.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0032'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0027'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0033'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0011.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0019'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0076'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0061'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0038'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0012'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0021'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0071'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0006'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0003'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0052'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0006.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0034.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0037.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0054.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0011'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0062'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0071'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0035'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0031.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0080'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0060'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0041'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0050.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0018'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0033.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0043'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0036.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0028'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0078'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0037'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0013'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0004'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0042'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0043'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0050'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0076.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0080'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0052'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0010.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0051'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0075'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0077'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0048'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0002'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0056'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0024'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0073'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0022'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0074'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0073'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0036'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0057'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0003.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0052'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0009'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0070'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0070'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0073.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0046'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0014'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0053.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0031'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0058'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0038.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0066.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0071'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0029'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0015'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0069'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0022'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0050'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0001'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0026'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0073'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0071'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0052.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0032'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0017'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0073'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0035'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0030'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0035'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0059'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0029'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0049.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0029'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0054'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0020'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0006'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0052'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/input.nml'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0054'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0010.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0013.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0046'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0021'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0001'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0003'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0029'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0047.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0030.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0059'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0042'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0001'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0044.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0079'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0056'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0065'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0006'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0062'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0072.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0072'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0075.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0019.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0063'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0061'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0034'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0065'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0033'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0052'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0079'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0020'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0059.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0078'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0056'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0062'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0025'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0061'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0021'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0036'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0079'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0009'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0033.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0009'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0052'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0039'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0069'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0003'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0005'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0045'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0066'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0046'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0053'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0002'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0057'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0034'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0039'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0011.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0019'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0008'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0080'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0069'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0064.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0032.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0018'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0066'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0008'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0011'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0005'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0039'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0060.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0030'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0013'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0036'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0075'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0075'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_modelio.nml_0079'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0066'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0072'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0068'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0041'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0005'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0063'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0064'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0073'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0046'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0035'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0055'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0080.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0021'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0079'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0074.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0009.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0026'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0029'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0054'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0002'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0032.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0066'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0057'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0070'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0020'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0074.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0072'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0028'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0078'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0071'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0068'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0062.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0032'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0059'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0073.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0020'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_in_0008'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0051.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0047'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0046.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/glc_modelio.nml_0027'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn.streams.txt.prescribed_0037'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0023'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0004'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.cice_0062.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/lnd_modelio.nml_0035'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/mosart_in_0065'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0080'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/wav_modelio.nml_0034'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0034'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0023'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0040.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ice_in_0046'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/ocn_modelio.nml_0054'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_modelio.nml_0060'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cam_initial_0022.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/cpl_modelio.nml_0011'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/rof_modelio.nml_0028'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/docn_in_0012'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.clm2_0076.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/CESM2_1_Rean_init_ens.mosart_0018.r.2016-12-10-00000.nc'
+removed '/glade/scratch/raeder/CESM2_1_Dec_spinup/run/esp_modelio.nml_0071'
+removed directory: '/glade/scratch/raeder/CESM2_1_Dec_spinup/run'
+\n Using the starred branch, below, of /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime 
+* cime_reanalysis_2019
+  master
+ 
+n Using CAM version
+Tag name: release_tags/cam_cesm2_1_rel_05
+Originator(s): fvitt, eaton
+Date: 27 Nov 2018
+svn status -u:
+X                    chem_proc
+?                    cime_config/buildcppc
+?                    cime_config/buildnmlc
+X                    src/physics/carma/base
+X                    src/physics/clubb
+X                    src/physics/cosp2/src
+Status against revision:  90472
+
+Performing status on external item at 'src/physics/carma/base':
+Status against revision:  90472
+
+Performing status on external item at 'src/physics/cosp2/src':
+svn: E000110: Unable to connect to a repository at URL 'https://github.com/CFMIP/COSPv2.0/tags/v2.0.3cesm/src'
+svn: E000110: Error running context: Connection timed out
+ 
+Did not find an alias or longname compset match for HIST_CAM60_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV 
+Warning: missing non-idmap ROF2OCN_LIQ_RMAPNAME for ocn_grid, d.25x.25 and rof_grid r05 
+Warning: missing non-idmap ROF2OCN_ICE_RMAPNAME for ocn_grid, d.25x.25 and rof_grid r05 
+Compset forcing is Historic transient 
+ATM component is CAM cam6 physics:
+LND component is clm5.0:BGC (vert. resol. CN and methane) with prognostic crop:
+ICE component is Sea ICE (cice) model version 5 :prescribed cice
+OCN component is DOCN   prescribed ocean mode
+ROF component is MOSART: MOdel for Scale Adaptive River Transport
+GLC component is Stub glacier (land ice) component
+WAV component is Stub wave component
+ESP component is 
+Pes     specification file is /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/../components/cam//cime_config/config_pes.xml
+Compset specific settings: name is RUN_STARTDATE and value is 1979-01-01
+Compset specific settings: name is SSTICE_DATA_FILENAME and value is $DIN_LOC_ROOT/atm/cam/sst/sst_HadOIBl_bc_1x1_1850_2017_c180507.nc
+Compset specific settings: name is SSTICE_GRID_FILENAME and value is $DIN_LOC_ROOT/ocn/docn7/domain.ocn.1x1.111007.nc
+Compset specific settings: name is SSTICE_YEAR_END and value is 2016
+Machine is cheyenne
+ Driver/Coupler has 80 instances
+ Compset is: HIST_CAM60_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV 
+ Grid is: a%0.9x1.25_l%0.9x1.25_oi%d.25x.25_r%r05_g%null_w%null_m%d.25x.25 
+ Components in compset are: ['cam', 'clm', 'cice', 'docn', 'mosart', 'sglc', 'swav', 'sesp', 'drv', 'dart'] 
+No charge_account info available, using value from PROJECT
+Using project from env PROJECT: P86850054
+cesm model version found: release-cesm2.1.0-1-gdab62ed
+Batch_system_type is pbs
+job is case.run USER_REQUESTED_WALLTIME 0:20 USER_REQUESTED_QUEUE economy
+job is case.st_archive USER_REQUESTED_WALLTIME None USER_REQUESTED_QUEUE None
+ Creating Case directory /glade/work/raeder/Exp/CESM2_1_Dec_spinup
+'setup_advanced_test' -> '/glade/work/raeder/Exp/CESM2_1_Dec_spinup/setup_advanced_test.original'
+'env_archive.xml' -> 'env_archive.xml.original'
+'env_batch.xml' -> 'env_batch.xml.original'
+'env_build.xml' -> 'env_build.xml.original'
+'env_case.xml' -> 'env_case.xml.original'
+'env_mach_pes.xml' -> 'env_mach_pes.xml.original'
+'env_mach_specific.xml' -> 'env_mach_specific.xml.original'
+'env_run.xml' -> 'env_run.xml.original'
+From create_newcase, settings related to TASKS = ...
+
+Results in group mach_pes
+	NTASKS: ['CPL:36', 'ATM:36', 'LND:36', 'ICE:36', 'OCN:36', 'ROF:36', 'GLC:36', 'WAV:36', 'ESP:36']
+	NTASKS_PER_INST: ['ATM:0', 'LND:0', 'ICE:0', 'OCN:0', 'ROF:0', 'GLC:0', 'WAV:0', 'ESP:0']
+
+Results in group mach_pes_last
+	MAX_MPITASKS_PER_NODE: 36
+	MAX_TASKS_PER_NODE: 36
+
+Results in group run_pio
+	PIO_NUMTASKS: ['CPL:-99', 'ATM:-99', 'LND:-99', 'ICE:-99', 'OCN:-99', 'ROF:-99', 'GLC:-99', 'WAV:-99', 'ESP:-99']
+compset parts are HIST CAM60 CLM50%BGC-CROP CICE%PRES DOCN%DOM MOSART SGLC SWAV
+After xmlchanges for ROOTPEs ...
+
+Results in group mach_pes
+	NTASKS: ['CPL:108', 'ATM:108', 'LND:108', 'ICE:108', 'OCN:108', 'ROF:108', 'GLC:108', 'WAV:108', 'ESP:36']
+	NTASKS_PER_INST: ['ATM:0', 'LND:0', 'ICE:0', 'OCN:0', 'ROF:0', 'GLC:0', 'WAV:0', 'ESP:0']
+
+Results in group mach_pes_last
+	MAX_MPITASKS_PER_NODE: 36
+	MAX_TASKS_PER_NODE: 36
+
+Results in group run_pio
+	PIO_NUMTASKS: ['CPL:-99', 'ATM:-99', 'LND:-99', 'ICE:-99', 'OCN:-99', 'ROF:-99', 'GLC:-99', 'WAV:-99', 'ESP:-99']
+	CIME_OUTPUT_ROOT: /glade/scratch/raeder
+	RUNDIR: /glade/scratch/raeder/CESM2_1_Dec_spinup/run
+	EXEROOT: /glade/scratch/raeder/CESM2_1_Dec_spinup/bld
+
+Results in group run_data_archive
+	DOUT_S: TRUE
+	DOUT_S_SAVE_INTERIM_RESTART_FILES: FALSE
+
+Results in group run_dout
+	DOUT_S_ROOT: /glade/scratch/raeder/archive/CESM2_1_Dec_spinup
+ 
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.clm/namelist_definition_clm4_5.xml' -> '/glade/work/raeder/Exp/CESM2_1_Dec_spinup/SourceMods/src.clm/namelist_definition_clm4_5.xml'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.clm/lnd_import_export.F90' -> '/glade/work/raeder/Exp/CESM2_1_Dec_spinup/SourceMods/src.clm/lnd_import_export.F90'
+ 
+ 
+Setting up the case ...
+Ignore "WARNING:: mosart.buildnml . . .".  Those files will be provided later
+Before case.setup, modules are
+
+Currently Loaded Modules:
+  1) ncarenv/1.2           5) ncview/2.1.7   9) matlab/R2015b
+  2) intel/17.0.1          6) netcdf/4.6.1  10) xxdiff/4.0.1
+  3) ncarcompilers/0.4.1   7) nco/4.7.4
+  4) mpt/2.15f             8) git/2.10.2
+
+ 
+
+Setting resource.RLIMIT_STACK to -1 from (-1, -1)
+/glade/work/raeder/Exp/CESM2_1_Dec_spinup/env_mach_specific.xml already exists, delete to replace
+job is case.run USER_REQUESTED_WALLTIME 0:20 USER_REQUESTED_QUEUE economy
+Creating batch scripts
+Writing case.run script from input template /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/config/cesm/machines/template.case.run
+Creating file .case.run
+Writing case.st_archive script from input template /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/config/cesm/machines/template.st_archive
+Creating file case.st_archive
+Creating user_nl_xxx files for components and cpl
+If an old case build already exists, might want to run 'case.build --clean' before building
+You can now run './preview_run' to get more info on how your case will be run
+===================
+Starting DART_config
+===================
+DART_SCRIPTS_DIR = /glade/u/home/raeder/DART/rma_recam/models/cam-fv/shell_scripts/cesm2_1
+
+This model is not configured for WACCM
+COMPSET is HIST_CAM60_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV
+
+-------------------------------------------------------------------------
+
+Check the DART configuration:
+
+1) The default behavior is to invoke DART (set in setup_{hybrid,advanced,...).
+   If your confidence is not high that the CESM configuration will be correct,
+   we recommend turning off the assimilation at first.
+
+2) If you want to turn off DART, edit the env_run.xml: DATA_ASSIMILATION_* 
+   to disable running a DART script (assimilate.csh or perfect_model.csh)
+   after the model forecast.
+
+3) Modify what you need to in the DART namelist file, i.e. /glade/work/raeder/Exp/CESM2_1_Dec_spinup/input.nml
+
+4) If you have recompiled any part of the DART system, 'stage_dart_files'
+   will copy them into the correct places.
+
+5) If you stage your own inflation files, make sure you read the INFLATION section
+   in /glade/work/raeder/Exp/CESM2_1_Dec_spinup/DART_config
+
+6) Make sure the observation directory name in assimilate.csh or perfect_model.csh 
+   matches the one on your system.
+
+7) Submit the CESM job in the normal way.
+
+8) You can use /glade/work/raeder/Exp/CESM2_1_Dec_spinup/stage_cesm_files
+    to stage files to restart a run.
+
+-------------------------------------------------------------------------
+
+'temp.20561' -> 'case.st_archive'
+Setting resource.RLIMIT_STACK to -1 from (-1, -1)
+GET_REFCASE is false, the user is expected to stage the refcase to the run directory.
+Creating component namelists
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/components/cam//cime_config/buildnml
+     ...calling cam buildcpp to set build time options
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0001 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0002 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0003 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0004 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0005 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0006 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0007 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0008 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0009 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0010 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0011 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0012 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0013 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0014 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0015 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0016 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0017 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0018 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0019 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0020 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0021 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0022 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0023 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0024 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0025 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0026 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0027 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0028 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0029 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0030 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0031 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0032 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0033 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0034 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0035 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0036 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0037 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0038 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0039 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0040 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0041 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0042 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0043 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0044 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0045 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0046 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0047 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0048 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0049 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0050 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0051 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0052 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0053 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0054 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0055 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0056 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0057 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0058 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0059 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0060 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0061 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0062 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0063 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0064 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0065 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0066 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0067 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0068 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0069 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0070 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0071 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0072 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0073 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0074 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0075 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0076 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0077 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0078 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0079 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0080 
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/components/clm//cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/components/cice//cime_config/buildnml
+     ...calling cice buildcpp to set build time options
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/data_comps/docn/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/components/mosart//cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/sglc/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/swav/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/sesp/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/drivers/mct/cime_config/buildnml
+   NOTE: ignoring setting of rof2ocn_liq_rmapname=idmap in seq_maps.rc
+   NOTE: ignoring setting of rof2ocn_ice_rmapname=idmap in seq_maps.rc
+Finished creating component namelists
+ls: No match.
+ls: No match.
+Copying the required CESM files to the run directory to rerun a previous step. 
+CONTINUE_RUN from env_run.xml is FALSE
+so files for the initial step of this experiment will be restaged.
+Date to reset files to is: 2016-12-10-00000
+
+ 
+Staging initial files for instance 1 of 80
+Staging initial files for instance 2 of 80
+Staging initial files for instance 3 of 80
+Staging initial files for instance 4 of 80
+Staging initial files for instance 5 of 80
+Staging initial files for instance 6 of 80
+Staging initial files for instance 7 of 80
+Staging initial files for instance 8 of 80
+Staging initial files for instance 9 of 80
+Staging initial files for instance 10 of 80
+Staging initial files for instance 11 of 80
+Staging initial files for instance 12 of 80
+Staging initial files for instance 13 of 80
+Staging initial files for instance 14 of 80
+Staging initial files for instance 15 of 80
+Staging initial files for instance 16 of 80
+Staging initial files for instance 17 of 80
+Staging initial files for instance 18 of 80
+Staging initial files for instance 19 of 80
+Staging initial files for instance 20 of 80
+Staging initial files for instance 21 of 80
+Staging initial files for instance 22 of 80
+Staging initial files for instance 23 of 80
+Staging initial files for instance 24 of 80
+Staging initial files for instance 25 of 80
+Staging initial files for instance 26 of 80
+Staging initial files for instance 27 of 80
+Staging initial files for instance 28 of 80
+Staging initial files for instance 29 of 80
+Staging initial files for instance 30 of 80
+Staging initial files for instance 31 of 80
+Staging initial files for instance 32 of 80
+Staging initial files for instance 33 of 80
+Staging initial files for instance 34 of 80
+Staging initial files for instance 35 of 80
+Staging initial files for instance 36 of 80
+Staging initial files for instance 37 of 80
+Staging initial files for instance 38 of 80
+Staging initial files for instance 39 of 80
+Staging initial files for instance 40 of 80
+Staging initial files for instance 41 of 80
+Staging initial files for instance 42 of 80
+Staging initial files for instance 43 of 80
+Staging initial files for instance 44 of 80
+Staging initial files for instance 45 of 80
+Staging initial files for instance 46 of 80
+Staging initial files for instance 47 of 80
+Staging initial files for instance 48 of 80
+Staging initial files for instance 49 of 80
+Staging initial files for instance 50 of 80
+Staging initial files for instance 51 of 80
+Staging initial files for instance 52 of 80
+Staging initial files for instance 53 of 80
+Staging initial files for instance 54 of 80
+Staging initial files for instance 55 of 80
+Staging initial files for instance 56 of 80
+Staging initial files for instance 57 of 80
+Staging initial files for instance 58 of 80
+Staging initial files for instance 59 of 80
+Staging initial files for instance 60 of 80
+Staging initial files for instance 61 of 80
+Staging initial files for instance 62 of 80
+Staging initial files for instance 63 of 80
+Staging initial files for instance 64 of 80
+Staging initial files for instance 65 of 80
+Staging initial files for instance 66 of 80
+Staging initial files for instance 67 of 80
+Staging initial files for instance 68 of 80
+Staging initial files for instance 69 of 80
+Staging initial files for instance 70 of 80
+Staging initial files for instance 71 of 80
+Staging initial files for instance 72 of 80
+Staging initial files for instance 73 of 80
+Staging initial files for instance 74 of 80
+Staging initial files for instance 75 of 80
+Staging initial files for instance 76 of 80
+Staging initial files for instance 77 of 80
+Staging initial files for instance 78 of 80
+Staging initial files for instance 79 of 80
+Staging initial files for instance 80 of 80
+All files set to run the FIRST experiment step using (ref)time 2016-12-10-00000
+
+Building the case
+   --skip-provenance-check is used.  See note in /var/spool/pbs/mom_priv/jobs/3952809.chadmin1.SC
+
+Building case in directory /gpfs/fs1/work/raeder/Exp/CESM2_1_Dec_spinup
+sharedlib_only is False
+model_only is False
+Setting resource.RLIMIT_STACK to -1 from (-1, -1)
+Generating component namelists as part of build
+GET_REFCASE is false, the user is expected to stage the refcase to the run directory.
+Creating component namelists
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/components/cam//cime_config/buildnml
+     ...calling cam buildcpp to set build time options
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0001 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0002 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0003 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0004 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0005 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0006 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0007 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0008 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0009 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0010 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0011 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0012 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0013 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0014 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0015 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0016 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0017 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0018 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0019 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0020 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0021 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0022 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0023 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0024 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0025 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0026 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0027 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0028 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0029 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0030 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0031 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0032 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0033 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0034 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0035 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0036 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0037 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0038 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0039 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0040 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0041 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0042 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0043 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0044 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0045 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0046 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0047 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0048 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0049 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0050 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0051 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0052 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0053 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0054 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0055 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0056 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0057 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0058 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0059 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0060 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0061 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0062 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0063 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0064 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0065 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0066 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0067 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0068 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0069 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0070 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0071 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0072 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0073 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0074 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0075 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0076 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0077 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0078 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0079 
+CESM2_1_Rean_init_ens.cam.i.2016-12-10-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/CESM2_1_Dec_spinup/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/CESM2_1_Dec_spinup/run/atm_in_0080 
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/components/clm//cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/components/cice//cime_config/buildnml
+     ...calling cice buildcpp to set build time options
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/data_comps/docn/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/components/mosart//cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/sglc/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/swav/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/sesp/cime_config/buildnml
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/drivers/mct/cime_config/buildnml
+   NOTE: ignoring setting of rof2ocn_liq_rmapname=idmap in seq_maps.rc
+   NOTE: ignoring setting of rof2ocn_ice_rmapname=idmap in seq_maps.rc
+Finished creating component namelists
+Building gptl with output to file /glade/scratch/raeder/CESM2_1_Dec_spinup/bld/gptl.bldlog.190114-191159
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/build_scripts/buildlib.gptl
+Building mct with output to file /glade/scratch/raeder/CESM2_1_Dec_spinup/bld/mct.bldlog.190114-191159
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/build_scripts/buildlib.mct
+Building pio with output to file /glade/scratch/raeder/CESM2_1_Dec_spinup/bld/pio.bldlog.190114-191159
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/build_scripts/buildlib.pio
+Component pio build complete with 2 warnings
+Building csm_share with output to file /glade/scratch/raeder/CESM2_1_Dec_spinup/bld/csm_share.bldlog.190114-191159
+   Calling /gpfs/fs1/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/build_scripts/buildlib.csm_share
+Component csm_share build complete with 20 warnings
+         - Building clm4_5/clm5_0 Library 
+Building lnd with output to /glade/scratch/raeder/CESM2_1_Dec_spinup/bld/lnd.bldlog.190114-191159
+Component lnd build complete with 6 warnings
+clm built in 122.185761 seconds
+Building atm with output to /glade/scratch/raeder/CESM2_1_Dec_spinup/bld/atm.bldlog.190114-191159
+Building ice with output to /glade/scratch/raeder/CESM2_1_Dec_spinup/bld/ice.bldlog.190114-191159
+Building ocn with output to /glade/scratch/raeder/CESM2_1_Dec_spinup/bld/ocn.bldlog.190114-191159
+Building rof with output to /glade/scratch/raeder/CESM2_1_Dec_spinup/bld/rof.bldlog.190114-191159
+Building glc with output to /glade/scratch/raeder/CESM2_1_Dec_spinup/bld/glc.bldlog.190114-191159
+Building wav with output to /glade/scratch/raeder/CESM2_1_Dec_spinup/bld/wav.bldlog.190114-191159
+Building esp with output to /glade/scratch/raeder/CESM2_1_Dec_spinup/bld/esp.bldlog.190114-191159
+sglc built in 2.269761 seconds
+sesp built in 2.274743 seconds
+swav built in 2.294402 seconds
+docn built in 4.078136 seconds
+mosart built in 23.484903 seconds
+Component ice build complete with 1 warnings
+Component atm build complete with 14 warnings
+cice built in 153.547291 seconds
+cam built in 153.549053 seconds
+Building cesm with output to /glade/scratch/raeder/CESM2_1_Dec_spinup/bld/cesm.bldlog.190114-191159 
+Time spent not building: 195.289781 sec
+Time spent building: 423.120817 sec
+MODEL BUILD HAS FINISHED SUCCESSFULLY
+ 
+CESM settings which are of special interest:
+ 
+	CONTINUE_RUN: FALSE
+	RESUBMIT_SETS_CONTINUE_RUN: TRUE
+	RESUBMIT: 0
+	RESUBMIT_SETS_CONTINUE_RUN: TRUE
+	RUN_REFCASE: CESM2_1_Rean_init_ens
+	RUN_REFDATE: 2016-12-10
+	RUN_REFDIR: /glade/work/raeder/Models/CAM_init/FV1deg_cesm2_1/2016-12-10-00000
+	RUN_REFTOD: 00000
+	RUN_STARTDATE: 2016-12-10
+	STOP_OPTION: nhours
+	STOP_N: 6
+	SSTICE_GRID_FILENAME: /glade/work/raeder/Models/CAM_init/SST/domain.ocn.d025.120821.nc
+	SSTICE_YEAR_ALIGN: 2016
+	SSTICE_YEAR_END: 2016
+	SSTICE_YEAR_START: 2016
+	SSTICE_DATA_FILENAME: /glade/work/raeder/Models/CAM_init/SST/avhrr-only-v2.20160101_cat_20161231_gregorian_c181119.nc
+	SSTICE_STREAM: CAMDATA
+	DOUT_S: FALSE
+	DOUT_S_SAVE_INTERIM_RESTART_FILES: FALSE
+	DOUT_S_ROOT: /glade/scratch/raeder/archive
+	RUNDIR: /glade/scratch/raeder/CESM2_1_Dec_spinup/run
+	MPI_RUN_COMMAND: UNSET
+	AVGHIST_DATE: -999
+	AVGHIST_N: 6
+	AVGHIST_OPTION: nhours
+	DATA_ASSIMILATION: ['CPL:FALSE', 'ATM:TRUE', 'LND:FALSE', 'ICE:FALSE', 'OCN:FALSE', 'ROF:FALSE', 'GLC:FALSE', 'WAV:FALSE']
+	DATA_ASSIMILATION_CYCLES: 1
+	DATA_ASSIMILATION_SCRIPT: /glade/work/raeder/Exp/CESM2_1_Dec_spinup/assimilate.csh
+ 
+
+-------------------------------------------------------------------------
+Time to check the case.
+
+1)  Scan the output from this setup script for errors and warnings:
+    ERROR, WARNING, 'No such file' (except for MOSART)
+    'File status unknown' can be ignored.
+    'ERROR: cice.buildlib failed' can be ignored, unless you've changed the CICE code
+
+2)  cd /glade/scratch/raeder/CESM2_1_Dec_spinup/run
+    Check the files that were staged; follow the links to confirm the data sources.
+    Check the compatibility between them and the namelists and pointer files.
+
+3)  cd /glade/work/raeder/Exp/CESM2_1_Dec_spinup
+    Verify the CESM XML settings, especially in env_batch.xml and env_run.xml.
+    ./xmlquery --partial <partial_string_of_interest> 
+    is particularly useful.
+
+4)  The default initial configuration is to assimilate.
+    Verify the /glade/work/raeder/Exp/CESM2_1_Dec_spinup/input.nml contents.
+    Assimilation can be turned off by
+    ./xmlchange DATA_ASSIMILATION=FALSE
+    -or-
+    ./xmlchange DATA_ASSIMILATION_SCRIPT=/glade/work/raeder/Exp/CESM2_1_Dec_spinup/no_assimilate.csh
+
+5)  Submit the job (and get mail when it starts and stops):
+    ./case.submit -M begin,end
+
+6)  After the job has run, check to make sure it worked.
+
+7)  If the first cycle generated an ensemble by perturbing a single state,
+    change input.nml as described in the instructions in it,
+    to make cycles 2,...,N use the latest ensemble, unperturbed.
+
+8)  To extend the run in 6 'nhours' steps, use xmlchange to
+    change the CESM runtime variables:
+
+    ./xmlchange DATA_ASSIMILATION_CYCLES= the value you want.
+    ./xmlchange CONTINUE_RUN=TRUE
+    ./xmlchange RESUBMIT= the number of JOBS to run (each JOB performs DATA_ASSIMILATION_CYCLES cycles)
+
+
+-------------------------------------------------------------------------
+
+Check the DART configuration:
+
+1) The default behavior is to invoke DART (set in setup_{hybrid,advanced,...).
+   If your confidence is not high that the CESM configuration will be correct,
+   we recommend turning off the assimilation at first.
+
+2) If you want to turn off DART, edit the env_run.xml: DATA_ASSIMILATION_* 
+   to disable running a DART script (assimilate.csh or perfect_model.csh)
+   after the model forecast.
+
+3) Modify what you need to in the DART namelist file, i.e. /glade/work/raeder/Exp/CESM2_1_Dec_spinup/input.nml
+
+4) If you have recompiled any part of the DART system, 'stage_dart_files'
+   will copy them into the correct places.
+
+5) If you stage your own inflation files, make sure you read the INFLATION section
+   in /glade/work/raeder/Exp/CESM2_1_Dec_spinup/DART_config
+
+6) Make sure the observation directory name in assimilate.csh or perfect_model.csh 
+   matches the one on your system.
+
+7) Submit the CESM job in the normal way.
+
+8) You can use /glade/work/raeder/Exp/CESM2_1_Dec_spinup/stage_cesm_files
+    to stage files to restart a run.
+
+-------------------------------------------------------------------------
+

@@ -1,0 +1,40 @@
+Scripts in DART_development/reanalysis 
+which should be reviewed and tested.
+Manage the process through a github project page.
+
+We're still focused on changes that are needed 
+to resume running in a robust way with careful monitoring, 
+not on beautification, mildly inefficient code, 
+or style consistency with anything else.
+Those things should be noted for later fixing.
+
+$dart/models/cam-fv/shell_scripts/cesm2_1
+
+Essential:
+   (focus on data_scripts.csh)
+   assimilate.csh.template
+   compress.csh
+   compress_hist.csh
+   DART_config.template 
+   mv_to_campaign.csh
+   pre_purge_check.csh
+   pre_submit.csh
+   purge.csh
+   repack_project.csh
+   repack_st_arch.csh
+   setup_advanced  (and sedding data into script headers)
+
+Useful later:
+   submit_compress.csh
+   submit_compress_hist.csh
+   backup_manually.csh
+   obs_seq_tool_series.csh
+
+Not relevant
+   data_scripts.csh (just a working example, not to be committed here)
+   find_params.csh
+   diags_rean.csh (replaced by Moha's obs space > web scripts)
+   matlab_norm.csh (replaced by Moha's obs space > web scripts)
+   sed_these.csh
+   test_assimilate.csh
+   submit_no_buildnml.csh

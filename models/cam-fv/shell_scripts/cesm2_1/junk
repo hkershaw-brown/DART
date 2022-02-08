@@ -1,0 +1,9 @@
+> module avail mpt
+
+---/glade/u/apps/ch/modulefiles/default/intel/17.0.1 ----
+   mpt/2.19 (L)    mpt/2.21    mpt/2.22 (D)
+
+  Where:
+   L:  Module is loaded
+   D:  Default Module
+

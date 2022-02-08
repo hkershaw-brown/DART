@@ -1,0 +1,32 @@
+# On branch Zagar
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+# 
+# assimilation_code/modules/utilities/null_mpi_utilities_mod.f90
+# models/cam-fv/work/minimal_build.csh
+# models/cam-fv/work/quickbuild.csh
+
+Final PMO scripts used in Zagar's OSSE
+
+These will be propagated to Manhattan.
+Then scripts specific to Zagar's OSSE will be committed here.
+
+diagnostics/matlab/gen_rean_diags.m
+>  Update to what I used (on my Mac) for the Reanalysis.
+>  Separate the locations of the matlab scripts and the data file.
+
+diagnostics/matlab/plot_rmse_xxx_evolution_web.m
+>  Added a default value to the comments.
+
+models/cam-fv/shell_scripts/cesm2_1_Zagar/
+>  Updated comments (to pmo, cesm2_1) and how these 3 scripts work together.
+>     setup_pmo
+>     DART_config.template
+>     perfect_model.csh.template
+>  Test_setup_adv_Zagar.bld1; removing accidential commit.
+
+models/cam-fv/work/input.nml
+>  Replaced non-numeric 'default' values of numeric variables.
+
+
+Untracked files not listed (use -u option to show untracked files)

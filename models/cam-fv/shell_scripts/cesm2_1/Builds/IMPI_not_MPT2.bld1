@@ -1,0 +1,699 @@
+removing old directory /glade/work/raeder/Exp/IMPI_not_MPT2
+removing old directory /glade/scratch/raeder/IMPI_not_MPT2/bld
+removing old directory /glade/scratch/raeder/IMPI_not_MPT2/run
+\n Using the starred branch, below, of /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime 
+* cime_reanalysis_2019
+ 
+n Using CAM version
+Tag name: release_tags/cam_cesm2_1_rel_05
+Originator(s): fvitt, eaton
+Date: 27 Nov 2018
+svn status -u:
+?                    src/physics/cam/.hetfrz_classnuc_cam.F90.swp
+X                    src/physics/carma/base
+X                    src/physics/clubb
+X                    src/physics/cosp2/src
+?                    status_2018-2-12
+X                    chem_proc
+?                    cime_config/buildcppc
+?                    cime_config/buildnmlc
+M            90375   cime_config/config_archive.xml
+?                    cime_config/svn-commit.tmp
+Status against revision:  91534
+
+Performing status on external item at 'src/physics/clubb':
+Status against revision:  91534
+
+Performing status on external item at 'src/physics/carma/base':
+Status against revision:  91534
+
+Performing status on external item at 'src/physics/cosp2/src':
+svn: E000110: Unable to connect to a repository at URL 'https://github.com/CFMIP/COSPv2.0/tags/v2.0.3cesm/src'
+svn: E000110: Error running context: Connection timed out
+ 
+Did not find an alias or longname compset match for HIST_CAM60_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV 
+Warning: missing non-idmap ROF2OCN_LIQ_RMAPNAME for ocn_grid, d.25x.25 and rof_grid r05 
+Warning: missing non-idmap ROF2OCN_ICE_RMAPNAME for ocn_grid, d.25x.25 and rof_grid r05 
+Compset forcing is Historic transient 
+ATM component is CAM cam6 physics:
+LND component is clm5.0:BGC (vert. resol. CN and methane) with prognostic crop:
+ICE component is Sea ICE (cice) model version 5 :prescribed cice
+OCN component is DOCN   prescribed ocean mode
+ROF component is MOSART: MOdel for Scale Adaptive River Transport
+GLC component is Stub glacier (land ice) component
+WAV component is Stub wave component
+ESP component is 
+Pes     specification file is /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/../components/cam//cime_config/config_pes.xml
+Compset specific settings: name is RUN_STARTDATE and value is 1979-01-01
+Compset specific settings: name is SSTICE_DATA_FILENAME and value is $DIN_LOC_ROOT/atm/cam/sst/sst_HadOIBl_bc_1x1_1850_2017_c180507.nc
+Compset specific settings: name is SSTICE_GRID_FILENAME and value is $DIN_LOC_ROOT/ocn/docn7/domain.ocn.1x1.111007.nc
+Compset specific settings: name is SSTICE_YEAR_END and value is 2016
+Machine is cheyenne
+ Driver/Coupler has 80 instances
+ Compset is: HIST_CAM60_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV 
+ Grid is: a%0.9x1.25_l%0.9x1.25_oi%d.25x.25_r%r05_g%null_w%null_m%d.25x.25 
+ Components in compset are: ['cam', 'clm', 'cice', 'docn', 'mosart', 'sglc', 'swav', 'sesp', 'drv', 'dart'] 
+No charge_account info available, using value from PROJECT
+Using project from env PROJECT: NCIS0006
+cesm model version found: release-cesm2.1.0-1-gdab62ed
+Batch_system_type is pbs
+job is case.run USER_REQUESTED_WALLTIME 1:00 USER_REQUESTED_QUEUE premium
+job is case.st_archive USER_REQUESTED_WALLTIME None USER_REQUESTED_QUEUE None
+ Creating Case directory /glade/work/raeder/Exp/IMPI_not_MPT2
+'setup_advanced_Rean' -> '/glade/work/raeder/Exp/IMPI_not_MPT2/setup_advanced_Rean.original'
+'env_archive.xml' -> 'env_archive.xml.original'
+'env_batch.xml' -> 'env_batch.xml.original'
+'env_build.xml' -> 'env_build.xml.original'
+'env_case.xml' -> 'env_case.xml.original'
+'env_mach_pes.xml' -> 'env_mach_pes.xml.original'
+'env_mach_specific.xml' -> 'env_mach_specific.xml.original'
+'env_run.xml' -> 'env_run.xml.original'
+From create_newcase, settings related to TASKS = ...
+
+Results in group mach_pes
+	NTASKS: ['CPL:36', 'ATM:36', 'LND:36', 'ICE:36', 'OCN:36', 'ROF:36', 'GLC:36', 'WAV:36', 'ESP:36']
+	NTASKS_PER_INST: ['ATM:0', 'LND:0', 'ICE:0', 'OCN:0', 'ROF:0', 'GLC:0', 'WAV:0', 'ESP:0']
+
+Results in group mach_pes_last
+	MAX_MPITASKS_PER_NODE: 36
+	MAX_TASKS_PER_NODE: 36
+
+Results in group run_pio
+	PIO_NUMTASKS: ['CPL:-99', 'ATM:-99', 'LND:-99', 'ICE:-99', 'OCN:-99', 'ROF:-99', 'GLC:-99', 'WAV:-99', 'ESP:-99']
+compset parts are HIST CAM60 CLM50%BGC-CROP CICE%PRES DOCN%DOM MOSART SGLC SWAV
+After xmlchanges for ROOTPEs ...
+
+Results in group mach_pes
+	NTASKS: ['CPL:108', 'ATM:108', 'LND:108', 'ICE:108', 'OCN:108', 'ROF:108', 'GLC:108', 'WAV:108', 'ESP:36']
+	NTASKS_PER_INST: ['ATM:0', 'LND:0', 'ICE:0', 'OCN:0', 'ROF:0', 'GLC:0', 'WAV:0', 'ESP:0']
+
+Results in group mach_pes_last
+	MAX_MPITASKS_PER_NODE: 36
+	MAX_TASKS_PER_NODE: 36
+
+Results in group run_pio
+	PIO_NUMTASKS: ['CPL:-99', 'ATM:-99', 'LND:-99', 'ICE:-99', 'OCN:-99', 'ROF:-99', 'GLC:-99', 'WAV:-99', 'ESP:-99']
+	CIME_OUTPUT_ROOT: /glade/scratch/raeder
+	RUNDIR: /glade/scratch/raeder/IMPI_not_MPT2/run
+	EXEROOT: /glade/scratch/raeder/IMPI_not_MPT2/bld
+
+Results in group run_data_archive
+	DOUT_S: TRUE
+	DOUT_S_SAVE_INTERIM_RESTART_FILES: FALSE
+
+Results in group run_dout
+	DOUT_S_ROOT: /glade/scratch/raeder/archive/IMPI_not_MPT2
+ 
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/files' -> '/glade/work/raeder/Exp/IMPI_not_MPT2/SourceMods/src.cam/files'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/init_wet-dry_fixes.tar' -> '/glade/work/raeder/Exp/IMPI_not_MPT2/SourceMods/src.cam/init_wet-dry_fixes.tar'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/cam_history.F90' -> '/glade/work/raeder/Exp/IMPI_not_MPT2/SourceMods/src.cam/cam_history.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/cam_history_support.F90' -> '/glade/work/raeder/Exp/IMPI_not_MPT2/SourceMods/src.cam/cam_history_support.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/stepon.F90' -> '/glade/work/raeder/Exp/IMPI_not_MPT2/SourceMods/src.cam/stepon.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/diag_dynvar_ic.F90' -> '/glade/work/raeder/Exp/IMPI_not_MPT2/SourceMods/src.cam/diag_dynvar_ic.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/dyn_comp.F90' -> '/glade/work/raeder/Exp/IMPI_not_MPT2/SourceMods/src.cam/dyn_comp.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.clm/namelist_definition_clm4_5.xml' -> '/glade/work/raeder/Exp/IMPI_not_MPT2/SourceMods/src.clm/namelist_definition_clm4_5.xml'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.clm/lnd_import_export.F90' -> '/glade/work/raeder/Exp/IMPI_not_MPT2/SourceMods/src.clm/lnd_import_export.F90'
+ 
+ 
+Setting up the case ...
+Ignore "WARNING:: mosart.buildnml . . .".  Those files will be provided later
+Before case.setup, modules are
+
+Currently Loaded Modules:
+  1) ncarenv/1.2         (H)   5) netcdf/4.6.1  (H)   9) matlab/R2019a
+  2) intel/17.0.1              6) git/2.22.0         10) nco/4.7.9
+  3) ncarcompilers/0.4.1 (H)   7) xxdiff/4.0.1       11) ncview/2.1.7
+  4) mpt/2.19                  8) diffuse/0.4.8
+
+  Where:
+   H:  Hidden Module
+
+ 
+
+Setting resource.RLIMIT_STACK to -1 from (-1, -1)
+/glade/work/raeder/Exp/IMPI_not_MPT2/env_mach_specific.xml already exists, delete to replace
+job is case.run USER_REQUESTED_WALLTIME 1:00 USER_REQUESTED_QUEUE premium
+Creating batch scripts
+Writing case.run script from input template /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/config/cesm/machines/template.case.run
+Creating file .case.run
+Writing case.st_archive script from input template /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/config/cesm/machines/template.st_archive
+Creating file case.st_archive
+Creating user_nl_xxx files for components and cpl
+If an old case build already exists, might want to run 'case.build --clean' before building
+You can now run './preview_run' to get more info on how your case will be run
+===================
+Starting DART_config
+===================
+DART_SCRIPTS_DIR = /glade/u/home/raeder/DART/reanalysis/models/cam-fv/shell_scripts/cesm2_1
+
+'/glade/u/home/raeder/DART/reanalysis/models/cam-fv/shell_scripts/cesm2_1/compress.csh' -> './compress.csh'
+'/glade/u/home/raeder/DART/reanalysis/models/cam-fv/shell_scripts/cesm2_1/mv_to_campaign.csh' -> './mv_to_campaign.csh'
+'/glade/u/home/raeder/DART/reanalysis/models/cam-fv/shell_scripts/cesm2_1/repack_st_arch.csh' -> './repack_st_arch.csh'
+'/glade/u/home/raeder/DART/reanalysis/models/cam-fv/shell_scripts/cesm2_1/purge.csh' -> './purge.csh'
+'/glade/u/home/raeder/DART/reanalysis/models/cam-fv/shell_scripts/cesm2_1/launch_cf.sh' -> './launch_cf.sh'
+'/glade/u/home/raeder/DART/reanalysis/models/cam-fv/shell_scripts/cesm2_1/diags_batch.csh' -> './diags_batch.csh'
+'/glade/u/home/raeder/DART/reanalysis/models/cam-fv/work/input.nml' -> 'input.nml'
+This model is not configured for WACCM
+COMPSET is HIST_CAM60_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV
+'/glade/u/home/raeder/DART/reanalysis/assimilation_code/programs/gen_sampling_err_table/work/sampling_error_correction_table.nc' -> '/glade/scratch/raeder/IMPI_not_MPT2/run/sampling_error_correction_table.nc'
+
+-------------------------------------------------------------------------
+
+Check the DART configuration:
+
+1) The default behavior setup_hybrid is too not run DART_config, which sets up assimilation.
+   The default behavior of setup_advanced is to invoke DART_config. 
+
+2) If you want to turn DART on or off, edit the 
+   env_run.xml: DATA_ASSIMILATION_* to specify which DART script 
+   to use after the model forecast;
+   assimilate.csh, no_assimilate.csh, or perfect_model.csh.
+
+3) Modify what you need to in the DART namelist file, i.e. 
+   /glade/work/raeder/Exp/IMPI_not_MPT2/input.nml
+
+4) If you have recompiled any part of the DART system, 'stage_dart_files'
+   will copy them into the correct places.
+
+5) If you stage your own inflation files, make sure you read the "INFLATION" section
+   in /glade/work/raeder/Exp/IMPI_not_MPT2/assimilate.csh.  
+   At the very least, copy your inflation files
+   in /glade/scratch/raeder/IMPI_not_MPT2/run 
+   into the appropriate names:
+      input_priorinf_mean.nc
+      input_priorinf_sd.nc
+      input_postinf_mean.nc 
+      input_postinf_sd.nc   
+   If assimilate.csh does not find inflation files, it will call fill_inflation_restart
+   to create some from the inflation values in input.nml.
+
+6) Make sure the observation directory name in assimilate.csh or perfect_model.csh 
+   matches the one on your system.
+
+7) Submit the CESM job in the normal way.
+
+8) You can use /glade/work/raeder/Exp/IMPI_not_MPT2/stage_cesm_files 
+   to stage an ensemble of files to restart a run at a date for which you have a restart set.
+
+-------------------------------------------------------------------------
+
+WARNING; using default ozone and tracer_cnst forcing files
+WARNING; using default srf_emis_* and ext_frc_*
+WARNING; using default bndtvghg
+WARNING; using default volcaero
+Setting resource.RLIMIT_STACK to -1 from (-1, -1)
+GET_REFCASE is false, the user is expected to stage the refcase to the run directory.
+Creating component namelists
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/components/cam//cime_config/buildnml
+     ...calling cam buildcpp to set build time options
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0001 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0002 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0003 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0004 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0005 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0006 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0007 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0008 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0009 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0010 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0011 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0012 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0013 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0014 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0015 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0016 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0017 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0018 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0019 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0020 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0021 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0022 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0023 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0024 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0025 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0026 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0027 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0028 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0029 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0030 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0031 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0032 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0033 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0034 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0035 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0036 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0037 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0038 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0039 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0040 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0041 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0042 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0043 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0044 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0045 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0046 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0047 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0048 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0049 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0050 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0051 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0052 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0053 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0054 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0055 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0056 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0057 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0058 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0059 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0060 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0061 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0062 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0063 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0064 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0065 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0066 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0067 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0068 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0069 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0070 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0071 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0072 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0073 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0074 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0075 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0076 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0077 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0078 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0079 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0080 
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/components/clm//cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/components/cice//cime_config/buildnml
+     ...calling cice buildcpp to set build time options
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/data_comps/docn/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/components/mosart//cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/sglc/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/swav/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/sesp/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/drivers/mct/cime_config/buildnml
+   NOTE: ignoring setting of rof2ocn_liq_rmapname=idmap in seq_maps.rc
+   NOTE: ignoring setting of rof2ocn_ice_rmapname=idmap in seq_maps.rc
+Finished creating component namelists
+ls: No match.
+ls: No match.
+Copying the required CESM files to the run directory to rerun a previous step. 
+CONTINUE_RUN from env_run.xml is FALSE
+so files for the initial step of this experiment will be restaged.
+Date to reset files to is: 2011-01-01-00000
+
+ 
+Staging initial files for instance 1 of 80
+Staging initial files for instance 2 of 80
+Staging initial files for instance 3 of 80
+Staging initial files for instance 4 of 80
+Staging initial files for instance 5 of 80
+Staging initial files for instance 6 of 80
+Staging initial files for instance 7 of 80
+Staging initial files for instance 8 of 80
+Staging initial files for instance 9 of 80
+Staging initial files for instance 10 of 80
+Staging initial files for instance 11 of 80
+Staging initial files for instance 12 of 80
+Staging initial files for instance 13 of 80
+Staging initial files for instance 14 of 80
+Staging initial files for instance 15 of 80
+Staging initial files for instance 16 of 80
+Staging initial files for instance 17 of 80
+Staging initial files for instance 18 of 80
+Staging initial files for instance 19 of 80
+Staging initial files for instance 20 of 80
+Staging initial files for instance 21 of 80
+Staging initial files for instance 22 of 80
+Staging initial files for instance 23 of 80
+Staging initial files for instance 24 of 80
+Staging initial files for instance 25 of 80
+Staging initial files for instance 26 of 80
+Staging initial files for instance 27 of 80
+Staging initial files for instance 28 of 80
+Staging initial files for instance 29 of 80
+Staging initial files for instance 30 of 80
+Staging initial files for instance 31 of 80
+Staging initial files for instance 32 of 80
+Staging initial files for instance 33 of 80
+Staging initial files for instance 34 of 80
+Staging initial files for instance 35 of 80
+Staging initial files for instance 36 of 80
+Staging initial files for instance 37 of 80
+Staging initial files for instance 38 of 80
+Staging initial files for instance 39 of 80
+Staging initial files for instance 40 of 80
+Staging initial files for instance 41 of 80
+Staging initial files for instance 42 of 80
+Staging initial files for instance 43 of 80
+Staging initial files for instance 44 of 80
+Staging initial files for instance 45 of 80
+Staging initial files for instance 46 of 80
+Staging initial files for instance 47 of 80
+Staging initial files for instance 48 of 80
+Staging initial files for instance 49 of 80
+Staging initial files for instance 50 of 80
+Staging initial files for instance 51 of 80
+Staging initial files for instance 52 of 80
+Staging initial files for instance 53 of 80
+Staging initial files for instance 54 of 80
+Staging initial files for instance 55 of 80
+Staging initial files for instance 56 of 80
+Staging initial files for instance 57 of 80
+Staging initial files for instance 58 of 80
+Staging initial files for instance 59 of 80
+Staging initial files for instance 60 of 80
+Staging initial files for instance 61 of 80
+Staging initial files for instance 62 of 80
+Staging initial files for instance 63 of 80
+Staging initial files for instance 64 of 80
+Staging initial files for instance 65 of 80
+Staging initial files for instance 66 of 80
+Staging initial files for instance 67 of 80
+Staging initial files for instance 68 of 80
+Staging initial files for instance 69 of 80
+Staging initial files for instance 70 of 80
+Staging initial files for instance 71 of 80
+Staging initial files for instance 72 of 80
+Staging initial files for instance 73 of 80
+Staging initial files for instance 74 of 80
+Staging initial files for instance 75 of 80
+Staging initial files for instance 76 of 80
+Staging initial files for instance 77 of 80
+Staging initial files for instance 78 of 80
+Staging initial files for instance 79 of 80
+Staging initial files for instance 80 of 80
+All files set to run the FIRST experiment step using (ref)time 2011-01-01-00000
+
+Building the case
+   --skip-provenance-check is used.  See note in /var/spool/pbs/mom_priv/jobs/7445224.chadmin1.ib0.cheyenne.ucar.edu.SC
+
+Building case in directory /glade/work/raeder/Exp/IMPI_not_MPT2
+sharedlib_only is False
+model_only is False
+Setting resource.RLIMIT_STACK to -1 from (-1, -1)
+Generating component namelists as part of build
+GET_REFCASE is false, the user is expected to stage the refcase to the run directory.
+Creating component namelists
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/components/cam//cime_config/buildnml
+     ...calling cam buildcpp to set build time options
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0001 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0002 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0003 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0004 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0005 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0006 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0007 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0008 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0009 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0010 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0011 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0012 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0013 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0014 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0015 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0016 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0017 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0018 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0019 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0020 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0021 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0022 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0023 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0024 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0025 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0026 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0027 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0028 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0029 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0030 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0031 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0032 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0033 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0034 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0035 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0036 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0037 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0038 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0039 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0040 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0041 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0042 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0043 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0044 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0045 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0046 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0047 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0048 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0049 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0050 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0051 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0052 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0053 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0054 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0055 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0056 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0057 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0058 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0059 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0060 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0061 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0062 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0063 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0064 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0065 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0066 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0067 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0068 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0069 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0070 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0071 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0072 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0073 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0074 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0075 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0076 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0077 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0078 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0079 
+Rean_spinup_2010.cam.i.2011-01-01-00000.nc is being used for ncdata
+CAM namelist copy: file1 /glade/work/raeder/Exp/IMPI_not_MPT2/Buildconf/camconf/atm_in file2 /glade/scratch/raeder/IMPI_not_MPT2/run/atm_in_0080 
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/components/clm//cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/components/cice//cime_config/buildnml
+     ...calling cice buildcpp to set build time options
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/data_comps/docn/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/components/mosart//cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/sglc/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/swav/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/sesp/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/drivers/mct/cime_config/buildnml
+   NOTE: ignoring setting of rof2ocn_liq_rmapname=idmap in seq_maps.rc
+   NOTE: ignoring setting of rof2ocn_ice_rmapname=idmap in seq_maps.rc
+Finished creating component namelists
+Building gptl with output to file /glade/scratch/raeder/IMPI_not_MPT2/bld/gptl.bldlog.190806-161046
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/build_scripts/buildlib.gptl
+Building mct with output to file /glade/scratch/raeder/IMPI_not_MPT2/bld/mct.bldlog.190806-161046
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/build_scripts/buildlib.mct
+Building pio with output to file /glade/scratch/raeder/IMPI_not_MPT2/bld/pio.bldlog.190806-161046
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/build_scripts/buildlib.pio
+Component pio build complete with 2 warnings
+Building csm_share with output to file /glade/scratch/raeder/IMPI_not_MPT2/bld/csm_share.bldlog.190806-161046
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/build_scripts/buildlib.csm_share
+Component csm_share build complete with 20 warnings
+         - Building clm4_5/clm5_0 Library 
+Building lnd with output to /glade/scratch/raeder/IMPI_not_MPT2/bld/lnd.bldlog.190806-161046
+Component lnd build complete with 6 warnings
+clm built in 295.158978 seconds
+Building atm with output to /glade/scratch/raeder/IMPI_not_MPT2/bld/atm.bldlog.190806-161046
+Building ice with output to /glade/scratch/raeder/IMPI_not_MPT2/bld/ice.bldlog.190806-161046
+Building ocn with output to /glade/scratch/raeder/IMPI_not_MPT2/bld/ocn.bldlog.190806-161046
+Building rof with output to /glade/scratch/raeder/IMPI_not_MPT2/bld/rof.bldlog.190806-161046
+Building glc with output to /glade/scratch/raeder/IMPI_not_MPT2/bld/glc.bldlog.190806-161046
+Building wav with output to /glade/scratch/raeder/IMPI_not_MPT2/bld/wav.bldlog.190806-161046
+Building esp with output to /glade/scratch/raeder/IMPI_not_MPT2/bld/esp.bldlog.190806-161046
+sesp built in 2.586872 seconds
+swav built in 3.810800 seconds
+sglc built in 7.576980 seconds
+docn built in 7.580981 seconds
+mosart built in 27.284809 seconds
+Component ice build complete with 1 warnings
+cice built in 54.430917 seconds
+Component atm build complete with 14 warnings
+cam built in 171.386678 seconds
+Building cesm with output to /glade/scratch/raeder/IMPI_not_MPT2/bld/cesm.bldlog.190806-161046 
+dparallel.c:(.text+0x18): undefined reference to `MPI_Comm_f2c'
+
+ld: dparallel.c:(.text+0x22): undefined reference to `MPI_Info_f2c'
+
+dparallel.c:(.text+0xf8): undefined reference to `MPI_Comm_f2c'
+
+ld: dparallel.c:(.text+0x102): undefined reference to `MPI_Info_f2c'
+
+nc4hdf.c:(.text+0xaa6): undefined reference to `mpi_sgi_inplace'
+
+ld: nc4hdf.c:(.text+0xb6e): undefined reference to `mpi_sgi_inplace'
+
+ERROR: BUILD FAIL: buildexe failed, cat /glade/scratch/raeder/IMPI_not_MPT2/bld/cesm.bldlog.190806-161046
+ERROR: Case could not be built.

@@ -1,0 +1,11 @@
+diffuse   assimilation_code/modules/utilities/null_mpi_utilities_mod.f90
+diffuse   build_templates/mkmf.template.intel.linux
+diffuse   diagnostics/matlab/gen_rean_diags.m
+diffuse   models/cam-fv/shell_scripts/cesm2_1/setup_advanced
+diffuse   models/cam-fv/shell_scripts/cesm2_1/setup_hybrid
+diffuse   models/cam-fv/work/input.nml
+diffuse   models/cam-fv/work/minimal_build.csh
+diffuse   models/cam-fv/work/quickbuild.csh
+diffuse   models/template/work/input.nml
+#
+no changes added to commit (use "git add" and/or "git commit -a")

@@ -1,0 +1,57 @@
+
+setenv PROJECT NCIS0006
+setenv PROJECT NCIS0006
+setenv email raeder@ucar.edu
+setenv email raeder@ucar.edu
+
+setenv case f.e21.FHIST_BGC.f09_025.CAM6assim.011
+setenv case f.e21.FHIST_BGC.f09_025.CAM6assim.011
+setenv caseroot /glade/work/${USER}/Exp/${case}
+setenv caseroot /glade/work/raeder/Exp/f.e21.FHIST_BGC.f09_025.CAM6assim.011
+setenv dartroot /glade/u/home/${USER}/DART/reanalysis_git
+setenv dartroot /glade/u/home/raeder/DART/reanalysis_git
+setenv DART_SCRIPTS_DIR ${dartroot}/models/cam-fv/shell_scripts/your_setup_script_dir
+setenv DART_SCRIPTS_DIR /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/your_setup_script_dir
+
+setenv cesmtag cesm2_1_relsd_m5.6
+setenv cesmtag cesm2_1_relsd_m5.6
+setenv cesmroot /glade/work/${USER}/Models/${cesmtag}
+setenv cesmroot /glade/work/raeder/Models/cesm2_1_relsd_m5.6
+setenv CIMEROOT $cesmroot/cime
+setenv CIMEROOT /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime
+
+setenv projdir /glade/p/nsc/ncis0006/Reanalyses
+setenv projdir /glade/p/nsc/ncis0006/Reanalyses
+setenv campdir /gpfs/csfs1/cisl/dares/Reanalyses
+setenv campdir /gpfs/csfs1/cisl/dares/Reanalyses
+setenv baseobsdir /glade/p/cisl/dares/Observations/NCEP+ACARS+GPS+AIRS/Thinned_x9x10
+setenv baseobsdir /glade/p/cisl/dares/Observations/NCEP+ACARS+GPS+AIRS/Thinned_x9x10
+
+setenv cime_output /glade/scratch/${USER}
+setenv cime_output /glade/scratch/raeder
+setenv archdir ${cime_output}/${case}/archive
+setenv archdir /glade/scratch/raeder/f.e21.FHIST_BGC.f09_025.CAM6assim.011/archive
+
+
+setenv save_every_Mth_day_restart Monday
+setenv save_every_Mth_day_restart Monday
+setenv num_instances 80
+setenv num_instances 80
+
+set DART_CESM_scripts = `pwd`
+set DART_CESM_scripts = `pwd`
+pwd
+
+cd $caseroot
+cd /glade/work/raeder/Exp/f.e21.FHIST_BGC.f09_025.CAM6assim.011
+
+foreach script ( compress.csh compress_hist.csh diags_rean.csh launch_cf.sh mv_to_campaign.csh matlab_norm.csh pre_purge_check.csh pre_submit.csh purge.csh repack_project.csh repack_st_arch.csh submit_compress.csh submit_compress_hist.csh )
+foreach script ( compress.csh compress_hist.csh diags_rean.csh launch_cf.sh mv_to_campaign.csh matlab_norm.csh pre_purge_check.csh pre_submit.csh purge.csh repack_project.csh repack_st_arch.csh submit_compress.csh submit_compress_hist.csh )
+if ( -f ${DART_SCRIPTS_DIR}/${script} ) then
+if ( -f /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/your_setup_script_dir/compress.csh ) then
+
+echo "ERROR: no ${script} in  ${DART_SCRIPTS_DIR}"
+echo ERROR: no compress.csh in  /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/your_setup_script_dir
+ERROR: no compress.csh in  /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/your_setup_script_dir
+exit 45
+exit 45

@@ -1,0 +1,118 @@
+removing old directory /glade/work/raeder/Exp/Zagar_OSSE_pmo2
+removing old directory /glade/scratch/raeder/Zagar_OSSE_pmo2/bld
+removing old directory /glade/scratch/raeder/Zagar_OSSE_pmo2/run
+\n Using the starred branch, below, of /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime 
+* cime_reanalysis_2019
+ 
+n Using CAM version
+Tag name: release_tags/cam_cesm2_1_rel_05
+Originator(s): fvitt, eaton
+Date: 27 Nov 2018
+ 
+Did not find an alias or longname compset match for HIST_CAM60_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV 
+Warning: missing non-idmap ROF2OCN_LIQ_RMAPNAME for ocn_grid, d.25x.25 and rof_grid r05 
+Warning: missing non-idmap ROF2OCN_ICE_RMAPNAME for ocn_grid, d.25x.25 and rof_grid r05 
+Compset forcing is Historic transient 
+ATM component is CAM cam6 physics:
+LND component is clm5.0:BGC (vert. resol. CN and methane) with prognostic crop:
+ICE component is Sea ICE (cice) model version 5 :prescribed cice
+OCN component is DOCN   prescribed ocean mode
+ROF component is MOSART: MOdel for Scale Adaptive River Transport
+GLC component is Stub glacier (land ice) component
+WAV component is Stub wave component
+ESP component is 
+Pes     specification file is /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/../components/cam//cime_config/config_pes.xml
+Compset specific settings: name is RUN_STARTDATE and value is 1979-01-01
+Compset specific settings: name is SSTICE_DATA_FILENAME and value is $DIN_LOC_ROOT/atm/cam/sst/sst_HadOIBl_bc_1x1_1850_2017_c180507.nc
+Compset specific settings: name is SSTICE_GRID_FILENAME and value is $DIN_LOC_ROOT/ocn/docn7/domain.ocn.1x1.111007.nc
+Compset specific settings: name is SSTICE_YEAR_END and value is 2016
+Machine is cheyenne
+ Compset is: HIST_CAM60_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV 
+ Grid is: a%0.9x1.25_l%0.9x1.25_oi%d.25x.25_r%r05_g%null_w%null_m%d.25x.25 
+ Components in compset are: ['cam', 'clm', 'cice', 'docn', 'mosart', 'sglc', 'swav', 'sesp', 'drv', 'dart'] 
+No charge_account info available, using value from PROJECT
+Using project from env PROJECT: P86850054
+cesm model version found: release-cesm2.1.0-2-g976a1e1
+Batch_system_type is pbs
+job is case.run USER_REQUESTED_WALLTIME 1:00 USER_REQUESTED_QUEUE regular
+job is case.st_archive USER_REQUESTED_WALLTIME None USER_REQUESTED_QUEUE None
+ Creating Case directory /glade/work/raeder/Exp/Zagar_OSSE_pmo2
+'setup_pmo' -> '/glade/work/raeder/Exp/Zagar_OSSE_pmo2/setup_pmo.original'
+From create_newcase, settings related to TASKS = ...
+
+Results in group mach_pes
+	NTASKS: ['CPL:36', 'ATM:36', 'LND:36', 'ICE:36', 'OCN:36', 'ROF:36', 'GLC:36', 'WAV:36', 'ESP:36']
+	NTASKS_PER_INST: ['ATM:0', 'LND:0', 'ICE:0', 'OCN:0', 'ROF:0', 'GLC:0', 'WAV:0', 'ESP:0']
+
+Results in group mach_pes_last
+	MAX_MPITASKS_PER_NODE: 36
+	MAX_TASKS_PER_NODE: 36
+
+Results in group run_pio
+	PIO_NUMTASKS: ['CPL:-99', 'ATM:-99', 'LND:-99', 'ICE:-99', 'OCN:-99', 'ROF:-99', 'GLC:-99', 'WAV:-99', 'ESP:-99']
+compset parts are HIST CAM60 CLM50%BGC-CROP CICE%PRES DOCN%DOM MOSART SGLC SWAV
+After xmlchanges for ROOTPEs ...
+
+Results in group mach_pes
+	NTASKS: ['CPL:108', 'ATM:108', 'LND:108', 'ICE:108', 'OCN:108', 'ROF:108', 'GLC:108', 'WAV:108', 'ESP:36']
+	NTASKS_PER_INST: ['ATM:0', 'LND:0', 'ICE:0', 'OCN:0', 'ROF:0', 'GLC:0', 'WAV:0', 'ESP:0']
+
+Results in group mach_pes_last
+	MAX_MPITASKS_PER_NODE: 36
+	MAX_TASKS_PER_NODE: 36
+
+Results in group run_pio
+	PIO_NUMTASKS: ['CPL:-99', 'ATM:-99', 'LND:-99', 'ICE:-99', 'OCN:-99', 'ROF:-99', 'GLC:-99', 'WAV:-99', 'ESP:-99']
+	CIME_OUTPUT_ROOT: /glade/scratch/raeder
+	RUNDIR: /glade/scratch/raeder/Zagar_OSSE_pmo2/run
+	EXEROOT: /glade/scratch/raeder/Zagar_OSSE_pmo2/bld
+
+Results in group run_data_archive
+	DOUT_S: TRUE
+	DOUT_S_SAVE_INTERIM_RESTART_FILES: FALSE
+
+Results in group run_dout
+	DOUT_S_ROOT: /glade/scratch/raeder/archive/Zagar_OSSE_pmo2
+ 
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/README' -> '/glade/work/raeder/Exp/Zagar_OSSE_pmo2/SourceMods/README'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/files' -> '/glade/work/raeder/Exp/Zagar_OSSE_pmo2/SourceMods/src.cam/files'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/init_wet-dry_fixes.tar' -> '/glade/work/raeder/Exp/Zagar_OSSE_pmo2/SourceMods/src.cam/init_wet-dry_fixes.tar'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/cam_history.F90' -> '/glade/work/raeder/Exp/Zagar_OSSE_pmo2/SourceMods/src.cam/cam_history.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/cam_history_support.F90' -> '/glade/work/raeder/Exp/Zagar_OSSE_pmo2/SourceMods/src.cam/cam_history_support.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/stepon.F90' -> '/glade/work/raeder/Exp/Zagar_OSSE_pmo2/SourceMods/src.cam/stepon.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/diag_dynvar_ic.F90' -> '/glade/work/raeder/Exp/Zagar_OSSE_pmo2/SourceMods/src.cam/diag_dynvar_ic.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/dyn_comp.F90' -> '/glade/work/raeder/Exp/Zagar_OSSE_pmo2/SourceMods/src.cam/dyn_comp.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/buildnml' -> '/glade/work/raeder/Exp/Zagar_OSSE_pmo2/SourceMods/src.cam/buildnml'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/config_archive.xml' -> '/glade/work/raeder/Exp/Zagar_OSSE_pmo2/SourceMods/src.cam/config_archive.xml'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.clm/namelist_definition_clm4_5.xml' -> '/glade/work/raeder/Exp/Zagar_OSSE_pmo2/SourceMods/src.clm/namelist_definition_clm4_5.xml'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.clm/lnd_import_export.F90' -> '/glade/work/raeder/Exp/Zagar_OSSE_pmo2/SourceMods/src.clm/lnd_import_export.F90'
+ 
+ 
+Setting up the case ...
+Ignore "WARNING:: mosart.buildnml . . .".  Those files will be provided later
+Before case.setup, modules are
+
+Currently Loaded Modules:
+  1) ncarenv/1.2         (H)   5) netcdf/4.6.1  (H)   9) matlab/R2020a
+  2) intel/17.0.1              6) git/2.22.0         10) nco/4.9.5
+  3) ncarcompilers/0.4.1 (H)   7) xxdiff/4.0.1       11) ncview/2.1.7
+  4) mpt/2.19                  8) diffuse/0.4.8
+
+  Where:
+   H:  Hidden Module
+
+ 
+
+Setting resource.RLIMIT_STACK to -1 from (-1, -1)
+/glade/work/raeder/Exp/Zagar_OSSE_pmo2/env_mach_specific.xml already exists, delete to replace
+job is case.run USER_REQUESTED_WALLTIME 1:00 USER_REQUESTED_QUEUE regular
+Creating batch scripts
+Writing case.run script from input template /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/config/cesm/machines/template.case.run
+Creating file .case.run
+Writing case.st_archive script from input template /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/config/cesm/machines/template.st_archive
+Creating file case.st_archive
+Creating user_nl_xxx files for components and cpl
+If an old case build already exists, might want to run 'case.build --clean' before building
+You can now run './preview_run' to get more info on how your case will be run
+ERROR: the script to configure for data assimilation is not available.
+       DART_config.template MUST be in /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1_Zagar 

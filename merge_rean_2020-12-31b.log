@@ -1,0 +1,44 @@
+Removing models/cam-fv/matlab/rsync_rean_diags_to_webpub.csh
+Removing models/cam-fv/matlab/plot_rmse_xxx_obsavg_evolution.m
+Removing models/cam-fv/matlab/invoke_diag.m
+Auto-merging diagnostics/matlab/results.m
+Auto-merging diagnostics/matlab/plot_rmse_xxx_profile_web.m
+Auto-merging diagnostics/matlab/plot_rmse_xxx_norm_profile.m
+Auto-merging diagnostics/matlab/plot_rmse_xxx_evolution_web.m
+Auto-merging diagnostics/matlab/gen_rean_diags.m
+Merge made by the 'recursive' strategy.
+ diagnostics/matlab/CompareMonthyProfiles.m         |  67 ++
+ diagnostics/matlab/compare_monthly_profiles.m      | 685 ++++++++++++++++++
+ .../cam-fv => diagnostics}/matlab/gen_rean_diags.m |  28 +-
+ diagnostics/matlab/plot_bias_xxx_profile.m         |  46 +-
+ diagnostics/matlab/plot_evolution.m                |  89 ++-
+ diagnostics/matlab/plot_obs_netcdf.m               |  20 +-
+ diagnostics/matlab/plot_profile.m                  |  36 +-
+ diagnostics/matlab/plot_rmse_xxx_evolution.m       | 246 +++++--
+ .../matlab/plot_rmse_xxx_evolution_web.m           | 181 +++--
+ .../matlab/plot_rmse_xxx_norm_profile.m            | 110 ++-
+ .../matlab/plot_rmse_xxx_norm_profile_web.m        | 769 +++++++++++++++++++++
+ diagnostics/matlab/plot_rmse_xxx_profile.m         | 225 ++++--
+ .../matlab/plot_rmse_xxx_profile_web.m             | 126 ++--
+ diagnostics/matlab/private/invoke_diag.m           |  19 +
+ .../matlab/private/read_obsdiag_staticdata.m       |   3 +
+ diagnostics/matlab/private/set_obsdiag_figure.m    |  13 +-
+ {models/cam-fv => diagnostics}/matlab/results.m    | 175 ++---
+ models/cam-fv/matlab/invoke_diag.m                 |  15 -
+ .../cam-fv/matlab/plot_rmse_xxx_obsavg_evolution.m | 743 --------------------
+ .../cam-fv/matlab/rsync_rean_diags_to_webpub.csh   |  20 -
+ .../cesm2_1/rsync_rean_diags_to_webpub.csh         |  42 ++
+ 21 files changed, 2436 insertions(+), 1222 deletions(-)
+ create mode 100644 diagnostics/matlab/CompareMonthyProfiles.m
+ create mode 100644 diagnostics/matlab/compare_monthly_profiles.m
+ rename {models/cam-fv => diagnostics}/matlab/gen_rean_diags.m (65%)
+ rename models/cam-fv/matlab/plot_rmse_xxx_evolution.m => diagnostics/matlab/plot_rmse_xxx_evolution_web.m (80%)
+ rename {models/cam-fv => diagnostics}/matlab/plot_rmse_xxx_norm_profile.m (87%)
+ create mode 100644 diagnostics/matlab/plot_rmse_xxx_norm_profile_web.m
+ rename models/cam-fv/matlab/plot_rmse_xxx_profile.m => diagnostics/matlab/plot_rmse_xxx_profile_web.m (87%)
+ create mode 100644 diagnostics/matlab/private/invoke_diag.m
+ rename {models/cam-fv => diagnostics}/matlab/results.m (51%)
+ delete mode 100644 models/cam-fv/matlab/invoke_diag.m
+ delete mode 100644 models/cam-fv/matlab/plot_rmse_xxx_obsavg_evolution.m
+ delete mode 100644 models/cam-fv/matlab/rsync_rean_diags_to_webpub.csh
+ create mode 100755 models/cam-fv/shell_scripts/cesm2_1/rsync_rean_diags_to_webpub.csh

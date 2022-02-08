@@ -1,0 +1,8 @@
+error: Your local changes to the following files would be overwritten by merge:
+	models/cam-fv/matlab/gen_rean_diags.m
+	models/cam-fv/matlab/plot_rmse_xxx_evolution.m
+Please, commit your changes or stash them before you can merge.
+error: The following untracked working tree files would be overwritten by merge:
+	diagnostics/matlab/plot_rmse_xxx_norm_profile.m
+Please move or remove them before you can merge.
+Aborting

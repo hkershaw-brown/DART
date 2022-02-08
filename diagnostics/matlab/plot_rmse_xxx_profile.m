@@ -304,12 +304,13 @@ for ivar = 1:plotdat.nvars
                                         guess(:,:,plotdat.meanindex);
                     plotdat.xlabel    = sprintf('%s, normalized by layer mean',xlabel_basic);
                     psfile            = sprintf('%s_norm_profile',psbase);
-                    if (plotdat.has_analysis)
+% KDR; this prevents plotter from finding the right range for the x axis
+%                    if (plotdat.has_analysis)
                         plotdat.anl_rmse  = analy(:,:,plotdat.rmseindex) ./ ...
                                             analy(:,:,plotdat.meanindex);
                         plotdat.anl_copy  = analy(:,:,plotdat.copyindex) ./ ...
                                             analy(:,:,plotdat.meanindex);
-                    end
+%                     end
                 otherwise
             end
             

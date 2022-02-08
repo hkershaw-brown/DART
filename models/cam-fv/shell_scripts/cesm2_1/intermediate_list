@@ -1,0 +1,1 @@
+ DART_config.template assimilate.csh.template compress.csh launch_cf.sh mv_to_campaign.csh no_assimilate.csh.template purge.csh repack_st_arch.csh setup_advanced setup_advanced_Rean_2017 test_assimilate.csh setup_hybrid setup_single_from_ens spinup_single standalone.pbs 

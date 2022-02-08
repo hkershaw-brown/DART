@@ -1,0 +1,15 @@
+foreach script (compress.csh           \
+                compress_hist.csh      \
+                diags_rean.csh         \
+                launch_cf.sh           \
+                mv_to_campaign.csh     \
+                matlab_norm.csh        \
+                pre_purge_check.csh    \
+                pre_submit.csh         \
+                purge.csh              \
+                repack_project.csh     \
+                repack_st_arch.csh     \
+                submit_compress.csh    \
+                submit_compress_hist.csh)
+   if (! -f $script) echo "$script missing"
+end

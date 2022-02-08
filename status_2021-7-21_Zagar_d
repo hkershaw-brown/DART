@@ -1,0 +1,21 @@
+# On branch Zagar
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+# 
+# 	new file:   models/cam-fv/shell_scripts/cesm2_1_Zagar/DART_config.template
+
+# Changes not staged for commit:
+#   (use "git add/rm <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+
+git add \
+    diagnostics/matlab/gen_rean_diags.m \
+    diagnostics/matlab/plot_rmse_xxx_evolution_web.m \
+    models/cam-fv/shell_scripts/cesm2_1_Zagar/Test_setup_adv_Zagar.bld1 \
+    models/cam-fv/shell_scripts/cesm2_1_Zagar/perfect_model.csh.template \
+    models/cam-fv/shell_scripts/cesm2_1_Zagar/setup_pmo \
+    models/cam-fv/work/input.nml
+
+git commit
+
+git stash -m 'nuisance files' 

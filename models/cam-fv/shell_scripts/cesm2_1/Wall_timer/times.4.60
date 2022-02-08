@@ -1,0 +1,7 @@
+cycles_per_job job_minutes min_per_job
+4 50 12
+14 178 12
+24 346 14
+34 520 15
+44 758 17
+54 1036 19

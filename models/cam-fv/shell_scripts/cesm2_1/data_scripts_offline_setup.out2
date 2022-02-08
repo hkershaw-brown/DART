@@ -1,0 +1,297 @@
+
+setenv PROJECT NCIS0006
+setenv PROJECT NCIS0006
+setenv email raeder@ucar.edu
+setenv email raeder@ucar.edu
+
+setenv case f.e21.FHIST_BGC.f09_025.CAM6assim.011
+setenv case f.e21.FHIST_BGC.f09_025.CAM6assim.011
+setenv caseroot /glade/work/${USER}/Exp/${case}
+setenv caseroot /glade/work/raeder/Exp/f.e21.FHIST_BGC.f09_025.CAM6assim.011
+setenv dartroot /glade/u/home/${USER}/DART/reanalysis_git
+setenv dartroot /glade/u/home/raeder/DART/reanalysis_git
+setenv DART_SCRIPTS_DIR ${dartroot}/models/cam-fv/shell_scripts/cesm2_1
+setenv DART_SCRIPTS_DIR /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1
+
+setenv cesmtag cesm2_1_relsd_m5.6
+setenv cesmtag cesm2_1_relsd_m5.6
+setenv cesmroot /glade/work/${USER}/Models/${cesmtag}
+setenv cesmroot /glade/work/raeder/Models/cesm2_1_relsd_m5.6
+setenv CIMEROOT $cesmroot/cime
+setenv CIMEROOT /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime
+
+setenv projdir /glade/p/nsc/ncis0006/Reanalyses
+setenv projdir /glade/p/nsc/ncis0006/Reanalyses
+setenv campdir /gpfs/csfs1/cisl/dares/Reanalyses
+setenv campdir /gpfs/csfs1/cisl/dares/Reanalyses
+setenv baseobsdir /glade/p/cisl/dares/Observations/NCEP+ACARS+GPS+AIRS/Thinned_x9x10
+setenv baseobsdir /glade/p/cisl/dares/Observations/NCEP+ACARS+GPS+AIRS/Thinned_x9x10
+
+setenv cime_output /glade/scratch/${USER}
+setenv cime_output /glade/scratch/raeder
+setenv archdir ${cime_output}/${case}/archive
+setenv archdir /glade/scratch/raeder/f.e21.FHIST_BGC.f09_025.CAM6assim.011/archive
+
+
+setenv save_every_Mth_day_restart Monday
+setenv save_every_Mth_day_restart Monday
+setenv num_instances 80
+setenv num_instances 80
+
+set DART_CESM_scripts = `pwd`
+set DART_CESM_scripts = `pwd`
+pwd
+
+cd $caseroot
+cd /glade/work/raeder/Exp/f.e21.FHIST_BGC.f09_025.CAM6assim.011
+
+foreach script ( compress.csh compress_hist.csh diags_rean.csh launch_cf.sh mv_to_campaign.csh matlab_norm.csh pre_purge_check.csh pre_submit.csh purge.csh repack_project.csh repack_st_arch.csh submit_compress.csh submit_compress_hist.csh )
+foreach script ( compress.csh compress_hist.csh diags_rean.csh launch_cf.sh mv_to_campaign.csh matlab_norm.csh pre_purge_check.csh pre_submit.csh purge.csh repack_project.csh repack_st_arch.csh submit_compress.csh submit_compress_hist.csh )
+if ( -f ${DART_SCRIPTS_DIR}/${script} ) then
+if ( -f /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/compress.csh ) then
+
+if ( -f $script ) then
+if ( -f compress.csh ) then
+mv $script Before_data_scripts_test
+mv compress.csh Before_data_scripts_test
+else
+else
+
+sed -e "s#YOUR_ACCOUNT#your_account#" -e "s#YOUR_EMAIL#your_email#" -e "s#YOUR_CASEROOT#your_caseroot#" ${DART_SCRIPTS_DIR}/${script} > ${script}
+sed -e s#YOUR_ACCOUNT#your_account# -e s#YOUR_EMAIL#your_email# -e s#YOUR_CASEROOT#your_caseroot# /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/compress.csh
+else
+else
+end
+end
+if ( -f ${DART_SCRIPTS_DIR}/${script} ) then
+if ( -f /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/compress_hist.csh ) then
+
+if ( -f $script ) then
+if ( -f compress_hist.csh ) then
+mv $script Before_data_scripts_test
+mv compress_hist.csh Before_data_scripts_test
+else
+else
+
+sed -e "s#YOUR_ACCOUNT#your_account#" -e "s#YOUR_EMAIL#your_email#" -e "s#YOUR_CASEROOT#your_caseroot#" ${DART_SCRIPTS_DIR}/${script} > ${script}
+sed -e s#YOUR_ACCOUNT#your_account# -e s#YOUR_EMAIL#your_email# -e s#YOUR_CASEROOT#your_caseroot# /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/compress_hist.csh
+else
+else
+end
+end
+if ( -f ${DART_SCRIPTS_DIR}/${script} ) then
+if ( -f /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/diags_rean.csh ) then
+
+if ( -f $script ) then
+if ( -f diags_rean.csh ) then
+mv $script Before_data_scripts_test
+mv diags_rean.csh Before_data_scripts_test
+else
+else
+
+sed -e "s#YOUR_ACCOUNT#your_account#" -e "s#YOUR_EMAIL#your_email#" -e "s#YOUR_CASEROOT#your_caseroot#" ${DART_SCRIPTS_DIR}/${script} > ${script}
+sed -e s#YOUR_ACCOUNT#your_account# -e s#YOUR_EMAIL#your_email# -e s#YOUR_CASEROOT#your_caseroot# /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/diags_rean.csh
+else
+else
+end
+end
+if ( -f ${DART_SCRIPTS_DIR}/${script} ) then
+if ( -f /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/launch_cf.sh ) then
+
+if ( -f $script ) then
+if ( -f launch_cf.sh ) then
+mv $script Before_data_scripts_test
+mv launch_cf.sh Before_data_scripts_test
+else
+else
+
+sed -e "s#YOUR_ACCOUNT#your_account#" -e "s#YOUR_EMAIL#your_email#" -e "s#YOUR_CASEROOT#your_caseroot#" ${DART_SCRIPTS_DIR}/${script} > ${script}
+sed -e s#YOUR_ACCOUNT#your_account# -e s#YOUR_EMAIL#your_email# -e s#YOUR_CASEROOT#your_caseroot# /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/launch_cf.sh
+else
+else
+end
+end
+if ( -f ${DART_SCRIPTS_DIR}/${script} ) then
+if ( -f /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/mv_to_campaign.csh ) then
+
+if ( -f $script ) then
+if ( -f mv_to_campaign.csh ) then
+mv $script Before_data_scripts_test
+mv mv_to_campaign.csh Before_data_scripts_test
+else
+else
+
+sed -e "s#YOUR_ACCOUNT#your_account#" -e "s#YOUR_EMAIL#your_email#" -e "s#YOUR_CASEROOT#your_caseroot#" ${DART_SCRIPTS_DIR}/${script} > ${script}
+sed -e s#YOUR_ACCOUNT#your_account# -e s#YOUR_EMAIL#your_email# -e s#YOUR_CASEROOT#your_caseroot# /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/mv_to_campaign.csh
+else
+else
+end
+end
+if ( -f ${DART_SCRIPTS_DIR}/${script} ) then
+if ( -f /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/matlab_norm.csh ) then
+
+if ( -f $script ) then
+if ( -f matlab_norm.csh ) then
+mv $script Before_data_scripts_test
+mv matlab_norm.csh Before_data_scripts_test
+else
+else
+
+sed -e "s#YOUR_ACCOUNT#your_account#" -e "s#YOUR_EMAIL#your_email#" -e "s#YOUR_CASEROOT#your_caseroot#" ${DART_SCRIPTS_DIR}/${script} > ${script}
+sed -e s#YOUR_ACCOUNT#your_account# -e s#YOUR_EMAIL#your_email# -e s#YOUR_CASEROOT#your_caseroot# /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/matlab_norm.csh
+else
+else
+end
+end
+if ( -f ${DART_SCRIPTS_DIR}/${script} ) then
+if ( -f /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/pre_purge_check.csh ) then
+
+if ( -f $script ) then
+if ( -f pre_purge_check.csh ) then
+mv $script Before_data_scripts_test
+mv pre_purge_check.csh Before_data_scripts_test
+else
+else
+
+sed -e "s#YOUR_ACCOUNT#your_account#" -e "s#YOUR_EMAIL#your_email#" -e "s#YOUR_CASEROOT#your_caseroot#" ${DART_SCRIPTS_DIR}/${script} > ${script}
+sed -e s#YOUR_ACCOUNT#your_account# -e s#YOUR_EMAIL#your_email# -e s#YOUR_CASEROOT#your_caseroot# /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/pre_purge_check.csh
+else
+else
+end
+end
+if ( -f ${DART_SCRIPTS_DIR}/${script} ) then
+if ( -f /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/pre_submit.csh ) then
+
+if ( -f $script ) then
+if ( -f pre_submit.csh ) then
+mv $script Before_data_scripts_test
+mv pre_submit.csh Before_data_scripts_test
+else
+else
+
+sed -e "s#YOUR_ACCOUNT#your_account#" -e "s#YOUR_EMAIL#your_email#" -e "s#YOUR_CASEROOT#your_caseroot#" ${DART_SCRIPTS_DIR}/${script} > ${script}
+sed -e s#YOUR_ACCOUNT#your_account# -e s#YOUR_EMAIL#your_email# -e s#YOUR_CASEROOT#your_caseroot# /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/pre_submit.csh
+else
+else
+end
+end
+if ( -f ${DART_SCRIPTS_DIR}/${script} ) then
+if ( -f /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/purge.csh ) then
+
+if ( -f $script ) then
+if ( -f purge.csh ) then
+mv $script Before_data_scripts_test
+mv purge.csh Before_data_scripts_test
+else
+else
+
+sed -e "s#YOUR_ACCOUNT#your_account#" -e "s#YOUR_EMAIL#your_email#" -e "s#YOUR_CASEROOT#your_caseroot#" ${DART_SCRIPTS_DIR}/${script} > ${script}
+sed -e s#YOUR_ACCOUNT#your_account# -e s#YOUR_EMAIL#your_email# -e s#YOUR_CASEROOT#your_caseroot# /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/purge.csh
+else
+else
+end
+end
+if ( -f ${DART_SCRIPTS_DIR}/${script} ) then
+if ( -f /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/repack_project.csh ) then
+
+if ( -f $script ) then
+if ( -f repack_project.csh ) then
+mv $script Before_data_scripts_test
+mv repack_project.csh Before_data_scripts_test
+else
+else
+
+sed -e "s#YOUR_ACCOUNT#your_account#" -e "s#YOUR_EMAIL#your_email#" -e "s#YOUR_CASEROOT#your_caseroot#" ${DART_SCRIPTS_DIR}/${script} > ${script}
+sed -e s#YOUR_ACCOUNT#your_account# -e s#YOUR_EMAIL#your_email# -e s#YOUR_CASEROOT#your_caseroot# /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/repack_project.csh
+else
+else
+end
+end
+if ( -f ${DART_SCRIPTS_DIR}/${script} ) then
+if ( -f /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/repack_st_arch.csh ) then
+
+if ( -f $script ) then
+if ( -f repack_st_arch.csh ) then
+mv $script Before_data_scripts_test
+mv repack_st_arch.csh Before_data_scripts_test
+else
+else
+
+sed -e "s#YOUR_ACCOUNT#your_account#" -e "s#YOUR_EMAIL#your_email#" -e "s#YOUR_CASEROOT#your_caseroot#" ${DART_SCRIPTS_DIR}/${script} > ${script}
+sed -e s#YOUR_ACCOUNT#your_account# -e s#YOUR_EMAIL#your_email# -e s#YOUR_CASEROOT#your_caseroot# /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/repack_st_arch.csh
+else
+else
+end
+end
+if ( -f ${DART_SCRIPTS_DIR}/${script} ) then
+if ( -f /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/submit_compress.csh ) then
+
+if ( -f $script ) then
+if ( -f submit_compress.csh ) then
+
+echo "No $script to move"
+echo No submit_compress.csh to move
+No submit_compress.csh to move
+endif
+endif
+
+sed -e "s#YOUR_ACCOUNT#your_account#" -e "s#YOUR_EMAIL#your_email#" -e "s#YOUR_CASEROOT#your_caseroot#" ${DART_SCRIPTS_DIR}/${script} > ${script}
+sed -e s#YOUR_ACCOUNT#your_account# -e s#YOUR_EMAIL#your_email# -e s#YOUR_CASEROOT#your_caseroot# /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/submit_compress.csh
+else
+else
+end
+end
+if ( -f ${DART_SCRIPTS_DIR}/${script} ) then
+if ( -f /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/submit_compress_hist.csh ) then
+
+if ( -f $script ) then
+if ( -f submit_compress_hist.csh ) then
+
+echo "No $script to move"
+echo No submit_compress_hist.csh to move
+No submit_compress_hist.csh to move
+endif
+endif
+
+sed -e "s#YOUR_ACCOUNT#your_account#" -e "s#YOUR_EMAIL#your_email#" -e "s#YOUR_CASEROOT#your_caseroot#" ${DART_SCRIPTS_DIR}/${script} > ${script}
+sed -e s#YOUR_ACCOUNT#your_account# -e s#YOUR_EMAIL#your_email# -e s#YOUR_CASEROOT#your_caseroot# /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/submit_compress_hist.csh
+else
+else
+end
+end
+
+
+
+
+
+if ( -e ${DART_CESM_scripts}/DART_config.template ) then
+if ( -e /glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/DART_config.template ) then
+sed -e "s#your_dart_path#${dartroot}#" -e "s#your_setup_script_dir#$DART_CESM_scripts#" -e "s#your_observation_path#${baseobsdir}#" -e "s#your_account#${PROJECT}#" -e "s#your_email#${email}#" -e "s#your_caseroot#${caseroot}#" -e "s#days_between_archiving_restarts#${save_every_Mth_day_restart}#" < ${DART_CESM_scripts}/DART_config.template > ! DART_config || exit 20
+sed -e s#your_dart_path#/glade/u/home/raeder/DART/reanalysis_git# -e s#your_setup_script_dir#/glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1# -e s#your_observation_path#/glade/p/cisl/dares/Observations/NCEP+ACARS+GPS+AIRS/Thinned_x9x10# -e s#your_account#NCIS0006# -e s#your_email#raeder@ucar.edu# -e s#your_caseroot#/glade/work/raeder/Exp/f.e21.FHIST_BGC.f09_025.CAM6assim.011# -e s#days_between_archiving_restarts#Monday#
+else
+else
+chmod 755 DART_config
+chmod 755 DART_config
+
+
+
+
+
+
+
+
+
+
+cat << EndOfText > ! data_scripts.csh
+./xlmquery CONTINUE_RUN --value
+./xlmquery: Command not found.
+./xlmquery RUN_START_DATE --value
+./xlmquery: Command not found.
+START_DATE: Undefined variable.
+data_scratch: Undefined variable.
+ATM_DATE_EXT: Undefined variable.
+ATM_DATE: Undefined variable.
+ATM_DATE: Undefined variable.
+cat
+chmod 0755 data_scripts.csh
+chmod 0755 data_scripts.csh

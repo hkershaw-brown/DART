@@ -1,0 +1,79 @@
+This is missing Nancy's cf9d8d5 from Sep 16,
+despite my fetch of the "public" reanalysis branch and merge.
+
+
+commit 67dc39d53669d8b5f86be8cef95b7625cbaf8ecc
+Author: kdraeder <raeder@ucar.edu>
+Date:   Wed Nov 17 19:23:18 2021 -0700
+
+    Merge script used for Reanalysis 2020 and README
+    
+    observations/obs_converters/reanalysis/merge_progs/domerge.sh
+    > Add code to handle failure of obs_seq_tool in a helpful way
+    > instead of destroying all evidence.
+    
+    observations/obs_converters/reanalysis/README
+    > Replaced instructions about HPSS.
+    > Updated gps section to reference the new kdr_multi_parallel.batch,
+    > which handles the new satlist of platforms and web addresses.
+    > Included note about max_gpsro_obs needing to be twice the number
+    > of GPS obs.
+
+commit 4ffa235038690b9c0c8c3d00fd04297d9646d018
+Merge: 0365700 cce5d26
+Author: kdraeder <raeder@ucar.edu>
+Date:   Wed Sep 15 15:53:11 2021 -0600
+
+    Merge branch 'reanalysis' of github.com:NCAR/DART into reanalysis
+    
+    Trying to follow instructions.  Not hopeful.
+    After the failed pull, I edited README to choose
+    the versions of the conflicts I want to keep, and then
+    git merge -s recursive -Xours reanalysis
+    It failed, saying I needed to add and then commit the README.
+    So that's what I'm doing.
+
+commit 03657008889a657f3086ae2d7525b7903f0f9dee
+Author: kdraeder <raeder@ucar.edu>
+Date:   Wed Sep 15 15:18:43 2021 -0600
+
+    Update README for NCEP+ACARS+GPS+AIRS in reanalysis branch.
+    
+    + Updated to remove outdated instructions and add current
+      procedures for getting and converting obs.
+    + Added locations of scripts and programs in the new
+      obs_converters/reanalysis directory (of the reanalysis branch).
+    + Nancy plans to add descriptions of the data.
+    + There are lots of white space changes to make the white space
+      more consistent.  So use diffuse -b if you want to highlight
+      the meaningful changes.
+
+commit cce5d26a07392221a967848f4e9fb2d452796963
+Author: nancy <nancy@ucar.edu>
+Date:   Tue Sep 7 10:18:06 2021 -0600
+
+    add the monthly batch scripts for AIRS, fix a missing line in the README
+    
+    somehow a line got munged from the readme, and the airs scripts
+    are in a separate directory and didn't get committed.
+
+commit fb806d719638fcff8d5e2185cca117e01c5c918d
+Author: nancy <nancy@ucar.edu>
+Date:   Thu Sep 2 13:43:51 2021 -0600
+
+    add the scripts used to convert GPS obs for the reanalysis
+
+commit eda66958a4bf500a33cea93e3609163446dce2f1
+Author: nancy <nancy@ucar.edu>
+Date:   Thu Sep 2 13:04:59 2021 -0600
+
+    update the instructions to account for the HPSS going away, cosmic id, etc
+
+commit 8b356e3ed496b31f6b945026f3294058aca2e615
+Author: nancy <nancy@ucar.edu>
+Date:   Wed Sep 1 10:14:36 2021 -0600
+
+    start of a directory which contains reanalysis observation conversion scripts and instructions
+    
+    anything in this directory will be instructions and conversion scripts
+    specific to the 2011-2019 CAM reanalysis observations.

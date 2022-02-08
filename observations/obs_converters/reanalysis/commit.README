@@ -1,0 +1,11 @@
+2021-9-15
+Describe converting NCEP+ACARS+GPS+AIRS obs in reanalysis branch.
+
++ Updated to remove outdated instructions and add current
+  procedures for getting and converting obs.
++ Added locations of scripts and programs in the new 
+  obs_converters/reanalysis directory (of the reanalysis branch).
++ Nancy plans to add descriptions of the data.
++ There are lots of white space changes to make the white space
+  more consistent.  So use diffuse -b if you want to highlight 
+  the meaningful changes.

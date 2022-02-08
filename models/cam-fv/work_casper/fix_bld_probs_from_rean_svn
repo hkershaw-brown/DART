@@ -1,0 +1,42 @@
+./../../assimilation_code/modules/observations/obs_sequence_mod.f90
+ifort: command line remark #10148: option '-vec-report0' not supported
+../../../assimilation_code/modules/observations/obs_sequence_mod.f90(32): error #6580: Name in only-list does not exist.   [PRINT_OBS_DEF]
+                             operator(==), operator(/=), print_obs_def
+---------------------------------------------------------^
+../../../assimilation_code/modules/observations/obs_sequence_mod.f90(2219): error #6355: This binary operation is invalid for this data type.   [DEF]
+if (obs1%def /= obs2%def) return
+
+KDR: 
+
+type obs_type
+   private
+! The key is needed to indicate the element number in the storage for the obs_sequence
+! Do I want to enforce the identity of the particular obs_sequence?
+   integer :: key
+   type(obs_def_type) :: def
+
+Where 
+type obs_def_type
+! In revision, obs_kind module is responsible for taking care of
+! identity obs kinds, too
+   private
+   type(location_type)   :: location   ! center of mass, so to speak
+   integer               :: kind       ! actually type
+   type(time_type)       :: time
+   real(r8)              :: error_variance
+   integer               :: key        ! Used by specialized observation types
+   logical               :: write_external_FO = .false.
+   logical               :: has_external_FO   = .false.
+   real(r8), allocatable :: external_FO(:)
+   integer               :: external_FO_key
+   integer               :: ens_size
+end type obs_def_type
+
+
+---------^
+../../../assimilation_code/modules/observations/obs_sequence_mod.f90(2219): error #6355: This binary operation is invalid for this data type.   [DEF]
+if (obs1%def /= obs2%def) return
+---------------------^
+compilation aborted for ../../../assimilation_code/modules/observations/obs_sequence_mod.f90 (code 1)
+make: *** [obs_sequence_mod.o] Error 1
+1

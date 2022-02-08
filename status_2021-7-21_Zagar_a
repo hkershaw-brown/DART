@@ -1,0 +1,225 @@
+diagnostics/matlab/gen_rean_diags.m: needs merge
+
+
+
+On branch Zagar
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	modified:   assimilation_code/modules/utilities/null_mpi_utilities_mod.f90
+	modified:   diagnostics/matlab/plot_rmse_xxx_evolution_web.m
+	modified:   models/cam-fv/work/input.nml
+	modified:   models/cam-fv/work/minimal_build.csh
+	modified:   models/cam-fv/work/quickbuild.csh
+
+Unmerged paths:
+  (use "git reset HEAD <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+
+	both modified:   diagnostics/matlab/gen_rean_diags.m
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	deleted:    models/cam-fv/shell_scripts/cesm2_1_Zagar/Test_setup_adv_Zagar.bld1
+	modified:   models/cam-fv/shell_scripts/cesm2_1_Zagar/perfect_model.csh.template
+	modified:   models/cam-fv/shell_scripts/cesm2_1_Zagar/setup_pmo
+	modified:   models/cam-fv/work/input.nml
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	assimilation_code/modules/observations/obs_kind_mod.f90
+	assimilation_code/modules/utilities/null_mpi_utilities_mod.f90.orig
+	assimilation_code/programs/obs_diag/threed_sphere/obs_diag_grand+Kevin.f90
+	commit_2020-12-30
+	commit_2021-6-25
+	commit_all
+	diagnostics/matlab/fixed_rmse.gztar
+	diff_these.csh
+	log_2020-02-04
+	merge_rean_2020-12-30.log
+	merge_rean_2020-12-31.log
+	merge_rean_2020-12-31b.log
+	models/cam-fv/matlab/Backups/
+	models/cam-fv/matlab/backups
+	models/cam-fv/matlab/plot_rmse_to_laptop.tar
+	models/cam-fv/matlab/read_obsdiag_staticdata.m
+	models/cam-fv/shell_scripts/cesm2_1/.sh_scripts_2020-12-29.ls.swp
+	models/cam-fv/shell_scripts/cesm2_1/Builds/
+	models/cam-fv/shell_scripts/cesm2_1/DART_CASES_scripts
+	models/cam-fv/shell_scripts/cesm2_1/Test4_git.bld3
+	models/cam-fv/shell_scripts/cesm2_1/Wall_timer/
+	models/cam-fv/shell_scripts/cesm2_1/commit_list
+	models/cam-fv/shell_scripts/cesm2_1/data_scripts_offline_setup.csh
+	models/cam-fv/shell_scripts/cesm2_1/data_scripts_offline_setup.out1
+	models/cam-fv/shell_scripts/cesm2_1/data_scripts_offline_setup.out2
+	models/cam-fv/shell_scripts/cesm2_1/data_scripts_offline_setup.out3
+	models/cam-fv/shell_scripts/cesm2_1/diffs_from_casename.csh
+	models/cam-fv/shell_scripts/cesm2_1/find_params.csh
+	models/cam-fv/shell_scripts/cesm2_1/gitlist
+	models/cam-fv/shell_scripts/cesm2_1/intermediate_list
+	models/cam-fv/shell_scripts/cesm2_1/mod_list
+	models/cam-fv/shell_scripts/cesm2_1/obs_locs_to_seqs.out
+	models/cam-fv/shell_scripts/cesm2_1/params.occurances
+	models/cam-fv/shell_scripts/cesm2_1/perfect_model.csh
+	models/cam-fv/shell_scripts/cesm2_1/perfect_model.csh.template
+	models/cam-fv/shell_scripts/cesm2_1/review_list
+	models/cam-fv/shell_scripts/cesm2_1/sed_these.csh
+	models/cam-fv/shell_scripts/cesm2_1/setup_advanced_Test4
+	models/cam-fv/shell_scripts/cesm2_1/setup_pmo
+	models/cam-fv/shell_scripts/cesm2_1/sh_scripts_2020-12-29.csh
+	models/cam-fv/shell_scripts/cesm2_1/sh_scripts_2020-12-29.ls
+	models/cam-fv/shell_scripts/cesm2_1/sh_scripts_2020-12-29.sorted
+	models/cam-fv/shell_scripts/cesm2_1/submit_no_buildnml.csh
+	models/cam-fv/shell_scripts/cesm2_1/svn_list
+	models/cam-fv/shell_scripts/cesm2_1/synth_obs.gztar
+	models/cam-fv/shell_scripts/cesm2_1/synth_obs_locs_to_seqs.csh
+	models/cam-fv/shell_scripts/cesm2_1/synth_obs_locs_to_seqs.csh.pre_main
+	models/cam-fv/shell_scripts/cesm2_1_Zagar/Builds/
+	models/cam-fv/shell_scripts/cesm2_1_Zagar/DART_config.template
+	models/cam-fv/shell_scripts/cesm2_1_Zagar/Zagar_OSSE_pmo2
+	models/cam-fv/shell_scripts/cesm2_1_Zagar/Zagar_OSSE_pmo2_Manh.bld1
+	models/cam-fv/shell_scripts/cesm2_1_Zagar/Zagar_OSSE_pmo2_Manh2.bld1
+	models/cam-fv/shell_scripts/cesm2_1_Zagar/Zagar_OSSE_pmo3.bld1
+	models/cam-fv/shell_scripts/cesm2_1_Zagar/Zagar_OSSE_pmo_sflx.bld1
+	models/cam-fv/shell_scripts/cesm2_1_Zagar/accum_rain.csh
+	models/cam-fv/shell_scripts/cesm2_1_Zagar/have_all_scripts
+	models/cam-fv/shell_scripts/cesm2_1_Zagar/setup_pmo_zagar
+	models/cam-fv/shell_scripts/commit_comment_2020-2-5
+	models/cam-fv/work/Bessel_corxn+my_singletons/
+	models/cam-fv/work/Makefile
+	models/cam-fv/work/NoBessel+R8/
+	models/cam-fv/work/NoBessel/
+	models/cam-fv/work/Pre_2020-7_upgrades/
+	models/cam-fv/work/adaptive_inflate_mod.mod
+	models/cam-fv/work/adaptive_inflate_mod.o
+	models/cam-fv/work/advance_time
+	models/cam-fv/work/assim_model_mod.mod
+	models/cam-fv/work/assim_model_mod.o
+	models/cam-fv/work/assim_tools_mod.mod
+	models/cam-fv/work/assim_tools_mod.o
+	models/cam-fv/work/caminput.nc
+	models/cam-fv/work/chem_tables_mod.mod
+	models/cam-fv/work/chem_tables_mod.o
+	models/cam-fv/work/closest_member_tool
+	models/cam-fv/work/closest_member_tool.o
+	models/cam-fv/work/column_rand
+	models/cam-fv/work/copy_svn_exec.csh
+	models/cam-fv/work/core-cheyenne4-4241-27857-11
+	models/cam-fv/work/cov_cutoff_mod.mod
+	models/cam-fv/work/cov_cutoff_mod.o
+	models/cam-fv/work/create_fixed_network_seq
+	models/cam-fv/work/create_obs_sequence
+	models/cam-fv/work/dart_log.nml
+	models/cam-fv/work/dart_log.out
+	models/cam-fv/work/dart_time_io_mod.mod
+	models/cam-fv/work/dart_time_io_mod.o
+	models/cam-fv/work/default_location_mod.mod
+	models/cam-fv/work/default_location_mod.o
+	models/cam-fv/work/default_model_mod.mod
+	models/cam-fv/work/default_model_mod.o
+	models/cam-fv/work/direct_netcdf_mod.mod
+	models/cam-fv/work/direct_netcdf_mod.o
+	models/cam-fv/work/distributed_state_mod.mod
+	models/cam-fv/work/distributed_state_mod.o
+	models/cam-fv/work/ensemble_manager_mod.mod
+	models/cam-fv/work/ensemble_manager_mod.o
+	models/cam-fv/work/fill_inflation_restart
+	models/cam-fv/work/filter
+	models/cam-fv/work/filter.o
+	models/cam-fv/work/filter_mod.mod
+	models/cam-fv/work/filter_mod.o
+	models/cam-fv/work/forward_operator_mod.mod
+	models/cam-fv/work/forward_operator_mod.o
+	models/cam-fv/work/input_git.nml
+	models/cam-fv/work/input_git_2019-10-2.nml
+	models/cam-fv/work/input_rean_2019-10-2.nml
+	models/cam-fv/work/io_filenames_mod.mod
+	models/cam-fv/work/io_filenames_mod.o
+	models/cam-fv/work/location_io_mod.mod
+	models/cam-fv/work/location_io_mod.o
+	models/cam-fv/work/location_mod.mod
+	models/cam-fv/work/location_mod.o
+	models/cam-fv/work/model_check_utilities_mod.mod
+	models/cam-fv/work/model_check_utilities_mod.o
+	models/cam-fv/work/model_mod.mod
+	models/cam-fv/work/model_mod.o
+	models/cam-fv/work/model_mod_check
+	models/cam-fv/work/model_mod_check.o
+	models/cam-fv/work/mpi_utilities_mod.mod
+	models/cam-fv/work/mpi_utilities_mod.o
+	models/cam-fv/work/mv_list.csh
+	models/cam-fv/work/netcdf_utilities_mod.mod
+	models/cam-fv/work/netcdf_utilities_mod.o
+	models/cam-fv/work/no_cray_win_mod.o
+	models/cam-fv/work/obs_common_subset
+	models/cam-fv/work/obs_def_altimeter_mod.mod
+	models/cam-fv/work/obs_def_gps_mod.mod
+	models/cam-fv/work/obs_def_mod.mod
+	models/cam-fv/work/obs_def_mod.o
+	models/cam-fv/work/obs_def_upper_atm_mod.mod
+	models/cam-fv/work/obs_def_utilities_mod.mod
+	models/cam-fv/work/obs_def_utilities_mod.o
+	models/cam-fv/work/obs_diag
+	models/cam-fv/work/obs_impact_mod.mod
+	models/cam-fv/work/obs_impact_mod.o
+	models/cam-fv/work/obs_impact_tool
+	models/cam-fv/work/obs_kind_mod.mod
+	models/cam-fv/work/obs_kind_mod.o
+	models/cam-fv/work/obs_model_mod.mod
+	models/cam-fv/work/obs_model_mod.o
+	models/cam-fv/work/obs_seq_to_netcdf
+	models/cam-fv/work/obs_sequence_mod.mod
+	models/cam-fv/work/obs_sequence_mod.o
+	models/cam-fv/work/obs_sequence_tool
+	models/cam-fv/work/options_mod.mod
+	models/cam-fv/work/options_mod.o
+	models/cam-fv/work/parse_args_mod.mod
+	models/cam-fv/work/parse_args_mod.o
+	models/cam-fv/work/perfect_model_obs
+	models/cam-fv/work/perfect_model_obs.o
+	models/cam-fv/work/perturb_single_instance
+	models/cam-fv/work/perturb_single_instance.o
+	models/cam-fv/work/preprocess
+	models/cam-fv/work/quad_utils_mod.mod
+	models/cam-fv/work/quad_utils_mod.o
+	models/cam-fv/work/quality_control_mod.mod
+	models/cam-fv/work/quality_control_mod.o
+	models/cam-fv/work/random_seq_mod.mod
+	models/cam-fv/work/random_seq_mod.o
+	models/cam-fv/work/reg_factor_mod.mod
+	models/cam-fv/work/reg_factor_mod.o
+	models/cam-fv/work/sampling_error_correction_mod.mod
+	models/cam-fv/work/sampling_error_correction_mod.o
+	models/cam-fv/work/smoother_mod.mod
+	models/cam-fv/work/smoother_mod.o
+	models/cam-fv/work/sort_mod.mod
+	models/cam-fv/work/sort_mod.o
+	models/cam-fv/work/state_structure_mod.mod
+	models/cam-fv/work/state_structure_mod.o
+	models/cam-fv/work/state_vector_io_mod.mod
+	models/cam-fv/work/state_vector_io_mod.o
+	models/cam-fv/work/test_interpolate_mod.mod
+	models/cam-fv/work/test_interpolate_threed_sphere.o
+	models/cam-fv/work/time_manager_mod.mod
+	models/cam-fv/work/time_manager_mod.o
+	models/cam-fv/work/types_mod.mod
+	models/cam-fv/work/types_mod.o
+	models/cam-fv/work/using_mpi_for_closest_member_tool
+	models/cam-fv/work/using_mpi_for_filter
+	models/cam-fv/work/using_mpi_for_model_mod_check
+	models/cam-fv/work/using_mpi_for_perfect_model_obs
+	models/cam-fv/work/using_mpi_for_perturb_single_instance
+	models/cam-fv/work/utilities_mod.mod
+	models/cam-fv/work/utilities_mod.o
+	models/cam-fv/work/window_mod.mod
+	models/cam-fv/work_casper/
+	observations/forward_operators/obs_def_mod.f90
+	status_2020-12-28a
+	status_2020-12-30
+	status_2021-6-24
+	status_2021-7-21a
+	status_for_tim
+

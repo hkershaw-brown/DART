@@ -1,0 +1,1 @@
+/glade/work/raeder/Models/CAM_init/FV.9x1.25_cam6.0.002/Rean_2010.1-6_sst.25.cam_0001.i.2010-07-01-00000.nc

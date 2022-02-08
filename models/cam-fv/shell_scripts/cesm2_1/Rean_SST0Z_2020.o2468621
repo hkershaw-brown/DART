@@ -1,0 +1,22 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+
+Currently Loaded Modules:
+  1) ncarenv/1.2         (H)   5) netcdf/4.6.1 (H)   9) matlab/R2015b (H)
+  2) intel/17.0.1              6) ncview/2.1.7      10) xxdiff/4.0.1
+  3) ncarcompilers/0.4.1 (H)   7) nco/4.9.5
+  4) mpt/2.19                  8) git/2.33.1
+
+  Where:
+   H:  Hidden Module
+
+ 
+
+standalone.pbs:
+  jobname  is Rean_SST0Z_2020
+  numcpus  is 36
+  numtasks is 324
+  numnodes is 9
+Running test 3 at Fri Jan 14 18:45:50 MST 2022, saving output to Rean_SST0Z_2020_9_standalone_assim.out
+Starting assimilate.csh at Fri Jan 14 18:45:50 MST 2022
+Finished assimilate.csh at Fri Jan 14 18:48:22 MST 2022

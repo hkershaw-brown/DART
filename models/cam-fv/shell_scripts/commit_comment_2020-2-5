@@ -1,0 +1,153 @@
+On branch reanalysis
+Your branch is up to date with 'origin/reanalysis'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+---------------------
+Preserving files that were under review 2019-8.
+Some of the files being committed were in the process of being updated 
+based on a code review in 2019-8, so they haven't been tested in their current form.
+The changes that were made were not propagated back to the svn directory,
+so the svn and git versions of some files have diverged, and will need to be 
+merged after each of those sets is committed to git.
+The main changes are in repack_st_arch.csh.
+They're mostly about changing variable names to be more descriptive
+and easier to use, improving comments and echoed information.
+There are changes to functionality to improve efficiency ("Previous" directories).
+---------------------
+Top priority
+> All; removed svn lines.
+  Not yet imported from roseville or reviewed:
+     plot_obs_netcdf_diffs.m
+     plot_obs_netcdf.m
+     plot_rmse_xxx_norm_profile.m
+     plot_rmse_xxx_norm_evolution.m
+
+	modified:   cesm2_1/DART_config.template
+	modified:   cesm2_1/assimilate.csh.template
+	modified:   cesm2_1/compress.csh
+	modified:   cesm2_1/launch_cf.sh
+	modified:   cesm2_1/mv_to_campaign.csh
+	modified:   cesm2_1/no_assimilate.csh.template
+	modified:   cesm2_1/purge.csh
+	modified:   cesm2_1/repack_st_arch.csh
+> This script was in the process of being updated based on a code review in 2019-8,
+  so it hasn't been run as it is.  I finished the update.
+! ! But these changes were not propagated back to the svn version,
+    so we'll want to merge these at some point.
+> Removed PBS directives, since it must run on casper (under slurm).
+> Replace local_arch with CESM's DOUT_S_ROOT.
+> Improved comments.
+> Specify year and month separately for clarity and more flexible use.
+  Then define yr_mo.
+> Leave the existing yearly files in $project and add months to them there.
+> Adapt ncrcat call to that.
+> Echo mv_to_campaign.csh commands in case I need to rerun them manually
+	modified:   cesm2_1/setup_advanced
+> Upgrade save_every_Mth_day_restart to handle days of the week.
+> Write out cpl history files (the forcing files for CESM's surface components).
+	Untracked	cesm2_1/setup_advanced_Rean
+                        save because it's what was used?
+                        or rely on the copy in $CASEROOT?
+                        More updates may be coming from svn.
+	modified:   cesm2_1/setup_advanced_Rean_2017
+                        save because it's what was used (for a different case)?
+                        or rely on the copy in its own $CASEROOT 
+                        (which we have no plans to archive)?
+                  > Added path/file for starting from a single member.
+                  > Added lists of CLM history fields to write 
+                    (different lists were used in the Reanalysis).
+	modified:   cesm2_1/test_assimilate.csh
+	modified:   ../work/path_names_filter
+
+
+Next batch
+	modified:   ../work/minimal_build.csh
+	modified:   ../../../observations/obs_converters/obs_error/ncep_obs_err_mod.f90
+> No removal of residual svn lines from these 4.
+> Added comment with obs_prs to help with obs_err.
+	modified:   ../../../assimilation_code/modules/assimilation/filter_mod.f90
+> Better error message about wrong time in filter.
+	modified:   ../../../assimilation_code/modules/utilities/ensemble_manager_mod.f90
+> Complaining comment about the variable name num_pes, which defines tasks, not pes.
+  Also, an extra error message about that.
+	modified:   ../../../assimilation_code/programs/obs_diag/threed_sphere/obs_diag.f90
+> Questions about statistics.
+	modified:   ../../../diagnostics/matlab/link_obs.m
+> cesm2_1/these just had svn lines to remove.
+	modified:   cesm2_1/setup_hybrid
+	modified:   cesm2_1/setup_single_from_ens
+	modified:   cesm2_1/spinup_single
+	modified:   cesm2_1/standalone.pbs
+
+
+Going to $CASEROOT archive
+	modified:   cesm2_1/diags_batch.csh
+	modified:   cesm2_1/obs_diags.csh
+	modified:   cesm2_1/obs_to_two_experiments.csh
+	Untracked	cesm2_1/Makefile_IMPI_not_MPT2
+	Untracked	cesm2_1/compress_ens_qcmd.csh
+	Untracked	cesm2_1/diags_rean.csh
+	Untracked	cesm2_1/extract_list.csh
+	Untracked	cesm2_1/package_restart_members.csh
+	Untracked	cesm2_1/repack_project.csh
+	Untracked	cesm2_1/submit2
+   From svn reanalysis...Rean_helpers (r = redundant with previous, local list)
+     assim_post_filter.csh
+     backup_manually.csh
+     bias_from_obs_seq_output.csh
+     chng_hybrid2branch.csh
+   r compress_ens_qcmd.csh
+     compress_hist.csh
+     Copyright
+   r extract_list.csh
+     fix_yearly_atts.csh
+   r package_restart_members.csh
+     pre_purge_check.csh
+     repack_hwm.csh
+     repack_st_arch_force+state.csh
+     strip_trailing_times.csh
+     test_purge.csh
+
+Ignore
+	modified:   cesm2_0/assimilate.csh.template
+	modified:   cesm2_0/setup_advanced
+	modified:   cesm2_0/spinup_single
+	modified:   cesm2_0/spinup_single_sst.25
+	typechange: ../../../build_templates/mkmf.template
+	modified:   ../../../build_templates/mkmf.template.intel.linux
+	typechange: ../work/input.nml
+	Untracked	cesm2_1/Builds/
+	Untracked	cesm2_1/Wall_timer/
+	Untracked	cesm2_1/review_notes
+	Untracked	cesm2_1/submit_no_buildnml.csh
+	Untracked	commit_comment_2020-2-5
+	Untracked	../../../diagnostics/matlab/plot_rmse_xxx_norm_profile.m
+                           This wasn't central, and a better one is coming from svn.
+
+Delete
+	Untracked	../../../log_2020-02-04
+	Untracked	cesm2_1/Test4_git.bld3   mv to Builds?
+	Untracked	cesm2_1/bash_if.sh
+	Untracked	../work/input_git_2019-10-2.nml
+            ? Is this the first version input.nml first committed to git? YES
+	Untracked	../work/input_rean_2019-10-2.nml
+              This is not as updated as input_git.nml.
+              input.nml is linked to this (2020-2-5).
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	Untracked	cesm2_1/setup_advanced_Test4
+
+	Untracked	../work/input_git.nml -> commit as input.nml
+              From 2019-10-8; better organized, more recent choices of var values.
+              than what's committed (and was/is called input_git_2019-10-2.nml locally).
+              Not a generic input.nml for use by others.
+              A more recent version will come from the svn reanalysis DART,
+              but that's probably not as well organized or generic (ready to commit)
+              as this one.
+
+no changes added to commit (use "git add" and/or "git commit -a")

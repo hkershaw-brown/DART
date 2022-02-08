@@ -1,0 +1,9 @@
+diags_rean.csh
+mv_to_campaign.csh
+pre_purge_check.csh
+pre_submit.csh
+purge.csh
+repack_project.csh
+repack_st_arch.csh
+setup_advanced
+

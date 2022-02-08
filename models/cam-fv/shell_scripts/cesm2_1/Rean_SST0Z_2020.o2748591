@@ -1,0 +1,55 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+Modules used for this assimilation:
+
+Currently Loaded Modules:
+  1) ncarenv/1.3    3) ncarcompilers/0.5.0   5) netcdf/4.8.1
+  2) intel/19.1.1   4) mpt/2.22
+
+ 
+
+/glade/u/apps/ch/opt/mpt/2.22/bin/mpiexec_mpt
+ifort -I/glade/u/apps/ch/opt/netcdf/4.8.1/intel/19.1.1/include -Wl,-Bstatic -lnetcdff -lnetcdf -lhdf5hl_fortran -lhdf5_hl -lhdf5_fortran -lhdf5 -lsz -lz -Wl,-Bdynamic -lcurl -lm -ldl -lrt -ldl -Wl,--disable-new-dtags -L/glade/u/apps/ch/opt/netcdf/4.8.1/intel/19.1.1/lib -Wl,-rpath,/glade/u/apps/ch/opt/netcdf/4.8.1/intel/19.1.1/lib -I/glade/u/apps/ch/opt/mpt/2.22/include -lpthread -L/glade/u/apps/ch/opt/mpt/2.22/lib -lmpi
+loaded libraries for the executable 
+lrwxrwxrwx 1 raeder p86850054 38 Feb  4 15:01 ../bld/filter -> Build_syst_def_modules.2022-2-4/filter
+	linux-vdso.so.1 (0x00007ffc3e3d4000)
+	libcurl.so.4 => /glade/u/apps/ch/os/usr/lib64/libcurl.so.4 (0x00002abb57239000)
+	libm.so.6 => /glade/u/apps/ch/os/lib64/libm.so.6 (0x00002abb574be000)
+	libdl.so.2 => /glade/u/apps/ch/os/lib64/libdl.so.2 (0x00002abb577bb000)
+	librt.so.1 => /glade/u/apps/ch/os/lib64/librt.so.1 (0x00002abb579bf000)
+	libpthread.so.0 => /glade/u/apps/ch/os/lib64/libpthread.so.0 (0x00002abb57bc7000)
+	libmpi.so => /glade/u/apps/ch/opt/mpt/2.22/lib/libmpi.so (0x00002abb57de4000)
+	libc.so.6 => /glade/u/apps/ch/os/lib64/libc.so.6 (0x00002abb58216000)
+	libgcc_s.so.1 => /glade/u/apps/ch/os/lib64/libgcc_s.so.1 (0x00002abb585b9000)
+	libnghttp2.so.14 => /glade/u/apps/ch/os/usr/lib64/libnghttp2.so.14 (0x00002abb587d1000)
+	libssh.so.4 => /glade/u/apps/ch/os/usr/lib64/libssh.so.4 (0x00002abb589f3000)
+	libssl.so.1.0.0 => /glade/u/apps/ch/os/lib64/libssl.so.1.0.0 (0x00002abb58c3c000)
+	libcrypto.so.1.0.0 => /glade/u/apps/ch/os/lib64/libcrypto.so.1.0.0 (0x00002abb58eaa000)
+	libgssapi_krb5.so.2 => /glade/u/apps/ch/os/usr/lib64/libgssapi_krb5.so.2 (0x00002abb59311000)
+	libldap-2.4.so.2 => /glade/u/apps/ch/os/usr/lib64/libldap-2.4.so.2 (0x00002abb59559000)
+	liblber-2.4.so.2 => /glade/u/apps/ch/os/usr/lib64/liblber-2.4.so.2 (0x00002abb597a5000)
+	libz.so.1 => /glade/u/apps/ch/opt/netcdf/4.8.1/intel/19.1.1/lib/libz.so.1 (0x00002abb599b4000)
+	/lib64/ld-linux-x86-64.so.2 (0x00002abb57016000)
+	libkrb5.so.3 => /glade/u/apps/ch/os/usr/lib64/libkrb5.so.3 (0x00002abb59bd2000)
+	libk5crypto.so.3 => /glade/u/apps/ch/os/usr/lib64/libk5crypto.so.3 (0x00002abb59ea2000)
+	libcom_err.so.2 => /glade/u/apps/ch/os/usr/lib64/libcom_err.so.2 (0x00002abb5a0d2000)
+	libkrb5support.so.0 => /glade/u/apps/ch/os/usr/lib64/libkrb5support.so.0 (0x00002abb5a2d6000)
+	libresolv.so.2 => /glade/u/apps/ch/os/lib64/libresolv.so.2 (0x00002abb5a4e3000)
+	libsasl2.so.3 => /glade/u/apps/ch/os/usr/lib64/libsasl2.so.3 (0x00002abb5a6fa000)
+	libimf.so => /glade/u/apps/opt/intel/2020u1/compilers_and_libraries/linux/lib/intel64/libimf.so (0x00002abb5a917000)
+	libsvml.so => /glade/u/apps/opt/intel/2020u1/compilers_and_libraries/linux/lib/intel64/libsvml.so (0x00002abb5af9a000)
+	libirng.so => /glade/u/apps/opt/intel/2020u1/compilers_and_libraries/linux/lib/intel64/libirng.so (0x00002abb5ca4c000)
+	libintlc.so.5 => /glade/u/apps/opt/intel/2020u1/compilers_and_libraries/linux/lib/intel64/libintlc.so.5 (0x00002abb5cdb6000)
+	libkeyutils.so.1 => /glade/u/apps/ch/os/lib64/libkeyutils.so.1 (0x00002abb5d02e000)
+	libselinux.so.1 => /glade/u/apps/ch/os/lib64/libselinux.so.1 (0x00002abb5d232000)
+	libpcre.so.1 => /glade/u/apps/ch/os/usr/lib64/libpcre.so.1 (0x00002abb5d458000)
+end of loaded libraries
+===================================================
+standalone.pbs:
+  jobname  is Rean_SST0Z_2020
+  numcpus  is 36
+  numtasks is 8640
+  numnodes is 240
+Running test 3 at Fri Feb  4 20:01:15 MST 2022, saving output to Rean_SST0Z_2020_240_standalone_assim.out
+Starting assimilate.csh at Fri Feb 4 20:01:15 MST 2022
+Finished assimilate.csh at Fri Feb 4 20:05:17 MST 2022

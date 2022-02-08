@@ -1,0 +1,19 @@
+While trying to make Rean_SST0Z_fxd_clm_nml match the Reanalysis for 2019-12-2-21600
+I thought that maybe I need to use the Reanalysis filter.
+I copied it from $reans/$cam/work to the bld directory,
+but then discovered that the filter in this directory may be the same one.
+
+0[1007] casper-login2:~/<2>models/cam-fv/work $ ls -lt filter */filter*
+lrwxrwxrwx 1 raeder p86850054       26 Nov 18 16:27 filter -> Pre_2020-7_upgrades/filter
+-rwxr-xr-x 1 raeder p86850054 10155888 Jul 28  2020 Post_2020-7_upgrades/filter
+-rwxr-xr-x 1 raeder p86850054 10793216 Mar  2  2020 Pre_2020-7_upgrades/filter
+
+But a cmp says they're different:
+0[1046] cheyenne4:/<2>raeder/Rean_SST0Z_fxd_clm_nml/bld > ls -l filter */filter
+-rwxr-xr-x 1 raeder p86850054 10793216 Jul  3  2019 f.e21.FHIST_BGC.f09_025.CAM6assim.011/filter
+lrwxrwxrwx 1 raeder p86850054       44 Dec  2 07:30 filter -> f.e21.FHIST_BGC.f09_025.CAM6assim.011/filter
+-rwxr-xr-x 1 raeder p86850054 10793216 Mar  2  2020 New_filter/filter
+0[1047] cheyenne4:/<2>raeder/Rean_SST0Z_fxd_clm_nml/bld > cmp New_filter/filter f.e21.FHIST_BGC.f09_025.CAM6assim.011/filter
+New_filter/filter f.e21.FHIST_BGC.f09_025.CAM6assim.011/filter differ: byte 10485761, line 20358
+
+

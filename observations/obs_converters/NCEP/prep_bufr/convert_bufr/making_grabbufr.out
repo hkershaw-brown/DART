@@ -1,0 +1,2 @@
+rm: No match.
+ifort: error #10236: File not found:  '../lib/bufrlib.a'

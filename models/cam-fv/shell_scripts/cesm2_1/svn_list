@@ -1,0 +1,83 @@
+>>> Import most recent scripts from $caseroot into svn 
+    before bringing svn files to git.
+
+intermediate list:
+   DART_config.template
+   assimilate.csh.template
+   compress.csh
+   launch_cf.sh
+   mv_to_campaign.csh
+   no_assimilate.csh.template
+   purge.csh
+   repack_st_arch.csh
+   setup_advanced
+   setup_advanced_Rean_2017
+   test_assimilate.csh
+   setup_hybrid
+   setup_single_from_ens
+   spinup_single
+   standalone.pbs
+
+Files in svn 
+   k = keep(is in intermediate_list)  
+   r = is in svn and git directories (
+
+kr DART_config.template
+kr assimilate.csh.template
+kr compress.csh
+kr launch_cf.sh
+kr mv_to_campaign.csh
+kr no_assimilate.csh.template
+kr purge.csh
+kr repack_st_arch.csh
+kr setup_advanced
+kr setup_advanced_Rean_2017
+kr setup_hybrid
+kr setup_single_from_ens
+kr spinup_single
+kr standalone.pbs
+kr test_assimilate.csh
+ r bash_if.sh
+ r diags_batch.csh
+ r diags_rean.csh
+ r Makefile_IMPI_not_MPT2
+ r obs_diags.csh
+ r obs_seq_tool_series.csh
+ r obs_to_two_experiments.csh
+ r repack_project.csh
+ r review_notes
+ r setup_advanced_Rean
+ r submit2
+ r submit_no_buildnml.csh
+
+   Builds
+   commit_2019-7-5
+   launch_cf_slurm.sh
+   mv_to_campaign.csh.succeeded
+   mv_to_camp_stor_RDA-straw.csh
+   obs_diags.inter
+   obs_diags.out1
+   obs_diags.out2
+   pre-merge_to_trunk.comment
+   Rean_helpers
+   repack_st_arch.csh.weak_decompress_forcing
+   See_sst.bld1
+   Set_svn_properties.csh
+   setup_advanced.bu
+   setup_CESM2_1_80
+   setup_hybrid_PR
+   setup_single_from_ens.bu
+   spinup_single.bu
+   spinup_single_test
+   status_pre_commit
+   status-v_2019-3-18
+   status-v_2019-3-21
+   status-v_2019-3-22
+   status-v_2019-5-4
+   Stream_sst2.bld1
+   Stream_sst3.bld1
+   Stream_sst.bld1
+   submit
+   submit3
+   test_assimilate.log
+   Wall_timer

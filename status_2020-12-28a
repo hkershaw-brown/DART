@@ -1,0 +1,286 @@
+# Also merge in scripts from $CASEROOT.
+#    See DART_CASES_scripts, below.
+# On branch reanalysis
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   assimilation_code/modules/utilities/null_mpi_utilities_mod.f90
+#	            The usual (de)activated SYSTEM BLOCK
+#	modified:   assimilation_code/programs/obs_diag/threed_sphere/obs_diag.f90
+#	               ADDED
+#	            Mine; updated 'source' info, missing_r4 > r8,
+#	               Bessel correction,
+#	               And it's what we used, so commit it
+#	            Alternative version: obs_diag_grand+Kevin.f90
+#	               Replaces missing value, which is assigned when there's just 1 ob,
+#	               with an actual RMSE value, so that they will be included in the
+#	               grand stats in the Matlab scripts.
+#	               This will be even more justified if we get rid of the Bessel Correction.
+#	modified:   build_templates/mkmf.template
+#	            2020-2-19.  axavx -> xHost
+#	               ADDED
+#	modified:   models/cam-fv/matlab/gen_rean_diags.m
+#	            Just comments, but the one I used is on my Mac:
+#                   It lives in diagnostics/matlab (instead of cam-fv/matlab)
+#                      which is where we decided it should be.
+#                      Upgraded to use more flexible(?) path names, specifically
+#                      not requiring results.m and obs_diag_output.nc to be in the same dir.
+#                   No mv of pictures to obs_space_dir and tar
+#                      tar is(was, when needed) in rsync_rean_diags_to_webpub.csh
+#                   It's called by ~/Scripts/get_start.csh,
+#                      which maybe should be included in the package.
+#                   get_start.csh gets the obs_diag_output.nc (/glade or local),
+#                      starts `matlab gen_rean_diags` and
+#                      runs rsync_web to send the public pictures to the web page.
+#                      This is run before I run my diagnostics in a My_Diags_NTRS directory.
+#                      It runs rsync_web, which is
+#                         cam-fv/shell_scripts/cesm2_1/rsync_rean_diags_to_webpub.csh
+#                   rsync_rean_diags_to_webpub.csh
+#                      optionally tars the .ps, .pdf and obs_diag_output.nc.
+#                      rsyncs the .png files in web_ subdir to the /test/image/pub web site.
+#                      Maybe should be included in the package.
+#	modified:   models/cam-fv/matlab/plot_rmse_xxx_evolution.m
+#	            Should be removed; on Mac version we handled this file in diagnostics/matlab
+#	modified:   models/cam-fv/shell_scripts/cesm2_1/DART_config.template
+#	               ADDED
+#	            Removed version control lines,
+#	            Simpler, more generic, BOGUS path name for setup scripts.
+#	            This allows setup_advanced to provide the whole path name.
+#	modified:   models/cam-fv/shell_scripts/cesm2_1/assimilate.csh.template
+#	            Minor diff from HEAD, but notably different from $casename/assimilate.csh:
+#	               Several are debugging the cheyenne upgrade problems; mpt, etc.
+#	               Several more are debugging cycle time deceleration, commented out.
+#	               2 are TODO comments.
+#	               Moves only the member .i. files, not the {mean,sd} files to hidedir.
+#	               Compress fewer files at the end
+#                      
+#	modified:   models/cam-fv/shell_scripts/cesm2_1/setup_advanced
+#	               ADDED
+#	            Provide whole path name to DART_config.template.
+#	            Fixed typos, escaped ' in data_scripts.csh section
+#	            Extensive comments about the SSTICE files' time of day
+#	            and a check for the presence of 'avhrr' in $sst_dataset
+#	            and a replacement of time 0 with 43200.
+#	            ? this may not be the best solution.
+#	            >>> Check $casename/setup...?
+#	                that doesn't have $projdir and $campdir
+#	                It wasn't used in the git era.
+#	                Did not have creation of data_scripts.csh
+#	                did not have the 'center of day' SST time fix.
+#	                Tested for existence of a restart set using .r. instead of .i.
+#	                   in stage_cesm_files.
+#	                Printed warning if no inflation files were found.
+#	            Instructions for putting the $CASEROOT under git control.
+#	modified:   models/cam-fv/work/input.nml
+#	modified:   models/cam-fv/work/minimal_build.csh
+#	            Uses mpi_utilities and no_cray_win, instead of nulls:
+#	               ADDED
+#	modified:      models/cam-fv/work/path_names_closest_member_tool
+#	modified:      models/cam-fv/work/path_names_filter
+#	modified:      models/cam-fv/work/path_names_model_mod_check
+#	modified:      models/cam-fv/work/path_names_perfect_model_obs
+#	modified:      models/cam-fv/work/path_names_perturb_single_instance
+#	modified:   models/cam-fv/work/quickbuild.csh
+#	               activated optional line to keep .o, .mod
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+# >>> Add any of these?
+#	assimilation_code/programs/obs_diag/threed_sphere/obs_diag_grand+Kevin.f90
+#	   file name not on Mac, but content may be
+#	      obs_diag.f90.mynotes_pre_Bessel doesn't set single ob vals to missing_r8.
+#	         and, of course, doesn't use Bessel corrxn.
+#	   Gives non-missing values to rmse, etc., at single ob times.
+#	diagnostics/matlab/fixed_rmse.gztar
+#	   Tim's versions as of 2020-4-8 of
+#	   plot_evolution.m
+#	   plot_rmse_xxx_evolution.m
+#	   plot_bias_xxx_profile.m
+#	   plot_profile.m
+#	   plot_rmse_xxx_profile.m
+#	   On Mac in Tims_fixed_rmse
+#
+#	diagnostics/matlab/plot_rmse_xxx_norm_profile.m
+#	   Not committed on casper.
+#	   Is committed on Mac, but has diffs from HEAD dated 2020-10-9.
+#	      analysis sections are integrated into blocks that select profiles that need
+#	      to be normalized, parallel to the priors.
+#
+#	models/cam-fv/matlab/Backups/
+#	   2020-2-14 versions of a bunch of NON-Matlab files.
+#	models/cam-fv/matlab/backups
+#	   list of files gathered into Backups
+#	models/cam-fv/matlab/plot_rmse_to_laptop.tar
+#	   2020-3-4; 4 matlab scripts, incl non-standard plot_rmse_xxx_obsavg_evolution.m 
+#	   not on Mac
+#	models/cam-fv/shell_scripts/cesm2_1/Wall_timer/
+#	   script and output for figuring out optimal divisor for pre_submit calculation
+#	   of cycles_per_job
+#
+#       Scripts for running parts of the workflow in offline mode:
+#	               ADDED
+#	   models/cam-fv/shell_scripts/cesm2_1/submit_compress.csh
+#	   models/cam-fv/shell_scripts/cesm2_1/submit_compress_hist.csh
+#	   models/cam-fv/shell_scripts/cesm2_1/submit_no_buildnml.csh
+#	Executables from several versions of obs_diag (and ...?)
+#	   models/cam-fv/work/Bessel_corxn+my_singletons/
+#	   models/cam-fv/work/NoBessel+R8/
+#	   models/cam-fv/work/NoBessel/
+#	   models/cam-fv/work_casper/
+#
+# Probably don't add these
+#	assimilation_code/modules/observations/obs_kind_mod.f90
+#	assimilation_code/modules/utilities/null_mpi_utilities_mod.f90.orig
+#	commit_all
+#	diff_these.csh
+#	log_2020-02-04
+#	models/cam-fv/matlab/read_obsdiag_staticdata.m
+#	models/cam-fv/shell_scripts/cesm2_1/Builds/
+#	models/cam-fv/shell_scripts/cesm2_1/Test4_git.bld3
+#	models/cam-fv/shell_scripts/cesm2_1/commit_list
+#	models/cam-fv/shell_scripts/cesm2_1/data_scripts_offline_setup.csh
+#	models/cam-fv/shell_scripts/cesm2_1/data_scripts_offline_setup.out1
+#	models/cam-fv/shell_scripts/cesm2_1/data_scripts_offline_setup.out2
+#	models/cam-fv/shell_scripts/cesm2_1/data_scripts_offline_setup.out3
+#	models/cam-fv/shell_scripts/cesm2_1/DART_CASES_scripts
+#	   a list of file names, used in diffs_from_casename.csh
+#	models/cam-fv/shell_scripts/cesm2_1/diffs_from_casename.csh
+#	models/cam-fv/shell_scripts/cesm2_1/find_params.csh
+#	models/cam-fv/shell_scripts/cesm2_1/gitlist
+#	models/cam-fv/shell_scripts/cesm2_1/intermediate_list
+#	models/cam-fv/shell_scripts/cesm2_1/params.occurances
+#	models/cam-fv/shell_scripts/cesm2_1/review_list
+#	models/cam-fv/shell_scripts/cesm2_1/sed_these.csh
+#	models/cam-fv/shell_scripts/cesm2_1/setup_advanced_Test4
+#	models/cam-fv/shell_scripts/cesm2_1/svn_list
+#	models/cam-fv/shell_scripts/commit_comment_2020-2-5
+#	models/cam-fv/work/Makefile
+#	models/cam-fv/work/Pre_2020-7_upgrades/
+#	models/cam-fv/work/advance_time
+#	models/cam-fv/work/closest_member_tool
+#	models/cam-fv/work/column_rand
+#	models/cam-fv/work/copy_svn_exec.csh
+#	models/cam-fv/work/core-cheyenne4-4241-27857-11
+#	models/cam-fv/work/create_fixed_network_seq
+#	models/cam-fv/work/create_obs_sequence
+#	models/cam-fv/work/dart_log.nml
+#	models/cam-fv/work/fill_inflation_restart
+#	models/cam-fv/work/filter
+#	models/cam-fv/work/input_git.nml
+#	models/cam-fv/work/input_git_2019-10-2.nml
+#	models/cam-fv/work/input_rean_2019-10-2.nml
+#	models/cam-fv/work/model_mod_check
+#	models/cam-fv/work/mv_list.csh
+#	models/cam-fv/work/obs_common_subset
+#	models/cam-fv/work/obs_diag
+#	models/cam-fv/work/obs_impact_tool
+#	models/cam-fv/work/obs_seq_to_netcdf
+#	models/cam-fv/work/obs_sequence_tool
+#	models/cam-fv/work/perfect_model_obs
+#	models/cam-fv/work/perturb_single_instance
+#	models/cam-fv/work/preprocess
+#	models/cam-fv/work/using_mpi_for_closest_member_tool
+#	models/cam-fv/work/using_mpi_for_filter
+#	models/cam-fv/work/using_mpi_for_model_mod_check
+#	models/cam-fv/work/using_mpi_for_perfect_model_obs
+#	models/cam-fv/work/using_mpi_for_perturb_single_instance
+#	observations/forward_operators/obs_def_mod.f90
+#	status_2020-12-28a
+#
+# mod and o files
+#	models/cam-fv/work/adaptive_inflate_mod.mod
+#	models/cam-fv/work/adaptive_inflate_mod.o
+#	models/cam-fv/work/assim_model_mod.mod
+#	models/cam-fv/work/assim_model_mod.o
+#	models/cam-fv/work/assim_tools_mod.mod
+#	models/cam-fv/work/assim_tools_mod.o
+#	models/cam-fv/work/chem_tables_mod.mod
+#	models/cam-fv/work/chem_tables_mod.o
+#	models/cam-fv/work/closest_member_tool.o
+#	models/cam-fv/work/cov_cutoff_mod.mod
+#	models/cam-fv/work/cov_cutoff_mod.o
+#	models/cam-fv/work/dart_log.out
+#	models/cam-fv/work/dart_time_io_mod.mod
+#	models/cam-fv/work/dart_time_io_mod.o
+#	models/cam-fv/work/default_location_mod.mod
+#	models/cam-fv/work/default_location_mod.o
+#	models/cam-fv/work/default_model_mod.mod
+#	models/cam-fv/work/default_model_mod.o
+#	models/cam-fv/work/direct_netcdf_mod.mod
+#	models/cam-fv/work/direct_netcdf_mod.o
+#	models/cam-fv/work/distributed_state_mod.mod
+#	models/cam-fv/work/distributed_state_mod.o
+#	models/cam-fv/work/ensemble_manager_mod.mod
+#	models/cam-fv/work/ensemble_manager_mod.o
+#	models/cam-fv/work/filter.o
+#	models/cam-fv/work/filter_mod.mod
+#	models/cam-fv/work/filter_mod.o
+#	models/cam-fv/work/forward_operator_mod.mod
+#	models/cam-fv/work/forward_operator_mod.o
+#	models/cam-fv/work/io_filenames_mod.mod
+#	models/cam-fv/work/io_filenames_mod.o
+#	models/cam-fv/work/location_io_mod.mod
+#	models/cam-fv/work/location_io_mod.o
+#	models/cam-fv/work/location_mod.mod
+#	models/cam-fv/work/location_mod.o
+#	models/cam-fv/work/model_check_utilities_mod.mod
+#	models/cam-fv/work/model_check_utilities_mod.o
+#	models/cam-fv/work/model_mod.mod
+#	models/cam-fv/work/model_mod.o
+#	models/cam-fv/work/model_mod_check
+#	models/cam-fv/work/model_mod_check.o
+#	models/cam-fv/work/mpi_utilities_mod.mod
+#	models/cam-fv/work/mpi_utilities_mod.o
+#	models/cam-fv/work/netcdf_utilities_mod.mod
+#	models/cam-fv/work/netcdf_utilities_mod.o
+#	models/cam-fv/work/no_cray_win_mod.o
+#	models/cam-fv/work/obs_def_altimeter_mod.mod
+#	models/cam-fv/work/obs_def_gps_mod.mod
+#	models/cam-fv/work/obs_def_mod.mod
+#	models/cam-fv/work/obs_def_mod.o
+#	models/cam-fv/work/obs_def_upper_atm_mod.mod
+#	models/cam-fv/work/obs_def_utilities_mod.mod
+#	models/cam-fv/work/obs_def_utilities_mod.o
+#	models/cam-fv/work/obs_impact_mod.mod
+#	models/cam-fv/work/obs_impact_mod.o
+#	models/cam-fv/work/obs_kind_mod.mod
+#	models/cam-fv/work/obs_kind_mod.o
+#	models/cam-fv/work/obs_model_mod.mod
+#	models/cam-fv/work/obs_model_mod.o
+#	models/cam-fv/work/obs_sequence_mod.mod
+#	models/cam-fv/work/obs_sequence_mod.o
+#	models/cam-fv/work/options_mod.mod
+#	models/cam-fv/work/options_mod.o
+#	models/cam-fv/work/parse_args_mod.mod
+#	models/cam-fv/work/parse_args_mod.o
+#	models/cam-fv/work/perfect_model_obs.o
+#	models/cam-fv/work/perturb_single_instance.o
+#	models/cam-fv/work/quad_utils_mod.mod
+#	models/cam-fv/work/quad_utils_mod.o
+#	models/cam-fv/work/quality_control_mod.mod
+#	models/cam-fv/work/quality_control_mod.o
+#	models/cam-fv/work/random_seq_mod.mod
+#	models/cam-fv/work/random_seq_mod.o
+#	models/cam-fv/work/reg_factor_mod.mod
+#	models/cam-fv/work/reg_factor_mod.o
+#	models/cam-fv/work/sampling_error_correction_mod.mod
+#	models/cam-fv/work/sampling_error_correction_mod.o
+#	models/cam-fv/work/smoother_mod.mod
+#	models/cam-fv/work/smoother_mod.o
+#	models/cam-fv/work/sort_mod.mod
+#	models/cam-fv/work/sort_mod.o
+#	models/cam-fv/work/state_structure_mod.mod
+#	models/cam-fv/work/state_structure_mod.o
+#	models/cam-fv/work/state_vector_io_mod.mod
+#	models/cam-fv/work/state_vector_io_mod.o
+#	models/cam-fv/work/test_interpolate_mod.mod
+#	models/cam-fv/work/test_interpolate_threed_sphere.o
+#	models/cam-fv/work/time_manager_mod.mod
+#	models/cam-fv/work/time_manager_mod.o
+#	models/cam-fv/work/types_mod.mod
+#	models/cam-fv/work/types_mod.o
+#	models/cam-fv/work/utilities_mod.mod
+#	models/cam-fv/work/utilities_mod.o
+#	models/cam-fv/work/window_mod.mod
+no changes added to commit (use "git add" and/or "git commit -a")

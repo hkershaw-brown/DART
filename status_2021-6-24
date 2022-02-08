@@ -1,0 +1,31 @@
+diffuse   assimilation_code/modules/assimilation/assim_tools_mod.html
+   typo  exported fix and reverted local
+diffuse   assimilation_code/modules/utilities/null_mpi_utilities_mod.f90
+   the usual activation of the appropriate section of code.
+   ignore (stash to escape and create a new branch)
+diffuse   assimilation_code/programs/create_fixed_network_seq/create_fixed_network_seq.f90
+   question about adding a call to set_output at the beginning.  
+   exported question and reverted local
+diffuse   build_templates/mkmf.template.intel.linux
+   Added advice about stacksize to the -heap-arrays argument
+   exported fix and reverted local
+diffuse   diagnostics/matlab/gen_rean_diags.m
+   Changes to find results.m where they are in my workflow.
+      Some may have been stashed and are within git "conflict" syntax
+   Comments to describe what it's doing.
+   This is not in Manhattan, so don't try to update it there.  Stash here.
+diffuse   diagnostics/matlab/plot_rmse_xxx_evolution_web.m
+   Added value of the default of input variable 'level'
+   Fixed this in plot_rmse_xxx_evolution.m, there is no _web version in Manh.
+   reverted
+diffuse   models/template/work/input.nml
+   Changed the preprocess_nml to handle NCEP+NCAR rean obs instead of 1d vars.
+   stash
+exit
+
+Stash these
+# diffuse   models/cam-fv/work/quickbuild.csh
+# diffuse   models/cam-fv/work/input.nml
+# diffuse   models/cam-fv/work/minimal_build.csh
+# diffuse   models/cam-fv/shell_scripts/cesm2_1/setup_advanced
+# diffuse   models/cam-fv/shell_scripts/cesm2_1/setup_hybrid

@@ -1,0 +1,3 @@
+   repack_st_arch.csh repack_project.csh purge.csh pre_purge_check.csh pre_submit.csh launch_cf.sh matlab_norm.csh mv_to_campaign.csh compress_hist.csh compress.csh backup_manually.csh diags_rean.csh 
+
+assimilate.csh assim_post_filter.csh 

@@ -1,0 +1,27 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+
+The following have been reloaded with a version change:
+  1) mpt/2.19 => mpt/2.21
+
+Modules used for this assimilation:
+
+Currently Loaded Modules:
+  1) ncarenv/1.2         (H)   5) ncview/2.1.7        9) xxdiff/4.0.1
+  2) intel/17.0.1              6) nco/4.9.5          10) mpt/2.21
+  3) ncarcompilers/0.4.1 (H)   7) git/2.33.1
+  4) netcdf/4.6.1        (H)   8) matlab/R2015b (H)
+
+  Where:
+   H:  Hidden Module
+
+ 
+
+standalone.pbs:
+  jobname  is Rean_SST0Z_2020
+  numcpus  is 36
+  numtasks is 8640
+  numnodes is 240
+Running test 3 at Fri Feb  4 08:30:13 MST 2022, saving output to Rean_SST0Z_2020_240_standalone_assim.out
+Starting assimilate.csh at Fri Feb 4 08:30:13 MST 2022
+Finished assimilate.csh at Fri Feb 4 08:34:03 MST 2022

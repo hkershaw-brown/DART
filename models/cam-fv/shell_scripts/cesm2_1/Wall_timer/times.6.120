@@ -1,0 +1,7 @@
+cycles_per_job job_minutes min_per_job
+6 70 11
+16 186 11
+26 322 12
+36 478 13
+46 608 13
+56 794 14

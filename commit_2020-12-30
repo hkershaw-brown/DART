@@ -1,0 +1,22 @@
+Prepare for making the reanalysis branch public.
+
+These are the updates from the Reanalysis CASEROOT 
+(/glade/work/raeder/Exp/f.e21.FHIST_BGC.f09_025.CAM6assim.011) 
+merged with some upgrades in cam-fv/shell_scripts/cesm2_1.
+There are additional helper scripts in CASEROOT,
+but they're not general enough to be committed to DART.
+Some of them are committed to DART_CASES.
+
+A few others are not in shell_scripts.
+Obs_diag.f90 is what was actually used, even though it may
+not be what we settle on for the main branch; e.g. it has
+the Bessel correction in the RMSE, and sets singleton obs'
+RMSEs to missing_r8.
+The others are incidental changes.
+
+These have not been tested as a group, but were derived from
+versions that were tested.  A comprehensive test is planned
+after this push and the push of obs space diagnostic pieces
+from Kevin's Mac.  The updated reanalysis branch on 
+github:kdraeder/DART_development (reanalysis is the branch I'm on).
+will be checked out and used to set up an OSSE for Zagar.

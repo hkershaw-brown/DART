@@ -1,0 +1,6 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+ln: failed to create symbolic link ‘./caminput.nc’: File exists
+ln: failed to create symbolic link ‘./cam_phis.nc’: File exists
+/glade/u/home/raeder/DART/reanalysis_git/models/cam-fv/shell_scripts/cesm2_1/even_create_input_all: No such file or directory.
+create_obs_sequence failed

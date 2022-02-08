@@ -1,0 +1,360 @@
+removing old directory /glade/work/raeder/Exp/Zagar_T_branchx3
+removing old directory /glade/scratch/raeder/Zagar_T_branchx3/bld
+removing old directory /glade/scratch/raeder/Zagar_T_branchx3/run
+\n Using the starred branch, below, of /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime 
+* cime_reanalysis_2019
+ 
+n Using CAM version
+Tag name: release_tags/cam_cesm2_1_rel_05
+Originator(s): fvitt, eaton
+Date: 27 Nov 2018
+ 
+Did not find an alias or longname compset match for HIST_CAM60_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV 
+Warning: missing non-idmap ROF2OCN_LIQ_RMAPNAME for ocn_grid, d.25x.25 and rof_grid r05 
+Warning: missing non-idmap ROF2OCN_ICE_RMAPNAME for ocn_grid, d.25x.25 and rof_grid r05 
+Compset forcing is Historic transient 
+ATM component is CAM cam6 physics:
+LND component is clm5.0:BGC (vert. resol. CN and methane) with prognostic crop:
+ICE component is Sea ICE (cice) model version 5 :prescribed cice
+OCN component is DOCN   prescribed ocean mode
+ROF component is MOSART: MOdel for Scale Adaptive River Transport
+GLC component is Stub glacier (land ice) component
+WAV component is Stub wave component
+ESP component is 
+Pes     specification file is /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/../components/cam//cime_config/config_pes.xml
+Compset specific settings: name is RUN_STARTDATE and value is 1979-01-01
+Compset specific settings: name is SSTICE_DATA_FILENAME and value is $DIN_LOC_ROOT/atm/cam/sst/sst_HadOIBl_bc_1x1_1850_2017_c180507.nc
+Compset specific settings: name is SSTICE_GRID_FILENAME and value is $DIN_LOC_ROOT/ocn/docn7/domain.ocn.1x1.111007.nc
+Compset specific settings: name is SSTICE_YEAR_END and value is 2016
+Machine is cheyenne
+ Driver/Coupler has 3 instances
+ Compset is: HIST_CAM60_CLM50%BGC-CROP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV 
+ Grid is: a%0.9x1.25_l%0.9x1.25_oi%d.25x.25_r%r05_g%null_w%null_m%d.25x.25 
+ Components in compset are: ['cam', 'clm', 'cice', 'docn', 'mosart', 'sglc', 'swav', 'sesp', 'drv', 'dart'] 
+No charge_account info available, using value from PROJECT
+Using project from env PROJECT: P86850054
+cesm model version found: release-cesm2.1.0-2-g976a1e1
+Batch_system_type is pbs
+job is case.run USER_REQUESTED_WALLTIME 0:20 USER_REQUESTED_QUEUE premium
+job is case.st_archive USER_REQUESTED_WALLTIME None USER_REQUESTED_QUEUE None
+ Creating Case directory /glade/work/raeder/Exp/Zagar_T_branchx3
+'setup_branch' -> '/glade/work/raeder/Exp/Zagar_T_branchx3/setup_branch.original'
+'env_archive.xml' -> 'env_archive.xml.original'
+'env_batch.xml' -> 'env_batch.xml.original'
+'env_build.xml' -> 'env_build.xml.original'
+'env_case.xml' -> 'env_case.xml.original'
+'env_mach_pes.xml' -> 'env_mach_pes.xml.original'
+'env_mach_specific.xml' -> 'env_mach_specific.xml.original'
+'env_run.xml' -> 'env_run.xml.original'
+From create_newcase, settings related to TASKS = ...
+
+Results in group mach_pes
+	NTASKS: ['CPL:36', 'ATM:36', 'LND:36', 'ICE:36', 'OCN:36', 'ROF:36', 'GLC:36', 'WAV:36', 'ESP:36']
+	NTASKS_PER_INST: ['ATM:0', 'LND:0', 'ICE:0', 'OCN:0', 'ROF:0', 'GLC:0', 'WAV:0', 'ESP:0']
+
+Results in group mach_pes_last
+	MAX_MPITASKS_PER_NODE: 36
+	MAX_TASKS_PER_NODE: 36
+
+Results in group run_pio
+	PIO_NUMTASKS: ['CPL:-99', 'ATM:-99', 'LND:-99', 'ICE:-99', 'OCN:-99', 'ROF:-99', 'GLC:-99', 'WAV:-99', 'ESP:-99']
+compset parts are HIST CAM60 CLM50%BGC-CROP CICE%PRES DOCN%DOM MOSART SGLC SWAV
+After xmlchanges for ROOTPEs ...
+
+Results in group mach_pes
+	NTASKS: ['CPL:108', 'ATM:108', 'LND:108', 'ICE:108', 'OCN:108', 'ROF:108', 'GLC:108', 'WAV:108', 'ESP:36']
+	NTASKS_PER_INST: ['ATM:0', 'LND:0', 'ICE:0', 'OCN:0', 'ROF:0', 'GLC:0', 'WAV:0', 'ESP:0']
+
+Results in group mach_pes_last
+	MAX_MPITASKS_PER_NODE: 36
+	MAX_TASKS_PER_NODE: 36
+
+Results in group run_pio
+	PIO_NUMTASKS: ['CPL:-99', 'ATM:-99', 'LND:-99', 'ICE:-99', 'OCN:-99', 'ROF:-99', 'GLC:-99', 'WAV:-99', 'ESP:-99']
+	CIME_OUTPUT_ROOT: /glade/scratch/raeder
+	RUNDIR: /glade/scratch/raeder/Zagar_T_branchx3/run
+	EXEROOT: /glade/scratch/raeder/Zagar_T_branchx3/bld
+
+Results in group run_data_archive
+	DOUT_S: TRUE
+	DOUT_S_SAVE_INTERIM_RESTART_FILES: FALSE
+
+Results in group run_dout
+	DOUT_S_ROOT: /glade/scratch/raeder/archive/Zagar_T_branchx3
+ 
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/README' -> '/glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/README'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/files' -> '/glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.cam/files'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/init_wet-dry_fixes.tar' -> '/glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.cam/init_wet-dry_fixes.tar'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/cam_history.F90' -> '/glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.cam/cam_history.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/cam_history_support.F90' -> '/glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.cam/cam_history_support.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/stepon.F90' -> '/glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.cam/stepon.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/diag_dynvar_ic.F90' -> '/glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.cam/diag_dynvar_ic.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/dyn_comp.F90' -> '/glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.cam/dyn_comp.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/buildnml' -> '/glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.cam/buildnml'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.cam/config_archive.xml' -> '/glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.cam/config_archive.xml'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.clm/namelist_definition_clm4_5.xml' -> '/glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.clm/namelist_definition_clm4_5.xml'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.clm/lnd_import_export.F90' -> '/glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.clm/lnd_import_export.F90'
+'/glade/u/home/raeder/cesm2_1_relsd_m5.6/SourceMods/src.share/shr_stream_mod.F90' -> '/glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.share/shr_stream_mod.F90'
+ 
+ 
+Setting up the case ...
+Ignore "WARNING:: mosart.buildnml . . .".  Those files will be provided later
+Before case.setup, modules are
+
+Currently Loaded Modules:
+  1) ncarenv/1.2         (H)   5) netcdf/4.6.1  (H)   9) matlab/R2020a
+  2) intel/17.0.1              6) git/2.22.0         10) nco/4.9.5
+  3) ncarcompilers/0.4.1 (H)   7) xxdiff/4.0.1       11) ncview/2.1.7
+  4) mpt/2.19                  8) diffuse/0.4.8
+
+  Where:
+   H:  Hidden Module
+
+ 
+
+Setting resource.RLIMIT_STACK to -1 from (-1, -1)
+/glade/work/raeder/Exp/Zagar_T_branchx3/env_mach_specific.xml already exists, delete to replace
+job is case.run USER_REQUESTED_WALLTIME 0:20 USER_REQUESTED_QUEUE premium
+Creating batch scripts
+Writing case.run script from input template /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/config/cesm/machines/template.case.run
+Creating file .case.run
+Writing case.st_archive script from input template /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/config/cesm/machines/template.st_archive
+Creating file case.st_archive
+Creating user_nl_xxx files for components and cpl
+If an old case build already exists, might want to run 'case.build --clean' before building
+You can now run './preview_run' to get more info on how your case will be run
+chem_datapath = /glade/p/cesm/cseg/inputdata/atm/cam/chem/emis
+chem_datapath = /glade/p/cesm/cseg/inputdata/atm/cam/chem/emis
+chem_datapath = /glade/p/cesm/cseg/inputdata/atm/cam/chem/emis
+ 
+Setting resource.RLIMIT_STACK to -1 from (-1, -1)
+GET_REFCASE is false, the user is expected to stage the refcase to the run directory.
+Creating component namelists
+
+WARNING: Using local buildnml file /glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.cam/buildnml
+
+   Calling /glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.cam/buildnml
+     ...calling cam buildcpp to set build time options
+Zagar_OSSE_T.cam.r.2017-12-31-21600.nc is being used for cam_branch_file
+CAM namelist copy:
+   file1 /glade/work/raeder/Exp/Zagar_T_branchx3/Buildconf/camconf/atm_in(_0001)
+   file2 /glade/scratch/raeder/Zagar_T_branchx3/run/atm_in_0001 
+Zagar_OSSE_T.cam.r.2017-12-31-21600.nc is being used for cam_branch_file
+CAM namelist copy:
+   file1 /glade/work/raeder/Exp/Zagar_T_branchx3/Buildconf/camconf/atm_in(_0002)
+   file2 /glade/scratch/raeder/Zagar_T_branchx3/run/atm_in_0002 
+Zagar_OSSE_T.cam.r.2017-12-31-21600.nc is being used for cam_branch_file
+CAM namelist copy:
+   file1 /glade/work/raeder/Exp/Zagar_T_branchx3/Buildconf/camconf/atm_in(_0003)
+   file2 /glade/scratch/raeder/Zagar_T_branchx3/run/atm_in_0003 
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/components/clm//cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/components/cice//cime_config/buildnml
+     ...calling cice buildcpp to set build time options
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/data_comps/docn/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/components/mosart//cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/sglc/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/swav/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/sesp/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/drivers/mct/cime_config/buildnml
+   NOTE: ignoring setting of rof2ocn_liq_rmapname=idmap in seq_maps.rc
+   NOTE: ignoring setting of rof2ocn_ice_rmapname=idmap in seq_maps.rc
+Could not find file /glade/work/raeder/Exp/Zagar_T_branchx3/Buildconf/cplconf/cpl_modelio.nml_0001
+Generating modelio namelists for model cpl
+Could not find file /glade/work/raeder/Exp/Zagar_T_branchx3/Buildconf/cplconf/atm_modelio.nml_0001
+Generating modelio namelists for model atm
+Could not find file /glade/work/raeder/Exp/Zagar_T_branchx3/Buildconf/cplconf/lnd_modelio.nml_0001
+Generating modelio namelists for model lnd
+Could not find file /glade/work/raeder/Exp/Zagar_T_branchx3/Buildconf/cplconf/ice_modelio.nml_0001
+Generating modelio namelists for model ice
+Could not find file /glade/work/raeder/Exp/Zagar_T_branchx3/Buildconf/cplconf/ocn_modelio.nml_0001
+Generating modelio namelists for model ocn
+Could not find file /glade/work/raeder/Exp/Zagar_T_branchx3/Buildconf/cplconf/rof_modelio.nml_0001
+Generating modelio namelists for model rof
+Could not find file /glade/work/raeder/Exp/Zagar_T_branchx3/Buildconf/cplconf/glc_modelio.nml_0001
+Generating modelio namelists for model glc
+Could not find file /glade/work/raeder/Exp/Zagar_T_branchx3/Buildconf/cplconf/wav_modelio.nml_0001
+Generating modelio namelists for model wav
+Could not find file /glade/work/raeder/Exp/Zagar_T_branchx3/Buildconf/cplconf/esp_modelio.nml_0001
+Generating modelio namelists for model esp
+Finished creating component namelists
+ 
+/glade/work/raeder/Models/CAM_init/SST/avhrr-only-v2.2011-202001_0Z_filled_c200810.nc
+/glade/work/raeder/Exp/Zagar_T_branchx3
+-rw-r--r-- 1 raeder p86850054 618 Aug 11 07:31 CaseDocs/docn_in_0001
+-rw-r--r-- 1 raeder p86850054 618 Aug 11 07:31 CaseDocs/docn_in_0002
+-rw-r--r-- 1 raeder p86850054 618 Aug 11 07:31 CaseDocs/docn_in_0003
+-rw-r--r-- 1 raeder p86850054 601 Aug 11 07:31 CaseDocs/docn.streams.txt.prescribed_0001
+-rw-r--r-- 1 raeder p86850054 601 Aug 11 07:31 CaseDocs/docn.streams.txt.prescribed_0002
+-rw-r--r-- 1 raeder p86850054 601 Aug 11 07:31 CaseDocs/docn.streams.txt.prescribed_0003
+ls: No match.
+ls: No match.
+Copying the required CESM files to the run directory to rerun a previous step. 
+CONTINUE_RUN from env_run.xml is FALSE
+so files for the initial step of this experiment will be restaged.
+Date to reset files to is: 2017-12-31-21600
+
+ 
+All files set to run the FIRST experiment step using (ref)time 2017-12-31-21600
+
+Building the case
+   --skip-provenance-check is used.  See note in /var/spool/pbs/mom_priv/jobs/9815689.chadmin1.ib0.cheyenne.ucar.edu.SC
+
+Building case in directory /glade/work/raeder/Exp/Zagar_T_branchx3
+sharedlib_only is False
+model_only is False
+Setting resource.RLIMIT_STACK to -1 from (-1, -1)
+Generating component namelists as part of build
+GET_REFCASE is false, the user is expected to stage the refcase to the run directory.
+Creating component namelists
+
+WARNING: Using local buildnml file /glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.cam/buildnml
+
+   Calling /glade/work/raeder/Exp/Zagar_T_branchx3/SourceMods/src.cam/buildnml
+     ...calling cam buildcpp to set build time options
+Zagar_OSSE_T.cam_0001.r.2017-12-31-21600.nc is being used for cam_branch_file
+CAM namelist copy:
+   file1 /glade/work/raeder/Exp/Zagar_T_branchx3/Buildconf/camconf/atm_in(_0001)
+   file2 /glade/scratch/raeder/Zagar_T_branchx3/run/atm_in_0001 
+Zagar_OSSE_T.cam_0002.r.2017-12-31-21600.nc is being used for cam_branch_file
+CAM namelist copy:
+   file1 /glade/work/raeder/Exp/Zagar_T_branchx3/Buildconf/camconf/atm_in(_0002)
+   file2 /glade/scratch/raeder/Zagar_T_branchx3/run/atm_in_0002 
+Zagar_OSSE_T.cam_0003.r.2017-12-31-21600.nc is being used for cam_branch_file
+CAM namelist copy:
+   file1 /glade/work/raeder/Exp/Zagar_T_branchx3/Buildconf/camconf/atm_in(_0003)
+   file2 /glade/scratch/raeder/Zagar_T_branchx3/run/atm_in_0003 
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/components/clm//cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/components/cice//cime_config/buildnml
+     ...calling cice buildcpp to set build time options
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/data_comps/docn/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/components/mosart//cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/sglc/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/swav/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/components/stub_comps/sesp/cime_config/buildnml
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/drivers/mct/cime_config/buildnml
+   NOTE: ignoring setting of rof2ocn_liq_rmapname=idmap in seq_maps.rc
+   NOTE: ignoring setting of rof2ocn_ice_rmapname=idmap in seq_maps.rc
+Finished creating component namelists
+Building gptl with output to file /glade/scratch/raeder/Zagar_T_branchx3/bld/gptl.bldlog.210811-073114
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/build_scripts/buildlib.gptl
+Building mct with output to file /glade/scratch/raeder/Zagar_T_branchx3/bld/mct.bldlog.210811-073114
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/build_scripts/buildlib.mct
+Building pio with output to file /glade/scratch/raeder/Zagar_T_branchx3/bld/pio.bldlog.210811-073114
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/build_scripts/buildlib.pio
+Component pio build complete with 2 warnings
+Building csm_share with output to file /glade/scratch/raeder/Zagar_T_branchx3/bld/csm_share.bldlog.210811-073114
+   Calling /glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/src/build_scripts/buildlib.csm_share
+Component csm_share build complete with 20 warnings
+         - Building clm4_5/clm5_0 Library 
+Building lnd with output to /glade/scratch/raeder/Zagar_T_branchx3/bld/lnd.bldlog.210811-073114
+Component lnd build complete with 6 warnings
+clm built in 183.127420 seconds
+Building atm with output to /glade/scratch/raeder/Zagar_T_branchx3/bld/atm.bldlog.210811-073114
+Building ice with output to /glade/scratch/raeder/Zagar_T_branchx3/bld/ice.bldlog.210811-073114
+Building ocn with output to /glade/scratch/raeder/Zagar_T_branchx3/bld/ocn.bldlog.210811-073114
+Building rof with output to /glade/scratch/raeder/Zagar_T_branchx3/bld/rof.bldlog.210811-073114
+Building glc with output to /glade/scratch/raeder/Zagar_T_branchx3/bld/glc.bldlog.210811-073114
+Building wav with output to /glade/scratch/raeder/Zagar_T_branchx3/bld/wav.bldlog.210811-073114
+Building esp with output to /glade/scratch/raeder/Zagar_T_branchx3/bld/esp.bldlog.210811-073114
+sesp built in 5.889466 seconds
+swav built in 6.920714 seconds
+mosart built in 67.653731 seconds
+sglc built in 67.654546 seconds
+Component ice build complete with 1 warnings
+cice built in 146.483898 seconds
+docn built in 146.483977 seconds
+Component atm build complete with 14 warnings
+cam built in 333.146058 seconds
+Building cesm with output to /glade/scratch/raeder/Zagar_T_branchx3/bld/cesm.bldlog.210811-073114 
+post_build call; buildlist = None
+            sharedlib_only = False
+Time spent not building: 3.401153 sec
+Time spent building: 774.340628 sec
+MODEL BUILD HAS FINISHED SUCCESSFULLY
+ 
+CESM settings which are of special interest:
+ 
+	CONTINUE_RUN: FALSE
+	RESUBMIT_SETS_CONTINUE_RUN: TRUE
+	RESUBMIT: 0
+	RESUBMIT_SETS_CONTINUE_RUN: TRUE
+	RUN_REFCASE: Zagar_OSSE_T
+	RUN_REFDATE: 2017-12-31
+	RUN_REFDIR: /glade/scratch/raeder/Zagar_OSSE_T/Hide_31-21600
+	RUN_REFTOD: 21600
+	RUN_STARTDATE: 2017-12-31
+	STOP_OPTION: nhours
+	STOP_N: 6
+	SSTICE_GRID_FILENAME: /glade/work/raeder/Models/CAM_init/SST/domain.ocn.d025.120821.nc
+	SSTICE_YEAR_ALIGN: 2011
+	SSTICE_YEAR_END: 2020
+	SSTICE_YEAR_START: 2011
+	SSTICE_DATA_FILENAME: /glade/work/raeder/Models/CAM_init/SST/avhrr-only-v2.2011-202001_0Z_filled_c200810.nc
+	SSTICE_STREAM: CAMDATA
+	DOUT_S: FALSE
+	DOUT_S_SAVE_INTERIM_RESTART_FILES: FALSE
+	DOUT_S_ROOT: /glade/scratch/raeder/Zagar_T_branchx3/archive
+	RUNDIR: /glade/scratch/raeder/Zagar_T_branchx3/run
+	MPI_RUN_COMMAND: UNSET
+	AVGHIST_DATE: -999
+	AVGHIST_N: -999
+	AVGHIST_OPTION: never
+	DATA_ASSIMILATION: ['CPL:FALSE', 'ATM:FALSE', 'LND:FALSE', 'ICE:FALSE', 'OCN:FALSE', 'ROF:FALSE', 'GLC:FALSE', 'WAV:FALSE']
+	DATA_ASSIMILATION_CYCLES: 1
+	DATA_ASSIMILATION_SCRIPT: 
+ 
+
+-------------------------------------------------------------------------
+Time to check the case.
+
+1)  Scan the output from this setup script for errors and warnings:
+    ERROR, WARNING, 'No such file' (except for MOSART)
+    'File status unknown' can be ignored.
+    'ERROR: cice.buildlib failed' can be ignored, unless you've changed the CICE code
+
+2)  cd /glade/scratch/raeder/Zagar_T_branchx3/run
+    Check the files that were staged; follow the links to confirm the data sources.
+    Check the compatibility between them and the namelists and pointer files.
+
+3)  cd /glade/work/raeder/Exp/Zagar_T_branchx3
+    Verify the CESM XML settings, especially in env_batch.xml and env_run.xml.
+    ./xmlquery --partial <partial_string_of_interest> 
+    is particularly useful.
+    Check the contents of the user_nl_{component}* files (e.g. do CAM's external 
+    forcing files cover your time period)
+
+4)  The default initial configuration is to assimilate (because this script runs DART_config).
+    Verify the /glade/work/raeder/Exp/Zagar_T_branchx3/input.nml contents.
+    Assimilation can be turned off by
+    ./xmlchange DATA_ASSIMILATION_SCRIPT=/glade/work/raeder/Exp/Zagar_T_branchx3/no_assimilate.csh
+    DART can be turned off by
+    ./xmlchange DATA_ASSIMILATION=FALSE
+
+Time to run the first job
+
+5) If this case needs to be under git control:
+   a) move the CASEROOT directory to temp_name,
+   b) on https://github.com/NCAR/DART_CASES make a branch named Zagar_T_branchx3,
+   c) clone that branch into a new, git-controlled CASEROOT,
+   d) copy the contents of temp_name back into the git CASEROOT.
+
+6)  Submit the job (and get mail when it starts and stops):
+    ./case.submit -M begin,end
+
+7)  After the job has run, check to make sure it worked.
+
+Additional cycles.
+
+8)  If the first cycle generated an ensemble by perturbing a single state,
+    change input.nml as described in the instructions in it,
+    to make cycles 2,...,N use the latest ensemble, unperturbed.
+
+9)  To extend the run in 6 'nhours' steps, use xmlchange to
+    change the CESM runtime variables:
+
+    ./xmlchange DATA_ASSIMILATION_CYCLES= the value you want.
+    ./xmlchange CONTINUE_RUN=TRUE
+    ./xmlchange RESUBMIT= the number of JOBS to run (each JOB performs DATA_ASSIMILATION_CYCLES cycles)
+    ./xmlchange --subgroup case.run --id JOB_WALLCLOCK_TIME --val 3:00
+
+cat: DART_instructions.txt: No such file or directory

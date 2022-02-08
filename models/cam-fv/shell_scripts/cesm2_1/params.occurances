@@ -1,0 +1,92 @@
+Make setup_advanced + DART_config write a bunch of data 
+needed by the job flow scripts into a new file; data_scripts.csh.
+
+Put a call to `source ./data_scripts.csh` near the top of each script.
+
+? Should data_scripts query CESM for frequently changing data?
+     It does for year and month.
+
+
+
+x data_NINST            80                                       \
+x data_proj_space       ncis0006                                 \
+x data_DART_src         DART/reanalysis                          \
+x data_CASEROOT         raeder/Exp                               \
+x data_CASE             f.e21.FHIST_BGC.f09_025.CAM6assim.011    \
+x data_scratch          glade/scratch                            \
+x data_campaign         csfs1                                    \
+x data_CESM_python      scripts/lib/CIME                         \
+x data_year             'year[ ]*='                              \
+x data_year             'yr[ ]*='                                \
+x data_month            'month[ ]*='                             \
+x data_month            'mo[ ]*='                                \
+
+Need to be sedded in; not available to batch job directives:
+   YOUR_ACCOUNT          NCIS0006
+   YOUR_EMAIL            raeder@ucar.edu
+   YOUR_CASEROOT         This is needed by each script to find the data_scripts.csh file.
+
+>>> Add echoes of all data_ vars used in each script.
+    or just all of them?
+
+---------------------
+x  compress.csh : # For hist: 5 * 80 = 400 / 36 = 12
+x  compress.csh : set CASEROOT = /glade/work/raeder/Exp/Test4
+x  compress.csh : # set data_dir = /glade/scratch/$USER/$case_name/archive/rest/$ymds
+   
+x  compress_hist.csh : # #SBATCH --account=NCIS0006
+x  compress_hist.csh : set CASEROOT = /glade/work/raeder/Exp/$case_name
+x  compress_hist.csh : set case_name = f.e21.FHIST_BGC.f09_025.CAM6assim.011
+x  compress_hist.csh : # set data_dir = /glade/scratch/$USER/$case_name/run
+x  compress_hist.csh : # set data_dir = /gpfs/csfs1/cisl/dares/Reanalyses/2012_2011SST/lnd/hist
+x  compress*.csh now cannot be run as batch jobs.  They must be called with arguments.
+   So write a script(s) to submit as a batch job and call them.
+
+   submit_compress*.csh: Needs YOUR_ACCOUNT sedded in
+   
+x  diags_rean.csh : #PBS -A NCIS0006
+x  diags_rean.csh : set DART = /glade/u/home/raeder/DART/reanalysis
+x  diags_rean.csh : set proj_dir = /glade/p/nsc/ncis0006/Reanalyses/f.e21.FHIST_BGC.f09_025.CAM6assim.011/esp/hist/$yymm
+x  diags_rean.csh : set year = 2013
+x  diags_rean.csh : set mo = 4
+   
+x  mv_to_campaign.csh : set TIME_STR = 2019-04-23-91800
+x  mv_to_campaign.csh : set SRC_DIR = /glade/scratch/$USER/$CASE/$TIME_STR
+x  mv_to_campaign.csh : set CS_DIR = /gpfs/csfs1/cisl/dares/Reanalyses/CAM6_2017/$CASE
+   
+x  pre_purge_check.csh : ls -lt cpl/hist/0080/*$y*
+x     lots of data_campaign, data_proj_space, and data_CASE too
+   
+x  pre_submit.csh : set case_py_dir = '/glade/work/raeder/Models/cesm2_1_relsd_m5.6/cime/scripts/lib/CIME/case'
+ >     Remove the option of calculating the job length and exiting?
+ >     Keep/fully implement stage_cesm_files.template ?
+   
+x  purge.csh : # e.g. $pr/$casename/cpl/hist/0080
+x  purge.csh : set project = /glade/p/nsc/ncis0006/Reanalyses/CAM6_2010
+x  purge.csh : set campaign = /gpfs/csfs1/cisl/dares/Reanalyses/CAM6_2010
+x  purge.csh : set year = 2011
+x  purge.csh : set month = 1
+x  purge.csh : set yr_mo = `printf %4d-%02d $year $month`
+x  replaced relative path names with full 
+x  Giving it any args will prompt a usage message.
+      It gets all info from data_scripts.csh or internal data queries
+ >    Remove the "Look in" instructions?
+   
+x  repack_project.csh : set campaign = /gpfs/csfs1/cisl/dares/Reanalyses/$CASE
+x                       project space too
+x  repack_project.csh : set year = 2017
+ > I'm leaving this hard coded: #SBATCH --ntasks=80 
+   
+x  repack_st_arch.csh : #SBATCH --account=NCIS0006
+x  repack_st_arch.csh : set campaign = /gpfs/csfs1/cisl/dares/Reanalyses
+                        project too
+x  repack_st_arch.csh : set year = 2016
+x  repack_st_arch.csh : set month = 12
+ > Figure out where to put the warning about the first day of the month = Monday
+     or figure out a fix for it.
+
+?  formalize the stage_cesm_files.template mechanism
+      make setup_advanced write this file instead of stage_cesm_files
+
+?  And should stage_cesm_files take an argument 
+     instead of the user editing the file to provide the date?
