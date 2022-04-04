@@ -59,6 +59,7 @@ use ensemble_manager_mod, only : ensemble_type
 use netcdf_utilities_mod, only : nc_check
 
 use netcdf
+use ieee_arithmetic
 
 implicit none
 
@@ -717,7 +718,7 @@ real(r4),         intent(in) :: spvalR4
 real(r4) :: ret_spvalR4
 
 if ( nf90_get_att(ncFile, ncVarID, att_string, ret_spvalR4) == NF90_NOERR ) then
-   if (isnan(ret_spvalR4)) then 
+   if (ieee_is_nan(ret_spvalR4)) then 
       return
    endif
    if (spvalR4 /= ret_spvalR4) then
@@ -745,7 +746,7 @@ real(r8),         intent(in) :: spvalR8
 real(r8) :: ret_spvalR8
 
 if ( nf90_get_att(ncFile, ncVarID, att_string, ret_spvalR8) == NF90_NOERR ) then
-   if (isnan(ret_spvalR8)) then
+   if (ieee_is_nan(ret_spvalR8)) then
       return
    endif
    if (spvalR8 /= ret_spvalR8) then
