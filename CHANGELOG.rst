@@ -22,7 +22,65 @@ individual files.
 
 The changes are now listed with the most recent at the top.
 
-**March 10th 2022 :: Tracer advection model. Tag v9.14.0**
+**June 24 2022 :: Bug-fixes for MITgcm_ocean and Var obs converter. Tag: v10.0.2**
+
+- MITgcm_ocean pert_model_copies routine fixed to use the correct variable clamping
+  value and indices for each element of the copies array. 
+- Var obs converter quicklbuild.sh fixed to correctly locate the required 
+  3DVAR_OBSPROC code.
+- Documentation for Var obs converter updated with information for where to 
+  get the latest WRF 3DVAR_OBSPROC code.
+
+
+**June 2 2022 :: Bug-fixes for ps_rand_local in the Bgrid Model. Tag: v10.0.1**
+
+- performs the missing call for initialize_utilities() 
+- fixes improper formatting when writing into ps_rand.out
+
+
+**May 24 2022 :: New build tools for DART. Tag: v10.0.0**
+
+- mkmf\_ and path_names\_ files replaced with buildfunctions to collect source code.
+- quickbuild.csh replaced with quickbuild.sh
+- developer_tests/build_everything for simultaneous runs of every quickbuild.sh 
+- Several build/compilation related bug fixes
+
+
+**May 23 2022 :: Bug-fix for RTPS inflation flavor. Tag: v9.16.4**
+
+- Order of operations changed to avoid inadvertent changes to ens 
+  when using RTPS.
+
+**May 16 2022 :: Installation documentation update. Tag: v9.16.3**
+
+- Improved installation documentation.
+
+**April 5 2022 :: Bug-fix for NetCDF variables with NaN attributes. Tag: v9.16.2**
+
+- Fix for checking attributes of NetCDF variables that have a NaN as the missing or _FillValue.
+
+**April 1 2022 :: Per-obs-type localization for 3D Cartesian location_mod. Tag: v9.16.1**
+
+- Optional per-obs-type localization for 3D Cartesian location
+
+*Contributed by Jon Labriola for use with CM1*
+
+**March 31 2022 :: MiTgcm-ocean NBLING. Tag: v9.16.0**
+
+- MITgcm-ocean interface updated to Manhattan.
+- Support for NBLING (ocean biogeochemistry) for MITgcm-ocean.
+- New observation converter for ocean color.
+
+**March 22 2022 :: CLM5-DART Tutorial. Tag: v9.15.0**
+
+- New CLM5-DART tutorial providing new users with 13 steps
+  for download, setup, execution, and diagnosis of a simple 
+  global assimilation run.
+- Stage_cesm_files script corrected to re-stage prior inflation
+  files correctly and provide reproducibility
+
+
+**March 10 2022 :: Tracer advection model. Tag v9.14.0**
 
 - New model for tracer advection based on Lorenz_96 using a
   Semi-Lagrangian scheme. 
