@@ -237,15 +237,13 @@ end function isort
 !> @param num the length of x
 
 subroutine index_sort_real_int(x, indx, num)
-
+!$acc routine
 integer,  intent(in)  :: num
 real(r8), intent(in)  :: x(num)
 integer,  intent(out) :: indx(num)
 
 integer  :: ind, i, j, l_val_indx, level
 real(r8) :: l_val
-
-if ( .not. module_initialized ) call initialize_module
 
 ! Initialize the index array to input order
 do i = 1, num

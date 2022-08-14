@@ -748,7 +748,7 @@ end function get_unit
 
 
 subroutine error_handler(level, routine, text, src, rev, rdate, aut, text2, text3 )
-
+!$acc routine
 integer, intent(in) :: level
 character(len=*), intent(in) :: routine, text
 character(len=*), intent(in), optional :: src, rev, rdate, aut, text2, text3

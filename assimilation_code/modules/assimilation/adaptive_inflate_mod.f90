@@ -318,18 +318,12 @@ end subroutine adaptive_inflate_init
 !> Returns true if this inflation type indicates observation space inflation
 
 function do_obs_inflate(inflate_handle)
-
+!$acc routine
 logical                                 :: do_obs_inflate
 type(adaptive_inflate_type), intent(in) :: inflate_handle
 
 do_obs_inflate = (inflate_handle%inflation_flavor == OBS_INFLATION)
 
-!>@todo I am not sure you can get here given the check in adaptive_inflate_init()
-if (do_obs_inflate) then
-  write(string1,  *) 'observation space inflation not suppported (i.e. inf_flavor = 1)'
-  write(string2, *) 'please contact dart if you would like to use this functionality'
-  call error_handler(E_ERR, 'do_obs_inflate', string1, source, text2=string2)
-endif
 
 end function do_obs_inflate
 
@@ -365,7 +359,7 @@ end function do_single_ss_inflate
 !> (whitaker & Hamill, 2012)
 
 function do_rtps_inflate(inflate_handle)
-
+!$acc routine
 logical                                 :: do_rtps_inflate
 type(adaptive_inflate_type), intent(in) :: inflate_handle
 
@@ -381,7 +375,7 @@ end function do_rtps_inflate
 !> Moha Gharamti, 2017
 
 function do_enhanced_ss_inflate(inflate_handle)
-
+!$acc routine
 logical                                 :: do_enhanced_ss_inflate
 type(adaptive_inflate_type), intent(in) :: inflate_handle
 
@@ -395,7 +389,7 @@ end function do_enhanced_ss_inflate
 !> Returns true if deterministic inflation is indicated
 
 function deterministic_inflate(inflate_handle)
-
+!$acc routine
 logical :: deterministic_inflate
 type(adaptive_inflate_type), intent(in) :: inflate_handle
 
@@ -523,7 +517,7 @@ end subroutine validate_inflate_options
 !> Selects between deterministic and stochastic inflation
 
 subroutine inflate_ens(inflate_handle, ens, mean, inflate, var_in, fsprd, asprd)
-
+!$acc routine
 type(adaptive_inflate_type), intent(inout) :: inflate_handle
 real(r8),                    intent(inout) :: ens(:)
 real(r8),                    intent(in)    :: mean 
@@ -543,10 +537,6 @@ endif
 if(inflate_handle%deterministic) then
 
    if ( do_rtps_inflate(inflate_handle)) then
-      if ( .not. present(fsprd) .or. .not. present(asprd)) then 
-         write(string1, *) 'missing arguments for RTPS inflation, should not happen'
-         call error_handler(E_ERR,'inflate_ens',string1,source) 
-      endif 
       ! only inflate if spreads are > 0
       if ( asprd .gt. 0.0_r8 .and. fsprd .gt. 0.0_r8) &
           inflate = 1.0_r8 + inflate * ((fsprd-asprd) / asprd) 
@@ -611,7 +601,7 @@ end subroutine inflate_ens
 
 subroutine update_inflation(inflate_handle, inflate, inflate_sd, prior_mean, prior_var, &
    ens_size, obs, obs_var, gamma_corr)
-
+!$acc routine
 type(adaptive_inflate_type), intent(in)    :: inflate_handle
 real(r8),                    intent(inout) :: inflate, inflate_sd
 real(r8),                    intent(in)    :: prior_mean, prior_var
@@ -766,7 +756,7 @@ end subroutine update_varying_state_space_inflation
 subroutine bayes_cov_inflate(ens_size, inf_type, x_p, sigma_p_2, y_o, sigma_o_2, &
                  lambda_mean, lambda_sd, gamma_corr, sd_lower_bound_in, &
                  sd_max_change_in, new_cov_inflate, new_cov_inflate_sd)
-
+!$acc routine
 integer , intent(in)  :: ens_size, inf_type
 real(r8), intent(in)  :: x_p, sigma_p_2, y_o, sigma_o_2, lambda_mean, lambda_sd
 real(r8), intent(in)  :: gamma_corr, sd_lower_bound_in, sd_max_change_in
@@ -967,10 +957,6 @@ else if (inf_type == GHA2017) then
          return
       endif
    endif
-   
-else
-   write(string1, *) 'Internal error, should not happen.  Illegal value for bayes type.'
-   call error_handler(E_ERR, 'bayes_cov_inflate', string1, source)
 endif
 
 end subroutine bayes_cov_inflate
@@ -982,7 +968,7 @@ end subroutine bayes_cov_inflate
 
 function compute_new_density(dist_2, sigma_p_2, sigma_o_2, &
                              lambda_mean, lambda_sd, gamma, lambda)
-
+!$acc routine
 real(r8), intent(in) :: dist_2, sigma_p_2, sigma_o_2
 real(r8), intent(in) :: lambda_mean, lambda_sd, gamma, lambda
 real(r8)             :: compute_new_density
@@ -1013,7 +999,7 @@ end function compute_new_density
 
 function enh_compute_new_density(dist_2, ens_size, sigma_p_2, sigma_o_2, &
                                  alpha, beta, gamma_corr, lambda)
-
+!$acc routine
 ! Used to update density by taking approximate gaussian product
 real(r8), intent(in) :: dist_2
 integer , intent(in) :: ens_size
@@ -1062,7 +1048,7 @@ end function enh_compute_new_density
 
 subroutine linear_bayes(dist_2, sigma_p_2, sigma_o_2, lambda_mean, lambda_sd_2, gamma, &
    new_cov_inflate)
-
+!$acc routine
 real(r8), intent(in)    :: dist_2, sigma_p_2, sigma_o_2, lambda_mean, lambda_sd_2
 real(r8), intent(in)    :: gamma
 real(r8), intent(inout) :: new_cov_inflate
@@ -1124,7 +1110,7 @@ end subroutine linear_bayes
 
 subroutine enh_linear_bayes(dist_2, sigma_p_2, sigma_o_2, &
            lambda_mean, gamma_corr, ens_size, beta, new_cov_inflate)
-
+!$acc routine
 real(r8), intent(in)    :: dist_2, sigma_p_2, sigma_o_2, lambda_mean
 real(r8), intent(in)    :: gamma_corr, beta
 real(r8), intent(inout) :: new_cov_inflate
@@ -1198,7 +1184,7 @@ end subroutine enh_linear_bayes
 !>
 
 subroutine solve_quadratic(a, b, c, r1, r2)
-
+!$acc routine
 real(r8), intent(in)  :: a, b, c
 real(r8), intent(out) :: r1, r2
 
@@ -1230,7 +1216,7 @@ end subroutine solve_quadratic
 !> The Gaussian prior is represented by a mode (:= mean) and a variance; var 
 
 subroutine change_GA_IG(mode, var, beta)
-
+!$acc routine
 real(r8), intent(in)  :: mode, var
 real(r8), intent(out) :: beta
 

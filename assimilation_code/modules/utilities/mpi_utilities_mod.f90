@@ -131,7 +131,7 @@ integer :: my_local_comm =  0  ! duplicate communicator private to this file
 integer :: datasize      =  0  ! which MPI type corresponds to our r8 definition
 integer :: longinttype   =  0  ! create an MPI type corresponding to our i8 definition
 
-
+!$acc declare create(myrank)
 
 public :: initialize_mpi_utilities, finalize_mpi_utilities,                  &
           task_count, my_task_id, block_task, restart_task,                  &
@@ -501,13 +501,8 @@ end function task_count
 !> total number of MPI tasks.
 
 function my_task_id()
-
+!$acc routine
 integer :: my_task_id
-
-if ( .not. module_initialized ) then
-   write(errstring, *) 'initialize_mpi_utilities() must be called first'
-   call error_handler(E_ERR,'my_task_id', errstring, source)
-endif
 
 my_task_id = myrank
 

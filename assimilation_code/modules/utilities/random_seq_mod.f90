@@ -38,6 +38,7 @@ character(len=*), parameter :: source = 'random_seq_mod.f90'
 ! in the future.
 
 integer :: seq_number = -1
+!$acc declare create(seq_number)
 
 ! the following routines were transcribed from C to F90, originally
 ! from the GNU scientific library:  init_ran, ran_unif, ran_gauss,
@@ -77,11 +78,9 @@ contains
 !> An integer seed can be used to get a particular repeatable sequence.
 
 subroutine init_random_seq(r, seed)
-
+!$acc routine
 type(random_seq_type), intent(inout) :: r
 integer, optional,     intent(in)    :: seed
-
-if ( .not. module_initialized ) call initialize_module
 
 ! Initialize the generator; use given seed if present, else sequence
 if(present(seed)) then
@@ -99,11 +98,9 @@ end subroutine init_random_seq
 !> between 0.0 and 1.0
 
 function random_uniform(r)
-
+!$acc routine
 type(random_seq_type), intent(inout) :: r
 real(r8)                             :: random_uniform
-
-if ( .not. module_initialized ) call initialize_module
 
 random_uniform = ran_unif(r)
 
@@ -115,12 +112,11 @@ end function random_uniform
 !> with the specified mean and standard deviation.
 
 function random_gaussian(r, mean, standard_deviation) 
-
+!$acc routine
 type(random_seq_type), intent(inout) :: r
 real(r8),              intent(in)    :: mean, standard_deviation
 real(r8)                             :: random_gaussian
 
-if ( .not. module_initialized ) call initialize_module
 
 random_gaussian = ran_gauss(r) * standard_deviation + mean
 
@@ -305,6 +301,7 @@ end subroutine initialize_module
 !> See GNU Scientific Library code.
 
 subroutine init_ran(s, seed)
+!$acc routine 
  integer, intent(in) :: seed
  type(random_seq_type), intent(out) :: s
 
@@ -339,6 +336,7 @@ end subroutine init_ran
 !> the GNU Scientific Library (The Mersenne Twister MT19937 varient.)
 
 function ran_unif(s)
+!$acc routine
  type(random_seq_type), intent(inout) :: s
  real(r8) :: ran_unif
 
@@ -426,6 +424,7 @@ end function ran_unif
 !> Returns a N(0, 1) random number draw from a gaussian distribution
 
 function ran_gauss(s)
+!$acc routine
 
 type(random_seq_type), intent(inout) :: s
 real(r8) :: ran_gauss
@@ -454,10 +453,6 @@ else
    r2 = x*x + y*y
    if (r2 >= 1.0_digits12 .or. r2 == 0.0_digits12) then
       if (lc > 100) then
-         write(errstring, *) 'x, y = ', x, y
-         call error_handler(E_ERR, 'ran_gauss', &
-                            'if both x and y are -1, random number generator probably not initialized', &
-                            source, text2 = errstring);
       endif
       goto 10
    endif

@@ -89,6 +89,8 @@ integer :: print_trace_details = 0
 logical                :: first_inc_ran_call = .true.
 type (random_seq_type) :: inc_ran_seq
 
+!$acc declare create(first_inc_ran_call, inc_ran_seq)
+
 integer                :: num_types = 0
 real(r8), allocatable  :: cutoff_list(:)
 logical                :: has_special_cutoffs
@@ -99,6 +101,7 @@ logical                :: close_obs_caching = .true.
 logical                :: is_doing_vertical_conversion = .false.
 
 character(len=512)     :: msgstring, msgstring2, msgstring3
+!$acc declare create(msgstring)
 
 ! Need to read in table for off-line based sampling correction and store it
 integer                :: sec_table_size
@@ -135,6 +138,8 @@ integer  :: adaptive_localization_threshold = -1
 real(r8) :: adaptive_cutoff_floor           = 0.0_r8
 integer  :: print_every_nth_obs             = 0
 
+!$acc declare create(filter_kind, sort_obs_inc)
+
 ! since this is in the namelist, it has to have a fixed size.
 integer, parameter   :: MAX_ITEMS = 300
 character(len = 129) :: special_localization_obs_types(MAX_ITEMS)
@@ -146,6 +151,8 @@ character(len = 129) :: localization_diagnostics_file = "localization_diagnostic
 ! Following only relevant for filter_kind = 8
 logical  :: rectangular_quadrature          = .true.
 logical  :: gaussian_likelihood_tails       = .false.
+
+!$acc declare create(rectangular_quadrature, gaussian_likelihood_tails)
 
 ! False by default; if true, expect to read in an ascii table
 ! to adjust the impact of obs on other state vector and obs values.
@@ -639,6 +646,7 @@ SEQUENTIAL_OBS: do i = 1, obs_ens_handle%num_vars
    ! Compute observation space increments for each group
    do group = 1, num_groups
       grp_bot = grp_beg(group); grp_top = grp_end(group)
+      !$acc kernels
       call obs_increment(obs_prior(grp_bot:grp_top), grp_size, obs(1), &
          obs_err_var, obs_inc(grp_bot:grp_top), inflate, my_inflate,   &
          my_inflate_sd, net_a(group))
@@ -648,6 +656,7 @@ SEQUENTIAL_OBS: do i = 1, obs_ens_handle%num_vars
       obs_prior_var(group) = sum((obs_prior(grp_bot:grp_top) - obs_prior_mean(group))**2) / &
          (grp_size - 1)
       if (obs_prior_var(group) < 0.0_r8) obs_prior_var(group) = 0.0_r8
+      !$acc end kernels
    end do
 
    ! Compute updated values for single state space inflation
@@ -874,11 +883,6 @@ endif
 if ((obs_var == 0.0_r8) .and. (prior_var == 0.0_r8)) then
 
    ! fail if both obs variance and prior spreads are 0.
-   write(msgstring,  *) 'Observation value is ', obs, ' ensemble mean value is ', prior_mean
-   write(msgstring2, *) 'The observation has 0.0 error variance, and the ensemble members have 0.0 spread.'
-   write(msgstring3, *) 'These require inconsistent actions and the algorithm cannot continue.'
-   call error_handler(E_ERR, 'obs_increment', msgstring, &
-           source, text2=msgstring2, text3=msgstring3)
 
 else if (obs_var == 0.0_r8) then
 
@@ -914,9 +918,6 @@ else
       call obs_increment_boxcar(ens, ens_size, obs, obs_var, obs_inc, rel_weights)
    else if(filter_kind == 8) then
       call obs_increment_rank_histogram(ens, ens_size, prior_var, obs, obs_var, obs_inc)
-   else
-      call error_handler(E_ERR,'obs_increment', &
-              'Illegal value of filter_kind in assim_tools namelist [1-8 OK]', source)
    endif
 endif
 
@@ -1933,10 +1934,6 @@ do i = 1, ens_size
                      new_ens(i) = adj_r1
                   elseif (adj_r2 >= x(j) .and. adj_r2 <= x(j+1)) then
                      new_ens(i) = adj_r2
-                  else
-                     msgstring = 'Did not get a satisfactory quadratic root'
-                     call error_handler(E_ERR, 'obs_increment_rank_histogram', msgstring, &
-                        source)
                   endif
                endif
                !********* End block for quadratic interpolation *******************
@@ -1983,8 +1980,6 @@ real(r8) :: total_mass_left, total_mass_right, alpha(2)
 ! Initialize assim_tools_module if needed
 if (.not. module_initialized) call assim_tools_init()
 
-call error_handler(E_ERR,'update_ens_from_weight','Routine needs testing.', &
-           source, text2='Talk to Jeff before using.')
 
 ! Do an index sort of the ensemble members
 call index_sort(ens, e_ind, ens_size)
@@ -2397,9 +2392,6 @@ else if (LocationDims == 3) then
       ! original comment
       ! Need to get thinning out of assim_tools and into something about locations
    endif
-else
-   call error_handler(E_ERR, 'revised_distance', 'unknown locations dimension, not 1, 2 or 3', &
-      source)
 endif
 
 ! allow user to set a minimum cutoff, so even if there are very dense
