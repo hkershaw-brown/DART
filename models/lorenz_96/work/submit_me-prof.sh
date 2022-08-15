@@ -10,6 +10,7 @@ export TMPDIR=/glade/scratch/$USER/temp
 mkdir -p $TMPDIR
 
 ### Run program
+#mpirun ./filter
 module -t list
-time mpirun ./filter
 
+nsys profile mpirun ./filter
