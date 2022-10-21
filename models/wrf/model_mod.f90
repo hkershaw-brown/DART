@@ -251,6 +251,14 @@ real(r8) :: stdlon,truelat1,truelat2 !,latinc,loninc
 ! replicate it in each subroutine and use up more stack space)
 character(len=129) :: errstring, msgstring2, msgstring3
 
+! HK Oct 2022 is this correct?
+! Variables for WRF cell indexed (i,j,k) can be located at one
+!  of 4 possible points:
+! * at the center of the cell - theta points, not staggered
+! * at the center of the left face - U point, staggered in X
+! * at the center of the front face - V point, staggered in Y
+! * at the center of the bottom face - W point, staggered in Z
+
 contains
 
 !#######################################################################
@@ -523,16 +531,16 @@ end function shortest_time_between_assimilations
 !#######################################################################
 
 
-subroutine get_state_meta_data(index_in, location, var_type_out)
+subroutine get_state_meta_data(index_in, location, qty_out)
 
 ! Given an integer index into the DART state vector structure, returns the
 ! associated location.
 
 integer(i8),         intent(in)  :: index_in
 type(location_type), intent(out) :: location
-integer, optional,   intent(out) :: var_type_out
+integer, optional,   intent(out) :: qty_out
 
-integer     :: var_type, dart_type
+integer     :: qty
 integer(i8) :: index
 integer     :: ip, jp, kp
 integer     :: nz, ny, nx
@@ -543,20 +551,16 @@ character(len=129) :: string1
 integer :: i, id, var_id, state_id
 
 ! from the dart index get the local variables indices
-call get_model_variable_indices(index_in, ip, jp, kp, var_id=var_id, dom_id=state_id)
+call get_model_variable_indices(index_in, ip, jp, kp, var_id=var_id, dom_id=state_id, qty)
 
 ! convert from state_structure domain number to wrf.
 id = get_wrf_domain(state_id)
 
-! at this point, (ip,jp,kp) refer to indices in the variable's own grid
-var_type  = wrf%dom(id)%var_type(var_id)
-dart_type = wrf%dom(id)%dart_kind(var_id)
-
 ! first obtain lat/lon from (ip,jp)
 call get_wrf_horizontal_location( ip, jp, var_type, id, lon, lat )
 
-! return staggered levels for vertical types?  check this later.
-if( (var_type == wrf%dom(id)%type_w ) .or. (var_type == wrf%dom(id)%type_gz) ) then
+! return staggered levels for vertical types
+if( has_vertical_stagger(qty) ) then
   lev = real(kp) - 0.5_r8
 else
   lev = real(kp)
@@ -564,8 +568,8 @@ endif
 
 location = set_location(lon, lat, lev, VERTISLEVEL)
 
-! return DART variable kind if requested
-if(present(var_type_out)) var_type_out = dart_type
+! return DART variable qty if requested
+if(present(qty_out)) qty_out = qty
 
 end subroutine get_state_meta_data
 
@@ -713,7 +717,6 @@ endif
 call toGrid(xloc,i,dx,dxm)
 call toGrid(yloc,j,dy,dym)
 
-! HK
 ! Allocate both a vertical height and vertical pressure coordinate -- 0:bt x ens_size
 allocate(v_h(0:wrf%dom(id)%bt, ens_size), v_p(0:wrf%dom(id)%bt, ens_size))
 
@@ -5723,9 +5726,7 @@ base_which = nint(query_location(base_loc))
 
 if (vertical_localization_on()) then
    if (base_which /= wrf%dom(1)%localization_coord) then
-      !print*, 'base_which ', base_which, 'loc coord ', wrf%dom(1)%localization_coord
       call vert_convert(state_handle, base_loc, base_type, istatus1)
-      !call error_handler(E_ERR, 'you should not call this ', 'get_close_obs')
    elseif (base_array(3) == missing_r8) then
       istatus1 = 1
    endif
@@ -5771,8 +5772,6 @@ if (istatus1 == 0) then
          endif
       endif
 
-      !print*, 'k ', k, 'rank ', my_task_id()
-
    end do
 endif
 
@@ -5791,7 +5790,6 @@ function boundsCheck ( ind, periodic, id, dim, type )
   logical,  intent(in)  :: periodic
 
   logical :: boundsCheck  
-!  logical, parameter :: restrict_polar = .true.
   logical, parameter :: restrict_polar = .false.
 
   ! Consider cases in REAL-VALUED indexing:
@@ -6634,6 +6632,44 @@ real(r8) :: latinc,loninc
 end subroutine setup_map_projection
 
 !--------------------------------------------
+function has_vertical_stagger(qty)
+
+integer, intent(in) :: qty
+logical             :: has_vertical_stagger
+
+has_vertical_stagger = .false.
+
+! W, PH
+if (qty == QTY_VERTICAL_VELOCITY. .or. &
+    qty == QTY_GEOPOTENTIAL_HEIGHT) has_vertical_stagger .true.
+
+end function has_vertical_stagger
+
+!--------------------------------------------
+function has_X_stagger(qty)
+
+integer, intent(in) :: qty
+logical             :: has_vertical_stagger
+
+has_X_stagger = .false.
+
+! U
+if (qty == QTY_U_WIND_COMPONENT) has_X_stagger .true.
+
+end function has_X_stagger
+
+!--------------------------------------------
+function has_Y_stagger(qty)
+
+integer, intent(in) :: qty
+logical             :: has_vertical_stagger
+
+has_vertical_stagger = .false.
+
+! V
+if (qty == QTY_V_WIND_COMPONENT) has_vertical_stagger .true.
+
+end function has_Y_stagger
 !--------------------------------------------
 
 subroutine fill_default_state_table(default_table)
@@ -6861,8 +6897,6 @@ in_state_vector(QTY_POWER_WEIGHTED_FALL_SPEED) = .true.
 end subroutine fill_dart_kinds_table
 
 !--------------------------------------------
-!--------------------------------------------
-
 integer function get_number_of_wrf_variables(id, state_table, var_element_list, var_update_list)
 
 integer, intent(in) :: id
@@ -6903,8 +6937,6 @@ return
 end function get_number_of_wrf_variables 
 
 !--------------------------------------------
-!--------------------------------------------
-
 subroutine set_variable_bound_defaults(nbounds,lb,ub,instructions)
 
    integer, intent(in)                                :: nbounds
@@ -6920,8 +6952,6 @@ subroutine set_variable_bound_defaults(nbounds,lb,ub,instructions)
 end subroutine set_variable_bound_defaults
 
 !--------------------------------------------
-!--------------------------------------------
-
 subroutine get_variable_bounds(bounds_table,wrf_var_name,lb,ub,instructions)
 
 ! matches WRF variable name in bounds table to input name, and assigns
@@ -6977,8 +7007,6 @@ subroutine get_variable_bounds(bounds_table,wrf_var_name,lb,ub,instructions)
 end subroutine get_variable_bounds
 
 !--------------------------------------------
-!--------------------------------------------
-
 logical function variable_is_on_domain(domain_id_string, id)
 
 integer,           intent(in) :: id
@@ -7005,8 +7033,6 @@ return
 end function variable_is_on_domain
 
 !--------------------------------------------------------------------
-!--------------------------------------------------------------------
-
 subroutine get_variable_size_from_file(ncid,id,wrf_var_name,bt,bts,sn,sns, &
                                        we,wes,stagger,var_size)
 
@@ -7056,8 +7082,6 @@ integer               :: idim
 end subroutine get_variable_size_from_file
 
 !--------------------------------------------------------------------
-!--------------------------------------------------------------------
-
 subroutine get_variable_metadata_from_file(ncid,id,wrf_var_name,description, &
                                        coordinates,units)
 
@@ -7092,39 +7116,6 @@ integer               :: var_id
 return
 
 end subroutine get_variable_metadata_from_file
-
-!--------------------------------------------
-!--------------------------------------------
-! Note get_dart_vector_index depends on this function
-integer function get_type_ind_from_type_string(id, wrf_varname)
-
-! simply loop through the state variable table to get the index of the
-! type for this domain.  returns -1 if not found
-
-   integer,          intent(in) :: id
-   character(len=*), intent(in) :: wrf_varname
-
-   integer                      :: ivar, my_index
-   character(len=50)            :: wrf_varname_trim, wrf_state_var_trim
-
-   get_type_ind_from_type_string = -1
-
-   do ivar = 1,wrf%dom(id)%number_of_wrf_variables
-      
-      my_index =  wrf%dom(id)%var_index_list(ivar)
-
-      wrf_state_var_trim = trim(wrf_state_variables(1,my_index))
-      wrf_varname_trim   = trim(wrf_varname)
-      
-      if ( wrf_state_var_trim == wrf_varname_trim ) then
-
-         get_type_ind_from_type_string = ivar
-
-      endif
-
-   enddo ! ivar
-
-end function get_type_ind_from_type_string
 
 !----------------------------------------------------------------------
 ! Returns integers taken from tstring
@@ -7485,9 +7476,6 @@ end function read_model_time
 !--------------------------------------------------------------------
 !> write the time from the input file
 subroutine write_model_time(ncid, dart_time)
-
-use typeSizes
-use netcdf
 
 integer,         intent(in) :: ncid
 type(time_type), intent(in) :: dart_time
