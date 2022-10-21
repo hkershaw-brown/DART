@@ -730,10 +730,10 @@ if(is_vertical(location,"LEVEL")) then
 elseif(is_vertical(location,"PRESSURE")) then
    ! Ob is by pressure: get corresponding mass level zloc from
    ! computed column pressure profile
-   call get_model_pressure_profile_distrib(i,j,dx,dy,dxm,dym,wrf%dom(id)%bt,id,v_p,state_handle, ens_size)
+   call get_model_pressure_profile(i,j,dx,dy,dxm,dym,wrf%dom(id)%bt,id,v_p,state_handle, ens_size)
 
    ! get pressure vertical co-ordinate
-   call pres_to_zk_distrib(xyz_loc(3), v_p, wrf%dom(id)%bt, ens_size, zloc,is_lev0)
+   call pres_to_zk(xyz_loc(3), v_p, wrf%dom(id)%bt, ens_size, zloc,is_lev0)
    
    ! If location is above model surface but below the lowest sigma level,
    ! the default is to reject it.  But if the namelist value is true, then
@@ -757,9 +757,9 @@ elseif(is_vertical(location,"HEIGHT")) then
 
    ! Ob is by height: get corresponding mass level zloc from
    ! computed column height profile
-   call get_model_height_profile_distrib(i,j,dx,dy,dxm,dym,wrf%dom(id)%bt,id,v_h, state_handle, ens_size)
+   call get_model_height_profile(i,j,dx,dy,dxm,dym,wrf%dom(id)%bt,id,v_h, state_handle, ens_size)
    ! get height vertical co-ordinate
-   do e = 1, ens_size ! HK should there be a height_to_zk_distrib?
+   do e = 1, ens_size
       call height_to_zk(xyz_loc(3), v_h(:, e), wrf%dom(id)%bt,zloc(e),is_lev0(e))
 
       ! If location is above model surface but below the lowest sigma level,
@@ -953,7 +953,7 @@ if (obs_kind == QTY_RAINWATER_MIXING_RATIO .or. &
     obs_kind == QTY_SPECIFIC_DIFFERENTIAL_PHASE .or. &
     obs_kind == QTY_CLOUD_FRACTION) then
 
-    call simple_interp_distrib(fld, wrf, id, i, j, k, obs_kind, dxm, dx, dy, dym, uniquek, ens_size, state_handle)
+    call simple_interp(fld, wrf, id, i, j, k, obs_kind, dxm, dx, dy, dym, uniquek, ens_size, state_handle)
     if (all(fld == missing_r8)) goto 200
    
 
@@ -1236,10 +1236,10 @@ elseif ( obs_kind == QTY_TEMPERATURE ) then
             ! In terms of perturbation potential temperature
             a1 = dym*( dxm*x_ill + dx*x_ilr ) + dy*( dxm*x_iul + dx*x_iur )
 
-            pres1 = model_pressure_t_distrib(ll(1), ll(2), uniquek(uk), id, state_handle, ens_size)
-            pres2 = model_pressure_t_distrib(lr(1), lr(2), uniquek(uk), id, state_handle, ens_size)
-            pres3 = model_pressure_t_distrib(ul(1), ul(2), uniquek(uk), id, state_handle, ens_size)
-            pres4 = model_pressure_t_distrib(ur(1), ur(2), uniquek(uk), id, state_handle, ens_size)
+            pres1 = model_pressure_t(ll(1), ll(2), uniquek(uk), id, state_handle, ens_size)
+            pres2 = model_pressure_t(lr(1), lr(2), uniquek(uk), id, state_handle, ens_size)
+            pres3 = model_pressure_t(ul(1), ul(2), uniquek(uk), id, state_handle, ens_size)
+            pres4 = model_pressure_t(ur(1), ur(2), uniquek(uk), id, state_handle, ens_size)
 
             ! Pressure at location
             pres = dym*( dxm*pres1 + dx*pres2 ) + dy*( dxm*pres3 + dx*pres4 )
@@ -1265,10 +1265,10 @@ elseif ( obs_kind == QTY_TEMPERATURE ) then
             ! In terms of perturbation potential temperature
             a1 = dym*( dxm*x_ill + dx*x_ilr ) + dy*( dxm*x_iul + dx*x_iur )
 
-            pres1 = model_pressure_t_distrib(ll(1), ll(2), uniquek(uk)+1, id, state_handle, ens_size)
-            pres2 = model_pressure_t_distrib(lr(1), lr(2), uniquek(uk)+1, id, state_handle, ens_size)
-            pres3 = model_pressure_t_distrib(ul(1), ul(2), uniquek(uk)+1, id, state_handle, ens_size)
-            pres4 = model_pressure_t_distrib(ur(1), ur(2), uniquek(uk)+1, id, state_handle, ens_size)
+            pres1 = model_pressure_t(ll(1), ll(2), uniquek(uk)+1, id, state_handle, ens_size)
+            pres2 = model_pressure_t(lr(1), lr(2), uniquek(uk)+1, id, state_handle, ens_size)
+            pres3 = model_pressure_t(ul(1), ul(2), uniquek(uk)+1, id, state_handle, ens_size)
+            pres4 = model_pressure_t(ur(1), ur(2), uniquek(uk)+1, id, state_handle, ens_size)
 
             ! Pressure at location
             pres = dym*( dxm*pres1 + dx*pres2 ) + dy*( dxm*pres3 + dx*pres4 )
@@ -1287,7 +1287,7 @@ elseif ( obs_kind == QTY_TEMPERATURE ) then
 elseif (obs_kind == QTY_2M_TEMPERATURE) then
    ! This is for 2-meter temperature
    if ( wrf%dom(id)%type_t2 >= 0 ) then ! HK is there a better way to do this?
-      call surface_interp_distrib(fld, wrf, id, i, j, obs_kind, wrf%dom(id)%type_t2, dxm, dx, dy, dym, ens_size, state_handle)
+      call surface_interp(fld, wrf, id, i, j, obs_kind, wrf%dom(id)%type_t2, dxm, dx, dy, dym, ens_size, state_handle)
       if (all(fld == missing_r8)) goto 200
    else
       fld = missing_r8
@@ -1357,7 +1357,7 @@ elseif ( obs_kind == QTY_POTENTIAL_TEMPERATURE ) then
       
       if ( wrf%dom(id)%type_th2 >= 0 ) then
 
-         call surface_interp_distrib(fld, wrf, id, i, j, obs_kind, wrf%dom(id)%type_th2, dxm, dx, dy, dym, ens_size, state_handle)
+         call surface_interp(fld, wrf, id, i, j, obs_kind, wrf%dom(id)%type_th2, dxm, dx, dy, dym, ens_size, state_handle)
          if (all(fld == missing_r8)) goto 200
 
          endif
@@ -1386,10 +1386,10 @@ elseif (obs_kind == QTY_DENSITY) then
       !   the corner indices
 
       ! Interpolation for the Rho field at level k
-      rho1 = model_rho_t_distrib(ll(1), ll(2), uniquek(uk), id, state_handle, ens_size)
-      rho2 = model_rho_t_distrib(lr(1), lr(2), uniquek(uk), id, state_handle, ens_size)
-      rho3 = model_rho_t_distrib(ul(1), ul(2), uniquek(uk), id, state_handle, ens_size)
-      rho4 = model_rho_t_distrib(ur(1), ur(2), uniquek(uk), id, state_handle, ens_size)
+      rho1 = model_rho_t(ll(1), ll(2), uniquek(uk), id, state_handle, ens_size)
+      rho2 = model_rho_t(lr(1), lr(2), uniquek(uk), id, state_handle, ens_size)
+      rho3 = model_rho_t(ul(1), ul(2), uniquek(uk), id, state_handle, ens_size)
+      rho4 = model_rho_t(ur(1), ur(2), uniquek(uk), id, state_handle, ens_size)
 
       do e = 1, ens_size
          if (k(e) == uniquek(uk) ) then
@@ -1398,10 +1398,10 @@ elseif (obs_kind == QTY_DENSITY) then
       enddo
 
       ! Interpolation for the Rho field at level k+1
-      rho1 = model_rho_t_distrib(ll(1), ll(2), uniquek(uk)+1, id, state_handle, ens_size)
-      rho2 = model_rho_t_distrib(lr(1), lr(2), uniquek(uk)+1, id, state_handle, ens_size)
-      rho3 = model_rho_t_distrib(ul(1), ul(2), uniquek(uk)+1, id, state_handle, ens_size)
-      rho4 = model_rho_t_distrib(ur(1), ur(2), uniquek(uk)+1, id, state_handle, ens_size)
+      rho1 = model_rho_t(ll(1), ll(2), uniquek(uk)+1, id, state_handle, ens_size)
+      rho2 = model_rho_t(lr(1), lr(2), uniquek(uk)+1, id, state_handle, ens_size)
+      rho3 = model_rho_t(ul(1), ul(2), uniquek(uk)+1, id, state_handle, ens_size)
+      rho4 = model_rho_t(ur(1), ur(2), uniquek(uk)+1, id, state_handle, ens_size)
 
       do e = 1, ens_size
          if (k(e) == uniquek(uk) ) then
@@ -1445,7 +1445,7 @@ elseif ( obs_kind == QTY_VERTICAL_VELOCITY ) then
       endif
    enddo
 
-   call simple_interp_distrib(fld, wrf, id, i, j, k, obs_kind, dxm, dx, dy, dym, uniquek, ens_size, state_handle )
+   call simple_interp(fld, wrf, id, i, j, k, obs_kind, dxm, dx, dy, dym, uniquek, ens_size, state_handle )
    if (all(fld == missing_r8)) goto 200
 
  !-----------------------------------------------------
@@ -1549,13 +1549,13 @@ else if( obs_kind == QTY_VAPOR_MIXING_RATIO ) then
 
    ! This is for 3D vapor mixing ratio -- surface QV later
    if(.not. surf_var) then
-      call simple_interp_distrib(fld, wrf, id, i, j, k, obs_kind, dxm, dx, dy, dym, uniquek, ens_size, state_handle )
+      call simple_interp(fld, wrf, id, i, j, k, obs_kind, dxm, dx, dy, dym, uniquek, ens_size, state_handle )
       if (all(fld == missing_r8)) goto 200
    else ! This is for surface QV (Q2)
       ! Confirm that right field is in the DART state vector
       if ( wrf%dom(id)%type_q2 >= 0 ) then
          !HK I am not sure what the type should be
-         call surface_interp_distrib(fld, wrf, id, i, j, obs_kind, wrf%dom(id)%type_q2, dxm, dx, dy, dym, ens_size, state_handle)
+         call surface_interp(fld, wrf, id, i, j, obs_kind, wrf%dom(id)%type_q2, dxm, dx, dy, dym, ens_size, state_handle)
          if (all(fld == missing_r8)) goto 200
       endif
    endif
@@ -1613,10 +1613,10 @@ else if( obs_kind == QTY_PRESSURE .or. obs_kind == QTY_SURFACE_PRESSURE ) then
          !   the corner indices
 
          ! Interpolation for the P field at level k
-         pres1 = model_pressure_t_distrib(ll(1), ll(2), uniquek(uk), id, state_handle, ens_size)
-         pres2 = model_pressure_t_distrib(lr(1), lr(2), uniquek(uk), id, state_handle, ens_size)
-         pres3 = model_pressure_t_distrib(ul(1), ul(2), uniquek(uk), id, state_handle, ens_size)
-         pres4 = model_pressure_t_distrib(ur(1), ur(2), uniquek(uk), id, state_handle, ens_size)
+         pres1 = model_pressure_t(ll(1), ll(2), uniquek(uk), id, state_handle, ens_size)
+         pres2 = model_pressure_t(lr(1), lr(2), uniquek(uk), id, state_handle, ens_size)
+         pres3 = model_pressure_t(ul(1), ul(2), uniquek(uk), id, state_handle, ens_size)
+         pres4 = model_pressure_t(ur(1), ur(2), uniquek(uk), id, state_handle, ens_size)
 
          do e = 1, ens_size
             if ( k(e) == uniquek(uk) ) then ! interpolate only if it is the correct k
@@ -1626,10 +1626,10 @@ else if( obs_kind == QTY_PRESSURE .or. obs_kind == QTY_SURFACE_PRESSURE ) then
 
 
          ! Interpolation for the P field at level k+1
-         pres1 = model_pressure_t_distrib(ll(1), ll(2), uniquek(uk)+1, id, state_handle, ens_size)
-         pres2 = model_pressure_t_distrib(lr(1), lr(2), uniquek(uk)+1, id, state_handle, ens_size)
-         pres3 = model_pressure_t_distrib(ul(1), ul(2), uniquek(uk)+1, id, state_handle, ens_size)
-         pres4 = model_pressure_t_distrib(ur(1), ur(2), uniquek(uk)+1, id, state_handle, ens_size)
+         pres1 = model_pressure_t(ll(1), ll(2), uniquek(uk)+1, id, state_handle, ens_size)
+         pres2 = model_pressure_t(lr(1), lr(2), uniquek(uk)+1, id, state_handle, ens_size)
+         pres3 = model_pressure_t(ul(1), ul(2), uniquek(uk)+1, id, state_handle, ens_size)
+         pres4 = model_pressure_t(ur(1), ur(2), uniquek(uk)+1, id, state_handle, ens_size)
 
          do e = 1, ens_size
             if ( k(e) == uniquek(uk) ) then ! interpolate only if it is the correct k
@@ -1814,7 +1814,7 @@ else if ( obs_kind == QTY_VORTEX_LAT  .or. obs_kind == QTY_VORTEX_LON .or. &
 
                !  calculate the wind components at the desired pressure level
                do k2 = 1, wrf%dom(id)%var_size(3,wrf%dom(id)%type_t)
-                  z1d(k2, :) = model_pressure_t_distrib(i1,i2,k2,id, state_handle, ens_size)
+                  z1d(k2, :) = model_pressure_t(i1,i2,k2,id, state_handle, ens_size)
                enddo
                z1d(0, :) = z1d(1, :)
                call pres_to_zk_distrib(circulation_pres_level, z1d, wrf%dom(id)%bt, ens_size, zloc, is_lev0)
@@ -2026,7 +2026,7 @@ else if ( obs_kind == QTY_VORTEX_LAT  .or. obs_kind == QTY_VORTEX_LON .or. &
 
                   do k2 = 1,wrf%dom(id)%var_size(3,wrf%dom(id)%type_t)
 
-                      p1d(k2, :) = model_pressure_t_distrib(ii1,ii2,k2, id, state_handle, ens_size)
+                      p1d(k2, :) = model_pressure_t(ii1,ii2,k2, id, state_handle, ens_size)
 
                      t1d_ind = get_dart_vector_index(ii1,ii2,k2, domain_id(id),wrf%dom(id)%type_t)
                      t1d(k2, :) = get_state( t1d_ind, state_handle)
@@ -2307,7 +2307,7 @@ else if( obs_kind == QTY_SURFACE_ELEVATION ) then
 else if( obs_kind == QTY_SKIN_TEMPERATURE ) then
   ! make sure vector includes the needed field
   if ( wrf%dom(id)%type_tsk >= 0 ) then
-     call surface_interp_distrib(fld, wrf, id, i, j, obs_kind, wrf%dom(id)%type_tsk, dxm, dx, dy, dym, ens_size, state_handle)
+     call surface_interp(fld, wrf, id, i, j, obs_kind, wrf%dom(id)%type_tsk, dxm, dx, dy, dym, ens_size, state_handle)
      if (all(fld == missing_r8)) goto 200
   endif
 
@@ -2523,12 +2523,12 @@ do i=1, num
       endif
    elseif (wrf%dom(id)%localization_coord == VERTISPRESSURE) then
       ! directly convert to pressure
-      lev = model_pressure_distrib(ip, jp, kp, id, var_type, state_handle)
+      lev = model_pressure(ip, jp, kp, id, var_type, state_handle)
    elseif (wrf%dom(id)%localization_coord == VERTISHEIGHT) then
-      lev = model_height_distrib(ip, jp, kp, id, var_type, state_handle)
+      lev = model_height(ip, jp, kp, id, var_type, state_handle)
    elseif (wrf%dom(id)%localization_coord == VERTISSCALEHEIGHT) then
-      lev = -log(model_pressure_distrib(ip, jp, kp, id, var_type, state_handle) / &
-                 model_surface_pressure_distrib(ip, jp, id, var_type, state_handle))
+      lev = -log(model_pressure(ip, jp, kp, id, var_type, state_handle) / &
+                 model_surface_pressure(ip, jp, id, var_type, state_handle))
    endif
    
    locs(i) = set_location(lon, lat, lev, wrf%dom(id)%localization_coord)
@@ -2704,17 +2704,17 @@ case (VERTISLEVEL)
       if(.not. boundsCheck(k, .false., id, dim=3, type=wrf%dom(id)%type_t)) goto 100
 
       ! compute pressure at all neighboring mass points and interpolate
-      presa = scalar(model_pressure_t_distrib(ll(1), ll(2), k  ,id, state_handle,1))
-      presb = scalar(model_pressure_t_distrib(ll(1), ll(2), k+1,id, state_handle,1))
+      presa = scalar(model_pressure_t(ll(1), ll(2), k  ,id, state_handle,1))
+      presb = scalar(model_pressure_t(ll(1), ll(2), k+1,id, state_handle,1))
       pres1 = dzm*presa + dz*presb
-      presa = scalar(model_pressure_t_distrib(lr(1), lr(2), k  ,id, state_handle,1))
-      presb = scalar(model_pressure_t_distrib(lr(1), lr(2), k+1,id, state_handle,1))
+      presa = scalar(model_pressure_t(lr(1), lr(2), k  ,id, state_handle,1))
+      presb = scalar(model_pressure_t(lr(1), lr(2), k+1,id, state_handle,1))
       pres2 = dzm*presa + dz*presb
-      presa = scalar(model_pressure_t_distrib(ul(1), ul(2), k  ,id, state_handle,1))
-      presb = scalar(model_pressure_t_distrib(ul(1), ul(2), k+1,id, state_handle,1))
+      presa = scalar(model_pressure_t(ul(1), ul(2), k  ,id, state_handle,1))
+      presb = scalar(model_pressure_t(ul(1), ul(2), k+1,id, state_handle,1))
       pres3 = dzm*presa + dz*presb
-      presa = scalar(model_pressure_t_distrib(ur(1), ur(2), k  ,id, state_handle,1))
-      presb = scalar(model_pressure_t_distrib(ur(1), ur(2), k+1,id, state_handle,1))
+      presa = scalar(model_pressure_t(ur(1), ur(2), k  ,id, state_handle,1))
+      presb = scalar(model_pressure_t(ur(1), ur(2), k+1,id, state_handle,1))
       pres4 = dzm*presa + dz*presb
       zout = dym*( dxm*pres1 + dx*pres2 ) + dy*( dxm*pres3 + dx*pres4 )
 
@@ -2738,17 +2738,17 @@ case (VERTISLEVEL)
       ! the location is the lower left corner.
       ! compute height at all neighboring mass points and interpolate
       ! You have already converted the state in get_state_meta_data
-      hgta = model_height_w_distrib(ll(1), ll(2), k  ,id,state_handle)
-      hgtb = model_height_w_distrib(ll(1), ll(2), k+1,id,state_handle)
+      hgta = model_height_w(ll(1), ll(2), k  ,id,state_handle)
+      hgtb = model_height_w(ll(1), ll(2), k+1,id,state_handle)
       hgt1 = dzm*hgta + dz*hgtb
-      hgta = model_height_w_distrib(lr(1), lr(2), k  ,id,state_handle)
-      hgtb = model_height_w_distrib(lr(1), lr(2), k+1,id,state_handle)
+      hgta = model_height_w(lr(1), lr(2), k  ,id,state_handle)
+      hgtb = model_height_w(lr(1), lr(2), k+1,id,state_handle)
       hgt2 = dzm*hgta + dz*hgtb
-      hgta = model_height_w_distrib(ul(1), ul(2), k  ,id,state_handle)
-      hgtb = model_height_w_distrib(ul(1), ul(2), k+1,id,state_handle)
+      hgta = model_height_w(ul(1), ul(2), k  ,id,state_handle)
+      hgtb = model_height_w(ul(1), ul(2), k+1,id,state_handle)
       hgt3 = dzm*hgta + dz*hgtb
-      hgta = model_height_w_distrib(ur(1), ur(2), k  ,id,state_handle)
-      hgtb = model_height_w_distrib(ur(1), ur(2), k+1,id,state_handle)
+      hgta = model_height_w(ur(1), ur(2), k  ,id,state_handle)
+      hgtb = model_height_w(ur(1), ur(2), k+1,id,state_handle)
       hgt4 = dzm*hgta + dz*hgtb
       zout = dym*( dxm*hgt1 + dx*hgt2 ) + dy*( dxm*hgt3 + dx*hgt4 )
 
@@ -2765,25 +2765,25 @@ case (VERTISLEVEL)
       if(.not. boundsCheck(k, .false., id, dim=3, type=wrf%dom(id)%type_t)) goto 100
 
       ! pressure at height
-      presa = scalar(model_pressure_t_distrib(ll(1), ll(2), k  ,id,state_handle,1))
-      presb = scalar(model_pressure_t_distrib(ll(1), ll(2), k+1,id,state_handle,1))
+      presa = scalar(model_pressure_t(ll(1), ll(2), k  ,id,state_handle,1))
+      presb = scalar(model_pressure_t(ll(1), ll(2), k+1,id,state_handle,1))
       pres1 = dzm*presa + dz*presb
-      presa = scalar(model_pressure_t_distrib(lr(1), lr(2), k  ,id,state_handle,1))
-      presb = scalar(model_pressure_t_distrib(lr(1), lr(2), k+1,id,state_handle,1))
+      presa = scalar(model_pressure_t(lr(1), lr(2), k  ,id,state_handle,1))
+      presb = scalar(model_pressure_t(lr(1), lr(2), k+1,id,state_handle,1))
       pres2 = dzm*presa + dz*presb
-      presa = scalar(model_pressure_t_distrib(ul(1), ul(2), k  ,id,state_handle,1))
-      presb = scalar(model_pressure_t_distrib(ul(1), ul(2), k+1,id,state_handle,1))
+      presa = scalar(model_pressure_t(ul(1), ul(2), k  ,id,state_handle,1))
+      presb = scalar(model_pressure_t(ul(1), ul(2), k+1,id,state_handle,1))
       pres3 = dzm*presa + dz*presb
-      presa = scalar(model_pressure_t_distrib(ur(1), ur(2), k  ,id,state_handle,1))
-      presb = scalar(model_pressure_t_distrib(ur(1), ur(2), k+1,id,state_handle,1))
+      presa = scalar(model_pressure_t(ur(1), ur(2), k  ,id,state_handle,1))
+      presb = scalar(model_pressure_t(ur(1), ur(2), k+1,id,state_handle,1))
       pres4 = dzm*presa + dz*presb
       zout = dym*( dxm*pres1 + dx*pres2 ) + dy*( dxm*pres3 + dx*pres4 )
 
       ! surface pressure
-      pres1 = model_pressure_s_distrib(ll(1), ll(2), id, state_handle)
-      pres2 = model_pressure_s_distrib(lr(1), lr(2), id, state_handle)
-      pres3 = model_pressure_s_distrib(ul(1), ul(2), id, state_handle) 
-      pres4 = model_pressure_s_distrib(ur(1), ur(2), id, state_handle)
+      pres1 = model_pressure_s(ll(1), ll(2), id, state_handle)
+      pres2 = model_pressure_s(lr(1), lr(2), id, state_handle)
+      pres3 = model_pressure_s(ul(1), ul(2), id, state_handle) 
+      pres4 = model_pressure_s(ur(1), ur(2), id, state_handle)
       zout = -log(zout / (dym*( dxm*pres1 + dx*pres2 ) + dy*( dxm*pres3 + dx*pres4 )))
 
 
@@ -2813,7 +2813,7 @@ case (VERTISPRESSURE)
    allocate(v_p(0:wrf%dom(id)%bt)) 
    !HK This has already been called in model interpolate
    ! - not for observations that were not in the assimilate catagory
-   call get_model_pressure_profile_distrib(i,j,dx,dy,dxm,dym,wrf%dom(id)%bt,id,v_p, state_handle,1)
+   call get_model_pressure_profile(i,j,dx,dy,dxm,dym,wrf%dom(id)%bt,id,v_p, state_handle,1)
 
    call pres_to_zk(zin, v_p(:), wrf%dom(id)%bt, zk, lev0)
    deallocate(v_p)
@@ -2850,17 +2850,17 @@ case (VERTISPRESSURE)
       ! do all four corners, it is the lower left corner.
 
       ! compute height at all neighboring mass points and interpolate
-      hgta = model_height_w_distrib(ll(1), ll(2), k  ,id, state_handle)
-      hgtb = model_height_w_distrib(ll(1), ll(2), k+1,id, state_handle)
+      hgta = model_height_w(ll(1), ll(2), k  ,id, state_handle)
+      hgtb = model_height_w(ll(1), ll(2), k+1,id, state_handle)
       hgt1 = dzm*hgta + dz*hgtb
-      hgta = model_height_w_distrib(lr(1), lr(2), k  ,id, state_handle)
-      hgtb = model_height_w_distrib(lr(1), lr(2), k+1,id, state_handle)
+      hgta = model_height_w(lr(1), lr(2), k  ,id, state_handle)
+      hgtb = model_height_w(lr(1), lr(2), k+1,id, state_handle)
       hgt2 = dzm*hgta + dz*hgtb
-      hgta = model_height_w_distrib(ul(1), ul(2), k  ,id, state_handle)
-      hgtb = model_height_w_distrib(ul(1), ul(2), k+1,id, state_handle)
+      hgta = model_height_w(ul(1), ul(2), k  ,id, state_handle)
+      hgtb = model_height_w(ul(1), ul(2), k+1,id, state_handle)
       hgt3 = dzm*hgta + dz*hgtb
-      hgta = model_height_w_distrib(ur(1), ur(2), k  ,id, state_handle)
-      hgtb = model_height_w_distrib(ur(1), ur(2), k+1,id, state_handle)
+      hgta = model_height_w(ur(1), ur(2), k  ,id, state_handle)
+      hgtb = model_height_w(ur(1), ur(2), k+1,id, state_handle)
       hgt4 = dzm*hgta + dz*hgtb
       zout = dym*( dxm*hgt1 + dx*hgt2 ) + dy*( dxm*hgt3 + dx*hgt4 )
       
@@ -2875,10 +2875,10 @@ case (VERTISPRESSURE)
       if(.not. boundsCheck(k, .false., id, dim=3, type=wrf%dom(id)%type_t)) goto 100
 
       ! compute surface pressure at all neighboring mass points and interpolate
-      pres1 = model_pressure_s_distrib(ll(1), ll(2), id, state_handle)
-      pres2 = model_pressure_s_distrib(lr(1), lr(2), id, state_handle)
-      pres3 = model_pressure_s_distrib(ul(1), ul(2), id, state_handle)
-      pres4 = model_pressure_s_distrib(ur(1), ur(2), id, state_handle)
+      pres1 = model_pressure_s(ll(1), ll(2), id, state_handle)
+      pres2 = model_pressure_s(lr(1), lr(2), id, state_handle)
+      pres3 = model_pressure_s(ul(1), ul(2), id, state_handle)
+      pres4 = model_pressure_s(ur(1), ur(2), id, state_handle)
       zout = -log(zin / (dym*( dxm*pres1 + dx*pres2 ) + dy*( dxm*pres3 + dx*pres4 )))
 
    ! -------------------------------------------------------
@@ -2906,7 +2906,7 @@ case (VERTISHEIGHT)
    ! get model height profile and
    ! get height vertical co-ordinate in model level number 
    allocate(v_h(0:wrf%dom(id)%bt))
-   call get_model_height_profile_distrib(i,j,dx,dy,dxm,dym,wrf%dom(id)%bt,id,v_h, state_handle,1)
+   call get_model_height_profile(i,j,dx,dy,dxm,dym,wrf%dom(id)%bt,id,v_h, state_handle,1)
    call height_to_zk(zin, v_h, wrf%dom(id)%bt,zk,lev0)
    deallocate(v_h)
 
@@ -2934,17 +2934,17 @@ case (VERTISHEIGHT)
       if(.not. boundsCheck(k, .false., id, dim=3, type=wrf%dom(id)%type_t)) goto 100
 
       ! compute pressure at all neighboring mass points and interpolate
-      presa = scalar(model_pressure_t_distrib(ll(1), ll(2), k  ,id,state_handle,1))
-      presb = scalar(model_pressure_t_distrib(ll(1), ll(2), k+1,id,state_handle,1))
+      presa = scalar(model_pressure_t(ll(1), ll(2), k  ,id,state_handle,1))
+      presb = scalar(model_pressure_t(ll(1), ll(2), k+1,id,state_handle,1))
       pres1 = dzm*presa + dz*presb
-      presa = scalar(model_pressure_t_distrib(lr(1), lr(2), k  ,id,state_handle,1))
-      presb = scalar(model_pressure_t_distrib(lr(1), lr(2), k+1,id,state_handle,1))
+      presa = scalar(model_pressure_t(lr(1), lr(2), k  ,id,state_handle,1))
+      presb = scalar(model_pressure_t(lr(1), lr(2), k+1,id,state_handle,1))
       pres2 = dzm*presa + dz*presb
-      presa = scalar(model_pressure_t_distrib(ul(1), ul(2), k  ,id,state_handle,1))
-      presb = scalar(model_pressure_t_distrib(ul(1), ul(2), k+1,id,state_handle,1))
+      presa = scalar(model_pressure_t(ul(1), ul(2), k  ,id,state_handle,1))
+      presb = scalar(model_pressure_t(ul(1), ul(2), k+1,id,state_handle,1))
       pres3 = dzm*presa + dz*presb
-      presa = scalar(model_pressure_t_distrib(ur(1), ur(2), k  ,id,state_handle,1))
-      presb = scalar(model_pressure_t_distrib(ur(1), ur(2), k+1,id,state_handle,1))
+      presa = scalar(model_pressure_t(ur(1), ur(2), k  ,id,state_handle,1))
+      presb = scalar(model_pressure_t(ur(1), ur(2), k+1,id,state_handle,1))
       pres4 = dzm*presa + dz*presb
       zout = dym*( dxm*pres1 + dx*pres2 ) + dy*( dxm*pres3 + dx*pres4 )
 
@@ -2960,25 +2960,25 @@ case (VERTISHEIGHT)
       if(.not. boundsCheck(k, .false., id, dim=3, type=wrf%dom(id)%type_t)) goto 100
 
       ! pressure at height
-      presa = scalar(model_pressure_t_distrib(ll(1), ll(2), k  ,id,state_handle,1))
-      presb = scalar(model_pressure_t_distrib(ll(1), ll(2), k+1,id,state_handle,1))
+      presa = scalar(model_pressure_t(ll(1), ll(2), k  ,id,state_handle,1))
+      presb = scalar(model_pressure_t(ll(1), ll(2), k+1,id,state_handle,1))
       pres1 = dzm*presa + dz*presb
-      presa = scalar(model_pressure_t_distrib(lr(1), lr(2), k  ,id,state_handle,1))
-      presb = scalar(model_pressure_t_distrib(lr(1), lr(2), k+1,id,state_handle,1))
+      presa = scalar(model_pressure_t(lr(1), lr(2), k  ,id,state_handle,1))
+      presb = scalar(model_pressure_t(lr(1), lr(2), k+1,id,state_handle,1))
       pres2 = dzm*presa + dz*presb
-      presa = scalar(model_pressure_t_distrib(ul(1), ul(2), k  ,id,state_handle,1))
-      presb = scalar(model_pressure_t_distrib(ul(1), ul(2), k+1,id,state_handle,1))
+      presa = scalar(model_pressure_t(ul(1), ul(2), k  ,id,state_handle,1))
+      presb = scalar(model_pressure_t(ul(1), ul(2), k+1,id,state_handle,1))
       pres3 = dzm*presa + dz*presb
-      presa = scalar(model_pressure_t_distrib(ur(1), ur(2), k  ,id,state_handle,1))
-      presb = scalar(model_pressure_t_distrib(ur(1), ur(2), k+1,id,state_handle,1))
+      presa = scalar(model_pressure_t(ur(1), ur(2), k  ,id,state_handle,1))
+      presb = scalar(model_pressure_t(ur(1), ur(2), k+1,id,state_handle,1))
       pres4 = dzm*presa + dz*presb
       zout = dym*( dxm*pres1 + dx*pres2 ) + dy*( dxm*pres3 + dx*pres4 )
  
       ! surface pressure
-      pres1 = model_pressure_s_distrib(ll(1), ll(2), id, state_handle)
-      pres2 = model_pressure_s_distrib(lr(1), lr(2), id, state_handle)
-      pres3 = model_pressure_s_distrib(ul(1), ul(2), id, state_handle) 
-      pres4 = model_pressure_s_distrib(ur(1), ur(2), id, state_handle)
+      pres1 = model_pressure_s(ll(1), ll(2), id, state_handle)
+      pres2 = model_pressure_s(lr(1), lr(2), id, state_handle)
+      pres3 = model_pressure_s(ul(1), ul(2), id, state_handle) 
+      pres4 = model_pressure_s(ur(1), ur(2), id, state_handle)
       zout = -log(zout / (dym*( dxm*pres1 + dx*pres2 ) + dy*( dxm*pres3 + dx*pres4 )))
 
 
@@ -3005,16 +3005,16 @@ case (VERTISSCALEHEIGHT)
    ! get corresponding mass level zk, then get neighboring mass 
    ! level indices and compute weights
 
-   pres1 = model_pressure_s_distrib(ll(1), ll(2), id,state_handle) 
-   pres2 = model_pressure_s_distrib(lr(1), lr(2), id,state_handle)
-   pres3 = model_pressure_s_distrib(ul(1), ul(2), id,state_handle) 
-   pres4 = model_pressure_s_distrib(ur(1), ur(2), id,state_handle) 
+   pres1 = model_pressure_s(ll(1), ll(2), id,state_handle) 
+   pres2 = model_pressure_s(lr(1), lr(2), id,state_handle)
+   pres3 = model_pressure_s(ul(1), ul(2), id,state_handle) 
+   pres4 = model_pressure_s(ur(1), ur(2), id,state_handle) 
    psurf = dym*( dxm*pres1 + dx*pres2 ) + dy*( dxm*pres3 + dx*pres4 )
 
    ! get model pressure profile and
    ! get pressure vertical co-ordinate in model level number
    allocate(v_p(0:wrf%dom(id)%bt))
-   call get_model_pressure_profile_distrib(i,j,dx,dy,dxm,dym,wrf%dom(id)%bt,id,v_p, state_handle, 1)
+   call get_model_pressure_profile(i,j,dx,dy,dxm,dym,wrf%dom(id)%bt,id,v_p, state_handle, 1)
    call pres_to_zk(exp(-zin)*psurf, v_p, wrf%dom(id)%bt,zk,lev0)
    deallocate(v_p)
 
@@ -3047,17 +3047,17 @@ case (VERTISSCALEHEIGHT)
       if(.not. boundsCheck(k, .false., id, dim=3, type=wrf%dom(id)%type_gz)) goto 100
 
       ! compute height at all neighboring mass points and interpolate
-      hgta = model_height_w_distrib(ll(1), ll(2), k  ,id,state_handle)
-      hgtb = model_height_w_distrib(ll(1), ll(2), k+1,id,state_handle)
+      hgta = model_height_w(ll(1), ll(2), k  ,id,state_handle)
+      hgtb = model_height_w(ll(1), ll(2), k+1,id,state_handle)
       hgt1 = dzm*hgta + dz*hgtb
-      hgta = model_height_w_distrib(lr(1), lr(2), k  ,id,state_handle)
-      hgtb = model_height_w_distrib(lr(1), lr(2), k+1,id,state_handle)
+      hgta = model_height_w(lr(1), lr(2), k  ,id,state_handle)
+      hgtb = model_height_w(lr(1), lr(2), k+1,id,state_handle)
       hgt2 = dzm*hgta + dz*hgtb
-      hgta = model_height_w_distrib(ul(1), ul(2), k  ,id,state_handle)
-      hgtb = model_height_w_distrib(ul(1), ul(2), k+1,id,state_handle)
+      hgta = model_height_w(ul(1), ul(2), k  ,id,state_handle)
+      hgtb = model_height_w(ul(1), ul(2), k+1,id,state_handle)
       hgt3 = dzm*hgta + dz*hgtb
-      hgta = model_height_w_distrib(ur(1), ur(2), k  ,id,state_handle)
-      hgtb = model_height_w_distrib(ur(1), ur(2), k+1,id,state_handle)
+      hgta = model_height_w(ur(1), ur(2), k  ,id,state_handle)
+      hgtb = model_height_w(ur(1), ur(2), k+1,id,state_handle)
       hgt4 = dzm*hgta + dz*hgtb
       zout = dym*( dxm*hgt1 + dx*hgt2 ) + dy*( dxm*hgt3 + dx*hgt4 )
 
@@ -3106,10 +3106,10 @@ case(VERTISSURFACE)
    case (VERTISPRESSURE)
 
       ! compute surface pressure at all neighboring mass points
-      pres1 = model_pressure_s_distrib(ll(1), ll(2), id, state_handle)
-      pres2 = model_pressure_s_distrib(lr(1), lr(2), id, state_handle)
-      pres3 = model_pressure_s_distrib(ul(1), ul(2), id, state_handle)
-      pres4 = model_pressure_s_distrib(ur(1), ur(2), id, state_handle)
+      pres1 = model_pressure_s(ll(1), ll(2), id, state_handle)
+      pres2 = model_pressure_s(lr(1), lr(2), id, state_handle)
+      pres3 = model_pressure_s(ul(1), ul(2), id, state_handle)
+      pres4 = model_pressure_s(ur(1), ur(2), id, state_handle)
       zout = dym*( dxm*pres1 + dx*pres2 ) + dy*( dxm*pres3 + dx*pres4 )
 
 
@@ -3984,7 +3984,7 @@ end subroutine height_to_zk
 
 !#######################################################
 
-subroutine get_model_pressure_profile_distrib(i,j,dx,dy,dxm,dym,n,id,v_p, state_handle, ens_size)
+subroutine get_model_pressure_profile(i,j,dx,dy,dxm,dym,n,id,v_p, state_handle, ens_size)
 
 ! Calculate the full model pressure profile on half (mass) levels,
 ! horizontally interpolated at the observation location.
@@ -4015,12 +4015,12 @@ if ( boundsCheck( i, wrf%dom(id)%periodic_x, id, dim=1, type=wrf%dom(id)%type_t 
 
 
    do k=1,n
-      pres1 = model_pressure_t_distrib(ll(1), ll(2), k,id,state_handle, ens_size)
-      pres2 = model_pressure_t_distrib(lr(1), lr(2), k,id,state_handle, ens_size)
-      pres3 = model_pressure_t_distrib(ul(1), ul(2), k,id,state_handle, ens_size)
-      pres4 = model_pressure_t_distrib(ur(1), ur(2), k,id,state_handle, ens_size)
+      pres1 = model_pressure_t(ll(1), ll(2), k,id,state_handle, ens_size)
+      pres2 = model_pressure_t(lr(1), lr(2), k,id,state_handle, ens_size)
+      pres3 = model_pressure_t(ul(1), ul(2), k,id,state_handle, ens_size)
+      pres4 = model_pressure_t(ur(1), ur(2), k,id,state_handle, ens_size)
 
-      v_p(k, :) = interp_4pressure_distrib(pres1, pres2, pres3, pres4, dx, dxm, dy, dym, ens_size)
+      v_p(k, :) = interp_4pressure(pres1, pres2, pres3, pres4, dx, dxm, dy, dym, ens_size)
    enddo
 
    if ( wrf%dom(id)%type_ps >= 0 ) then
@@ -4043,19 +4043,19 @@ if ( boundsCheck( i, wrf%dom(id)%periodic_x, id, dim=1, type=wrf%dom(id)%type_t 
          if ( x_ill(e) /= 0.0_r8 .and. x_ilr(e) /= 0.0_r8 .and. x_iul(e) /= 0.0_r8 .and. &
               x_iur(e) /= 0.0_r8 ) then
 
-            v_p(0,e:e) = interp_4pressure_distrib(x_ill(e:e), x_ilr(e:e), x_iul(e:e), x_iur(e:e), dx, dxm, dy, dym, 1)
+            v_p(0,e:e) = interp_4pressure(x_ill(e:e), x_ilr(e:e), x_iul(e:e), x_iur(e:e), dx, dxm, dy, dym, 1)
 
          else
 
             ! HK I think this is a bug, you are just  going to grab the first copy - is this fixed?
             ! in each iteration of the loop
             call error_handler(E_WARN, 'model_mod.f90 check for correctness', 'Helen')
-            pres1 = model_pressure_t_distrib(ll(1), ll(2), 2,id,state_handle, ens_size)
-            pres2 = model_pressure_t_distrib(lr(1), lr(2), 2,id,state_handle, ens_size)
-            pres3 = model_pressure_t_distrib(ul(1), ul(2), 2,id,state_handle, ens_size)
-            pres4 = model_pressure_t_distrib(ur(1), ur(2), 2,id,state_handle, ens_size)
+            pres1 = model_pressure_t(ll(1), ll(2), 2,id,state_handle, ens_size)
+            pres2 = model_pressure_t(lr(1), lr(2), 2,id,state_handle, ens_size)
+            pres3 = model_pressure_t(ul(1), ul(2), 2,id,state_handle, ens_size)
+            pres4 = model_pressure_t(ur(1), ur(2), 2,id,state_handle, ens_size)
 
-            v_p(0,e:e) = interp_4pressure_distrib(pres1(e:e), pres2(e:e), pres3(e:e), pres4(e:e), dx, dxm, dy, dym, 1, &
+            v_p(0,e:e) = interp_4pressure(pres1(e:e), pres2(e:e), pres3(e:e), pres4(e:e), dx, dxm, dy, dym, 1, &
                   extrapolate=.true., edgep=v_p(1,e))
 
          endif
@@ -4064,12 +4064,12 @@ if ( boundsCheck( i, wrf%dom(id)%periodic_x, id, dim=1, type=wrf%dom(id)%type_t 
 
    else
 
-      pres1 = model_pressure_t_distrib(ll(1), ll(2), 2,id,state_handle, ens_size)
-      pres2 = model_pressure_t_distrib(lr(1), lr(2), 2,id,state_handle, ens_size)
-      pres3 = model_pressure_t_distrib(ul(1), ul(2), 2,id,state_handle, ens_size)
-      pres4 = model_pressure_t_distrib(ur(1), ur(2), 2,id,state_handle, ens_size)
+      pres1 = model_pressure_t(ll(1), ll(2), 2,id,state_handle, ens_size)
+      pres2 = model_pressure_t(lr(1), lr(2), 2,id,state_handle, ens_size)
+      pres3 = model_pressure_t(ul(1), ul(2), 2,id,state_handle, ens_size)
+      pres4 = model_pressure_t(ur(1), ur(2), 2,id,state_handle, ens_size)
 
-      v_p(0,:) = interp_4pressure_distrib(pres1, pres2, pres3, pres4, dx, dxm, dy, dym, ens_size, &
+      v_p(0,:) = interp_4pressure(pres1, pres2, pres3, pres4, dx, dxm, dy, dym, ens_size, &
               extrapolate=.true., edgep=v_p(1,:))
 
    endif
@@ -4081,25 +4081,25 @@ endif
 
 deallocate(pres1, pres2, pres3, pres4, x_ill, x_ilr, x_iul, x_iur)
 
-end subroutine get_model_pressure_profile_distrib
+end subroutine get_model_pressure_profile
 
 !#######################################################
 !> Only for the mean value.
 !> Used in get_state_meta_data for the vertical conversion
-function model_pressure_distrib(i, j, k, id, var_type, state_handle)
+function model_pressure(i, j, k, id, var_type, state_handle)
 
 ! Calculate the pressure at grid point (i,j,k), domain id.
 ! The grid is defined according to var_type.
 
 type(ensemble_type), intent(in) :: state_handle
 integer,             intent(in) :: i,j,k,id,var_type
-real(r8)                        :: model_pressure_distrib
+real(r8)                        :: model_pressure
 
 integer  :: off, type_x
 real(r8) :: pres1, pres2
 integer  :: ens_size
 
-model_pressure_distrib = missing_r8
+model_pressure = missing_r8
 
 ! since we are only working with the mean copy
 ens_size = 1
@@ -4116,21 +4116,21 @@ if( (var_type == wrf%dom(id)%type_w) .or. (var_type == wrf%dom(id)%type_gz) ) th
 
    if( k == 1 ) then
 
-      pres1 = scalar(model_pressure_t_distrib(i, j, k,  id, state_handle, ens_size))
-      pres2 = scalar(model_pressure_t_distrib(i, j, k+1,id, state_handle, ens_size))
-      model_pressure_distrib = interp_pressure(pres1, pres2, extrapolate=.true.)
+      pres1 = scalar(model_pressure_t(i, j, k,  id, state_handle, ens_size))
+      pres2 = scalar(model_pressure_t(i, j, k+1,id, state_handle, ens_size))
+      model_pressure = interp_pressure(pres1, pres2, extrapolate=.true.)
 
    elseif( k == wrf%dom(id)%var_size(3,type_x) ) then
 
-      pres1 = scalar(model_pressure_t_distrib(i,j,k-1,id, state_handle, ens_size))
-      pres2 = scalar(model_pressure_t_distrib(i,j,k-2,id, state_handle, ens_size))
-      model_pressure_distrib = interp_pressure(pres1, pres2, extrapolate=.true.)
+      pres1 = scalar(model_pressure_t(i,j,k-1,id, state_handle, ens_size))
+      pres2 = scalar(model_pressure_t(i,j,k-2,id, state_handle, ens_size))
+      model_pressure = interp_pressure(pres1, pres2, extrapolate=.true.)
 
    else
 
-      pres1 = scalar(model_pressure_t_distrib(i, j, k,  id, state_handle, ens_size))
-      pres2 = scalar(model_pressure_t_distrib(i, j, k-1,id, state_handle, ens_size))
-      model_pressure_distrib = interp_pressure(pres1, pres2)
+      pres1 = scalar(model_pressure_t(i, j, k,  id, state_handle, ens_size))
+      pres2 = scalar(model_pressure_t(i, j, k-1,id, state_handle, ens_size))
+      model_pressure = interp_pressure(pres1, pres2)
 
    endif
 
@@ -4144,16 +4144,16 @@ elseif( var_type == wrf%dom(id)%type_u ) then
       if ( wrf%dom(id)%periodic_x ) then
 
          ! We are at seam in longitude, take first and last M-grid points
-         pres1 = scalar(model_pressure_t_distrib(i-1,j,k,id, state_handle, ens_size))
-         pres2 = scalar(model_pressure_t_distrib(1,  j,k,id, state_handle, ens_size))
-         model_pressure_distrib = interp_pressure(pres1, pres2, vertical=.false.)
+         pres1 = scalar(model_pressure_t(i-1,j,k,id, state_handle, ens_size))
+         pres2 = scalar(model_pressure_t(1,  j,k,id, state_handle, ens_size))
+         model_pressure = interp_pressure(pres1, pres2, vertical=.false.)
          
       else
 
          ! If not periodic, then try extrapolating
-         pres1 = scalar(model_pressure_t_distrib(i-1,j,k,id, state_handle, ens_size))
-         pres2 = scalar(model_pressure_t_distrib(i-2,j,k,id, state_handle, ens_size))
-         model_pressure_distrib = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
+         pres1 = scalar(model_pressure_t(i-1,j,k,id, state_handle, ens_size))
+         pres2 = scalar(model_pressure_t(i-2,j,k,id, state_handle, ens_size))
+         model_pressure = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
 
       endif
 
@@ -4163,24 +4163,24 @@ elseif( var_type == wrf%dom(id)%type_u ) then
       if ( wrf%dom(id)%periodic_x ) then
 
          ! We are at seam in longitude, take first and last M-grid points
-         pres1 = scalar(model_pressure_t_distrib(i,             j,k,id, state_handle, ens_size))
-         pres2 = scalar(model_pressure_t_distrib(wrf%dom(id)%we,j,k,id, state_handle, ens_size))
-         model_pressure_distrib = interp_pressure(pres1, pres2, vertical=.false.)
+         pres1 = scalar(model_pressure_t(i,             j,k,id, state_handle, ens_size))
+         pres2 = scalar(model_pressure_t(wrf%dom(id)%we,j,k,id, state_handle, ens_size))
+         model_pressure = interp_pressure(pres1, pres2, vertical=.false.)
          
       else
 
          ! If not periodic, then try extrapolating
-         pres1 = scalar(model_pressure_t_distrib(i,  j,k,id, state_handle, ens_size))
-         pres2 = scalar(model_pressure_t_distrib(i+1,j,k,id, state_handle, ens_size))
-         model_pressure_distrib = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
+         pres1 = scalar(model_pressure_t(i,  j,k,id, state_handle, ens_size))
+         pres2 = scalar(model_pressure_t(i+1,j,k,id, state_handle, ens_size))
+         model_pressure = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
 
       endif
 
    else
 
-      pres1 = scalar(model_pressure_t_distrib(i,  j,k,id, state_handle, ens_size))
-      pres2 = scalar(model_pressure_t_distrib(i-1,j,k,id, state_handle, ens_size))
-      model_pressure_distrib = interp_pressure(pres1, pres2, vertical=.false.)
+      pres1 = scalar(model_pressure_t(i,  j,k,id, state_handle, ens_size))
+      pres2 = scalar(model_pressure_t(i-1,j,k,id, state_handle, ens_size))
+      model_pressure = interp_pressure(pres1, pres2, vertical=.false.)
 
    endif
 
@@ -4197,16 +4197,16 @@ elseif( var_type == wrf%dom(id)%type_v ) then
          off = i + wrf%dom(id)%we/2
          if ( off > wrf%dom(id)%we ) off = off - wrf%dom(id)%we
 
-         pres1 = scalar(model_pressure_t_distrib(off,j-1,k,id, state_handle, ens_size))
-         pres2 = scalar(model_pressure_t_distrib(i  ,j-1,k,id, state_handle, ens_size))
-         model_pressure_distrib = interp_pressure(pres1, pres2, vertical=.false.)
+         pres1 = scalar(model_pressure_t(off,j-1,k,id, state_handle, ens_size))
+         pres2 = scalar(model_pressure_t(i  ,j-1,k,id, state_handle, ens_size))
+         model_pressure = interp_pressure(pres1, pres2, vertical=.false.)
 
       ! If not periodic, then try extrapolating
       else
 
-         pres1 = scalar(model_pressure_t_distrib(i,j-1,k,id, state_handle, ens_size))
-         pres2 = scalar(model_pressure_t_distrib(i,j-2,k,id, state_handle, ens_size))
-         model_pressure_distrib = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
+         pres1 = scalar(model_pressure_t(i,j-1,k,id, state_handle, ens_size))
+         pres2 = scalar(model_pressure_t(i,j-2,k,id, state_handle, ens_size))
+         model_pressure = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
 
       endif
 
@@ -4219,24 +4219,24 @@ elseif( var_type == wrf%dom(id)%type_v ) then
          off = i + wrf%dom(id)%we/2
          if ( off > wrf%dom(id)%we ) off = off - wrf%dom(id)%we
 
-         pres1 = scalar(model_pressure_t_distrib(off,j,k,id, state_handle, ens_size))
-         pres2 = scalar(model_pressure_t_distrib(i,  j,k,id, state_handle, ens_size))
-         model_pressure_distrib = interp_pressure(pres1, pres2, vertical=.false.)
+         pres1 = scalar(model_pressure_t(off,j,k,id, state_handle, ens_size))
+         pres2 = scalar(model_pressure_t(i,  j,k,id, state_handle, ens_size))
+         model_pressure = interp_pressure(pres1, pres2, vertical=.false.)
 
       ! If not periodic, then try extrapolating
       else
 
-         pres1 = scalar(model_pressure_t_distrib(i,j,  k,id, state_handle, ens_size))
-         pres2 = scalar(model_pressure_t_distrib(i,j+1,k,id, state_handle, ens_size))
-         model_pressure_distrib = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
+         pres1 = scalar(model_pressure_t(i,j,  k,id, state_handle, ens_size))
+         pres2 = scalar(model_pressure_t(i,j+1,k,id, state_handle, ens_size))
+         model_pressure = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
 
       endif
 
    else
 
-      pres1 = scalar(model_pressure_t_distrib(i,j,  k,id, state_handle, ens_size))
-      pres2 = scalar(model_pressure_t_distrib(i,j-1,k,id, state_handle, ens_size))
-      model_pressure_distrib = interp_pressure(pres1, pres2, vertical=.false.)
+      pres1 = scalar(model_pressure_t(i,j,  k,id, state_handle, ens_size))
+      pres2 = scalar(model_pressure_t(i,j-1,k,id, state_handle, ens_size))
+      model_pressure = interp_pressure(pres1, pres2, vertical=.false.)
 
    endif
 
@@ -4247,32 +4247,32 @@ elseif( var_type == wrf%dom(id)%type_mu    .or. var_type == wrf%dom(id)%type_tsl
         var_type == wrf%dom(id)%type_q2    .or. var_type == wrf%dom(id)%type_tsk  .or. &
         var_type == wrf%dom(id)%type_smois .or. var_type == wrf%dom(id)%type_sh2o) then
 
-   model_pressure_distrib = model_pressure_s_distrib(i,j,id, state_handle)
+   model_pressure = model_pressure_s(i,j,id, state_handle)
     
 else
 
-   pres1 = scalar(model_pressure_t_distrib(i,j,k,id, state_handle, ens_size))
-   model_pressure_distrib = pres1
+   pres1 = scalar(model_pressure_t(i,j,k,id, state_handle, ens_size))
+   model_pressure = pres1
 
 endif
 
-end function model_pressure_distrib
+end function model_pressure
 
 !#######################################################
 
-function model_surface_pressure_distrib(i, j, id, var_type, state_handle)
+function model_surface_pressure(i, j, id, var_type, state_handle)
 
 ! Calculate the surface pressure at grid point (i,j), domain id.
 ! The grid is defined according to var_type.
 
 type(ensemble_type), intent(in) :: state_handle
 integer,            intent(in)  :: i,j,id,var_type
-real(r8)              :: model_surface_pressure_distrib
+real(r8)              :: model_surface_pressure
 
 integer  :: off
 real(r8) :: pres1, pres2
 
-model_surface_pressure_distrib = missing_r8
+model_surface_pressure = missing_r8
 
 
 ! If U-grid, then pressure is defined between U points, so average --
@@ -4285,16 +4285,16 @@ if( var_type == wrf%dom(id)%type_u ) then
       if ( wrf%dom(id)%periodic_x ) then
 
          ! We are at seam in longitude, take first and last M-grid points
-         pres1 = model_pressure_s_distrib(i-1,j,id, state_handle)
-         pres2 = model_pressure_s_distrib(1,  j,id, state_handle)
-         model_surface_pressure_distrib = interp_pressure(pres1, pres2, vertical=.false.)
+         pres1 = model_pressure_s(i-1,j,id, state_handle)
+         pres2 = model_pressure_s(1,  j,id, state_handle)
+         model_surface_pressure = interp_pressure(pres1, pres2, vertical=.false.)
          
       else
 
          ! If not periodic, then try extrapolating
-         pres1 = model_pressure_s_distrib(i-1,j,id, state_handle)
-         pres2 = model_pressure_s_distrib(i-2,j,id, state_handle)
-         model_surface_pressure_distrib = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
+         pres1 = model_pressure_s(i-1,j,id, state_handle)
+         pres2 = model_pressure_s(i-2,j,id, state_handle)
+         model_surface_pressure = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
 
       endif
 
@@ -4304,24 +4304,24 @@ if( var_type == wrf%dom(id)%type_u ) then
       if ( wrf%dom(id)%periodic_x ) then
 
          ! We are at seam in longitude, take first and last M-grid points
-         pres1 = model_pressure_s_distrib(i,             j,id, state_handle)
-         pres2 = model_pressure_s_distrib(wrf%dom(id)%we,j,id, state_handle)
-         model_surface_pressure_distrib = interp_pressure(pres1, pres2, vertical=.false.)
+         pres1 = model_pressure_s(i,             j,id, state_handle)
+         pres2 = model_pressure_s(wrf%dom(id)%we,j,id, state_handle)
+         model_surface_pressure = interp_pressure(pres1, pres2, vertical=.false.)
          
       else
 
          ! If not periodic, then try extrapolating
-         pres1 = model_pressure_s_distrib(i,  j,id, state_handle)
-         pres2 = model_pressure_s_distrib(i+1,j,id, state_handle)
-         model_surface_pressure_distrib = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
+         pres1 = model_pressure_s(i,  j,id, state_handle)
+         pres2 = model_pressure_s(i+1,j,id, state_handle)
+         model_surface_pressure = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
 
       endif
 
    else
 
-      pres1 = model_pressure_s_distrib(i,  j,id, state_handle)
-      pres2 = model_pressure_s_distrib(i-1,j,id, state_handle)
-      model_surface_pressure_distrib = interp_pressure(pres1, pres2, vertical=.false.)
+      pres1 = model_pressure_s(i,  j,id, state_handle)
+      pres2 = model_pressure_s(i-1,j,id, state_handle)
+      model_surface_pressure = interp_pressure(pres1, pres2, vertical=.false.)
 
    endif
 
@@ -4338,16 +4338,16 @@ elseif( var_type == wrf%dom(id)%type_v ) then
          off = i + wrf%dom(id)%we/2
          if ( off > wrf%dom(id)%we ) off = off - wrf%dom(id)%we
 
-         pres1 = model_pressure_s_distrib(off,j-1,id, state_handle)
-         pres2 = model_pressure_s_distrib(i  ,j-1,id, state_handle)
-         model_surface_pressure_distrib = interp_pressure(pres1, pres2, vertical=.false.)
+         pres1 = model_pressure_s(off,j-1,id, state_handle)
+         pres2 = model_pressure_s(i  ,j-1,id, state_handle)
+         model_surface_pressure = interp_pressure(pres1, pres2, vertical=.false.)
 
       ! If not periodic, then try extrapolating
       else
 
-         pres1 = model_pressure_s_distrib(i,j-1,id, state_handle)
-         pres2 = model_pressure_s_distrib(i,j-2,id, state_handle)
-         model_surface_pressure_distrib = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
+         pres1 = model_pressure_s(i,j-1,id, state_handle)
+         pres2 = model_pressure_s(i,j-2,id, state_handle)
+         model_surface_pressure = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
 
       endif
 
@@ -4360,45 +4360,45 @@ elseif( var_type == wrf%dom(id)%type_v ) then
          off = i + wrf%dom(id)%we/2
          if ( off > wrf%dom(id)%we ) off = off - wrf%dom(id)%we
 
-         pres1 = model_pressure_s_distrib(off,j,id, state_handle)
-         pres2 = model_pressure_s_distrib(i,  j,id, state_handle)
-         model_surface_pressure_distrib = interp_pressure(pres1, pres2, vertical=.false.)
+         pres1 = model_pressure_s(off,j,id, state_handle)
+         pres2 = model_pressure_s(i,  j,id, state_handle)
+         model_surface_pressure = interp_pressure(pres1, pres2, vertical=.false.)
 
       ! If not periodic, then try extrapolating
       else
 
-         pres1 = model_pressure_s_distrib(i,j,  id, state_handle)
-         pres2 = model_pressure_s_distrib(i,j+1,id, state_handle)
-         model_surface_pressure_distrib = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
+         pres1 = model_pressure_s(i,j,  id, state_handle)
+         pres2 = model_pressure_s(i,j+1,id, state_handle)
+         model_surface_pressure = interp_pressure(pres1, pres2, extrapolate=.true., vertical=.false.)
 
       endif
 
    else
 
-      pres1 = model_pressure_s_distrib(i,j,  id, state_handle)
-      pres2 = model_pressure_s_distrib(i,j-1,id, state_handle)
-      model_surface_pressure_distrib = interp_pressure(pres1, pres2, vertical=.false.)
+      pres1 = model_pressure_s(i,j,  id, state_handle)
+      pres2 = model_pressure_s(i,j-1,id, state_handle)
+      model_surface_pressure = interp_pressure(pres1, pres2, vertical=.false.)
 
    endif
 
 else
 
-   model_surface_pressure_distrib = model_pressure_s_distrib(i,j,id, state_handle)
+   model_surface_pressure = model_pressure_s(i,j,id, state_handle)
 
 endif
 
-end function model_surface_pressure_distrib
+end function model_surface_pressure
 
 !#######################################################
 
-function model_pressure_t_distrib(i,j,k,id,state_handle, ens_size)
+function model_pressure_t(i,j,k,id,state_handle, ens_size)
 
 ! Calculate total pressure on mass point (half (mass) levels, T-point).
 
 integer,             intent(in) :: ens_size
 integer,             intent(in) :: i,j,k,id
 type(ensemble_type), intent(in) :: state_handle
-real(r8) :: model_pressure_t_distrib(ens_size)
+real(r8) :: model_pressure_t(ens_size)
 
 real (kind=r8), PARAMETER    :: rd_over_rv = gas_constant / gas_constant_v
 real (kind=r8), PARAMETER    :: cpovcv = 1.4_r8        ! cp / (cp - gas_constant)
@@ -4407,7 +4407,7 @@ integer(i8) :: iqv !< I think this is i for index
 integer(i8) :: it !< change to array
 real(r8) :: qvf1(ens_size),rho(ens_size), x_iqv(ens_size), x_it(ens_size)
 
-model_pressure_t_distrib = missing_r8
+model_pressure_t = missing_r8
 
 ! Adapted the code from WRF module_big_step_utilities_em.F ----
 !         subroutine calc_p_rho_phi      Y.-R. Guo (10/20/2004)
@@ -4429,25 +4429,25 @@ x_it  = get_state(it, state_handle)
 qvf1(:) = 1.0_r8 + x_iqv(:) / rd_over_rv
 !print*, 'qvf1 ', qvf1
 
-rho(:) = model_rho_t_distrib(i,j,k,id,state_handle, ens_size)
+rho(:) = model_rho_t(i,j,k,id,state_handle, ens_size)
 !print*, 'rho ', rho
 
 ! .. total pressure:
-model_pressure_t_distrib = ps0 * ( (gas_constant*(ts0+x_it)*qvf1) / &
+model_pressure_t = ps0 * ( (gas_constant*(ts0+x_it)*qvf1) / &
      (ps0/rho) )**cpovcv
 
-end function model_pressure_t_distrib
+end function model_pressure_t
 
 !#######################################################
 
-function model_pressure_s_distrib(i, j, id, state_handle)
+function model_pressure_s(i, j, id, state_handle)
 
 ! compute pressure at surface at mass point
 
 integer,             intent(in) :: i,j,id
 type(ensemble_type), intent(in) :: state_handle
 
-real(r8)              :: model_pressure_s_distrib
+real(r8)              :: model_pressure_s
 
 integer(i8) :: ips, imu
 real(r8)    :: x_imu, x_ips
@@ -4463,16 +4463,16 @@ endif
 if ( wrf%dom(id)%type_ps >= 0 ) then
    ips = get_dart_vector_index(i,j,1, domain_id(id), wrf%dom(id)%type_ps)
    x_ips = scalar(get_state(ips, state_handle))
-   model_pressure_s_distrib = x_ips
+   model_pressure_s = x_ips
 
 else
    imu = get_dart_vector_index(i,j,1, domain_id(id), wrf%dom(id)%type_mu)
    x_imu = minval(get_state(imu, state_handle))
-   model_pressure_s_distrib = wrf%dom(id)%p_top + wrf%dom(id)%mub(i,j) + x_imu
+   model_pressure_s = wrf%dom(id)%p_top + wrf%dom(id)%mub(i,j) + x_imu
 
 endif
 
-end function model_pressure_s_distrib
+end function model_pressure_s
 
 !#######################################################
 
@@ -4532,7 +4532,7 @@ end function interp_pressure
 
 !#######################################################
 
-function interp_4pressure_distrib(p1, p2, p3, p4, dx, dxm, dy, dym, ens_size, extrapolate, edgep)
+function interp_4pressure(p1, p2, p3, p4, dx, dxm, dy, dym, ens_size, extrapolate, edgep)
  
 ! given 4 corners of a quad, where the p1, p2, p3 and p4 points are
 ! respectively:  lower left, lower right, upper left, upper right
@@ -4546,7 +4546,7 @@ real(r8), intent(in)               :: p1(ens_size), p2(ens_size), p3(ens_size), 
 real(r8), intent(in)               :: dx, dxm, dy, dym
 logical,  intent(in), optional     :: extrapolate
 real(r8), intent(in), optional     :: edgep(ens_size)
-real(r8)                           :: interp_4pressure_distrib(ens_size)
+real(r8)                           :: interp_4pressure(ens_size)
 
 logical  :: do_interp
 real(r8) :: intermediate(ens_size)
@@ -4554,77 +4554,6 @@ real(r8) :: l1(ens_size), l2(ens_size), l3(ens_size), l4(ens_size)
 
 !HK
 integer :: i
-
-! default is to do interpolation; only extrapolate if the optional
-! arg is specified and if it is true.  for extrapolation 'edgep' is
-! required; it is unused for interpolation.
-do_interp = .true.
-if (present(extrapolate)) then
-   if (extrapolate) do_interp = .false.
-endif
-
-if (.not. do_interp .and. .not. present(edgep)) then
-  call error_handler(E_ERR, 'interp_4pressure:', &
-      'edgep must be specified for extrapolation.  internal error.', &
-       source, revision, revdate)
-endif
-
-if (log_horz_interpQ) then
-   l1 = log(p1)
-   l2 = log(p2)
-   l3 = log(p3)
-   l4 = log(p4)
-endif
-
-
-! once we like the results, remove the log_horz_interpQ test.
-if (do_interp) then
-   if (log_horz_interpQ) then
-      interp_4pressure_distrib = exp(dym*( dxm*l1 + dx*l2 ) + dy*( dxm*l3 + dx*l4 ))
-   else
-      interp_4pressure_distrib = dym*( dxm*p1 + dx*p2 ) + dy*( dxm*p3 + dx*p4 )
-   endif
-else
-   if (log_horz_interpQ) then
-      intermediate = (3.0_r8*log(edgep) - &
-                 dym*( dxm*l1 + dx*l2 ) - dy*( dxm*l3 + dx*l4 ))/2.0_r8
-
-      do i = 1, size(intermediate)
-         if (intermediate(i) <= 0.0_r8) then
-            !>@todo is this correct?
-            interp_4pressure_distrib(i) = edgep(i)
-         else
-            interp_4pressure_distrib(i) = exp(intermediate(i))
-         endif
-      enddo
-   else
-      interp_4pressure_distrib = (3.0_r8*edgep - &
-                 dym*( dxm*p1 + dx*p2 ) - dy*( dxm*p3 + dx*p4 ))/2.0_r8
-   endif
-endif
-
-end function interp_4pressure_distrib
-
-!#######################################################
-!> Interpolate function
-function interp_4pressure(p1, p2, p3, p4, dx, dxm, dy, dym, extrapolate, edgep)
- 
-! given 4 corners of a quad, where the p1, p2, p3 and p4 points are
-! respectively:  lower left, lower right, upper left, upper right
-! and dx is the distance in x, dxm is 1.0-dx, dy is distance in y
-! and dym is 1.0-dy, interpolate the pressure while converted to log.
-! if extrapolate is true, extrapolate where edgep is the edge pressure
-! and the 4 points and dx/dy give the location of the inner point.
-
-real(r8), intent(in)               :: p1, p2, p3, p4
-real(r8), intent(in)               :: dx, dxm, dy, dym
-logical,  intent(in), optional     :: extrapolate
-real(r8), intent(in), optional     :: edgep
-real(r8)                           :: interp_4pressure
-
-logical  :: do_interp
-real(r8) :: intermediate
-real(r8) :: l1, l2, l3, l4
 
 ! default is to do interpolation; only extrapolate if the optional
 ! arg is specified and if it is true.  for extrapolation 'edgep' is
@@ -4659,11 +4588,15 @@ else
    if (log_horz_interpQ) then
       intermediate = (3.0_r8*log(edgep) - &
                  dym*( dxm*l1 + dx*l2 ) - dy*( dxm*l3 + dx*l4 ))/2.0_r8
-      if (intermediate <= 0.0_r8) then
-         interp_4pressure = edgep
-      else
-         interp_4pressure = exp(intermediate)
-      endif
+
+      do i = 1, size(intermediate)
+         if (intermediate(i) <= 0.0_r8) then
+            !>@todo is this correct?
+            interp_4pressure(i) = edgep(i)
+         else
+            interp_4pressure(i) = exp(intermediate(i))
+         endif
+      enddo
    else
       interp_4pressure = (3.0_r8*edgep - &
                  dym*( dxm*p1 + dx*p2 ) - dy*( dxm*p3 + dx*p4 ))/2.0_r8
@@ -4674,19 +4607,19 @@ end function interp_4pressure
 
 !#######################################################
 
-function model_rho_t_distrib(i,j,k,id,state_handle, ens_size)
+function model_rho_t(i,j,k,id,state_handle, ens_size)
 
 ! Calculate the total density on mass point (half (mass) levels, T-point).
 
 integer,             intent(in)  :: ens_size
 integer,             intent(in)  :: i,j,k,id
 type(ensemble_type), intent(in)  :: state_handle
-real(r8) :: model_rho_t_distrib(ens_size)
+real(r8) :: model_rho_t(ens_size)
 
 integer(i8) :: imu,iph,iphp1
 real(r8)    :: ph_e(ens_size), x_imu(ens_size), x_iph(ens_size), x_iphp1(ens_size)
 
-model_rho_t_distrib(:) = missing_r8
+model_rho_t(:) = missing_r8
 
 ! Adapted the code from WRF module_big_step_utilities_em.F ----
 !         subroutine calc_p_rho_phi      Y.-R. Guo (10/20/2004)
@@ -4712,13 +4645,13 @@ ph_e = ( (x_iphp1 + wrf%dom(id)%phb(i,j,k+1)) &
 
 ! now calculate rho = - mu / dphi/deta
 
-model_rho_t_distrib(:) = - (wrf%dom(id)%mub(i,j)+x_imu) / ph_e
+model_rho_t(:) = - (wrf%dom(id)%mub(i,j)+x_imu) / ph_e
 
-end function model_rho_t_distrib
+end function model_rho_t
 
 !#######################################################
 
-subroutine get_model_height_profile_distrib(i,j,dx,dy,dxm,dym,n,id,v_h, state_handle, ens_size)
+subroutine get_model_height_profile(i,j,dx,dy,dxm,dym,n,id,v_h, state_handle, ens_size)
 
 ! Calculate the model height profile on half (mass) levels,
 ! horizontally interpolated at the observation location.
@@ -4803,25 +4736,25 @@ else
 
 endif
 
-end subroutine get_model_height_profile_distrib
+end subroutine get_model_height_profile
 
 !#######################################################
 
-function model_height_distrib(i,j,k,id,var_type, state_handle)
+function model_height(i,j,k,id,var_type, state_handle)
 
 ! This routine used to compute geopotential heights; it now
 ! computes geometric heights.
 
 type(ensemble_type), intent(in) :: state_handle
 integer,             intent(in) :: i,j,k,id,var_type
-real(r8)                        :: model_height_distrib
+real(r8)                        :: model_height
 
 integer(i8)  :: i1, i2, i3, i4
 integer      :: off
 real(r8)     :: x_i1(1), x_i2(1), x_i3(1), x_i4(1)
 real(r8)     :: geop, lat
 
-model_height_distrib = missing_r8
+model_height = missing_r8
 
 if (wrf%dom(id)%type_gz < 0) then
   call error_handler(E_ERR, 'model_height:', &
@@ -4836,7 +4769,7 @@ if( (var_type == wrf%dom(id)%type_w) .or. (var_type == wrf%dom(id)%type_gz) ) th
    x_i1 = get_state(i1, state_handle)
 
    geop = minval((wrf%dom(id)%phb(i,j,k)+x_i1)/gravity)
-   model_height_distrib = compute_geometric_height(geop, wrf%dom(id)%latitude(i, j))
+   model_height = compute_geometric_height(geop, wrf%dom(id)%latitude(i, j))
 
 ! If U-grid, then height is defined between U points, both in horizontal 
 !   and in vertical, so average -- averaging depends on longitude periodicity
@@ -4869,7 +4802,7 @@ elseif( var_type == wrf%dom(id)%type_u ) then
                 +wrf%dom(id)%latitude(1  ,j)  &
                 +wrf%dom(id)%latitude(1  ,j) ) / 4.0_r8
 
-         model_height_distrib = compute_geometric_height(geop, lat)
+         model_height = compute_geometric_height(geop, lat)
          
       else
 
@@ -4893,7 +4826,7 @@ elseif( var_type == wrf%dom(id)%type_u ) then
                        -wrf%dom(id)%latitude(i-2,j)  &
                        -wrf%dom(id)%latitude(i-2,j)) / 4.0_r8
 
-         model_height_distrib = compute_geometric_height(geop, lat)
+         model_height = compute_geometric_height(geop, lat)
 
       endif
 
@@ -4924,7 +4857,7 @@ elseif( var_type == wrf%dom(id)%type_u ) then
                 +wrf%dom(id)%latitude(off,j)  &
                 +wrf%dom(id)%latitude(off,j)) / 4.0_r8
 
-         model_height_distrib = compute_geometric_height(geop, lat)
+         model_height = compute_geometric_height(geop, lat)
 
       else
 
@@ -4948,7 +4881,7 @@ elseif( var_type == wrf%dom(id)%type_u ) then
                        -wrf%dom(id)%latitude(i+1,j)  &
                        -wrf%dom(id)%latitude(i+1,j)) / 4.0_r8
 
-         model_height_distrib = compute_geometric_height(geop, lat)
+         model_height = compute_geometric_height(geop, lat)
 
       endif
 
@@ -4973,7 +4906,7 @@ elseif( var_type == wrf%dom(id)%type_u ) then
               +wrf%dom(id)%latitude(i-1,j)  &
               +wrf%dom(id)%latitude(i-1,j)) / 4.0_r8
 
-      model_height_distrib = compute_geometric_height(geop, lat)
+      model_height = compute_geometric_height(geop, lat)
 
    endif
 
@@ -5010,7 +4943,7 @@ elseif( var_type == wrf%dom(id)%type_v ) then
                 +wrf%dom(id)%latitude(i  ,j-1)  &
                 +wrf%dom(id)%latitude(i  ,j-1)) / 4.0_r8
 
-         model_height_distrib = compute_geometric_height(geop, lat)
+         model_height = compute_geometric_height(geop, lat)
 
       else
 
@@ -5035,7 +4968,7 @@ elseif( var_type == wrf%dom(id)%type_v ) then
                        -wrf%dom(id)%latitude(i,j-2)  &
                        -wrf%dom(id)%latitude(i,j-2)) / 4.0_r8
 
-         model_height_distrib = compute_geometric_height(geop, lat)
+         model_height = compute_geometric_height(geop, lat)
 
       endif
 
@@ -5068,7 +5001,7 @@ elseif( var_type == wrf%dom(id)%type_v ) then
                 +wrf%dom(id)%latitude(i  ,j)  &
                 +wrf%dom(id)%latitude(i  ,j)) / 4.0_r8
 
-         model_height_distrib = compute_geometric_height(geop, lat)
+         model_height = compute_geometric_height(geop, lat)
 
       else
 
@@ -5093,7 +5026,7 @@ elseif( var_type == wrf%dom(id)%type_v ) then
                        -wrf%dom(id)%latitude(i,j+1)  &
                        -wrf%dom(id)%latitude(i,j+1)) / 4.0_r8
 
-         model_height_distrib = compute_geometric_height(geop, lat)
+         model_height = compute_geometric_height(geop, lat)
 
       endif
 
@@ -5119,7 +5052,7 @@ elseif( var_type == wrf%dom(id)%type_v ) then
              +wrf%dom(id)%latitude(i,j-1)  &
              +wrf%dom(id)%latitude(i,j-1)) / 4.0_r8
 
-      model_height_distrib = compute_geometric_height(geop, lat)
+      model_height = compute_geometric_height(geop, lat)
 
    endif
 
@@ -5127,24 +5060,24 @@ elseif( var_type == wrf%dom(id)%type_mu .or. &
         var_type == wrf%dom(id)%type_ps .or. &
         var_type == wrf%dom(id)%type_tsk) then
 
-   model_height_distrib = wrf%dom(id)%hgt(i,j)
+   model_height = wrf%dom(id)%hgt(i,j)
 
 elseif( var_type == wrf%dom(id)%type_tslb  .or. &
         var_type == wrf%dom(id)%type_smois .or. &
         var_type == wrf%dom(id)%type_sh2o ) then
 
-   model_height_distrib = wrf%dom(id)%hgt(i,j) - wrf%dom(id)%zs(k)
+   model_height = wrf%dom(id)%hgt(i,j) - wrf%dom(id)%zs(k)
 
 elseif( var_type == wrf%dom(id)%type_u10 .or. &
         var_type == wrf%dom(id)%type_v10 ) then
 
-   model_height_distrib = wrf%dom(id)%hgt(i,j) + 10.0_r8
+   model_height = wrf%dom(id)%hgt(i,j) + 10.0_r8
 
 elseif( var_type == wrf%dom(id)%type_t2  .or. &
         var_type == wrf%dom(id)%type_th2 .or. &
         var_type == wrf%dom(id)%type_q2 ) then
 
-   model_height_distrib = wrf%dom(id)%hgt(i,j) + 2.0_r8
+   model_height = wrf%dom(id)%hgt(i,j) + 2.0_r8
 
 else
 
@@ -5159,18 +5092,18 @@ else
 
    lat = wrf%dom(id)%latitude(i,j)
 
-   model_height_distrib = compute_geometric_height(geop, lat)
+   model_height = compute_geometric_height(geop, lat)
 
 endif
 
-end function model_height_distrib
+end function model_height
 
 !#######################################################
 
 !> Distributed version of model_height_w
-!> Only one value, the mean, is used because model_height_w_distrib
+!> Only one value, the mean, is used because model_height_w
 !> is only used in the vertical conversion
-function model_height_w_distrib(i, j, k, id, state_handle)
+function model_height_w(i, j, k, id, state_handle)
 
 ! return total height at staggered vertical coordinate
 ! and horizontal mass coordinates
@@ -5178,7 +5111,7 @@ function model_height_w_distrib(i, j, k, id, state_handle)
 type(ensemble_type), intent(in) :: state_handle
 integer,             intent(in) :: i,j,k,id
 real(r8)                        :: x_i1
-real(r8)                        :: model_height_w_distrib
+real(r8)                        :: model_height_w
 
 integer(i8) :: i1
 real(r8)    :: geop
@@ -5194,9 +5127,9 @@ i1 = get_dart_vector_index(i,j,k, domain_id(id),wrf%dom(id)%type_gz)
 x_i1 = minval(get_state(i1, state_handle))
 
 geop = (wrf%dom(id)%phb(i,j,k) + x_i1)/gravity
-model_height_w_distrib = compute_geometric_height(geop, wrf%dom(id)%latitude(i, j))
+model_height_w = compute_geometric_height(geop, wrf%dom(id)%latitude(i, j))
 
-end function model_height_w_distrib
+end function model_height_w
 
 
 !#######################################################
@@ -7338,7 +7271,7 @@ end function compute_geometric_height
 
 !--------------------------------------------------------------------------
 !> Perform interpolation across the ensemble
-subroutine simple_interp_distrib(fld, wrf, id, i, j, k, obs_kind, dxm, dx, dy, dym, uniquek, ens_size, state_handle)
+subroutine simple_interp(fld, wrf, id, i, j, k, obs_kind, dxm, dx, dy, dym, uniquek, ens_size, state_handle)
 
 integer,             intent(in) :: ens_size
 type(ensemble_type), intent(in) :: state_handle
@@ -7362,7 +7295,7 @@ real(r8), dimension(ens_size) ::x_ill, x_iul, x_ilr, x_iur
 
 ! Confirm that the obs kind is in the DART state vector and return the wrf_type
 !>@todo should boundsCheck always be temperatue type? This is what it is in the original code
-call obs_kind_in_state_vector(in_state, wrf_type, obs_kind, id)
+call obs_qty_in_state_vector(in_state, wrf_type, obs_kind, id)
 
 if ( in_state ) then
 
@@ -7419,19 +7352,18 @@ if ( in_state ) then
 
 else ! not in state
 
-   call error_handler(E_MSG, 'simple_interp_distrib', &
+   call error_handler(E_MSG, 'simple_interp', &
       'obs_kind "'//trim(get_name_for_quantity(obs_kind))//'" is not in state vector 1', &
       source, revision, revdate)
    fld(2, ens_size) = missing_r8
-   return
 
 endif
 
-end subroutine simple_interp_distrib
+end subroutine simple_interp
 
 !------------------------------------------------------------------------
 !> interpolation for surface fields
-subroutine surface_interp_distrib(fld, wrf, id, i, j, obs_kind, wrf_surf_type, dxm, dx, dy, dym, ens_size, state_handle)
+subroutine surface_interp(fld, wrf, id, i, j, obs_kind, wrf_surf_type, dxm, dx, dy, dym, ens_size, state_handle)
 
 integer,             intent(in) :: ens_size
 type(ensemble_type), intent(in) :: state_handle
@@ -7455,7 +7387,7 @@ real(r8), dimension(ens_size) ::x_ill, x_iul, x_ilr, x_iur
 fld(:,:) = missing_r8
 
 ! Find the wrf_type from the obs kind
-! check for in state is performed before surface_interp_distrib is called
+! check for in state is performed before surface_interp is called
 !>@todo should boundsCheck always be temperatue type? This is what it is in the original code
 call obs_kind_in_state_vector(in_state, wrf_type, obs_kind, id)
 
@@ -7483,11 +7415,11 @@ if ( ( boundsCheck( i, wrf%dom(id)%periodic_x, id, dim=1, type=wrf_type ) .and. 
 
 endif
 
-end subroutine surface_interp_distrib
+end subroutine surface_interp
 
 !--------------------------------------------------------------------------
 !> test if an obs kind is in the state vector and set wrf_type
-subroutine obs_kind_in_state_vector(part_of_state_vector, wrf_type, obs_kind, id)
+subroutine obs_qty_in_state_vector(part_of_state_vector, wrf_type, obs_kind, id)
 
 logical, intent(out) :: part_of_state_vector
 integer, intent(out) :: wrf_type !< WRF
@@ -7498,90 +7430,8 @@ integer, intent(in)  :: id
 part_of_state_vector = .false. ! assume not in state vector
 
 
-if    ( ( obs_kind == QTY_VERTICAL_VELOCITY)             .and. ( wrf%dom(id)%type_w >= 0 ) )  then
-   part_of_state_vector = .true.
-   wrf_type = wrf%dom(id)%type_w
-else if( ( obs_kind == QTY_RAINWATER_MIXING_RATIO )      .and. ( wrf%dom(id)%type_qr >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type =  wrf%dom(id)%type_qr
-else if( ( obs_kind == QTY_GRAUPEL_MIXING_RATIO )        .and. ( wrf%dom(id)%type_qg >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type =  wrf%dom(id)%type_qg
-else if( ( obs_kind == QTY_HAIL_MIXING_RATIO )           .and. ( wrf%dom(id)%type_qh >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type =  wrf%dom(id)%type_qh
-else if( ( obs_kind == QTY_SNOW_MIXING_RATIO )           .and. ( wrf%dom(id)%type_qs >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type =  wrf%dom(id)%type_qs
-else if( ( obs_kind == QTY_ICE_MIXING_RATIO )                   .and. ( wrf%dom(id)%type_qi >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type =  wrf%dom(id)%type_qi
-else if( ( obs_kind == QTY_CLOUDWATER_MIXING_RATIO )          .and. ( wrf%dom(id)%type_qc >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type = wrf%dom(id)%type_qc
-else if ( ( obs_kind == QTY_CLOUD_FRACTION )             .and. ( wrf%dom(id)%type_cldfra >= 0 ) )then
-   part_of_state_vector = .true.
-   wrf_type = wrf%dom(id)%type_cldfra
-else if( ( obs_kind == QTY_DROPLET_NUMBER_CONCENTR )     .and. ( wrf%dom(id)%type_qndrp >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type =  wrf%dom(id)%type_qndrp
-else if( ( obs_kind == QTY_ICE_NUMBER_CONCENTRATION )    .and. ( wrf%dom(id)%type_qnice >= 0 ) )then
-   part_of_state_vector = .true.
-   wrf_type = wrf%dom(id)%type_qnice
-else if( ( obs_kind == QTY_SNOW_NUMBER_CONCENTR )        .and. ( wrf%dom(id)%type_qnsnow >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type =  wrf%dom(id)%type_qnsnow
-else if( ( obs_kind == QTY_RAIN_NUMBER_CONCENTR )        .and. ( wrf%dom(id)%type_qnrain >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type =  wrf%dom(id)%type_qnrain
-else if( ( obs_kind == QTY_GRAUPEL_NUMBER_CONCENTR )     .and. ( wrf%dom(id)%type_qngraupel >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type =  wrf%dom(id)%type_qngraupel
-else if( ( obs_kind == QTY_HAIL_NUMBER_CONCENTR )        .and. ( wrf%dom(id)%type_qnhail >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type = wrf%dom(id)%type_qnhail
-else if( ( obs_kind == QTY_CONDENSATIONAL_HEATING )      .and. ( wrf%dom(id)%type_hdiab >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type =  wrf%dom(id)%type_hdiab
-else if( ( obs_kind == QTY_POWER_WEIGHTED_FALL_SPEED )   .and. ( wrf%dom(id)%type_fall_spd >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type =  wrf%dom(id)%type_fall_spd
-else if( ( obs_kind == QTY_RADAR_REFLECTIVITY )          .and. ( wrf%dom(id)%type_refl >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type =  wrf%dom(id)%type_refl
-else if( ( obs_kind == QTY_DIFFERENTIAL_REFLECTIVITY )   .and. ( wrf%dom(id)%type_dref >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type =  wrf%dom(id)%type_dref
-else if( ( obs_kind == QTY_SPECIFIC_DIFFERENTIAL_PHASE ) .and. ( wrf%dom(id)%type_spdp >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type = wrf%dom(id)%type_spdp
-else if ( ( obs_kind == QTY_VAPOR_MIXING_RATIO )         .and. ( wrf%dom(id)%type_qv >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type = wrf%dom(id)%type_qv
-else if ( ( obs_kind == QTY_TEMPERATURE )                  .and. ( wrf%dom(id)%type_t >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type = wrf%dom(id)%type_t
-else if ( ( obs_kind == QTY_POTENTIAL_TEMPERATURE )        .and. ( wrf%dom(id)%type_t >= 0 ) ) then
-   part_of_state_vector = .true.
-   wrf_type = wrf%dom(id)%type_t
-else if ( ( obs_kind == QTY_SKIN_TEMPERATURE )              .and. ( wrf%dom(id)%type_tsk >= 0 ) )then
-   part_of_state_vector = .true.
-   wrf_type = wrf%dom(id)%type_tsk
-else if ( ( obs_kind == QTY_GEOPOTENTIAL_HEIGHT )        .and. ( wrf%dom(id)%type_gz >= 0 ) )then
-   part_of_state_vector = .true.
-   wrf_type = wrf%dom(id)%type_gz
-else if ( ( obs_kind == QTY_2M_TEMPERATURE )        .and. ( wrf%dom(id)%type_t2 >= 0 ) )then
-   part_of_state_vector = .true.
-   wrf_type = wrf%dom(id)%type_t2
-else
-   call error_handler(E_MSG, 'obs_kind_in_state_vector', &
-      'obs_kind "'//trim(get_name_for_quantity(obs_kind))//'" is not in state vector 2', &
-       source, revision, revdate)
-   part_of_state_vector = .false.
-   wrf_type = -1
-endif
 
-end subroutine obs_kind_in_state_vector
+end subroutine obs_qty_in_state_vector
 
 !--------------------------------------------------------------------
 !> pass the vertical localization coordinate to assim_tools_mod
