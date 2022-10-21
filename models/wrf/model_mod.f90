@@ -91,8 +91,6 @@ use state_structure_mod, only : add_domain, get_model_variable_indices, &
 ! QTY_ICE_NUMBER_CONCENTRATION should be QTY_ICE_NUMBER_CONCENTR
 ! to be consistent with the other concentration names.
 
-!nc -- module_map_utils split the declarations of PROJ_* into a separate module called
-!nc --   misc_definitions_module 
 use         map_utils, only : proj_info, map_init, map_set, latlon_to_ij, &
                               ij_to_latlon, gridwind_to_truewind
 
@@ -181,24 +179,10 @@ logical :: periodic_y = .false.    ! used for single column model, wrap in y
 logical :: scm        = .false.    ! using the single column model
 logical :: allow_perturbed_ics = .false.  ! should spin the model up for a while after
 
-! obsolete items; ignored by this code. 
-! non-backwards-compatible change. should be removed, 
-! but see note below about namelist.
-integer :: num_moist_vars
-logical :: surf_obs, soil_data, h_diab
-
-! adv_mod_command moved to dart_to_wrf namelist; ignored here.
-character(len = 72) :: adv_mod_command = ''
-
-! num_moist_vars, surf_obs, soil_data, h_diab, and adv_mod_command
-! are IGNORED no matter what their settings in the namelist are.
-! they are obsolete, but removing them here will cause a fatal error
-! until users remove them from their input.nml files as well.
-namelist /model_nml/ num_moist_vars, &
-                     num_domains, calendar_type, surf_obs, soil_data, h_diab, &
+namelist /model_nml/ num_domains, calendar_type, &
                      default_state_variables, wrf_state_variables, &
                      wrf_state_bounds, sfc_elev_max_diff, &
-                     adv_mod_command, assimilation_period_seconds, &
+                     assimilation_period_seconds, &
                      allow_obs_below_vol, vert_localization_coord, &
                      center_search_half_length, center_spline_grid_scale, &
                      circulation_pres_level, circulation_radius, polar, &
@@ -208,8 +192,6 @@ namelist /model_nml/ num_moist_vars, &
 ! otherwise, leave it as false to use the more correct geometric height
 logical :: use_geopotential_height = .false.
 
-character(len = 20) :: wrf_nml_file = 'namelist.input'
-logical :: have_wrf_nml_file = .false.
 integer :: num_obs_kinds = 0
 logical, allocatable :: in_state_vector(:)
 integer, allocatable  :: domain_id(:) ! Global storage to interface with state_structure_mod.
@@ -217,23 +199,14 @@ integer, allocatable  :: domain_id(:) ! Global storage to interface with state_s
 !-----------------------------------------------------------------------
 
 ! Private definition of domain map projection use by WRF
-
-!nc -- added in CASSINI and CYL according to module_map_utils convention
-!JPH -- change variable name from map_sphere to more specific map_latlon
 integer, parameter :: map_latlon = 0, map_lambert = 1, map_polar_stereo = 2, map_mercator = 3
 integer, parameter :: map_cassini = 6, map_cyl = 5
 
-! Private definition of model variable types
+! model variable types
+real (kind=r8), parameter    :: kappa = 2.0_r8/7.0_r8 ! gas_constant / cp
+real (kind=r8), parameter    :: ts0 = 300.0_r8        ! Base potential temperature for all levels.
 
-real (kind=r8), PARAMETER    :: kappa = 2.0_r8/7.0_r8 ! gas_constant / cp
-real (kind=r8), PARAMETER    :: ts0 = 300.0_r8        ! Base potential temperature for all levels.
-
-!---- private data ----
-
-! Got rid of surf_var as global private variable for model_mod and just defined it locally
-!   within model_interpolate
-
-TYPE wrf_static_data_for_dart
+type wrf_static_data_for_dart
 
    integer  :: bt, bts, sn, sns, we, wes, sls
    real(r8) :: dx, dy, dt, p_top
@@ -253,20 +226,19 @@ TYPE wrf_static_data_for_dart
 
    integer  :: domain_size
    integer  :: localization_coord
-   real(r8), dimension(:),     pointer :: znu, dn, dnw, zs, znw
-   real(r8), dimension(:,:),   pointer :: mub, hgt
-   real(r8), dimension(:,:),   pointer :: latitude, latitude_u, latitude_v
-   real(r8), dimension(:,:),   pointer :: longitude, longitude_u, longitude_v
-   real(r8), dimension(:,:,:), pointer :: phb
-
+   real(r8), dimension(:),     allocatable :: znu, dn, dnw, zs, znw
+   real(r8), dimension(:,:),   allocatable :: mub, hgt
+   real(r8), dimension(:,:),   allocatable :: latitude, latitude_u, latitude_v
+   real(r8), dimension(:,:),   allocatable :: longitude, longitude_u, longitude_v
+   real(r8), dimension(:,:,:), allocatable :: phb
 
    integer :: number_of_wrf_variables
-   character(len=129),dimension(:),pointer :: description, units, stagger, coordinates
+   character(len=129),dimension(:),allocatable :: description, units, stagger, coordinates
 
 end type wrf_static_data_for_dart
 
 type wrf_dom
-   type(wrf_static_data_for_dart), pointer :: dom(:)
+   type(wrf_static_data_for_dart), allocatable :: dom(:)
    integer(i8) :: model_size
 end type wrf_dom
 
@@ -291,7 +263,6 @@ integer :: ncid
 integer :: io, iunit
 
 character (len=1)     :: idom
-logical, parameter    :: debug = .false.
 integer               :: ind, i, j, k, id
 integer               :: my_index
 integer               :: var_element_list(max_state_variables)
@@ -331,12 +302,6 @@ if ( default_state_variables ) then
   call error_handler(E_MSG, 'static_init_model:', &
                   'Using predefined wrf variable list for dart state vector.', &
                    text2=msgstring2, text3=msgstring3)
-endif
-
-if ( debug ) then
-  print*,'WRF state vector table'
-  print*,'default_state_variables = ',default_state_variables
-  print*,wrf_state_variables
 endif
 
 !---------------------------
@@ -398,8 +363,6 @@ WRFDomains : do id=1,num_domains
 
    endif
 
-   if(debug) write(*,*) ' ncid is ',ncid
-
    call read_wrf_dimensions(ncid,wrf%dom(id)%bt, wrf%dom(id)%bts, &
                                  wrf%dom(id)%sn, wrf%dom(id)%sns, &
                                  wrf%dom(id)%we, wrf%dom(id)%wes, &
@@ -413,24 +376,24 @@ WRFDomains : do id=1,num_domains
 
    call setup_map_projection(id)
 
-! get the number of wrf variables wanted in this domain's state
+   ! get the number of wrf variables wanted in this domain's state
    wrf%dom(id)%number_of_wrf_variables = get_number_of_wrf_variables(id,wrf_state_variables,var_element_list, var_update_list)
 
-! allocate and store the table locations of the variables valid on this domain
+   ! allocate and store the table locations of the variables valid on this domain
    allocate(wrf%dom(id)%var_index_list(wrf%dom(id)%number_of_wrf_variables))
    wrf%dom(id)%var_index_list = var_element_list(1:wrf%dom(id)%number_of_wrf_variables)
 
-! allocation for update/nocopyback/noupdate
+   ! allocation for update/nocopyback/noupdate
    allocate(wrf%dom(id)%var_update_list(wrf%dom(id)%number_of_wrf_variables))
    wrf%dom(id)%var_update_list = var_update_list(1:wrf%dom(id)%number_of_wrf_variables)
 
-! allocation for wrf variable metadata
+   ! allocation for wrf variable metadata
    allocate(wrf%dom(id)%stagger(wrf%dom(id)%number_of_wrf_variables))
    allocate(wrf%dom(id)%description(wrf%dom(id)%number_of_wrf_variables))
    allocate(wrf%dom(id)%units(wrf%dom(id)%number_of_wrf_variables))
    allocate(wrf%dom(id)%coordinates(wrf%dom(id)%number_of_wrf_variables))
 
-! set default bounds checking
+   ! set default bounds checking
    allocate(wrf%dom(id)%lower_bound(wrf%dom(id)%number_of_wrf_variables))
    allocate(wrf%dom(id)%upper_bound(wrf%dom(id)%number_of_wrf_variables))
    allocate(wrf%dom(id)%clamp_or_fail(wrf%dom(id)%number_of_wrf_variables))
@@ -439,10 +402,8 @@ WRFDomains : do id=1,num_domains
                                     wrf%dom(id)%upper_bound, &
                                     wrf%dom(id)%clamp_or_fail)
 
-!  build the variable indices
-!  this accounts for the fact that some variables might not be on all domains
+   !  this accounts for the fact that some variables might not be on all domains
    do ind = 1,wrf%dom(id)%number_of_wrf_variables
-
 
       ! get stagger and variable size
       call get_variable_size_from_file(ncid,id,  &
@@ -464,14 +425,6 @@ WRFDomains : do id=1,num_domains
       call get_variable_bounds(wrf_state_bounds, wrf_state_variables(1,my_index), &
                                wrf%dom(id)%lower_bound(ind), wrf%dom(id)%upper_bound(ind), &
                                wrf%dom(id)%clamp_or_fail(ind))
-
-      if ( debug ) then
-         write(*,*) 'Bounds for variable ',  &
-         trim(wrf_state_variables(1,my_index)), &
-         ' are ',wrf%dom(id)%lower_bound(ind), &
-         wrf%dom(id)%upper_bound(ind), &
-         wrf%dom(id)%clamp_or_fail(ind)
-      endif
 
       write(errstring, '(A,I4,2A)') 'state vector array ', ind, ' is ', trim(wrf_state_variables(1,my_index))
       call error_handler(E_MSG, 'static_init_model: ', errstring)
@@ -501,9 +454,7 @@ WRFDomains : do id=1,num_domains
                            kind_list   = wrf%dom(id)%dart_kind, &
                            clamp_vals  = var_bounds_table(1:wrf%dom(id)%number_of_wrf_variables,:), &
                            update_list = var_update_list(1:wrf%dom(id)%number_of_wrf_variables) )
-
-   if (debug) call state_structure_info(domain_id(id))
-
+ 
    wrf%model_size = wrf%model_size + get_domain_size(domain_id(id))
  
 enddo WRFDomains 
@@ -577,7 +528,6 @@ subroutine get_state_meta_data(index_in, location, var_type_out)
 ! Given an integer index into the DART state vector structure, returns the
 ! associated location.
 
-
 integer(i8),         intent(in)  :: index_in
 type(location_type), intent(out) :: location
 integer, optional,   intent(out) :: var_type_out
@@ -591,7 +541,6 @@ real(r8)    :: lon, lat, lev
 character(len=129) :: string1
 
 integer :: i, id, var_id, state_id
-logical, parameter :: debug = .false.
 
 ! from the dart index get the local variables indices
 call get_model_variable_indices(index_in, ip, jp, kp, var_id=var_id, dom_id=state_id)
@@ -600,10 +549,6 @@ call get_model_variable_indices(index_in, ip, jp, kp, var_id=var_id, dom_id=stat
 id = get_wrf_domain(state_id)
 
 ! at this point, (ip,jp,kp) refer to indices in the variable's own grid
-
-if(debug) write(*,*) ' ip, jp, kp for index ',ip,jp,kp,index
-if(debug) write(*,*) ' Var type: ',var_type
-
 var_type  = wrf%dom(id)%var_type(var_id)
 dart_type = wrf%dom(id)%dart_kind(var_id)
 
@@ -616,8 +561,6 @@ if( (var_type == wrf%dom(id)%type_w ) .or. (var_type == wrf%dom(id)%type_gz) ) t
 else
   lev = real(kp)
 endif
-
-if(debug) write(*,*) 'lon, lat, lev: ',lon, lat, lev
 
 location = set_location(lon, lat, lev, VERTISLEVEL)
 
@@ -645,7 +588,6 @@ real(r8),              intent(out) :: expected_obs(ens_size)
 integer,               intent(out) :: istatus(ens_size)
 
 ! local
-logical, parameter  :: debug = .false.
 logical, parameter  :: restrict_polar = .false.
 logical, parameter  :: use_old_vortex = .true.   ! set to .false. to use circ code
 real(r8), parameter :: drad = pi / 18.0_r8
@@ -747,10 +689,6 @@ if (id==0) then
    return
 endif
 
-if ( debug ) then
-  write(*,*) 'retreiving obs kind ',obs_kind,' on domain ',id
-endif
-
 !*****************************************************************************
 ! Check polar-b.c. constraints -- if restrict_polar = .true., then we are not 
 !   processing observations poleward of the 1st or last mass grid points.
@@ -770,35 +708,10 @@ if ( wrf%dom(id)%polar .and. restrict_polar ) then
 endif
 !*****************************************************************************
 
-! print info if debugging
-if(debug) then
-   i = xloc
-   j = yloc
-   print*,xyz_loc(2), xyz_loc(1), xloc,yloc
-   write(*,*) ' corners of lat '
-   write(*,*) wrf%dom(id)%latitude(i,j),wrf%dom(id)%latitude(i+1,j),  &
-        wrf%dom(id)%latitude(i,j+1), &
-        wrf%dom(id)%latitude(i+1,j+1)
-   write(*,*) ' corners of long '
-   write(*,*) wrf%dom(id)%longitude(i,j),wrf%dom(id)%longitude(i+1,j),  &
-        wrf%dom(id)%longitude(i,j+1), &
-        wrf%dom(id)%longitude(i+1,j+1)
-endif
-
 ! get integer (west/south) grid point and distances to neighboring grid points
 ! distances are used as weights to carry out horizontal interpolations
 call toGrid(xloc,i,dx,dxm)
 call toGrid(yloc,j,dy,dym)
-
-! 0.b Vertical stuff
-
-if ( debug ) then
-   write(*,*) 'is_vertical(PRESSURE) ',is_vertical(location,"PRESSURE")
-   write(*,*) 'is_vertical(HEIGHT) ',is_vertical(location,"HEIGHT")
-   write(*,*) 'is_vertical(LEVEL) ',is_vertical(location,"LEVEL")
-   write(*,*) 'is_vertical(SURFACE) ',is_vertical(location,"SURFACE")
-   write(*,*) 'is_vertical(UNDEFINED) ',is_vertical(location,"UNDEFINED")
-endif
 
 ! HK
 ! Allocate both a vertical height and vertical pressure coordinate -- 0:bt x ens_size
@@ -821,10 +734,6 @@ elseif(is_vertical(location,"PRESSURE")) then
 
    ! get pressure vertical co-ordinate
    call pres_to_zk_distrib(xyz_loc(3), v_p, wrf%dom(id)%bt, ens_size, zloc,is_lev0)
-   if(debug .and. obs_kind /= QTY_SURFACE_PRESSURE) &
-             print*,' obs is by pressure and zloc,lev0 =',zloc, is_lev0
-   if(debug) print*,'model pressure profile'
-   if(debug) print*,v_p
    
    ! If location is above model surface but below the lowest sigma level,
    ! the default is to reject it.  But if the namelist value is true, then
@@ -839,8 +748,6 @@ elseif(is_vertical(location,"PRESSURE")) then
             ! we overwrite it with missing -- but, if the namelist value is set
             ! to true, leave zloc alone.
             if (.not. allow_obs_below_vol) zloc(e) = missing_r8
-               if (debug .and. .not. allow_obs_below_vol) print*, 'setting zloc missing'
-
             ! else need to set a qc here?
          endif
 
@@ -854,9 +761,6 @@ elseif(is_vertical(location,"HEIGHT")) then
    ! get height vertical co-ordinate
    do e = 1, ens_size ! HK should there be a height_to_zk_distrib?
       call height_to_zk(xyz_loc(3), v_h(:, e), wrf%dom(id)%bt,zloc(e),is_lev0(e))
-      if(debug) print*,' obs is by height and zloc,lev0 =',zloc(e), is_lev0(e)
-      if(debug) print*,'model height profile'
-      if(debug) print*,v_h
 
       ! If location is above model surface but below the lowest sigma level,
       ! the default is to reject it.  But if the namelist value is true, then
@@ -868,7 +772,6 @@ elseif(is_vertical(location,"HEIGHT")) then
          ! we overwrite it with missing.  but if the namelist value is set
          ! to true, leave zloc alone.
          if (.not. allow_obs_below_vol) zloc(e) = missing_r8
-         if (debug .and. .not. allow_obs_below_vol) print*, 'setting zloc missing member ', e
          ! else need to set a qc here?
       endif
 
@@ -877,7 +780,6 @@ elseif(is_vertical(location,"HEIGHT")) then
 elseif(is_vertical(location,"SURFACE") .or. obs_kind == QTY_SURFACE_ELEVATION) then
    zloc = 1.0_r8
    surf_var = .true.
-   if(debug) print*,' obs is at the surface = ', xyz_loc(3)
 
    ! if you want to have a distance check to see if the station height
    ! is too far away from the model surface height, here is the place to
@@ -920,7 +822,6 @@ elseif(is_vertical(location,"UNDEFINED")) then
    ! location for this observation, but give zloc a valid value to avoid
    ! the error checks below for missing_r8
    zloc  = 0.0_r8
-   if(debug) print*,' obs height is intentionally undefined'
 
 else
    write(errstring,*) 'wrong option for which_vert ', &
@@ -981,7 +882,7 @@ enddo
 ! stored in fld(1:2).  Set them to missing here, and if the code below cannot
 ! compute a value, it can just drop out and not have to explicitly set it to
 ! missing anymore.
-fld(:,:) = missing_r8 !HK
+fld(:,:) = missing_r8
 
 !----------------------------------
 ! 1. Horizontal Interpolation 
@@ -1002,43 +903,38 @@ fld(:,:) = missing_r8 !HK
 ! 1.e Vertical Wind (W)
 ! 1.f Specific Humidity (SH, SH2)
 ! 1.g Vapor Mixing Ratio (QV, Q2)
-! 1.h Rainwater Mixing Ratio (QR)
-! 1.i.1 Graupel Mixing Ratio (QG)
-! 1.i.2 Hail Mixing Ratio (QH)
-! 1.j Snow Mixing Ratio (QS)
-! 1.k Ice Mixing Ratio (QI)
-! 1.l Cloud Mixing Ratio (QC)
-! 1.m Droplet Number Concentration (QNDRP)
-! 1.n Ice Number Concentration (QNICE)
-! 1.o Snow Number Concentration (QNSNOW)
-! 1.p Rain Number Concentration (QNRAIN)
-! 1.q.1 Graupel Number Concentration (QNGRAUPEL) 
-! 1.q.2 Hail Number Concentration (QNHAIL)
+
+
+! These are simple interpolation:
+  ! 1.h Rainwater Mixing Ratio (QR)
+  ! 1.i.1 Graupel Mixing Ratio (QG)
+  ! 1.i.2 Hail Mixing Ratio (QH)
+  ! 1.j Snow Mixing Ratio (QS)
+  ! 1.k Ice Mixing Ratio (QI)
+  ! 1.l Cloud Mixing Ratio (QC)
+  ! 1.m Droplet Number Concentration (QNDRP)
+  ! 1.n Ice Number Concentration (QNICE)
+  ! 1.o Snow Number Concentration (QNSNOW)
+  ! 1.p Rain Number Concentration (QNRAIN)
+  ! 1.q.1 Graupel Number Concentration (QNGRAUPEL)
+  ! 1.q.2 Hail Number Concentration (QNHAIL)
+  ! 1.v.1 Radar Reflectivity (REFL_10CM)
+  ! 1.v.2 Differential Reflectivity (DIFF_REFL_10CM)
+  ! 1.v.3 Specific Differential Phase (SPEC_DIFF_10CM)
+
+! HK? these two does not exist:
 ! 1.r Previous time step condensational heating (H_DIABATIC)
 ! 1.s Reflectivity weighted precip fall speed (FALL_SPD_Z_WEIGHTED)
+
+
 ! 1.t Pressure (P)
 ! 1.u Vortex Center Stuff from Yongsheng
-! 1.v.1 Radar Reflectivity (REFL_10CM)
-! 1.v.2 Differential Reflectivity (DIFF_REFL_10CM)
-! 1.v.3 Specific Differential Phase (SPEC_DIFF_10CM)
 ! 1.w Geopotential Height (GZ)
 ! 1.x Surface Elevation (HGT)
 ! 1.y Surface Skin Temperature (TSK)
 ! 1.z Land Mask (XLAND)
 
-! NEWVAR:  Currently you have to add a new case here to tell the code what
-!   field inside the state vector you will be interpolating in.  the eventual
-!   plan is for there to be a default case which all simple interps fall into,
-!   but for now we still have to add code.
-
-! NOTE: the previous version of this code checked for surface observations with the syntax:
-!          "if(.not. vert_is_surface(location) .or. .not. surf_var) then"
-!   We identified this as redundant because surf_var is changed from .false. only by
-!     the above code (section 0.b), which must be traced through before one can arrive
-!     at the following forward operator code.  Hence, we can remove the call to 
-!     vert_is_surface.
-
-if (obs_kind == QTY_RAINWATER_MIXING_RATIO .or. & 
+if (obs_kind == QTY_RAINWATER_MIXING_RATIO .or. &
     obs_kind == QTY_GRAUPEL_MIXING_RATIO .or. &
     obs_kind == QTY_HAIL_MIXING_RATIO .or. &
     obs_kind == QTY_SNOW_MIXING_RATIO .or. &
@@ -1312,7 +1208,6 @@ elseif (obs_kind == QTY_10M_U_WIND_COMPONENT .or. obs_kind == QTY_10M_V_WIND_COM
 
 elseif ( obs_kind == QTY_TEMPERATURE ) then
    ! This is for 3D temperature field -- surface temps later
-   !print*, 'k ', k
 
    if ( wrf%dom(id)%type_t >= 0 ) then
 
@@ -1555,7 +1450,6 @@ elseif ( obs_kind == QTY_VERTICAL_VELOCITY ) then
 
  !-----------------------------------------------------
 ! 1.f Specific Humidity (SH, SH2)
-! Look at me
 ! Convert water vapor mixing ratio to specific humidity:
 else if( obs_kind == QTY_SPECIFIC_HUMIDITY ) then
 
@@ -2153,7 +2047,7 @@ else if ( obs_kind == QTY_VORTEX_LAT  .or. obs_kind == QTY_VORTEX_LON .or. &
                   enddo
                   do e = 1, ens_size
                      call compute_seaprs(wrf%dom(id)%bt, z1d(:,e), t1d(:,e), p1d(:,e), qv1d(:,e), &
-                                      vfld(i1-center_track_xmin+1,i2-center_track_ymin+1, e), debug)
+                                      vfld(i1-center_track_xmin+1,i2-center_track_ymin+1, e))
                   enddo
                enddo
 
@@ -2308,7 +2202,6 @@ else if ( obs_kind == QTY_VORTEX_LAT  .or. obs_kind == QTY_VORTEX_LON .or. &
 !   of either of these variables, then one can simply operate on the full 3D field 
 !   (toGrid below should return dz ~ 0 and dzm ~ 1) 
 else if( obs_kind == QTY_GEOPOTENTIAL_HEIGHT ) then
-   !if( my_task_id() == 0 ) print*, '*** geopotential height forward operator not tested'
 
    ! make sure vector includes the needed field
    if ( wrf%dom(id)%type_gz >= 0 ) then
@@ -2390,8 +2283,6 @@ else if( obs_kind == QTY_GEOPOTENTIAL_HEIGHT ) then
 !   HGT is not in the dart_ind vector, so get it from wrf%dom(id)%hgt.
 else if( obs_kind == QTY_SURFACE_ELEVATION ) then
 
-   if ( debug ) print*,'Getting surface elevation'
-
    ! Check to make sure retrieved integer gridpoints are in valid range
    if ( boundsCheck( i, wrf%dom(id)%periodic_x, id, dim=1, type=wrf%dom(id)%type_t ) .and. &
         boundsCheck( j, wrf%dom(id)%polar,      id, dim=2, type=wrf%dom(id)%type_t ) ) then
@@ -2426,9 +2317,6 @@ else if( obs_kind == QTY_SKIN_TEMPERATURE ) then
 ! Land Mask has been added to accommodate satellite observations.
 !   XLAND is not in the dart_ind vector, so get it from wrf%dom(id)%land
 else if( obs_kind == QTY_LANDMASK ) then
-   if( my_task_id() == 0 ) print*, '*** Land mask forward operator not tested'
-
-   if ( debug ) print*,'Getting land mask'
 
    ! Check to make sure retrieved integer gridpoints are in valid range
    if ( boundsCheck( i, wrf%dom(id)%periodic_x, id, dim=1, type=wrf%dom(id)%type_t ) .and. &
@@ -2448,7 +2336,6 @@ else if( obs_kind == QTY_LANDMASK ) then
    endif
 
 else if( obs_kind == QTY_SURFACE_TYPE ) then ! 0 = land, 1 = water, 2 = sea ice (not yet supported)
-   if ( debug ) print*,'Getting land mask'
 
    ! Check to make sure retrieved integer gridpoints are in valid range
    if ( boundsCheck( i, wrf%dom(id)%periodic_x, id, dim=1, type=wrf%dom(id)%type_t ) .and. &
@@ -2471,7 +2358,6 @@ else ! unknown kind
 
    expected_obs = missing_r8
    istatus = 3
-   if (debug) print*, 'unrecognized obs KIND, value = ', obs_kind
    deallocate(v_h, v_p)
    if (allocated(uniquek)) deallocate(uniquek)
    return
@@ -2494,8 +2380,6 @@ endif
 ! Check to make sure that we did something sensible in the Horizontal Interpolation 
 !   section above.  All valid obs_kinds will have changed fld(1,e).
 
-!HK I am unsure as to whether this should be done on the array expected_obs or one ensemble
-! member (e) at a time.
 do e = 1, ens_size
 
    if ( fld(1,e) == missing_r8 ) then
@@ -2508,16 +2392,13 @@ do e = 1, ens_size
       ! (basically the entire column) then no need to do any vertical interpolation
       if ( surf_var .or. is_vertical(location,"UNDEFINED") ) then
 
-         !obs_val = fld(1)
-          expected_obs(e) = fld(1,e) !HK
+          expected_obs(e) = fld(1,e)
 
       ! If an interior variable, then we DO need to do vertical interpolation
       else
 
          ! First make sure fld(2,:) is no longer a missing value
-         if ( fld(2,e) == missing_r8 ) then !HK should be any?
-            print *,'fld 2 is missing',surf_var
-
+         if ( fld(2,e) == missing_r8 ) then
             expected_obs(e) = missing_r8
 
          ! Do vertical interpolation -- at this point zloc is >= 1 unless
@@ -2527,8 +2408,6 @@ do e = 1, ens_size
 
             ! Get fractional distances between grid points
             call toGrid(zloc(e), k(e), dz(e), dzm(e))
-            if (debug) print*, 'zloc(e), k(e), dz(e), dzm(e) = ', zloc(e), k(e), dz(e), dzm(e)
-            if (debug) print*, 'fld(1,e), fld(2,e) = ', fld(1,e), fld(2,e)
 
             ! If you get here and zloc < 1.0, then k will be 0, and
             ! we should extrapolate.  fld(1,:) and fld(2,:) where computed
@@ -2537,11 +2416,9 @@ do e = 1, ens_size
             if (k(e) >= 1) then
                ! Linearly interpolate between grid points
                expected_obs(e) = dzm(e)*fld(1,e) + dz(e)*fld(2,e)
-               if (debug) print*, 'interpolated obs_val = ', expected_obs(e)
             else
                ! Extrapolate below first level.
                expected_obs(e) = fld(1,e) - (fld(2,e)-fld(1,e))*dzm(e)
-               if (debug) print*, 'extrapolated obs_val = ', expected_obs(e)
             endif
 
          endif
@@ -2567,11 +2444,6 @@ do e = 1, ens_size
       istatus(e) = 99
    endif
 enddo
-
-! Pring the observed value if in debug mode
-if(debug) then
-  print*,'model_interpolate() return value for obs_kind ',obs_kind, ' = ',expected_obs
-endif
 
 ! Deallocate variables before exiting
 deallocate(v_h, v_p)
@@ -3382,7 +3254,6 @@ character(len=129), allocatable, dimension(:) :: textblock
 integer :: ind, my_index
 character(len=NF90_MAX_NAME) :: attname, varname
 character(len=129) :: unitsval, descriptionval, coordinatesval, long_nameval, coordinate_char
-logical               :: debug = .false.
 character(len=256) :: filename
 
 
@@ -4129,9 +4000,7 @@ integer, dimension(2) :: ll, lr, ul, ur
 integer(i8)           :: ill, ilr, iul, iur
 integer               :: k, rc
 real(r8), allocatable :: pres1(:), pres2(:), pres3(:), pres4(:)
-logical  :: debug = .false.
 
-!HK 
 real(r8), allocatable :: x_ill(:), x_ilr(:), x_iul(:), x_iur(:)
 
 allocate(pres1(ens_size), pres2(ens_size), pres3(ens_size), pres4(ens_size))
@@ -4153,10 +4022,6 @@ if ( boundsCheck( i, wrf%dom(id)%periodic_x, id, dim=1, type=wrf%dom(id)%type_t 
 
       v_p(k, :) = interp_4pressure_distrib(pres1, pres2, pres3, pres4, dx, dxm, dy, dym, ens_size)
    enddo
-
-
-   if (debug) &
-        print*, 'model_mod.f90 :: get_model_pressure_profile :: n, v_p() ', n, v_p(1:n, :)
 
    if ( wrf%dom(id)%type_ps >= 0 ) then
 
@@ -4209,8 +4074,6 @@ if ( boundsCheck( i, wrf%dom(id)%periodic_x, id, dim=1, type=wrf%dom(id)%type_t 
 
    endif
 
-   if (debug) &
-        print*, 'model_mod.f90 :: get_model_pressure_profile :: v_p(0) ', v_p(0, :)
 else
    v_p(:,:) = missing_r8
 
@@ -4873,7 +4736,6 @@ real(r8)              :: fll(n+1, ens_size), geop(ens_size), lat(ens_size)
 integer(i8)           :: ill, iul, ilr, iur
 integer               :: k, rc
 integer, dimension(2) :: ll, lr, ul, ur
-logical   :: debug = .false.
 
 real(r8), allocatable :: x_ill(:), x_ilr(:), x_iul(:), x_iur(:)
 
@@ -4929,12 +4791,6 @@ if ( boundsCheck( i, wrf%dom(id)%periodic_x, id, dim=1, type=wrf%dom(id)%type_gz
              dy*( dxm*wrf%dom(id)%hgt(ul(1), ul(2)) + &
                    dx*wrf%dom(id)%hgt(ur(1), ur(2)) )
 
-   if (debug) &
-        print*, 'model_mod.f90 :: get_model_height_profile :: n, v_h() ', n, v_h(1:n, :)
-
-   if (debug) &
-        print*, 'model_mod.f90 :: get_model_height_profile :: v_h(0) ', v_h(0, :)
- 
 ! If the boundsCheck functions return an unsatisfactory integer index, then set
 !   fld as missing data
 else
@@ -5511,7 +5367,7 @@ end subroutine pert_model_copies
 
 
 subroutine compute_seaprs ( nz, z, t, p , q ,          &
-                            sea_level_pressure, debug)
+                            sea_level_pressure)
 !-------------------------------------------------------------------------
 ! compute_seaprs    Estimate sea level pressure.
 !
@@ -5536,7 +5392,6 @@ subroutine compute_seaprs ( nz, z, t, p , q ,          &
       REAL(r8), intent(in)    :: z(nz), p(nz), q(nz)
       REAL(r8), intent(inout) :: t(nz)
       REAL(r8), intent(out)   :: sea_level_pressure
-      LOGICAL,  intent(in)    :: debug
 
       INTEGER  :: level
       REAL(r8) :: t_surf, t_sea_level
@@ -5553,7 +5408,6 @@ subroutine compute_seaprs ( nz, z, t, p , q ,          &
 
       LOGICAL  :: ridiculous_mm5_test
       PARAMETER  (ridiculous_mm5_test = .TRUE.)
-!     PARAMETER  (ridiculous_mm5_test = .false.)
 
 !     Local variables:
 
@@ -5618,8 +5472,6 @@ subroutine compute_seaprs ( nz, z, t, p , q ,          &
       phi = p(khi)
       tlo = t(klo)*(1. + 0.608 * q(klo) )
       thi = t(khi)*(1. + 0.608 * q(khi) )
-!     zlo = zetahalf(klo)/ztop*(ztop-terrain(i,j))+terrain(i,j)
-!     zhi = zetahalf(khi)/ztop*(ztop-terrain(i,j))+terrain(i,j)
       zlo = z(klo)
       zhi = z(khi)
 
@@ -5645,24 +5497,10 @@ subroutine compute_seaprs ( nz, z, t, p , q ,          &
          END IF
       END IF
 
-!     The grand finale: ta da!
-
-!     z_half_lowest=zetahalf(1)/ztop*(ztop-terrain(i,j))+terrain(i,j)
       z_half_lowest=z(1)
       sea_level_pressure = p(1) *              &
                            EXP((2.*g*z_half_lowest)/   &
                            (R*(t_sea_level+t_surf)))
-
-!        sea_level_pressure(i,j) = sea_level_pressure(i,j)*0.01
-
-    if (debug) then
-      print *,'slp=',sea_level_pressure
-    endif
-!      print *,'t=',t(10:15,10:15,1),t(10:15,2,1),t(10:15,3,1)
-!      print *,'z=',z(10:15,1,1),z(10:15,2,1),z(10:15,3,1)
-!      print *,'p=',p(10:15,1,1),p(10:15,2,1),p(10:15,3,1)
-!      print *,'slp=',sea_level_pressure(10:15,10:15),     &
-!         sea_level_pressure(10:15,10:15),sea_level_pressure(20,10:15)
 
 end subroutine compute_seaprs
 
@@ -6548,8 +6386,7 @@ subroutine read_wrf_dimensions(ncid,bt,bts,sn,sns,we,wes,sls)
 
 integer, intent(in)            :: ncid
 integer, intent(out)           :: bt,bts,sn,sns,we,wes,sls
-logical, parameter             :: debug = .false.
-integer                        :: var_id 
+integer                        :: var_id
 character (len=NF90_MAX_NAME)  :: name
 
 ! get wrf grid dimensions
@@ -6589,13 +6426,6 @@ character (len=NF90_MAX_NAME)  :: name
    call nc_check( nf90_inquire_dimension(ncid, var_id, name, sls), &
                      'static_init_model','inquire_dimension '//trim(name))
 
-   if(debug) then
-      write(*,*) ' dimensions bt, sn, we are ',bt, &
-           sn, we
-      write(*,*) ' staggered  bt, sn, we are ',bts, &
-           sns,wes
-   endif
-
 
 end subroutine read_wrf_dimensions
 
@@ -6608,7 +6438,6 @@ subroutine read_wrf_file_attributes(ncid,id)
 ! id:   input, domain id
 
 integer, intent(in)   :: ncid, id
-logical, parameter    :: debug = .false.
 
 ! get meta data and static data we need
 
@@ -6620,32 +6449,24 @@ logical, parameter    :: debug = .false.
                      'static_init_model', 'get_att DT')
    write(errstring, *) 'dt from wrfinput_d0X file is: ', wrf%dom(id)%dt
    call error_handler(E_MSG, ' ', errstring)
-   if(debug) write(*,*) ' dx, dy, dt are ',wrf%dom(id)%dx, &
-        wrf%dom(id)%dy, wrf%dom(id)%dt
 
    call nc_check( nf90_get_att(ncid, nf90_global, 'MAP_PROJ', wrf%dom(id)%map_proj), &
                      'static_init_model', 'get_att MAP_PROJ')
-   if(debug) write(*,*) ' map_proj is ',wrf%dom(id)%map_proj
 
    call nc_check( nf90_get_att(ncid, nf90_global, 'CEN_LAT', wrf%dom(id)%cen_lat), &
                      'static_init_model', 'get_att CEN_LAT')
-   if(debug) write(*,*) ' cen_lat is ',wrf%dom(id)%cen_lat
 
    call nc_check( nf90_get_att(ncid, nf90_global, 'CEN_LON', wrf%dom(id)%cen_lon), &
                      'static_init_model', 'get_att CEN_LON')
-   if(debug) write(*,*) ' cen_lon is ',wrf%dom(id)%cen_lon
 
    call nc_check( nf90_get_att(ncid, nf90_global, 'TRUELAT1', truelat1), &
                      'static_init_model', 'get_att TRUELAT1')
-   if(debug) write(*,*) ' truelat1 is ',truelat1
 
    call nc_check( nf90_get_att(ncid, nf90_global, 'TRUELAT2', truelat2), &
                      'static_init_model', 'get_att TRUELAT2')
-   if(debug) write(*,*) ' truelat2 is ',truelat2
 
    call nc_check( nf90_get_att(ncid, nf90_global, 'STAND_LON', stdlon), &
                      'static_init_model', 'get_att STAND_LON')
-   if(debug) write(*,*) ' stdlon is ',stdlon
 
 end subroutine read_wrf_file_attributes
 
@@ -6657,7 +6478,6 @@ subroutine assign_boundary_conditions(id)
 ! id:   input, domain id
 
 integer, intent(in)   :: id
-logical, parameter    :: debug = .false.
 
 !nc -- fill in the boundary conditions (periodic_x and polar) here.  This will
 !        need to be changed once these are taken from the NetCDF input instead
@@ -6685,10 +6505,6 @@ logical, parameter    :: debug = .false.
       wrf%dom(id)%polar = .false.      
       wrf%dom(id)%scm = .false.      
    endif
-   if(debug) write(*,*) ' periodic_x ',wrf%dom(id)%periodic_x
-   if(debug) write(*,*) ' periodic_y ',wrf%dom(id)%periodic_y
-   if(debug) write(*,*) ' polar ',wrf%dom(id)%polar
-   if(debug) write(*,*) ' scm   ',wrf%dom(id)%scm   
 
 end subroutine assign_boundary_conditions
 
@@ -6701,8 +6517,7 @@ subroutine read_wrf_static_data(ncid,id)
 ! id:   input, domain id
 
 integer, intent(in)   :: ncid, id
-logical, parameter    :: debug = .false.
-integer               :: var_id 
+integer               :: var_id
 
    call nc_check( nf90_inq_varid(ncid, "P_TOP", var_id), &
                      'read_wrf_static_data','inq_varid P_TOP')
@@ -6716,28 +6531,24 @@ integer               :: var_id
                      'read_wrf_static_data','inq_varid DN')
    call nc_check( nf90_get_var(ncid, var_id, wrf%dom(id)%dn), &
                      'read_wrf_static_data','get_var DN')
-   if(debug) write(*,*) ' dn ',wrf%dom(id)%dn
 
    allocate(wrf%dom(id)%znu(1:wrf%dom(id)%bt))
    call nc_check( nf90_inq_varid(ncid, "ZNU", var_id), &
                      'read_wrf_static_data','inq_varid ZNU')
    call nc_check( nf90_get_var(ncid, var_id, wrf%dom(id)%znu), &
                      'read_wrf_static_data','get_var ZNU')
-   if(debug) write(*,*) ' znu is ',wrf%dom(id)%znu
 
    allocate(wrf%dom(id)%znw(1:wrf%dom(id)%bts))
    call nc_check( nf90_inq_varid(ncid, "ZNW", var_id), &
                      'read_wrf_static_data','inq_varid ZNW')
    call nc_check( nf90_get_var(ncid, var_id, wrf%dom(id)%znw), &
                      'read_wrf_static_data','get_var ZNW')
-   if(debug) write(*,*) ' znw is ',wrf%dom(id)%znw
 
    allocate(wrf%dom(id)%dnw(1:wrf%dom(id)%bt))
    call nc_check( nf90_inq_varid(ncid, "DNW", var_id), &
                      'read_wrf_static_data','inq_varid DNW')
    call nc_check( nf90_get_var(ncid, var_id, wrf%dom(id)%dnw), &
                      'read_wrf_static_data','get_var DNW')
-   if(debug) write(*,*) ' dnw is ',wrf%dom(id)%dnw
 
    allocate(wrf%dom(id)%zs(1:wrf%dom(id)%sls))
    call nc_check( nf90_inq_varid(ncid, "ZS", var_id), &
@@ -6752,12 +6563,6 @@ integer               :: var_id
                      'read_wrf_static_data','inq_varid MUB')
    call nc_check( nf90_get_var(ncid, var_id, wrf%dom(id)%mub), &
                      'read_wrf_static_data','get_var MUB')
-   if(debug) then
-      write(*,*) ' corners of mub '
-      write(*,*) wrf%dom(id)%mub(1,1),wrf%dom(id)%mub(wrf%dom(id)%we,1),  &
-           wrf%dom(id)%mub(1,wrf%dom(id)%sn),wrf%dom(id)%mub(wrf%dom(id)%we, &
-           wrf%dom(id)%sn)
-   endif
 
    allocate(wrf%dom(id)%longitude(1:wrf%dom(id)%we,1:wrf%dom(id)%sn))
    call nc_check( nf90_inq_varid(ncid, "XLONG", var_id), &
@@ -6800,23 +6605,6 @@ integer               :: var_id
                      'read_wrf_static_data','inq_varid XLAND')
    call nc_check( nf90_get_var(ncid, var_id, wrf%dom(id)%land), &
                      'read_wrf_static_data','get_var XLAND')
-   if(debug) then
-      write(*,*) ' corners of land '
-      write(*,*) wrf%dom(id)%land(1,1),wrf%dom(id)%land(wrf%dom(id)%we,1),  &
-           wrf%dom(id)%land(1,wrf%dom(id)%sn),wrf%dom(id)%land(wrf%dom(id)%we, &
-           wrf%dom(id)%sn)
-   endif
-
-   if(debug) then
-      write(*,*) ' corners of lat '
-      write(*,*) wrf%dom(id)%latitude(1,1),wrf%dom(id)%latitude(wrf%dom(id)%we,1),  &
-           wrf%dom(id)%latitude(1,wrf%dom(id)%sn), &
-           wrf%dom(id)%latitude(wrf%dom(id)%we,wrf%dom(id)%sn)
-      write(*,*) ' corners of long '
-      write(*,*) wrf%dom(id)%longitude(1,1),wrf%dom(id)%longitude(wrf%dom(id)%we,1),  &
-           wrf%dom(id)%longitude(1,wrf%dom(id)%sn), &
-           wrf%dom(id)%longitude(wrf%dom(id)%we,wrf%dom(id)%sn)
-   endif
 
    allocate(wrf%dom(id)%hgt(1:wrf%dom(id)%we,1:wrf%dom(id)%sn))
    call nc_check( nf90_inq_varid(ncid, "HGT", var_id), &
@@ -6831,16 +6619,6 @@ integer               :: var_id
                      'read_wrf_static_data','inq_varid PHB')
    call nc_check( nf90_get_var(ncid, var_id, wrf%dom(id)%phb), &
                      'read_wrf_static_data','get_var PHB')
-   if(debug) then
-      write(*,*) ' corners of phb '
-      write(*,*) wrf%dom(id)%phb(1,1,1),wrf%dom(id)%phb(wrf%dom(id)%we,1,1),  &
-           wrf%dom(id)%phb(1,wrf%dom(id)%sn,1),wrf%dom(id)%phb(wrf%dom(id)%we, &
-           wrf%dom(id)%sn,1)
-      write(*,*) wrf%dom(id)%phb(1,1,wrf%dom(id)%bts), &
-           wrf%dom(id)%phb(wrf%dom(id)%we,1,wrf%dom(id)%bts),  &
-           wrf%dom(id)%phb(1,wrf%dom(id)%sn,wrf%dom(id)%bts), &
-           wrf%dom(id)%phb(wrf%dom(id)%we,wrf%dom(id)%sn,wrf%dom(id)%bts)
-   endif
 
 end subroutine read_wrf_static_data
 
@@ -6852,7 +6630,6 @@ subroutine setup_map_projection(id)
 ! id:   input, domain id
 
 integer, intent(in)   :: id
-logical, parameter    :: debug = .false.
 
 integer  :: proj_code
 real(r8) :: latinc,loninc
@@ -7161,7 +6938,6 @@ integer, intent(out), optional :: var_element_list(max_state_variables)
 logical, intent(out), optional :: var_update_list(max_state_variables)
 
 integer :: ivar, num_vars
-logical :: debug = .false.
 
 if ( present(var_element_list) ) var_element_list = -1
 
@@ -7187,12 +6963,7 @@ do while ( trim(state_table(5,ivar)) /= 'NULL' )
 
 enddo ! ivar
 
-if ( debug ) then
-  print*,'In function get_number_of_wrf_variables'
-  print*,'Found ',num_vars,' state variables for domain id ',id
-endif
-
-get_number_of_wrf_variables = num_vars 
+get_number_of_wrf_variables = num_vars
 
 return
 
@@ -7231,7 +7002,6 @@ subroutine get_variable_bounds(bounds_table,wrf_var_name,lb,ub,instructions)
    character(len=50)               :: wrf_varname_trim, bounds_varname_trim
    character(len=50)               :: bound_trim
    integer :: ivar
-   logical :: debug = .false.
 
    wrf_varname_trim = ''
    wrf_varname_trim = trim(wrf_var_name)
@@ -7270,13 +7040,6 @@ subroutine get_variable_bounds(bounds_table,wrf_var_name,lb,ub,instructions)
      ivar = ivar + 1
 
    enddo !ivar
-
-   if ( debug ) then
-      write(*,*) 'In get_variable_bounds assigned ',wrf_varname_trim
-      write(*,*) ' bounds ',lb,ub,instructions
-   endif
-
-   return
 
 end subroutine get_variable_bounds
 
@@ -7325,8 +7088,7 @@ character(len=*),  intent(in)   :: wrf_var_name
 integer,           intent(out)  :: var_size(3)
 character(len=129),intent(out)  :: stagger
 
-logical, parameter    :: debug = .false.
-integer               :: var_id, ndims, dimids(10) 
+integer               :: var_id, ndims, dimids(10)
 integer               :: idim
 
    stagger = ''
@@ -7353,21 +7115,10 @@ integer               :: idim
 ! if a 2D variable fill the vertical dimension with 1
    if ( ndims < 4 ) var_size(ndims) = 1
 
-   if ( debug ) then
-      print*,'In get_variable_size_from_file got variable size ',var_size
-   endif
-
-
 ! get variable attribute stagger
    call nc_check( nf90_get_att(ncid, var_id, 'stagger', stagger), &
                      'get_variable_size_from_file', &
                      'get_att '//wrf_var_name//' '//stagger)
-
-   if ( debug ) then
-      print*,'In get_variable_size_from_file got stagger ',trim(stagger),' for variable ',trim(wrf_var_name)
-   endif
-
-return
 
 end subroutine get_variable_size_from_file
 
@@ -7384,7 +7135,6 @@ integer, intent(in)               :: ncid, id
 character(len=*),   intent(in)    :: wrf_var_name
 character(len=129), intent(out)   :: description, coordinates, units
 
-logical, parameter    :: debug = .false.
 integer               :: var_id
 
    call nc_check( nf90_inq_varid(ncid, trim(wrf_var_name), var_id), &
@@ -7422,7 +7172,6 @@ integer function get_type_ind_from_type_string(id, wrf_varname)
    character(len=*), intent(in) :: wrf_varname
 
    integer                      :: ivar, my_index
-   logical                      :: debug = .false.
    character(len=50)            :: wrf_varname_trim, wrf_state_var_trim
 
    get_type_ind_from_type_string = -1
@@ -7441,10 +7190,6 @@ integer function get_type_ind_from_type_string(id, wrf_varname)
       endif
 
    enddo ! ivar
-
-   if ( debug ) write(*,*) 'get_type_from_ind ',trim(wrf_varname),' ',get_type_ind_from_type_string
-
-   return
 
 end function get_type_ind_from_type_string
 
@@ -7939,53 +7684,5 @@ end subroutine write_model_time
 
 !--------------------------------------------------------------------
 
-subroutine static_data_sizes(domain)
-integer, intent(in) :: domain
-
-print*
-print*, '******** wrf_static_data_for_dart domain ',domain
-print*, 'znu, dn, dnw, zs, znw ', size(wrf%dom(domain)%znu), &
-                                  size(wrf%dom(domain)%dn ), &
-                                  size(wrf%dom(domain)%dnw), &
-                                  size(wrf%dom(domain)%zs ), &
-                                  size(wrf%dom(domain)%znw)
-
-print*, 'mub, hgt ', size(wrf%dom(domain)%mub), size(wrf%dom(domain)%hgt)
-
-print*, 'latitude, latitude_u, latitude_v ', size(wrf%dom(domain)%latitude), &
-                                             size(wrf%dom(domain)%latitude_u), &
-                                             size(wrf%dom(domain)%latitude_v)
-
-print*, 'longitude, longitude_u, longitude_v ', size(wrf%dom(domain)%longitude), &
-                                                size(wrf%dom(domain)%longitude_u), &
-                                                size(wrf%dom(domain)%longitude_v)
-
-print*, 'phb             ', size(wrf%dom(domain)%phb)
-print*, 'var_index       ', size(wrf%dom(domain)%var_index)
-print*, 'var_size        ', size(wrf%dom(domain)%var_size)
-print*, 'var_type        ', size(wrf%dom(domain)%var_type)
-print*, 'var_index_list  ', size(wrf%dom(domain)%var_index_list)
-print*, 'var_update_list ', size(wrf%dom(domain)%var_update_list)
-print*, 'dart_kind       ', size(wrf%dom(domain)%dart_kind)
-print*, 'land            ', size(wrf%dom(domain)%land)
-
-print*, 'lower_bound,upper_bound ', size(wrf%dom(domain)%lower_bound), &
-                                    size(wrf%dom(domain)%upper_bound)
-
-print*, 'clamp_or_fail   ', size(wrf%dom(domain)%clamp_or_fail)
-
-print*, 'description, units, stagger, coordinates ', size(wrf%dom(domain)%description), &
-                                                     size(wrf%dom(domain)%units), &
-                                                     size(wrf%dom(domain)%stagger), &
-                                                     size(wrf%dom(domain)%coordinates)
-
-print*
-
-end subroutine static_data_sizes
-
-!--------------------------------------------------------------------
-
 end module model_mod
-
-!> @}
 
