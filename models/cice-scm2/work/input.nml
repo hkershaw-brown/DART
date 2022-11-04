@@ -1,9 +1,9 @@
 &perfect_model_obs_nml
    read_input_state_from_file = .true.,
-   single_file_in             = .true.
-   input_state_files          = "perfect_input.nc"
+   single_file_in             = .false.
+   input_state_files          = "input_file.nc"
 
-   write_output_state_to_file = .true.,
+   write_output_state_to_file = .false.,
    single_file_out            = .true.
    output_state_files         = "perfect_output.nc"
    output_interval            = 1,
@@ -32,19 +32,19 @@
    input_state_files            = ''
    input_state_file_list        = 'filter_input_list.txt'
 
-   stages_to_write  = 'preassim', 'analysis', 'output'
+   stages_to_write  = 'input', 'preassim', 'analysis', 'output'
 
    single_file_out              = .true.,
    output_state_files           = ''
    output_state_file_list       = 'filter_output_list.txt'
    output_interval              = 1,
    output_members               = .true.
-   num_output_state_members     = 20,
+   num_output_state_members     = 0,
    output_mean                  = .true.
    output_sd                    = .true.
    write_all_stages_at_end      = .false.
 
-   ens_size                     = 20,
+   ens_size                     = 29,
    num_groups                   = 1,
    perturb_from_single_instance = .false.,
    perturbation_amplitude       = 0.2,
@@ -121,14 +121,28 @@
    /
 
 &obs_kind_nml
-   assimilate_these_obs_types = 'RAW_STATE_VARIABLE'
+   assimilate_these_obs_types = 'SAT_SEAICE_AGREG_THICKNESS'
    evaluate_these_obs_types   = ''
    /
 
 &model_nml
-   time_step_days      = 0,
-   time_step_seconds   = 3600
-   /
+    assimilation_period_days = 1
+    assimilation_period_seconds = 0
+    model_perturbation_amplitude = 2e-05
+    debug = 100
+    model_state_variables = 'aicen', 'QTY_SEAICE_CONCENTR', 'UPDATE', 'vicen',
+                            'QTY_SEAICE_VOLUME', 'UPDATE', 'vsnon', 'QTY_SEAICE_SNOWVOLUME',
+                            'UPDATE'
+/
+
+&dart_to_cice_nml
+    dart_to_cice_input_file = 'restart_state.nc'
+    original_cice_input_file = 'dart_restart.nc'
+    previous_cice_input_file = 'pre_restart.nc'
+    balance_method = 'simple_squeeze'
+    r_snw_name = 'r_snw_vary'
+    gridpt_oi = 3
+/
 
 &utilities_nml
    TERMLEVEL = 1,
@@ -143,8 +157,9 @@
    output_obs_def_mod_file = '../../../observations/forward_operators/obs_def_mod.f90'
    input_obs_qty_mod_file  = '../../../assimilation_code/modules/observations/DEFAULT_obs_kind_mod.F90'
    output_obs_qty_mod_file = '../../../assimilation_code/modules/observations/obs_kind_mod.f90'
-   obs_type_files          = '../../../observations/forward_operators/obs_def_AURA_mod.f90'
-   quantity_files          = '../../../assimilation_code/modules/observations/default_quantities_mod.f90'
+   obs_type_files          = '../../../observations/forward_operators/obs_def_cice_mod.f90'
+   quantity_files          = '../../../assimilation_code/modules/observations/seaice_quantities_mod.f90',
+                             '../../../assimilation_code/modules/observations/ocean_quantities_mod.f90'
    /
 
 &obs_sequence_tool_nml
@@ -196,3 +211,10 @@
    outlier_threshold        = -1.0,
 /
 
+&location_nml
+    horiz_dist_only = .true.
+    approximate_distance = .false.
+    nlon = 71
+    nlat = 36
+    output_box_info = .true.
+/
