@@ -5,9 +5,7 @@
 
 module model_mod
 
-! This is a template showing the interfaces required for a model to be compliant
-! with the DART data assimilation infrastructure. Do not change the arguments
-! for the public routines.
+! Pathalogical model_mod for qc testing
 
 use        types_mod, only : r8, i8, MISSING_R8
 
@@ -30,6 +28,8 @@ use netcdf_utilities_mod, only : nc_add_global_attribute, nc_synchronize_file, &
 use state_structure_mod, only : add_domain, get_domain_size
 
 use ensemble_manager_mod, only : ensemble_type
+
+use obs_kind_mod, only : QTY_PRESSURE, QTY_TEMPERATURE
 
 ! These routines are passed through from default_model_mod.
 ! To write model specific versions of these routines
@@ -113,7 +113,8 @@ assimilation_time_step = set_time(time_step_seconds, &
 
 
 ! Define which variables are in the model state
-dom_id = add_domain(template_file, num_vars=2, var_names=(/'pressure', 'temperature'/))
+dom_id = add_domain(template_file, num_vars=2, var_names=(/'pressure', 'temperature'/), &
+                    kind_list=(/QTY_PRESSURE, QTY_TEMPERATURE/))
 
 end subroutine static_init_model
 
