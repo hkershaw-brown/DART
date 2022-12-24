@@ -9,6 +9,13 @@
 /
 
 &filter_nml
+   input_state_file_list  = in.txt 
+   output_state_file_list = out.txt
+   perturb_from_single_instance = .true.
+   output_members = .false.
+   output_mean = .false.
+   output_sd = .false.
+   
 /
 
 &smoother_nml
