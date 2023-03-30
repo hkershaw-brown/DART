@@ -1,0 +1,25 @@
+# template for nvhpc
+#
+# DART software - Copyright UCAR. This open source software is provided
+# by UCAR, "as is", without charge, subject to all terms of use at
+# http://www.image.ucar.edu/DAReS/DART/DART_download
+#
+
+
+MPIFC = mpif90
+MPILD = mpif90
+FC = nvfortran
+LD = nvfortran
+
+# NETCDF = /opt/local
+
+INCS = -I$(NETCDF)/include
+LIBS = -L$(NETCDF)/lib -lnetcdff -lnetcdf
+FFLAGS  = -acc -Minfo=accel -O -Mbackslash -Kieee $(INCS)
+LDFLAGS = $(FFLAGS) $(LIBS)
+
+# for development or debugging, use this for flags:
+# FFLAGS = -g -gopt -Mbounds -Mchkfpstk -Mchkptr -Mchkstk -Mpgicoff  \
+#         -Mdclchk -Meh_frame -traceback -Minform=inform \
+#         -Mflushz -Ktrap=fp -pc 64 -Mbackslash -Kieee $(INCS)
+
