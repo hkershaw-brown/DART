@@ -1,0 +1,19 @@
+This is a freak model just to try openacc with something big.
+It has a massive model time step so the 40000 lorenz_96 obs
+are assimilated in one assimilation cycle (no model advance)
+ 
+The model_size is 1 000 000. 
+
+You can change the model_size by editing the input.nml &model_nml
+
+To create the big lorenz data set:
+
+./perfect_model_obs
+cp perfect_output.nc filter_input.nc
+
+
+Then you can run filter. 
+Note filer is purturbing the one ensemble member in filter_input.nc to create an ensemble.
+
+If I have forgotten to commit some files to git, take a look in this directory on Cheyenne/Capser:
+/glade/scratch/hkershaw/DART/For_Anderson/DART/models/big_lorenz_96/work
