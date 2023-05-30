@@ -692,7 +692,7 @@ WRFDomains : do id=1,num_domains
    wrf%dom(id)%type_u      = get_type_ind_from_type_string(id,'U')
    wrf%dom(id)%type_v      = get_type_ind_from_type_string(id,'V')
    wrf%dom(id)%type_w      = get_type_ind_from_type_string(id,'W')
-   wrf%dom(id)%type_t      = get_type_ind_from_type_string(id,'T')
+   wrf%dom(id)%type_t      = get_type_ind_from_type_string(id,'THM')
    wrf%dom(id)%type_gz     = get_type_ind_from_type_string(id,'PH')
    wrf%dom(id)%type_qv     = get_type_ind_from_type_string(id,'QVAPOR')
    wrf%dom(id)%type_qr     = get_type_ind_from_type_string(id,'QRAIN')
@@ -6403,6 +6403,11 @@ if (istatus1 == 0) then
       local_loc   = locs(t_ind)
       local_which = nint(query_location(local_loc))
 
+      if (local_which == VERTISUNDEF) then
+         dist(k) = get_dist(base_loc, local_loc, base_type, loc_qtys(t_ind))
+         cycle
+      endif
+
       ! Convert local vertical coordinate to requested vertical coordinate if necessary.
       ! This should only be necessary for obs priors, as state location information already
       ! contains the correct vertical coordinate (filter_assim's call to get_state_meta_data).
@@ -6421,7 +6426,7 @@ if (istatus1 == 0) then
          ! or vert_convert returned error (istatus2=1)
          local_array = get_location(local_loc)
          if (((vertical_localization_on()).and.(local_array(3) == missing_r8)).or.(istatus2 == 1)) then
-            dist(k) = 1.0e9
+            dist(k) = 1.123e9
          else
             dist(k) = get_dist(base_loc, local_loc, base_type, loc_qtys(t_ind))
          endif

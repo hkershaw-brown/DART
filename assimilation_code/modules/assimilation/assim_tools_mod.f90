@@ -546,6 +546,7 @@ allow_missing_in_state = get_missing_ok_status()
 
 ! Loop through all the (global) observations sequentially
 SEQUENTIAL_OBS: do i = 1, obs_ens_handle%num_vars
+write(*,*) 'i_obs', i
    ! Some compilers do not like mod by 0, so test first.
    if (print_every_nth_obs > 0) nth_obs = mod(i, print_every_nth_obs)
 
@@ -592,6 +593,8 @@ SEQUENTIAL_OBS: do i = 1, obs_ens_handle%num_vars
          vertvalue_obs_in_localization_coord = 0.0_r8
          whichvert_obs_in_localization_coord = 0
       endif
+      write(*,*) 'vertvalue_obs_in_localization_coord', vertvalue_obs_in_localization_coord
+      write(*,*) 'whichvert_obs_in_localization_coord', whichvert_obs_in_localization_coord
 
       obs_qc = obs_ens_handle%copies(OBS_GLOBAL_QC_COPY, owners_index)
 
@@ -689,6 +692,8 @@ SEQUENTIAL_OBS: do i = 1, obs_ens_handle%num_vars
       num_close_states_calls_made)
    !call test_close_obs_dist(close_state_dist, num_close_states, i)
 
+
+   write(*,*) 'obs_prior (before state update)', obs_prior
    ! Loop through to update each of my state variables that is potentially close
    STATE_UPDATE: do j = 1, num_close_states
       state_index = close_state_ind(j)
@@ -710,6 +715,7 @@ SEQUENTIAL_OBS: do i = 1, obs_ens_handle%num_vars
          net_a, grp_size, grp_beg, grp_end, i, &
          my_state_indx(state_index), final_factor, correl, local_varying_ss_inflate, inflate_only)
 
+
       ! Compute spatially-varying state space inflation
       if(local_varying_ss_inflate) then
          do group = 1, num_groups
@@ -722,6 +728,9 @@ SEQUENTIAL_OBS: do i = 1, obs_ens_handle%num_vars
          end do
       endif
    end do STATE_UPDATE
+
+   write(*,*) 'obs_ens_handle%copies(1:ens_size, 1)', obs_ens_handle%copies(1:ens_size, 1)
+   write(*,*) 'obs_ens_handle%copies(1:ens_size, 2)', obs_ens_handle%copies(1:ens_size, 2)
 
    if(.not. inflate_only) then
       ! Now everybody updates their obs priors (only ones after this one)
@@ -737,6 +746,7 @@ SEQUENTIAL_OBS: do i = 1, obs_ens_handle%num_vars
          ! Compute the covariance localization and adjust_obs_impact factors (module storage)
             final_factor = cov_and_impact_factors(base_obs_loc, base_obs_type, my_obs_loc(obs_index), &
             my_obs_kind(obs_index), close_obs_dist(j), cutoff_rev)
+            write(*,*) 'close_obs_dist(j)', close_obs_dist(j), 'final_factor=', final_factor
 
             if(final_factor <= 0.0_r8) cycle OBS_UPDATE
 
@@ -748,6 +758,8 @@ SEQUENTIAL_OBS: do i = 1, obs_ens_handle%num_vars
          endif
       end do OBS_UPDATE
    endif
+   write(*,*) 'obs_ens_handle%copies(1:ens_size, 1)', obs_ens_handle%copies(1:ens_size, 1)
+   write(*,*) 'obs_ens_handle%copies(1:ens_size, 2)', obs_ens_handle%copies(1:ens_size, 2)
 end do SEQUENTIAL_OBS
 
 ! Every pe needs to get the current my_inflate and my_inflate_sd back
