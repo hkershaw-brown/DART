@@ -6403,9 +6403,11 @@ if (istatus1 == 0) then
       local_loc   = locs(t_ind)
       local_which = nint(query_location(local_loc))
 
-      if (local_which == VERTISUNDEF) then
-         dist(k) = get_dist(base_loc, local_loc, base_type, loc_qtys(t_ind))
-         cycle
+      if (present(dist)) then
+         if (local_which == VERTISUNDEF) then
+            dist(k) = get_dist(base_loc, local_loc, base_type, loc_qtys(t_ind))
+            cycle
+         endif
       endif
 
       ! Convert local vertical coordinate to requested vertical coordinate if necessary.
