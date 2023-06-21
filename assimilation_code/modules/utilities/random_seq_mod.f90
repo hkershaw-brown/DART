@@ -311,6 +311,15 @@ subroutine init_ran(s, seed)
 
  integer :: i, sd
 
+! print hexadecimal constants
+print*, 'UPPER_MASK',  UPPER_MASK
+print*, 'LOWER_MASK', LOWER_MASK 
+print*, 'FULL32_MASK', FULL32_MASK
+print*, 'magic', magic
+print*, 'C1', C1
+print*, 'C2', C2      
+
+
 ! Initialize the generator for use with
 ! repeatable sequences
 
