@@ -26,6 +26,7 @@ test_hist
 test_inv_gamma
 test_random
 test_reseed
+test_ran_unif
 )
 
 

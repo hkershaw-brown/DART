@@ -25,7 +25,8 @@ public :: random_seq_type, &
           twod_gaussians, &
           random_gamma, & 
           random_inverse_gamma, & 
-          random_exponential
+          random_exponential, &
+          ran_unif, init_ran
 
 character(len=*), parameter :: source = 'random_seq_mod.f90'
 
@@ -415,7 +416,7 @@ s%mti = s%mti + 1
 ! at this point we have an integer value for k
 ! this routine returns 0.0 <= real < 1.0, so do
 ! the divide here.  return range:  [0,1).
-
+print*, 'k=', k
 ran_unif = real(real(k, digits12) / 4294967296.0_digits12, r8)
 
 end function ran_unif
