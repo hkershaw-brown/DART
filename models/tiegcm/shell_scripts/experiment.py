@@ -1,9 +1,12 @@
 from pprint import pprint
+import subprocess
+import os
 
 class Experiment:
     """ TIEGCM experiment """
     model = "TIEGCM"
-
+    batch_script_templates_dir = "batch_script_templates"
+ 
 
     def __init__(self, root, data, account, resolution, cycle_delta, initial_time):
        self.root = root 
@@ -16,14 +19,15 @@ class Experiment:
     def info(self):
         pprint(vars(self))
         
-    def setup_tiegcm_run(self, pbs_template):
-        readFile = open("batch_script_templates/run-tiegcm.pbs.template")
+    def setup_pbs_options(self, pbs_template, pbs_file):
+        """ Create PBS files for tiegcm run """
+        readFile = open(os.path.join(self.batch_script_templates_dir, pbs_template))
         data = readFile.read()
+        readFile.close()
         data = data.replace("{res}", str(self.resolution))
         data = data.replace("{account}", self.account)
         data = data.replace("{tgcmdata}", self.data)
         data = data.replace("{tiegcm_root}", self.root)
-        
     
         if self.resolution == 2.5:
              nodes = "select=1:ncpus=32:mpiprocs=32:ompthreads=1"
@@ -31,9 +35,27 @@ class Experiment:
             nodes = "select=1:ncpus=16:mpiprocs=16:ompthreads=1"
     
         data = data.replace("{nodes}", nodes)
-    
-        writeFile = open(pbs_template, "w")
+            
+        writeFile = open(pbs_file, "w")
         writeFile.write(data)
+        writeFile.close()
+             
+    def setup(self, pbs_file):
+        """ Create PBS files for tiegcm run """
+        self.setup_pbs_options("run-tiegcm.pbs.template", pbs_file)
+      
+
+    def run(num_cycles):
+        """ Submit tiegcm jobs """
+        result = subprocess.run(['qsub', 'submit.sh'], stdout=subprocess.PIPE)
+        model_run = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
+
+        for cycle in range(num_cycles):
+            jobarg = ['qsub', '-W', model_run, 'submit.sh']
+            result = subprocess.run(jobarg, stdout=subprocess.PIPE)
+            model_run = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
+        
+
 
 class Pmo(Experiment):
     """ Perfect Model Obs experiment """
@@ -51,22 +73,26 @@ class Filter(Experiment):
         self.obs_seq_out = obs_seq_out
         self.ens_size = ens_size
          
-    def setup_tiegcm_run(self, pbs_template):
-        readFile = open("batch_script_templates/run-array-tiegcm.pbs.template")
+    def setup(self, pbs_file):
+        """ Setup pbs files for experiment """
+    
+        self.setup_pbs_options("run-array-tiegcm.pbs.template", pbs_file)
+        readFile = open(pbs_file)
         data = readFile.read()
-        data = data.replace("{res}", str(self.resolution))
-        data = data.replace("{account}", self.account)
-        data = data.replace("{tgcmdata}", self.data)
-        data = data.replace("{tiegcm_root}", self.root)
+        readFile.close()
         data = data.replace("{ens_size}", str(self.ens_size))
-    
-        if self.resolution == 2.5:
-             nodes = "select=1:ncpus=32:mpiprocs=32:ompthreads=1"
-        else:
-            nodes = "select=1:ncpus=16:mpiprocs=16:ompthreads=1"
-    
-        data = data.replace("{nodes}", nodes)
-    
-        writeFile = open(pbs_template, "w")
+        writeFile = open(pbs_file, "w")
         writeFile.write(data)
+        writeFile.close()
 
+    def run(num_cycles):
+        """ Submit filter experiment """
+        result = subprocess.run(['qsub', self.pbs_tiegcm], stdout=subprocess.PIPE)
+        model_run = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
+
+        for cycle in range(num_cycles):
+            filter_jobarg = ['qsub', '-W', model_run, 'submit_filter.sh']
+            result = subprocess.run(filter_jobarg, stdout=subprocess.PIPE)
+            
+            model_run = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
+            model_jobarg = ['qsub', '-W', model_run, 'submit.sh']
