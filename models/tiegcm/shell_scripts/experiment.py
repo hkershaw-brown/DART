@@ -19,7 +19,7 @@ class Experiment:
     def info(self):
         pprint(vars(self))
         
-    def setup_pbs_options(self, pbs_template, pbs_file):
+    def setup_pbs_options_tiegcm(self, pbs_template, pbs_file):
         """ Create PBS files for tiegcm run """
         readFile = open(os.path.join(self.batch_script_templates_dir, pbs_template))
         data = readFile.read()
@@ -42,10 +42,10 @@ class Experiment:
              
     def setup(self, pbs_file):
         """ Create PBS files for tiegcm run """
-        self.setup_pbs_options("run-tiegcm.pbs.template", pbs_file)
+        self.setup_pbs_options_tiegcm("run-tiegcm.pbs.template", pbs_file)
       
 
-    def run(num_cycles):
+    def run(self, num_cycles):
         """ Submit tiegcm jobs """
         result = subprocess.run(['qsub', 'submit.sh'], stdout=subprocess.PIPE)
         model_run = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
@@ -76,7 +76,7 @@ class Filter(Experiment):
     def setup(self, pbs_file):
         """ Setup pbs files for experiment """
     
-        self.setup_pbs_options("run-array-tiegcm.pbs.template", pbs_file)
+        self.setup_pbs_options_tiegcm("run-array-tiegcm.pbs.template", pbs_file)
         readFile = open(pbs_file)
         data = readFile.read()
         readFile.close()
@@ -85,7 +85,7 @@ class Filter(Experiment):
         writeFile.write(data)
         writeFile.close()
 
-    def run(num_cycles):
+    def run(self, num_cycles):
         """ Submit filter experiment """
         result = subprocess.run(['qsub', self.pbs_tiegcm], stdout=subprocess.PIPE)
         model_run = f"depend=afterok:{result.stdout.strip().decode('utf8')}"

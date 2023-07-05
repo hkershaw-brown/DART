@@ -15,3 +15,5 @@ ex3.info()
 ex1.setup("out.1.pbs")
 ex2.setup("out.2.pbs")
 ex3.setup("out.3.pbs")
+
+ex1.run(4)
