@@ -1,22 +1,21 @@
 #!/bin/bash
 #
-#PBS -A XXXXXXX
-#PBS -J 1-5
-#PBS -N tiegcm2.0_5deg
+#PBS -A {account}
+#PBS -J 1-{ens_size}
+#PBS -N tiegcm2.0_{res}deg
 #PBS -j oe
 #PBS -k eod
 #PBS -q regular
 #PBS -l walltime=00:10:00
-##PBS -l select=1:ncpus=16:mpiprocs=16
-#PBS -l select=1:ncpus=32:mpiprocs=32:ompthreads=1
+#PBS -l {nodes}
 
 
-TIEGCM_ROOT=/glade/scratch/${USER}/DART/TIEGCM/tiegcm2.0/
+TIEGCM_ROOT={tiegcm_root}
 
 export TMPDIR=/glade/scratch/${USER}/temp
 mkdir -p /glade/scratch/${USER}
-#
-export TGCMDATA=/glade/scratch/${USER}/DART/TIEGCM/DATA/tiegcm_res5.0_data
+
+export TGCMDATA={tgcmdata}
 export MP_LABELIO=YES
 export MP_SHARED_MEMORY=yes
 #
@@ -32,16 +31,17 @@ if [ -f out_params.nc ]; then
 fi
 
 # Execute:
- mpiexec_mpt ./tiegcm.exe tiegcm_res5.0.inp &> tiegcm_res5.0_${JOBID}.out
+ mpiexec_mpt ./tiegcm.exe tiegcm_res{res}.inp &> tiegcm_res{res}_${JOBID}.out
+
 #
 # Save stdout:
-$TIEGCM_ROOT/scripts/rmbinchars tiegcm_res5.0_${JOBID}.out # remove any non-ascii chars in stdout file
-$TIEGCM_ROOT/scripts/mklogs tiegcm_res5.0_${JOBID}.out     # break stdout into per-task log files
+$TIEGCM_ROOT/scripts/rmbinchars tiegcm_res{res}_${JOBID}.out # remove any non-ascii chars in stdout file
+$TIEGCM_ROOT/scripts/mklogs tiegcm_res{res}_${JOBID}.out     # break stdout into per-task log files
 #
 # Make tar file of task log files:
-tar -cf /glade/scratch/${USER}/DART/TIEGCM/tiegcm2.0/tiegcm_res5.0_${JOBID}.out.tar *task*.out 
+tar -cf /glade/scratch/${USER}/DART/TIEGCM/tiegcm2.0/tiegcm_res{res}_${JOBID}.out.tar *task*.out 
 rm *task*.out
 
-# increment the start,stop in tiegcm_res5.0.inp
+# increment the start,stop in tiegcm_res{res}.inp
 ./overwrite.py
 
