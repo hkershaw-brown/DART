@@ -41,8 +41,8 @@
    single_file_in               = .false.,
    input_state_files            = ''
    input_state_file_list        = 'restart_p_files.txt', 'secondary_files.txt'
-   init_time_days               = 153131,
-   init_time_seconds            = 0,
+   init_time_days               = -1,
+   init_time_seconds            = -1,
    perturb_from_single_instance = .true.,
    perturbation_amplitude       = 0.2,
 
@@ -67,7 +67,7 @@
    adv_ens_command              = "./advance_model.csh",
    tasks_per_model_advance      = 1
 
-   obs_sequence_in_name         = "obs_seq.out.1",
+   obs_sequence_in_name         = "obs_seq.out",
    obs_sequence_out_name        = "obs_seq.final",
    num_output_obs_members       = 20,
    first_obs_days               = -1,

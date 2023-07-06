@@ -134,15 +134,33 @@ class Filter(Experiment):
         # Create directory for assimilation
         os.makedirs(os.path.join(self.exp_directory, self.assim_dir))
         work = os.path.join(dart_dir(), "models/tiegcm/work")
-        shutil.copy(os.path.join(work, "input.nml"), os.path.join(self.exp_directory,self.assim_dir))
+        assim = os.path.join(self.exp_directory,self.assim_dir)
+        shutil.copy(os.path.join(work, "input.nml"), assim)
         try:
-            shutil.copy(os.path.join(work, "filter"), os.path.join(self.exp_directory,self.assim_dir))
+            shutil.copy(os.path.join(work, "filter"), assim)
         except FileNotFoundError:
             print(" No filter found in {} ".format(work))
             sys.exit()
-         
-        print("Filter experiment set up")
+        
+        # list of input and output members
+        primary = [ "../mem{:03d}/tiegcm_restart_p.nc".format(x+1) for x in range(self.ens_size)]
+        with open(os.path.join(assim, "restart_p_files.txt"), 'w') as f:
+            for item in primary:
+                 f.write(item + '\n')
+
+        secondary = [ "../mem{:03d}/tiegcm_s.nc".format(x+1) for x in range(self.ens_size)]
+        with open(os.path.join(assim, "secondary_files.txt"), 'w') as f:
+            for item in secondary:
+                 f.write(item + '\n')
+
+        # output files same as input
+        shutil.copy(os.path.join(assim, "restart_p_files.txt"), os.path.join(assim, "out_restart_p_files.txt"))
+        shutil.copy(os.path.join(assim, "secondary_files.txt"), os.path.join(assim, "out_secondary_files.txt"))
+ 
+        print("--------------------------")
+        print("Filter experiment set up:")
         self.info()
+        print("--------------------------")
         
     def setup_filter_pbs(self):
         """ create PBS file for submitting filter from template"""
