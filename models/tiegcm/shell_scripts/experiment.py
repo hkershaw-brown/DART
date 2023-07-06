@@ -3,6 +3,7 @@ import subprocess
 import os
 import sys
 import shutil
+from git_tools import dart_dir
 
 class Experiment:
     """ TIEGCM experiment """
@@ -116,7 +117,7 @@ class Filter(Experiment):
         """
         super().setup(directory)
         
-        # Ensemble size for the number of array jobs
+        # TIGCM array job file
         pbs_file = os.path.join(self.exp_directory, self.tiegcm_pbs_file)
         readFile = open(pbs_file)
         data = readFile.read()
@@ -126,21 +127,35 @@ class Filter(Experiment):
         writeFile.write(data)
         writeFile.close()
        
+        # Directory for each ensemble member
         self.setup_members()
         self.setup_filter_pbs()
         
         # Create directory for assimilation
         os.makedirs(os.path.join(self.exp_directory, self.assim_dir))
-        
+        work = os.path.join(dart_dir(), "models/tiegcm/work")
+        shutil.copy(os.path.join(work, "input.nml"), os.path.join(self.exp_directory,self.assim_dir))
+        try:
+            shutil.copy(os.path.join(work, "filter"), os.path.join(self.exp_directory,self.assim_dir))
+        except FileNotFoundError:
+            print(" No filter found in {} ".format(work))
+            sys.exit()
+         
+        print("Filter experiment set up")
         self.info()
         
     def setup_filter_pbs(self):
+        """ create PBS file for submitting filter from template"""
         pbs_file = os.path.join(self.exp_directory, self.filter_pbs_file)
         self.setup_pbs_options("submit_filter.pbs.template", pbs_file)
         
     def setup_members(self):
-        [ self.copy_mem(x) for x in range(self.ens_size)]
-
+        """ Directory for each ensemble member """
+        
+        # copy tiegcm.exe to the mem.setup directory
+        shutil.copy(os.path.join(self.root, "tiegcm.exe"), "mem.setup/")
+        [ self.copy_mem(x+1) for x in range(self.ens_size)]
+        
     def copy_mem(self, x):
         mem = "mem{:03d}".format(x)
         shutil.copytree("mem.setup", os.path.join(self.exp_directory, mem))
