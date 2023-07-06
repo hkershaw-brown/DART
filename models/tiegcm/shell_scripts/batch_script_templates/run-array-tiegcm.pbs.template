@@ -16,7 +16,7 @@ export TGCMDATA={tgcmdata}
 export MP_LABELIO=YES
 export MP_SHARED_MEMORY=yes
 #
-mem="mem"$(printf "%02d" $PBS_ARRAY_INDEX)
+mem="mem"$(printf "%03d" $PBS_ARRAY_INDEX)
 cd $mem
 
 JOBID=`echo ${PBS_JOBID} | cut -d'.' -f1 | cut -d'[' -f1` 

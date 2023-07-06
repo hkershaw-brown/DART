@@ -1,11 +1,14 @@
 from pprint import pprint
 import subprocess
 import os
+import sys
+import shutil
 
 class Experiment:
     """ TIEGCM experiment """
     model = "TIEGCM"
     batch_script_templates_dir = "batch_script_templates"
+    tiegcm_pbs_file = "run-tiegcm.pbs"
  
 
     def __init__(self, root, data, account, resolution, cycle_delta, initial_time):
@@ -40,8 +43,16 @@ class Experiment:
         writeFile.write(data)
         writeFile.close()
              
-    def setup(self, pbs_file):
-        """ Create PBS files for tiegcm run """
+    def setup(self, directory):
+        """ Setup a cycling experiment for TIEGCM
+            directory - to be created for the experiment
+        """
+        try:
+            os.makedirs(directory)
+        except FileExistsError:
+            print("Experiment directory {} exists".format(directory))
+            sys.exit()
+        pbs_file = os.path.join(directory, "run-tiegcm.pbs")
         self.setup_pbs_options_tiegcm("run-tiegcm.pbs.template", pbs_file)
       
 
@@ -67,15 +78,26 @@ class Pmo(Experiment):
        
 class Filter(Experiment):
     """ Filter experiment """
+    filter_pbs_file = "submit_filter.pbs"
      
     def __init__(self, root, data, account, resolution, cycle_delta, initial_time, obs_seq_out, ens_size):
         super().__init__(root, data, account, resolution, cycle_delta, initial_time)
         self.obs_seq_out = obs_seq_out
         self.ens_size = ens_size
+        
          
-    def setup(self, pbs_file):
-        """ Setup pbs files for experiment """
-    
+    def setup(self, directory):
+        """ Setup a Data Assimilation experiment for TIEGCM
+            directory - to be created for the experiment
+        """
+        try:
+            os.makedirs(directory)
+            self.directory = directory
+        except FileExistsError:
+            print("Experiment directory {} exists".format(directory))
+            sys.exit()
+        pbs_file = os.path.join(self.directory, self.tiegcm_pbs_file)
+        
         self.setup_pbs_options_tiegcm("run-array-tiegcm.pbs.template", pbs_file)
         readFile = open(pbs_file)
         data = readFile.read()
@@ -84,15 +106,32 @@ class Filter(Experiment):
         writeFile = open(pbs_file, "w")
         writeFile.write(data)
         writeFile.close()
+       
+        self.setup_members()
+        self.setup_filter_pbs()
+        
+    def setup_filter_pbs(self):
+        pbs_file = os.path.join(self.directory, self.filter_pbs_file)
+        self.setup_pbs_options_tiegcm("submit_filter.pbs.template", pbs_file)
+        
+    def setup_members(self):
+        [ self.copy_mem(x) for x in range(self.ens_size)]
 
+    def copy_mem(self, x):
+        mem = "mem{:03d}".format(x)
+        shutil.copytree("mem.setup", os.path.join(self.directory, mem))
+        
     def run(self, num_cycles):
         """ Submit filter experiment """
         result = subprocess.run(['qsub', self.pbs_tiegcm], stdout=subprocess.PIPE)
-        model_run = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
 
         for cycle in range(num_cycles):
-            filter_jobarg = ['qsub', '-W', model_run, 'submit_filter.sh']
+        
+            if_model_ok = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
+            filter_jobarg = ['qsub', '-W', if_model_ok, self.filter_pbs_file]
             result = subprocess.run(filter_jobarg, stdout=subprocess.PIPE)
             
-            model_run = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
-            model_jobarg = ['qsub', '-W', model_run, 'submit.sh']
+            if_filter_ok = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
+            model_jobarg = ['qsub', '-W', if_filter_ok, self.tiegcm_pbs_file]
+            result = subprocess.run(filter_jobarg, stdout=subprocess.PIPE)
+
