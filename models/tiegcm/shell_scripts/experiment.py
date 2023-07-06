@@ -84,7 +84,7 @@ class Experiment:
         model_run = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
 
         for cycle in range(num_cycles):
-            jobarg = ['qsub', '-W', model_run, 'submit.sh']
+            jobarg = ['qsub', '-W', model_run, self.tiegcm_pbs_file]
             result = subprocess.run(jobarg, stdout=subprocess.PIPE)
             model_run = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
         
