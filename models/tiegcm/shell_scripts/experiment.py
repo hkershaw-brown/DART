@@ -4,7 +4,7 @@ import os
 import sys
 import shutil
 from git_tools import dart_dir
-from observations import Observations
+from time_window import TimeWindow
 
 class Experiment:
     """ TIEGCM experiment """
@@ -33,6 +33,8 @@ class Experiment:
        self.end_time = end_time
        self.exp_directory = ""
        self.tiegcm_pbs_template = "run-tiegcm.pbs.template"
+
+       self.win = TimeWindow(self.initial_time, self.end_time, self.cycle_delta)
 
     def info(self):
         """ Print out all the variables of the experiment """
@@ -116,8 +118,7 @@ class Filter(Experiment):
         self.ens_size = ens_size
         self.tiegcm_pbs_template = "run-array-tiegcm.pbs.template"
         
-        self.obs = Observations(self.initial_time, self.end_time, self.cycle_delta)
-        
+       
     def setup(self, directory):
         """ Setup a Data Assimilation experiment for TIEGCM
         
@@ -193,11 +194,11 @@ class Filter(Experiment):
 
         #result = subprocess.run(['qsub', self.tiegcm_pbs_file], stdout=subprocess.PIPE)
 
-        for cycle in range(self.obs.num_cycles):
+        for cycle in range(self.win.num_cycles):
         
-            print(self.obs.model_times[cycle])
-            print(self.obs.model_times[cycle].strftime('%Y%m%d'),
-                  self.obs.model_times[cycle].strftime('%Y%m%d')
+            print(self.win.model_times[cycle])
+            print(self.win.model_times[cycle].strftime('%Y%m%d'),
+                  self.win.model_times[cycle].strftime('%Y%m%d'))
             
             #print(os.path.join(self.obs_seq_dir,self.obs.model_times[cycle]))
             

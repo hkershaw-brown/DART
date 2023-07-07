@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-class Observations:
+class TimeWindow:
     """ Observations for a TIEGCM experiment """
     
     def __init__(self, start_time, end_time, delta):
