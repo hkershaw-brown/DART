@@ -32,7 +32,7 @@ class TimeWindow:
         #   (model_end_time + 0.5*delta) - (model_start_time - 0.5*delta)
         runtime_hours = int((self.end_time - self.start_time + timedelta(hours=self.delta)).total_seconds()/3600)
 
-        self.window_start_times = [ self.start_time-timedelta(hours=self.delta_half)+x*timedelta(hours=self.delta) for x in range(runtime_hours+1)]
+        self.window_start_times = [ self.start_time-timedelta(hours=self.delta_half)+x*timedelta(hours=self.delta) for x in range(runtime_hours)]
         
         self.window_end_times = [x+timedelta(hours=self.delta) for x in self.window_start_times]
         self.model_times = [x+timedelta(hours=self.delta_half) for x in self.window_start_times]
@@ -50,5 +50,5 @@ class TimeWindow:
 
         #print("win start  ", self.window_start_times[-1])
         #print("model time ", self.model_times[-1])
-        #print("win list   ", self.window_end_times[-1])
+        #print("win emd   ", self.window_end_times[-1])
         
