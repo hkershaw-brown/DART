@@ -39,7 +39,27 @@ class Experiment:
     def info(self):
         """ Print out all the variables of the experiment """
         pprint(vars(self))
+ 
+    def tiegcm_time(self, t):
+        """ TIEGCM times
         
+            t - datetime
+            returns dict {year, yday, hour, minute}
+            
+            START 3-integer triplet: day,hour,minute
+            START_YEAR: year
+    
+        """
+
+        tgcm = {}
+        tgcm['year'] = t.timetuple().tm_year
+        tgcm['yday'] = t.timetuple().tm_yday
+        tgcm['hour'] = t.timetuple().tm_hour
+        tgcm['minute'] = t.timetuple().tm_min
+
+        return tgcm
+
+ 
     def create_experiment_directory(self):
         try:
             os.makedirs(self.exp_directory)
@@ -196,9 +216,12 @@ class Filter(Experiment):
 
         for cycle in range(self.win.num_cycles):
         
-            print(self.win.model_times[cycle])
-            print(self.win.model_times[cycle].strftime('%Y%m%d'),
-                  self.win.model_times[cycle].strftime('%Y%m%d'))
+            print(self.win.model_times[cycle].strftime('%Y%m%d%H'),
+                  self.tiegcm_time(self.win.model_times[cycle])["year"],
+                  self.tiegcm_time(self.win.model_times[cycle])["yday"],
+                  self.tiegcm_time(self.win.model_times[cycle])["hour"],
+                  self.tiegcm_time(self.win.model_times[cycle])["minute"])
+                  
             
             #print(os.path.join(self.obs_seq_dir,self.obs.model_times[cycle]))
             
