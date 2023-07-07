@@ -38,16 +38,17 @@ class Observations:
         self.model_times = [x+timedelta(hours=self.delta_half) for x in self.window_start_times]
         self.window_start_times = [ x+timedelta(seconds=1) for x in self.window_start_times] # +1 second to window start
         
-        print("win start  ", self.window_start_times[0])
-        print("model time ", self.model_times[0])
-        print("win end    ", self.window_end_times[0])
+        self.num_cycles = len(self.model_times)
+        #print("win start  ", self.window_start_times[0])
+        #print("model time ", self.model_times[0])
+        #print("win end    ", self.window_end_times[0])
         
-        print("win start  ", self.window_start_times[1])
-        print("model time ", self.model_times[1])
-        print("win end    ", self.window_end_times[1])
+        #print("win start  ", self.window_start_times[1])
+        #print("model time ", self.model_times[1])
+        #print("win end    ", self.window_end_times[1])
         
 
-        print("win start  ", self.window_start_times[-1])
-        print("model time ", self.model_times[-1])
-        print("win list   ", self.window_end_times[-1])
+        #print("win start  ", self.window_start_times[-1])
+        #print("model time ", self.model_times[-1])
+        #print("win list   ", self.window_end_times[-1])
         

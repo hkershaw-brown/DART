@@ -4,6 +4,7 @@ import os
 import sys
 import shutil
 from git_tools import dart_dir
+from observations import Observations
 
 class Experiment:
     """ TIEGCM experiment """
@@ -12,7 +13,7 @@ class Experiment:
     tiegcm_pbs_file = "run-tiegcm.pbs"
  
 
-    def __init__(self, root, data, account, resolution, cycle_delta, initial_time):
+    def __init__(self, root, data, account, resolution, cycle_delta, initial_time, end_time):
        """ Initialize an experiment
        
        root -- TIEGCM root directory
@@ -20,6 +21,7 @@ class Experiment:
        resolution -- TIEGCM resolution 2.5 or 5.0 degrees
        cycle_deta -- how often to stop TIEGCM
        initial_time -- start time of the experiment
+       end_time - end time of the experiment
        
        """
        self.root = root 
@@ -28,6 +30,7 @@ class Experiment:
        self.resolution = resolution 
        self.cycle_delta = cycle_delta
        self.initial_time = initial_time
+       self.end_time = end_time
        self.exp_directory = ""
        self.tiegcm_pbs_template = "run-tiegcm.pbs.template"
 
@@ -93,8 +96,10 @@ class Experiment:
 class Pmo(Experiment):
     """ Perfect Model Obs experiment """
     
-    def __init__(self, root, data, account, resolution, cycle_delta, initial_time, obs_seq_in):
-        super().__init__(root, data, account, resolution, cycle_delta, initial_time)
+    def __init__(self, root, data, account, resolution,
+                 cycle_delta, initial_time, end_time,
+                 obs_seq_in):
+        super().__init__(root, data, account, resolution, cycle_delta, initial_time, end_time)
         self.obs_seq_in = obs_seq_in
                 
        
@@ -103,13 +108,16 @@ class Filter(Experiment):
     filter_pbs_file = "submit_filter.pbs"
     assim_dir = "assim"
      
-    def __init__(self, root, data, account, resolution, cycle_delta, initial_time, obs_seq_out, ens_size):
-        super().__init__(root, data, account, resolution, cycle_delta, initial_time)
-        self.obs_seq_out = obs_seq_out
+    def __init__(self, root, data, account, resolution,
+                 cycle_delta, initial_time, end_time,
+                 obs_seq_dir, ens_size):
+        super().__init__(root, data, account, resolution, cycle_delta, initial_time, end_time)
+        self.obs_seq_dir = obs_seq_dir
         self.ens_size = ens_size
         self.tiegcm_pbs_template = "run-array-tiegcm.pbs.template"
         
-         
+        self.obs = Observations(self.initial_time, self.end_time, self.cycle_delta)
+        
     def setup(self, directory):
         """ Setup a Data Assimilation experiment for TIEGCM
         
@@ -178,17 +186,26 @@ class Filter(Experiment):
         mem = "mem{:03d}".format(x)
         shutil.copytree("mem.setup", os.path.join(self.exp_directory, mem))
         
-    def run(self, num_cycles):
+    def run(self):
         """ Submit filter experiment """
-        result = subprocess.run(['qsub', self.pbs_tiegcm], stdout=subprocess.PIPE)
+        os.chdir(os.path.join(self.exp_directory, self.assim_dir))
+        print(os.getcwd())
 
-        for cycle in range(num_cycles):
+        #result = subprocess.run(['qsub', self.tiegcm_pbs_file], stdout=subprocess.PIPE)
+
+        for cycle in range(self.obs.num_cycles):
         
-            if_model_ok = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
-            filter_jobarg = ['qsub', '-W', if_model_ok, self.filter_pbs_file]
-            result = subprocess.run(filter_jobarg, stdout=subprocess.PIPE)
+            print(self.obs.model_times[cycle])
+            print(self.obs.model_times[cycle].strftime('%Y%m%d'),
+                  self.obs.model_times[cycle].strftime('%Y%m%d')
             
-            if_filter_ok = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
-            model_jobarg = ['qsub', '-W', if_filter_ok, self.tiegcm_pbs_file]
-            result = subprocess.run(filter_jobarg, stdout=subprocess.PIPE)
+            #print(os.path.join(self.obs_seq_dir,self.obs.model_times[cycle]))
+            
+            #if_model_ok = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
+            #filter_jobarg = ['qsub', '-W', if_model_ok, self.filter_pbs_file]
+            #result = subprocess.run(filter_jobarg, stdout=subprocess.PIPE)
+            
+            #if_filter_ok = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
+            #model_jobarg = ['qsub', '-W', if_filter_ok, self.tiegcm_pbs_file]
+            #result = subprocess.run(filter_jobarg, stdout=subprocess.PIPE)
 
