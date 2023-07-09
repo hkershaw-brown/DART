@@ -212,24 +212,27 @@ class Filter(Experiment):
         os.chdir(os.path.join(self.exp_directory, self.assim_dir))
         print(os.getcwd())
 
-        #result = subprocess.run(['qsub', self.tiegcm_pbs_file], stdout=subprocess.PIPE)
+        result = subprocess.run(['../../qsub', self.tiegcm_pbs_file], stdout=subprocess.PIPE)
 
         for cycle in range(self.win.num_cycles):
+         
+            obs_seq = 'obs_seq.out.' + self.win.model_times[cycle].strftime('%Y%m%d%H')
+            tgcm_year = str(self.tiegcm_time(self.win.model_times[cycle])["year"])
+            tgcm_yday = str(self.tiegcm_time(self.win.model_times[cycle])["yday"])
+            tgcm_hour = str(self.tiegcm_time(self.win.model_times[cycle])["hour"])
+            tgcm_minute = str(self.tiegcm_time(self.win.model_times[cycle])["minute"])
         
-            print(self.win.model_times[cycle].strftime('%Y%m%d%H'),
-                  self.tiegcm_time(self.win.model_times[cycle])["year"],
-                  self.tiegcm_time(self.win.model_times[cycle])["yday"],
-                  self.tiegcm_time(self.win.model_times[cycle])["hour"],
-                  self.tiegcm_time(self.win.model_times[cycle])["minute"])
-                  
+            #print(obs_seq)
+            #print(tgcm_year, tgcm_yday, tgcm_hour, tgcm_minute) 
+            #print(os.path.join(self.obs_seq_dir,obs_seq))
             
-            #print(os.path.join(self.obs_seq_dir,self.obs.model_times[cycle]))
-            
-            #if_model_ok = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
-            #filter_jobarg = ['qsub', '-W', if_model_ok, self.filter_pbs_file]
-            #result = subprocess.run(filter_jobarg, stdout=subprocess.PIPE)
-            
-            #if_filter_ok = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
-            #model_jobarg = ['qsub', '-W', if_filter_ok, self.tiegcm_pbs_file]
-            #result = subprocess.run(filter_jobarg, stdout=subprocess.PIPE)
+            if_model_ok = f"depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
+            filter_jobarg = ['../../qsub', '-W', if_model_ok, self.filter_pbs_file, 
+                             os.path.join(self.obs_seq_dir,obs_seq),           
+                             tgcm_year, tgcm_yday, tgcm_hour, tgcm_minute]
+            result = subprocess.run(filter_jobarg, stdout=subprocess.PIPE)
+           
+            if_filter_ok = "depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
+            model_jobarg = ['../../qsub', '-W', if_filter_ok, self.tiegcm_pbs_file]
+            result = subprocess.run(filter_jobarg, stdout=subprocess.PIPE)
 
