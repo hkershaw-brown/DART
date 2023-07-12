@@ -13,10 +13,11 @@ class Experiment:
     tiegcm_pbs_file = "run-tiegcm.pbs"
  
 
-    def __init__(self, root, data, account, resolution, cycle_delta, initial_time, end_time):
+    def __init__(self, root, exe, data, account, resolution, cycle_delta, initial_time, end_time):
        """ Initialize an experiment
        
        root -- TIEGCM root directory
+       exe -- full path to tiegcm.exe
        data -- TIEGCM data directory
        resolution -- TIEGCM resolution 2.5 or 5.0 degrees
        cycle_deta -- how often to stop TIEGCM
@@ -25,6 +26,7 @@ class Experiment:
        
        """
        self.root = root 
+       self.exe = exe
        self.data = data 
        self.account = account 
        self.resolution = resolution 
@@ -118,10 +120,10 @@ class Experiment:
 class Pmo(Experiment):
     """ Perfect Model Obs experiment """
     
-    def __init__(self, root, data, account, resolution,
+    def __init__(self, root, exe, data, account, resolution,
                  cycle_delta, initial_time, end_time,
                  obs_seq_in):
-        super().__init__(root, data, account, resolution, cycle_delta, initial_time, end_time)
+        super().__init__(root, exe, data, account, resolution, cycle_delta, initial_time, end_time)
         self.obs_seq_in = obs_seq_in
                 
        
@@ -130,10 +132,10 @@ class Filter(Experiment):
     filter_pbs_file = "submit_filter.pbs"
     assim_dir = "assim"
      
-    def __init__(self, root, data, account, resolution,
+    def __init__(self, root, exe, data, account, resolution,
                  cycle_delta, initial_time, end_time,
                  obs_seq_dir, ens_size):
-        super().__init__(root, data, account, resolution, cycle_delta, initial_time, end_time)
+        super().__init__(root, exe, data, account, resolution, cycle_delta, initial_time, end_time)
         self.obs_seq_dir = obs_seq_dir
         self.ens_size = ens_size
         self.tiegcm_pbs_template = "run-array-tiegcm.pbs.template"
@@ -200,7 +202,7 @@ class Filter(Experiment):
         """ Directory for each ensemble member """
         
         # copy tiegcm.exe to the mem.setup directory
-        shutil.copy(os.path.join(self.root, "tiegcm.exe"), "mem.setup/")
+        shutil.copy(self.exe, "mem.setup/")
         [ self.copy_mem(x+1) for x in range(self.ens_size)]
         
     def copy_mem(self, x):
@@ -209,30 +211,35 @@ class Filter(Experiment):
         
     def run(self):
         """ Submit filter experiment """
-        os.chdir(os.path.join(self.exp_directory, self.assim_dir))
+        os.chdir(self.exp_directory)
         print(os.getcwd())
 
-        result = subprocess.run(['../../qsub', self.tiegcm_pbs_file], stdout=subprocess.PIPE)
+        result = subprocess.run(['qsub', self.tiegcm_pbs_file], stdout=subprocess.PIPE)
+        print('result: ', result)
 
-        for cycle in range(self.win.num_cycles):
+        for cycle in range(1): #range(self.win.num_cycles):
          
             obs_seq = 'obs_seq.out.' + self.win.model_times[cycle].strftime('%Y%m%d%H')
             tgcm_year = str(self.tiegcm_time(self.win.model_times[cycle])["year"])
             tgcm_yday = str(self.tiegcm_time(self.win.model_times[cycle])["yday"])
             tgcm_hour = str(self.tiegcm_time(self.win.model_times[cycle])["hour"])
             tgcm_minute = str(self.tiegcm_time(self.win.model_times[cycle])["minute"])
-        
-            #print(obs_seq)
-            #print(tgcm_year, tgcm_yday, tgcm_hour, tgcm_minute) 
-            #print(os.path.join(self.obs_seq_dir,obs_seq))
-            
+       
             if_model_ok = f"depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
-            filter_jobarg = ['../../qsub', '-W', if_model_ok, self.filter_pbs_file, 
-                             os.path.join(self.obs_seq_dir,obs_seq),           
-                             tgcm_year, tgcm_yday, tgcm_hour, tgcm_minute]
+            print("One", if_model_ok)
+            filter_jobarg = ['qsub', '-v', 
+                             'OBS_SEQ='+ os.path.join(self.obs_seq_dir,obs_seq),
+                             '-W', if_model_ok, 
+                             self.filter_pbs_file]
             result = subprocess.run(filter_jobarg, stdout=subprocess.PIPE)
            
-            if_filter_ok = "depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
-            model_jobarg = ['../../qsub', '-W', if_filter_ok, self.tiegcm_pbs_file]
-            result = subprocess.run(filter_jobarg, stdout=subprocess.PIPE)
+            if_filter_ok = f"depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
+            print("Two", if_filter_ok)
+            model_jobarg = ['qsub', '-v',
+                              ' YEAR='+tgcm_year 
+                             +' YDAY='+tgcm_yday 
+                             +' HOUR='+tgcm_hour 
+                             +' MIN='+tgcm_minute,
+                            '-W', if_filter_ok, self.tiegcm_pbs_file]
+            result = subprocess.run(model_jobarg, stdout=subprocess.PIPE)
 

@@ -9,4 +9,20 @@
 #PBS -l select=1:ncpus=32:mpiprocs=32:ompthreads=1
 
 cd assim
+
+# obs sequence file
+unlink obs_seq.out
+
+ln -s $OBS_SEQ obs_seq.out
 mpiexec_mpt ./filter
+
+
+if [ "$?" -eq "0" ]; then  # filter run was sucessful
+
+   echo "Filter successful"
+   filename=$(basename -- "$OBS_SEQ")
+   extension="${filename##*.}"
+
+   mv obs_seq.final obs_seq.final.$extension
+
+fi 
