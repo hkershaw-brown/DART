@@ -1,15 +1,38 @@
 import math
 from mpl_toolkits import mplot3d
 import matplotlib.pyplot as plt 
-from subprocess import check_output, CalledProcessError
+import subprocess 
+import os
+import sys 
 
 def dart_dir():
     """ return the top level directory of DART """
     try:
-        dart = check_output(['git', 'rev-parse', '--show-toplevel'])
-    except CalledProcessError:
+        dart = subprocess.check_output(['git', 'rev-parse', '--show-toplevel'])
+    except subprocess.CalledProcessError:
         raise IOError('Current working directory is not a git repository')
     return dart.decode('utf-8').strip()
+
+def build_qty_types_mod():
+    """ build a python module qt from the qtys and types in obs_kind_mod.f90
+
+        qt contains the qtys and type parameter used in DART
+        Assumes that obs_kind_mod.f90 is in the default location
+        DART/assimilation_code/modules/observations/obs_kind_mod.f90
+    """ 
+
+    obs_kind_file = os.path.join(dart_dir(),"assimilation_code/modules/observations/obs_kind_mod.f90")
+    if not os.path.exists(obs_kind_file):
+        sys.exit("file {} does not exist".format(obs_kind_file))
+
+    print("running the build") 
+    p = subprocess.run(["grep", "-i", "integer, parameter, public", obs_kind_file], capture_output=True) #, ">", "qty_types.f90"])
+    with open('qty_types.f90', 'w') as f:
+        f.write('module qty_types_mod\n')
+        f.write(p.stdout.strip().decode('utf8'))
+        f.write('\nend module qty_types_mod\n')
+
+    subprocess.run(["f2py", "-c", "qty_types.f90", "-m", "qt"])
 
 
 def golden_spiral(samples=1000):
