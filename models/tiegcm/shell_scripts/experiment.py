@@ -25,6 +25,7 @@ class Experiment:
        end_time - end time of the experiment
        
        """
+       self.setup_called = False
        self.root = root 
        self.exe = exe
        self.data = data 
@@ -104,9 +105,20 @@ class Experiment:
         pbs_file = os.path.join(self.exp_directory, self.tiegcm_pbs_file)
         self.setup_pbs_options(self.tiegcm_pbs_template, pbs_file)
       
+        self.setup_called = True
+
+    def assert_setup(self):
+        """ Exits if experiment.setup has not been called
+        """
+        if not self.setup_called:
+            print("Error : need to call setup before run")
+            sys.exit()
+
 
     def run(self, num_cycles):
         """ Submit tiegcm jobs """
+
+        self.assert_setup()
         result = subprocess.run(['qsub', self.tiegcm_pbs_file], stdout=subprocess.PIPE)
         model_run = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
 
@@ -211,6 +223,7 @@ class Filter(Experiment):
         
     def run(self):
         """ Submit filter experiment """
+        self.assert_setup()
         os.chdir(self.exp_directory)
         print(os.getcwd())
 
