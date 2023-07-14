@@ -35,15 +35,20 @@ def build_qty_types_mod():
     subprocess.run(["f2py", "-c", "qty_types.f90", "-m", "qt"])
 
 
-def golden_spiral(samples=1000):
+def golden_spiral(samples=100):
+    """ create evenly spaced points on a unit sphere
+    
+        samples - number of points to create
+    """
 
     points = []
-    phi = math.pi * (math.sqrt(5.) - 1.)  # golden angle in radians
+    phi = math.pi * (3. - math.sqrt(5.))  # golden angle in radians
+    off = 2 / samples
 
     for i in range(samples):
-        y = 1 - (i / float(samples - 1)) * 2  # y goes from 1 to -1
-        radius = math.sqrt(1 - y * y)  # radius at y
 
+        y = i*off -1 + (off / 2) 
+        radius = math.sqrt(1 - y * y)  # radius at y
         theta = phi * i  # golden angle increment
 
         x = math.cos(theta) * radius
@@ -53,8 +58,17 @@ def golden_spiral(samples=1000):
 
     return points
 
+def xyz_to_lat_lon(points):
+
+    # points(x,y,z)
+    lon = [ math.atan2(x[1],x[2]) + math.pi for x in points ] # lon = atan2(y,z) + pi
+    lat = [ math.asin(x[2]) for x in points]  # lat = asin(z)
+ 
+    return (lon,lat) 
+
 
 def plot_points(points):
+    """ 3D scatter plot """
 
     x = [x[0] for x in points]
     y = [x[1] for x in points]
