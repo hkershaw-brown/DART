@@ -117,7 +117,7 @@ class Experiment:
         
 
 
-class Pmo(Experiment):
+class PerfectModelObs(Experiment):
     """ Perfect Model Obs experiment """
     
     def __init__(self, root, exe, data, account, resolution,
