@@ -74,7 +74,7 @@ def network_seq_options(start_time, delta_time, cycles):
     days = 0
     
 
-    with open("create_netcdf_seq_input.txt", "w") as f:
+    with open("create_network_seq_input.txt", "w") as f:
         f.write("set_def.out\n")  # filename for network definition sequence
         f.write("1\n") # regularly repeating time sequence enter 1
         f.write("{}\n".format(cycles)) # number of observation times in sequence
@@ -94,12 +94,14 @@ def run_create_fixed_network_seq(start_time, delta_time, cycles):
 
          start_time - datetime object: start of experiment
          delta_time - int: cycle period for the experiment in hours
+         cycles - number of cycles. Use 1 for non-subroutine callable models.
 
     """
 
     network_seq_options(start_time, delta_time, cycles)
     create_fixed_network_seq = os.path.join(dart_dir(), "models/TIEGCM/work/create_fixed_network_seq")
-    os.system(create_fixed_network_seq + " < create_netcdf_seq_input.txt")
-    
+    exit_status =  os.system(create_fixed_network_seq + " < create_network_seq_input.txt")
+    if exit_status != 0:
+        sys.exit()
 
 

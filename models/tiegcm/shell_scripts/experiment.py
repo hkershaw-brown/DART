@@ -5,6 +5,7 @@ import sys
 import shutil
 from dart_tools import dart_dir
 from time_window import TimeWindow
+from synthetic_obs import create_obs_seq_definition, run_create_fixed_network_seq
 
 class Experiment:
     """ TIEGCM experiment """
@@ -131,13 +132,55 @@ class Experiment:
 
 class PerfectModelObs(Experiment):
     """ Perfect Model Obs experiment """
+    obs_seq_dir = "Observations"
     
     def __init__(self, root, exe, data, account, resolution,
                  cycle_delta, initial_time, end_time,
-                 obs_seq_in):
+                 n_profiles):
         super().__init__(root, exe, data, account, resolution, cycle_delta, initial_time, end_time)
-        self.obs_seq_in = obs_seq_in
-                
+        self.n_profiles = n_profiles
+        
+    def setup(self, directory):
+        """ Setup a Perfect Models Obs experiment for TIEGCM
+        
+            directory - to be created for the experiment
+        """
+        print("Setting up")
+        super().setup(directory)
+
+        # populate experiment dirctory
+        shutil.copy(self.exe, "mem.setup/") # cp tiegcm.exe
+        shutil.copytree("mem.setup", os.path.join(self.exp_directory, "mem.pmo"))
+        work = os.path.join(dart_dir(), "models/tiegcm/work")
+        os.makedirs(os.path.join(self.exp_directory, self.obs_seq_dir))
+        observations = os.path.join(self.exp_directory, self.obs_seq_dir)
+        shutil.copy(os.path.join(work, "input.nml"), observations)
+        
+        
+        # need a tiegcm_restart_p.nc and tiegcm_s.nc for init_model_mod
+        print("HACK: need tiegcm restarts")
+        shutil.copy(os.path.join(work, "tiegcm_restart_p.nc"), observations)
+        shutil.copy(os.path.join(work, "tiegcm_s.nc"), observations)
+        
+        # set up obs_seq.in for each cycle
+        os.chdir(observations)
+        create_obs_seq_definition(self.n_profiles)
+                       
+        for cycle in range(self.win.num_cycles):
+        
+            try:
+                run_create_fixed_network_seq(self.win.model_times[cycle], self.win.delta, cycles=1)
+            except:
+                 print("create_fixed_network_seq FAILED")
+                 sys.exit()
+            
+            obs_seq = 'obs_seq.in.' + self.win.model_times[cycle].strftime('%Y%m%d-%H')
+            os.rename('obs_seq.in', obs_seq)
+   
+
+    def run(self):
+        """ Submit Perfect Model Obs experiment """
+        self.assert_setup()
        
 class Filter(Experiment):
     """ Filter experiment """
@@ -230,7 +273,7 @@ class Filter(Experiment):
         result = subprocess.run(['qsub', self.tiegcm_pbs_file], stdout=subprocess.PIPE)
         print('result: ', result)
 
-        for cycle in range(1): #range(self.win.num_cycles):
+        for cycle in range(self.win.num_cycles):
          
             obs_seq = 'obs_seq.out.' + self.win.model_times[cycle].strftime('%Y%m%d%H')
             tgcm_year = str(self.tiegcm_time(self.win.model_times[cycle])["year"])
