@@ -859,20 +859,8 @@ do i = start_var, end_var
 
    slice_start(:) = 1 ! default to read all dimensions start at 1
 
-   if (has_unlimited_dim(domain)) then
+   if (has_unlimited_dim(domain) .and. any(get_io_dim_ids(domain, i) ==  NF90_UNLIMITED )) then
 
-
-      if (any(get_io_dim_ids(domain, i) ==  NF90_UNLIMITED )) then ! variable 
-         print*, 'Hello Helen', num_dims, ':', get_dim_lengths(domain, i),':', num_dims-1, ':', get_num_dims(domain, i)
-         counts(num_dims) = 1 ! one slice of unlimited dimesion
-         counts(1:num_dims-1) = get_dim_lengths(domain, i) ! the state
-         print*, 'After', counts(:), get_variable_name(domain, i)
-      else
-         print*, 'variable does not have unlimited dim'
-         counts(1:get_num_dims(domain,i)) = get_dim_lengths(domain, i) ! the state
-      endif
-
- 
       ! read latest time slice - hack to get started with tiegcm
       ! not sure if it will always be the last time slice
       ret = nf90_inquire(ncfile_in, unlimitedDimID=unlim_dimID)
