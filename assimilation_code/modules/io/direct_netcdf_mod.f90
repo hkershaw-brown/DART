@@ -93,7 +93,7 @@ use state_structure_mod,  only : get_num_variables, get_sum_variables,  &
                                  get_index_start, get_index_end , get_num_dims, &
                                  create_diagnostic_structure, &
                                  end_diagnostic_structure, &
-                                 has_unlimited_dim
+                                 has_unlimited_dim, get_io_dim_ids
 
 use io_filenames_mod,     only : get_restart_filename, inherit_copy_units, &
                                  stage_metadata_type, get_file_description, &
@@ -861,9 +861,18 @@ do i = start_var, end_var
 
    if (has_unlimited_dim(domain)) then
 
-      counts(num_dims) = 1 ! one slice of unlimited dimesion
-      counts(1:num_dims-1) = get_dim_lengths(domain, i) ! the state
-      
+
+      if (any(get_io_dim_ids(domain, i) ==  NF90_UNLIMITED )) then ! variable 
+         print*, 'Hello Helen', num_dims, ':', get_dim_lengths(domain, i),':', num_dims-1, ':', get_num_dims(domain, i)
+         counts(num_dims) = 1 ! one slice of unlimited dimesion
+         counts(1:num_dims-1) = get_dim_lengths(domain, i) ! the state
+         print*, 'After', counts(:), get_variable_name(domain, i)
+      else
+         print*, 'variable does not have unlimited dim'
+         counts(1:get_num_dims(domain,i)) = get_dim_lengths(domain, i) ! the state
+      endif
+
+ 
       ! read latest time slice - hack to get started with tiegcm
       ! not sure if it will always be the last time slice
       ret = nf90_inquire(ncfile_in, unlimitedDimID=unlim_dimID)
