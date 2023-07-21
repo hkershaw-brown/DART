@@ -155,32 +155,78 @@ class PerfectModelObs(Experiment):
         os.makedirs(os.path.join(self.exp_directory, self.obs_seq_dir))
         observations = os.path.join(self.exp_directory, self.obs_seq_dir)
         shutil.copy(os.path.join(work, "input.nml"), observations)
-        
-        
+
+        try:
+            shutil.copy(os.path.join(work, "perfect_model_obs"), observations)
+        except FileNotFoundError:
+            print(" No perfect_model_obs found in {} ".format(work))
+            sys.exit()
+
         # need a tiegcm_restart_p.nc and tiegcm_s.nc for init_model_mod
         print("HACK: need tiegcm restarts")
         shutil.copy(os.path.join(work, "tiegcm_restart_p.nc"), observations)
         shutil.copy(os.path.join(work, "tiegcm_s.nc"), observations)
-        
+ 
         # set up obs_seq.in for each cycle
         os.chdir(observations)
         create_obs_seq_definition(self.n_profiles)
                        
         for cycle in range(self.win.num_cycles):
-        
+
             try:
                 run_create_fixed_network_seq(self.win.model_times[cycle], self.win.delta, cycles=1)
             except:
                  print("create_fixed_network_seq FAILED")
                  sys.exit()
-            
+
             obs_seq = 'obs_seq.in.' + self.win.model_times[cycle].strftime('%Y%m%d-%H')
             os.rename('obs_seq.in', obs_seq)
-   
+
 
     def run(self):
         """ Submit Perfect Model Obs experiment """
         self.assert_setup()
+        # need a tiegcm_restart_p.nc and tiegcm_s.nc for init_model_mod
+        print("HACK: need tiegcm restarts")
+        shutil.copy(os.path.join(work, "tiegcm_restart_p.nc"), self.exp_directory)
+        shutil.copy(os.path.join(work, "tiegcm_s.nc"), self.exp_directory)
+ 
+        os.chdir(self.exp_directory)
+        print(os.getcwd())
+   
+        result = subprocess.run(['qsub', self.tiegcm_pbs_file], stdout=subprocess.PIPE)
+
+    
+        for cycle in range(self.win.num_cycles):
+
+            # link obs_seq.in
+            # run perfect_model_obs
+            # mv obs_seq.out obs_seq.out.'%Y%m%d-%H'
+      
+            obs_seq_in = 'obs_seq.in.' + self.win.model_times[cycle].strftime('%Y%m%d-%H')
+            tgcm_year = str(self.tiegcm_time(self.win.model_times[cycle])["year"])
+            tgcm_yday = str(self.tiegcm_time(self.win.model_times[cycle])["yday"])
+            tgcm_hour = str(self.tiegcm_time(self.win.model_times[cycle])["hour"])
+            tgcm_minute = str(self.tiegcm_time(self.win.model_times[cycle])["minute"])
+  
+            if_model_ok = f"depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
+            pmo_jobarg = ['qsub', '-v',
+                             'OBS_SEQ='+ os.path.join(self.obs_seq_dir,obs_seq_in),
+                             '-W', if_model_ok,
+                             self.pmo_pbs_file]
+            result = subprocess.run(pmo_jobarg, stdout=subprocess.PIPE)
+      
+            if_pmo_ok = f"depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
+            model_jobarg = ['qsub', '-v',
+                              ' YEAR='+tgcm_year
+                             +' YDAY='+tgcm_yday
+                             +' HOUR='+tgcm_hour
+                             +' MIN='+tgcm_minute,
+                            '-W', if_filter_ok, self.tiegcm_pbs_file]
+            result = subprocess.run(model_jobarg, stdout=subprocess.PIPE)
+
+ 
+ 
        
 class Filter(Experiment):
     """ Filter experiment """
@@ -275,7 +321,7 @@ class Filter(Experiment):
 
         for cycle in range(self.win.num_cycles):
          
-            obs_seq = 'obs_seq.out.' + self.win.model_times[cycle].strftime('%Y%m%d%H')
+            obs_seq = 'obs_seq.out.' + self.win.model_times[cycle].strftime('%Y%m%d-%H')
             tgcm_year = str(self.tiegcm_time(self.win.model_times[cycle])["year"])
             tgcm_yday = str(self.tiegcm_time(self.win.model_times[cycle])["yday"])
             tgcm_hour = str(self.tiegcm_time(self.win.model_times[cycle])["hour"])

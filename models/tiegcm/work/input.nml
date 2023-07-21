@@ -7,13 +7,13 @@
 &perfect_model_obs_nml
    read_input_state_from_file = .true.
    single_file_in             = .false.
-   input_state_files          = 'wrfinput_d01'
+   input_state_files          = 'tiegcm_restart_p.nc', 'tiegcm_s.nc'
    init_time_days             = -1
    init_time_seconds          = -1
 
    write_output_state_to_file = .false.
    single_file_out            = .false.
-   output_state_files         = 'perfect_output_d01.nc'
+   output_state_files         = 'perfect_output_p.nc', 'perfect_output_s.nc'
    output_interval            = 1
 
    obs_seq_in_file_name       = "obs_seq.in"
@@ -266,14 +266,14 @@
 # default is to put everything into one 'bin'.
 
 &obs_seq_to_netcdf_nml
-   obs_sequence_name = 'obs_seq.final'
+   obs_sequence_name = 'set_def.out'
    obs_sequence_list = ''
    append_to_netcdf  = .false.
    lonlim1    =    0.0
    lonlim2    =  360.0
    latlim1    =  -90.0
    latlim2    =   90.0
-   verbose    = .false.
+   verbose    = .true.
    /
 
 &schedule_nml
