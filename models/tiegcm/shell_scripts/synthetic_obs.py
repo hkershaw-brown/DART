@@ -85,7 +85,7 @@ def network_seq_options(start_time, delta_time, cycles):
 def create_obs_seq_definition(n_profiles):
 
     create_gps_profiles(n_profiles)
-    create_obs_sequence = os.path.join(dart_dir(), "models/TIEGCM/work/create_obs_sequence")
+    create_obs_sequence = os.path.join(dart_dir(), "models/tiegcm/work/create_obs_sequence")
     os.system(create_obs_sequence + " < create_obs_seq_input.txt")
 
 
@@ -99,7 +99,7 @@ def run_create_fixed_network_seq(start_time, delta_time, cycles):
     """
 
     network_seq_options(start_time, delta_time, cycles)
-    create_fixed_network_seq = os.path.join(dart_dir(), "models/TIEGCM/work/create_fixed_network_seq")
+    create_fixed_network_seq = os.path.join(dart_dir(), "models/tiegcm/work/create_fixed_network_seq")
     exit_status =  os.system(create_fixed_network_seq + " < create_network_seq_input.txt")
     if exit_status != 0:
         sys.exit()
