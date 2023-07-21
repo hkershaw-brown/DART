@@ -64,13 +64,17 @@ class Experiment:
         return tgcm
 
  
-    def create_experiment_directory(self):
+    def create_experiment_directory(self,directory):
         try:
-            os.makedirs(self.exp_directory)
+            os.makedirs(directory) 
         except FileExistsError:
-            print("Experiment directory {} exists".format(self.exp_directory))
+            print("Experiment directory {} exists".format(directory))
             sys.exit()
-    
+   
+        last = os.getcwd() 
+        os.chdir(directory)
+        self.exp_directory = os.getcwd()
+        os.chdir(last)
         
     def setup_pbs_options(self, pbs_template, pbs_file):
         """ Create PBS files from a template """
@@ -101,8 +105,7 @@ class Experiment:
               directory to run experiment
               PBS script to run tiegcm
         """
-        self.exp_directory = directory
-        self.create_experiment_directory()
+        self.create_experiment_directory(directory)
         pbs_file = os.path.join(self.exp_directory, self.tiegcm_pbs_file)
         self.setup_pbs_options(self.tiegcm_pbs_template, pbs_file)
       
@@ -151,24 +154,24 @@ class PerfectModelObs(Experiment):
         # populate experiment dirctory
         shutil.copy(self.exe, "mem.setup/") # cp tiegcm.exe
         shutil.copytree("mem.setup", os.path.join(self.exp_directory, "mem.pmo"))
-        work = os.path.join(dart_dir(), "models/tiegcm/work")
+        self.work = os.path.join(dart_dir(), "models/tiegcm/work")
         os.makedirs(os.path.join(self.exp_directory, self.obs_seq_dir))
-        observations = os.path.join(self.exp_directory, self.obs_seq_dir)
-        shutil.copy(os.path.join(work, "input.nml"), observations)
+        self.observations = os.path.join(self.exp_directory, self.obs_seq_dir)
+        shutil.copy(os.path.join(self.work, "input.nml"), self.observations)
 
         try:
-            shutil.copy(os.path.join(work, "perfect_model_obs"), observations)
+            shutil.copy(os.path.join(self.work, "perfect_model_obs"), self.observations)
         except FileNotFoundError:
-            print(" No perfect_model_obs found in {} ".format(work))
+            print(" No perfect_model_obs found in {} ".format(self.work))
             sys.exit()
 
         # need a tiegcm_restart_p.nc and tiegcm_s.nc for init_model_mod
         print("HACK: need tiegcm restarts")
-        shutil.copy(os.path.join(work, "tiegcm_restart_p.nc"), observations)
-        shutil.copy(os.path.join(work, "tiegcm_s.nc"), observations)
+        shutil.copy(os.path.join(self.work, "tiegcm_restart_p.nc"), self.observations)
+        shutil.copy(os.path.join(self.work, "tiegcm_s.nc"), self.observations)
  
         # set up obs_seq.in for each cycle
-        os.chdir(observations)
+        os.chdir(self.observations)
         create_obs_seq_definition(self.n_profiles)
                        
         for cycle in range(self.win.num_cycles):
@@ -188,11 +191,10 @@ class PerfectModelObs(Experiment):
         self.assert_setup()
         # need a tiegcm_restart_p.nc and tiegcm_s.nc for init_model_mod
         print("HACK: need tiegcm restarts")
-        shutil.copy(os.path.join(work, "tiegcm_restart_p.nc"), self.exp_directory)
-        shutil.copy(os.path.join(work, "tiegcm_s.nc"), self.exp_directory)
- 
+        shutil.copy(os.path.join(self.work, "tiegcm_restart_p.nc"), self.exp_directory)
+        shutil.copy(os.path.join(self.work, "tiegcm_s.nc"), self.exp_directory)
+
         os.chdir(self.exp_directory)
-        print(os.getcwd())
    
         result = subprocess.run(['qsub', self.tiegcm_pbs_file], stdout=subprocess.PIPE)
 
