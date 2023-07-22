@@ -136,6 +136,7 @@ class Experiment:
 class PerfectModelObs(Experiment):
     """ Perfect Model Obs experiment """
     obs_seq_dir = "Observations"
+    pmo_pbs_file = "submit_pmo.pbs.template"
     
     def __init__(self, root, exe, data, account, resolution,
                  cycle_delta, initial_time, end_time,
@@ -159,6 +160,9 @@ class PerfectModelObs(Experiment):
         self.observations = os.path.join(self.exp_directory, self.obs_seq_dir)
         shutil.copy(os.path.join(self.work, "input.nml"), self.observations)
 
+        pbs_file = os.path.join(self.exp_directory, self.tiegcm_pbs_file)
+        self.setup_pbs_options(self.tiegcm_pbs_template, pbs_file)
+
         try:
             shutil.copy(os.path.join(self.work, "perfect_model_obs"), self.observations)
         except FileNotFoundError:
@@ -169,7 +173,7 @@ class PerfectModelObs(Experiment):
         print("HACK: need tiegcm restarts")
         shutil.copy(os.path.join(self.work, "tiegcm_restart_p.nc"), self.observations)
         shutil.copy(os.path.join(self.work, "tiegcm_s.nc"), self.observations)
- 
+
         # set up obs_seq.in for each cycle
         os.chdir(self.observations)
         create_obs_seq_definition(self.n_profiles)
@@ -195,7 +199,9 @@ class PerfectModelObs(Experiment):
         shutil.copy(os.path.join(self.work, "tiegcm_s.nc"), self.exp_directory)
 
         os.chdir(self.exp_directory)
-   
+  
+        print('self.tiegcm_pbs_file', self.tiegcm_pbs_file)
+        sys.exit() 
         result = subprocess.run(['qsub', self.tiegcm_pbs_file], stdout=subprocess.PIPE)
 
     
@@ -224,7 +230,7 @@ class PerfectModelObs(Experiment):
                              +' YDAY='+tgcm_yday
                              +' HOUR='+tgcm_hour
                              +' MIN='+tgcm_minute,
-                            '-W', if_filter_ok, self.tiegcm_pbs_file]
+                            '-W', if_pmo_ok, self.tiegcm_pbs_file]
             result = subprocess.run(model_jobarg, stdout=subprocess.PIPE)
 
  
@@ -330,7 +336,6 @@ class Filter(Experiment):
             tgcm_minute = str(self.tiegcm_time(self.win.model_times[cycle])["minute"])
        
             if_model_ok = f"depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
-            print("One", if_model_ok)
             filter_jobarg = ['qsub', '-v', 
                              'OBS_SEQ='+ os.path.join(self.obs_seq_dir,obs_seq),
                              '-W', if_model_ok, 
@@ -338,7 +343,6 @@ class Filter(Experiment):
             result = subprocess.run(filter_jobarg, stdout=subprocess.PIPE)
            
             if_filter_ok = f"depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
-            print("Two", if_filter_ok)
             model_jobarg = ['qsub', '-v',
                               ' YEAR='+tgcm_year 
                              +' YDAY='+tgcm_yday 
