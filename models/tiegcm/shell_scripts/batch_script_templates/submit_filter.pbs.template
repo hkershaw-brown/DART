@@ -16,13 +16,14 @@ unlink obs_seq.out
 ln -s $OBS_SEQ obs_seq.out
 mpiexec_mpt ./filter
 
+filter_exit=$?
+if [ $filter_exit -eq "0" ]; then  # filter run was sucessful
 
-if [ "$?" -eq "0" ]; then  # filter run was sucessful
-
-   echo "Filter successful"
    filename=$(basename -- "$OBS_SEQ")
    extension="${filename##*.}"
 
    mv obs_seq.final obs_seq.final.$extension
 
-fi 
+else
+  exit $filter_exit
+fi
