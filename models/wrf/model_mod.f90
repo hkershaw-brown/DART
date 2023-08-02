@@ -1212,7 +1212,7 @@ elseif (obs_kind == QTY_10M_U_WIND_COMPONENT .or. obs_kind == QTY_10M_V_WIND_COM
 elseif ( obs_kind == QTY_TEMPERATURE ) then
    ! This is for 3D temperature field -- surface temps later
 
-   if ( wrf%dom(id)%type_t >= 0 ) then
+   if ( wrf%dom(id)%type_t >= 0 ) then  !HK is this just a check to see if the variable is in the state vector?
 
       do uk = 1, count ! for the different ks
 
@@ -5778,6 +5778,55 @@ endif
 end subroutine get_close
 
 !#######################################################################
+
+!-----------------------
+! HK can you just check if the index is within the qty dimension length?
+
+function bounds_check_x(x, id, qty)
+
+integer, intent(in) :: x   ! x grid index
+integer, intent(in) :: id  ! wrf domain id
+integer, intent(in) :: qty
+logical :: bounds_check_x
+
+! if peridic in longitude no need to check stagger
+bounds_check_x = ( ind >= 1 .and. ind < wrf%dom(id)%wes )
+
+if (.not. wrf%dom(id)%periodic) then
+
+if (qty_staggered(qty))
+
+endif
+
+end function bounds_check_x
+
+
+!-----------------------
+function bounds_check_y
+
+
+end function bounds_check_y
+
+
+!-----------------------
+function bounds_check_z(z, id, qty)
+
+integer, intent(in) :: z   ! z grid index
+integer, intent(in) :: id  ! wrf domain id
+integer, intent(in) :: qty
+logical :: bounds_check_z
+
+if (qty_staggered(qty)) then
+   bounds_check = ( ind >= 1 .and. ind < wrf%dom(id)%bts )
+else
+   bounds_check = ( ind >= 1 .and. ind < wrf%dom(id)%bt )
+endif
+
+end function bounds_check_z
+!-----------------------
+
+
+
 !nc -- additional function from Greg Lawson & Nancy Collins
 !
 !  logical function boundsCheck determines whether real-valued location indices are
