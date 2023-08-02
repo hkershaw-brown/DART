@@ -237,18 +237,11 @@ type wrf_static_data_for_dart
 
 end type wrf_static_data_for_dart
 
-type wrf_dom
-   type(wrf_static_data_for_dart), allocatable :: dom(:)
-   integer(i8) :: model_size
-end type wrf_dom
+type(wrf_static_data_for_dart), allocatable :: dom(:) !HK this is a bad name
+integer(i8) :: model_size
 
-type(wrf_dom) :: wrf
-
-! JPH move map stuff into common (can move back into S/R later?)
 real(r8) :: stdlon,truelat1,truelat2 !,latinc,loninc
 
-! have a single, module global error string (rather than 
-! replicate it in each subroutine and use up more stack space)
 character(len=129) :: errstring, msgstring2, msgstring3
 
 ! HK Oct 2022 is this correct?
@@ -261,11 +254,8 @@ character(len=129) :: errstring, msgstring2, msgstring3
 
 contains
 
-!#######################################################################
 
 subroutine static_init_model()
-
-! Initializes class data for WRF
 
 integer :: ncid
 integer :: io, iunit
@@ -298,7 +288,7 @@ if (adv_mod_command /= '') then
           text2=msgstring2)
 endif
 
-allocate(wrf%dom(num_domains))
+allocate(dom(num_domains))
 allocate(domain_id(num_domains))
 
 ! get default state variable table if asked
@@ -311,16 +301,6 @@ if ( default_state_variables ) then
                   'Using predefined wrf variable list for dart state vector.', &
                    text2=msgstring2, text3=msgstring3)
 endif
-
-!---------------------------
-! set this array so we know exactly which obs kinds are
-! allowed to be interpolated (and can give a reasonably
-! helpful error message if not).
-!---------------------------
-num_obs_kinds = get_num_quantities()
-allocate(in_state_vector(num_obs_kinds))
-call fill_dart_kinds_table(wrf_state_variables, in_state_vector)
-
 
 ! set calendar type
 call set_calendar_type(calendar_type)
@@ -6780,179 +6760,6 @@ return
 end subroutine fill_default_state_table
 
 !--------------------------------------------
-!--------------------------------------------
-
-subroutine fill_dart_kinds_table(wrf_state_variables, in_state_vector)
-
-! for each row in the kinds table, tick them off in an array
-! of all possible kinds.  then do some simple error checks for
-! kinds we know have interactions -- like both wind vectors are
-! required to convert directions from projection to lat/lon, etc
-
-character(len=*), intent(in) :: wrf_state_variables(:, :)
-logical, intent(inout)       :: in_state_vector(:)
-
-integer :: row, i, nextkind
-
-in_state_vector = .false.
-
-row = size(wrf_state_variables, 2)
-
-! NEWVAR: for a simple new variable you do not need to do anything here.
-! NEWVAR: but if a new kind has interactions - like if you have an obs
-! NEWVAR: of this kind, you actually interpolate in multiple fields in
-! NEWVAR: the state vector (e.g. wind needs both U and V), then you
-! NEWVAR: might need to add some code here.  
-! NEWVAR: see each of part1, part 2, and part 3 below.
-
-! part 1: mark off all the kinds that the user specifies, plus the
-! kinds that are related and can be interpolated from the given kind.
-
-do i = 1, row
-
-   ! end of the list?
-   if (wrf_state_variables(2, i) == 'NULL') exit
-
-   nextkind = get_index_for_quantity(trim(wrf_state_variables(2, i)))
-   select case(nextkind)
-
-   ! wrf stores potential temperature (temperature perturbations around a 
-   ! threshold) but we can interpolate sensible temperature from it
-   case (QTY_POTENTIAL_TEMPERATURE)
-      in_state_vector(QTY_TEMPERATURE) = .true.
-      in_state_vector(QTY_POTENTIAL_TEMPERATURE) = .true.
-
-   ! we use vapor mixing ratio to compute specific humidity
-   case (QTY_VAPOR_MIXING_RATIO)
-      in_state_vector(QTY_VAPOR_MIXING_RATIO) = .true.
-      in_state_vector(QTY_SPECIFIC_HUMIDITY) = .true.
-
-   ! unrecognized kind string in namelist.
-   ! 0 is actually QTY_STATE_VARIABLE and not supported here.
-   case (-1, 0) 
-      write(errstring, *) 'unrecognized KIND string: ' // trim(wrf_state_variables(2, i))
-      call error_handler(E_ERR, 'fill_dart_kinds_table', errstring, &
-                         source, revision, revdate)
-     
-   ! everything else, set it to be supported
-   case default
-      in_state_vector(nextkind) = .true.
-
-   end select
-
-   ! NOTE: PSFC can be labeled either QTY_PRESSURE or QTY_SURFACE_PRESSURE
-   ! in the namelist, but make sure however it is labeled that for now we 
-   ! allow surface pressure interpolation.  this may go away once we work out
-   ! QTY_FOO vs QTY_SURFACE_FOO - are they fundamentally different things
-   ! or should the decision be made based on a QTY_FOO and the vertical
-   ! location type -- if it is VERTISSURFACE, then you do the 2d calc in the
-   ! surface field, otherwise you do the full-up 3d interpolation.
-   if ( wrf_state_variables(1, i) == 'PSFC' ) then
-      in_state_vector(QTY_SURFACE_PRESSURE) = .true.
-   endif
-
-enddo
-
-
-! part 2: if you specified one kind but the interpolation is going to
-! require another, make sure the combinations make sense.  i.e. if you
-! have U wind, you also have to have V wind, etc.
-
-do i = 1, size(in_state_vector)
-
-   select case(i)
-  
-   ! the vortex center computations require wind speeds and phb?
-   case (QTY_VORTEX_LAT, QTY_VORTEX_LON, QTY_VORTEX_PMIN, QTY_VORTEX_WMAX)
-      if ((.not. in_state_vector(QTY_U_WIND_COMPONENT))   .or. &
-          (.not. in_state_vector(QTY_V_WIND_COMPONENT))   .or. &
-          (.not. in_state_vector(QTY_TEMPERATURE))        .or. &
-          (.not. in_state_vector(QTY_VAPOR_MIXING_RATIO)) .or. &
-          (.not. in_state_vector(QTY_PRESSURE))) then
-         write(errstring, *) 'VORTEX kinds will require U,V,T,QVAPOR,MU in state vector'
-         ! FIXME: not fatal error, just informative at this point.
-         call error_handler(E_MSG, 'fill_dart_kinds_table', errstring, &
-                            source, revision, revdate)
-      endif
- 
-   ! if you have one wind component you have to have both
-   case (QTY_U_WIND_COMPONENT, QTY_V_WIND_COMPONENT)
-      if (in_state_vector(QTY_U_WIND_COMPONENT) .neqv. in_state_vector(QTY_V_WIND_COMPONENT)) then
-         write(errstring, *) 'WIND kinds will require both U,V in state vector'
-         ! FIXME: not fatal error, just informative at this point.
-         call error_handler(E_MSG, 'fill_dart_kinds_table', errstring, &
-                            source, revision, revdate)
-      endif
- 
-   ! by default anything else is fine
-
-   end select
-enddo
-
-
-! part 3: fields you just have to have, always, and other exceptions
-! and things that break the rules.
-if (.not. in_state_vector(QTY_GEOPOTENTIAL_HEIGHT)) then
-   write(errstring, *) 'PH is always a required field'
-   call error_handler(E_ERR, 'fill_dart_kinds_table', errstring, &
-                      source, revision, revdate)
-endif
-
-! FIXME: is this true?  or is pressure always required, and surface
-! pressure required only if you have any of the surface obs?
-if ((.not. in_state_vector(QTY_PRESSURE)) .and. &
-    (.not. in_state_vector(QTY_SURFACE_PRESSURE))) then
-    write(errstring, *) 'One of MU or PSFC is a required field'
-    call error_handler(E_ERR, 'fill_dart_kinds_table', errstring, &
-                       source, revision, revdate)
-endif
-
-! surface elevation and land mask are read outside the state vector mechanism,
-! directly from the wrfinput template file, and does not vary from
-! one ensemble member to another.
-in_state_vector(QTY_SURFACE_ELEVATION) = .true.
-in_state_vector(QTY_LANDMASK) = .true.
-in_state_vector(QTY_SURFACE_TYPE) = .true.
-
-! there is no field that directly maps to the vortex measurements.
-! if you have all the fields it needs, allow them.
-if (in_state_vector(QTY_U_WIND_COMPONENT)    .and. &
-    in_state_vector(QTY_V_WIND_COMPONENT)    .and. &
-    in_state_vector(QTY_TEMPERATURE)         .and. &
-    in_state_vector(QTY_VAPOR_MIXING_RATIO)  .and. &
-    in_state_vector(QTY_PRESSURE)) then        ! ok to add vortex types
-   in_state_vector(QTY_VORTEX_LAT)  = .true.
-   in_state_vector(QTY_VORTEX_LON)  = .true.
-   in_state_vector(QTY_VORTEX_PMIN) = .true.
-   in_state_vector(QTY_VORTEX_WMAX) = .true.
-endif
- 
-! if you have geopotential height and pressure, you can compute
-! a density value.
-if (in_state_vector(QTY_GEOPOTENTIAL_HEIGHT) .and. &
-    in_state_vector(QTY_PRESSURE) ) in_state_vector(QTY_DENSITY) = .true.
-
-
-! allow reflectivity to be asked for, because the obs_def has an alternative
-! way to interpolate it even if it is not in the state vector. if this
-! is not allowed it will error exit instead of returning with an invalid istatus
-! to indicate to the caller that the interpolation failed.
-! ditto for power weighted fall speed.
-in_state_vector(QTY_RADAR_REFLECTIVITY) = .true.
-in_state_vector(QTY_POWER_WEIGHTED_FALL_SPEED) = .true.
-
-
-
-! FIXME:  i was going to suggest nuking this routine all together because it makes
-! the default behavior be to exit with an error when requesting to interpolate an
-! unknown kind, instead of simply returning with a failed interpolation and letting
-! the calling code handle it.  but it does turn out to be amazingly useful when
-! trying to interpolate something you do expect to be there, so now i'm unsure what
-! to suggest here.    nsc  30jul09
-
-end subroutine fill_dart_kinds_table
-
-!--------------------------------------------
 integer function get_number_of_wrf_variables(id, state_table, var_element_list, var_update_list)
 
 integer, intent(in) :: id
@@ -7088,90 +6895,9 @@ return
 
 end function variable_is_on_domain
 
-!--------------------------------------------------------------------
-subroutine get_variable_size_from_file(ncid,id,wrf_var_name,bt,bts,sn,sns, &
-                                       we,wes,stagger,var_size)
 
-!NOTE: only supports 2D and 3D variables (ignoring time dimension)
 
-! ncid: input, file handle
-! id:   input, domain index
 
-integer,           intent(in)   :: ncid, id
-integer,           intent(in)   :: bt, bts, sn, sns, we, wes
-character(len=*),  intent(in)   :: wrf_var_name
-integer,           intent(out)  :: var_size(3)
-character(len=129),intent(out)  :: stagger
-
-integer               :: var_id, ndims, dimids(10)
-integer               :: idim
-
-   stagger = ''
-
-! get variable ID
-   call nc_check( nf90_inq_varid(ncid, trim(wrf_var_name), var_id), &
-                     'get_variable_size_from_file',                 &
-                     'inq_varid '//wrf_var_name)
-
-! get number of dimensions and dimension IDs
-   call nc_check( nf90_inquire_variable(ncid, var_id,ndims=ndims,  &
-                     dimids=dimids),                               &
-                     'get_variable_size_from_file',                &
-                     'inquire_variable '//wrf_var_name)
-
-! get dimension length, ignoring first dimension (time)
-   do idim = 1,ndims-1
-      call nc_check( nf90_inquire_dimension(ncid, dimids(idim),  &
-                     len=var_size(idim)),                               &
-                     'get_variable_size_from_file',                &
-                     'inquire_dimension '//wrf_var_name)
-   enddo
-
-! if a 2D variable fill the vertical dimension with 1
-   if ( ndims < 4 ) var_size(ndims) = 1
-
-! get variable attribute stagger
-   call nc_check( nf90_get_att(ncid, var_id, 'stagger', stagger), &
-                     'get_variable_size_from_file', &
-                     'get_att '//wrf_var_name//' '//stagger)
-
-end subroutine get_variable_size_from_file
-
-!--------------------------------------------------------------------
-subroutine get_variable_metadata_from_file(ncid,id,wrf_var_name,description, &
-                                       coordinates,units)
-
-! ncid: input, file handle
-! id:   input, domain index
-
-integer, intent(in)               :: ncid, id
-character(len=*),   intent(in)    :: wrf_var_name
-character(len=129), intent(out)   :: description, coordinates, units
-
-integer               :: var_id
-
-   call nc_check( nf90_inq_varid(ncid, trim(wrf_var_name), var_id), &
-                     'get_variable_metadata_from_file', &
-                     'inq_varid '//wrf_var_name)
-
-   description = ''
-   call nc_check( nf90_get_att(ncid, var_id, 'description', description), &
-                     'get_variable_metadata_from_file', &
-                     'get_att '//wrf_var_name//' '//description)
-
-   coordinates = ''
-   call nc_check( nf90_get_att(ncid, var_id, 'coordinates', coordinates), &
-                     'get_variable_metadata_from_file', &
-                     'get_att '//wrf_var_name//' '//coordinates)
-
-   units = ''
-   call nc_check( nf90_get_att(ncid, var_id, 'units', units), &
-                     'get_variable_metadata_from_file', &
-                     'get_att '//wrf_var_name//' '//units)
-
-return
-
-end subroutine get_variable_metadata_from_file
 
 !----------------------------------------------------------------------
 ! Returns integers taken from tstring
@@ -7348,6 +7074,7 @@ if ( in_state ) then
 
    ! An observation could be on different levels for each ensemble member. 
    ! But, you don't want to do ens_size*communication, so just do it for the levels you need.
+!HK You can use get_state_array rather than loop
    UNIQUEK_LOOP: do uk = 1, size(uniquek)
 
    ! Check to make sure retrieved integer gridpoints are in valid range
