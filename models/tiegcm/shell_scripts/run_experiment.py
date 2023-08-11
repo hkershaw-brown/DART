@@ -33,5 +33,5 @@ ex1.setup("Cycle")
 #ex2.setup("PMO")
 #ex3.setup("Assimilation")
 
-ex1.run(1)
+ex1.run()
 #ex2.run()

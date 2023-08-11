@@ -38,6 +38,8 @@ class Experiment:
        self.end_time = end_time
        self.exp_directory = ""
        self.tiegcm_pbs_template = "run-tiegcm.pbs.template"
+       self.inp_template = "tiegcm_res"+str(resolution)+".inp.template"
+       self.inp = "tiegcm_res"+str(resolution)+".inp"
 
        self.win = TimeWindow(self.initial_time, self.end_time, self.cycle_delta)
 
@@ -119,6 +121,47 @@ class Experiment:
             print("Error : need to call setup before run")
             sys.exit()
 
+    def set_tiegcm_stop_start(self,tiegcm_inp,cycle):
+        """ Create a tiegcm_inp file with start and stop times
+            for a cycle
+
+            tiegcm_inp - .inp file to be created
+            cycle - 0:n-1 which step of the experiment
+
+        """
+
+        start_year = str(self.tiegcm_time(self.win.model_times[cycle])["year"])
+        start_yday = str(self.tiegcm_time(self.win.model_times[cycle])["yday"])
+        start_hour = str(self.tiegcm_time(self.win.model_times[cycle])["hour"])
+        start_minute = str(self.tiegcm_time(self.win.model_times[cycle])["minute"])
+
+        stop_year = str(self.tiegcm_time(self.win.model_times[cycle+1])["year"])
+        stop_yday = str(self.tiegcm_time(self.win.model_times[cycle+1])["yday"])
+        stop_hour = str(self.tiegcm_time(self.win.model_times[cycle+1])["hour"])
+        stop_minute = str(self.tiegcm_time(self.win.model_times[cycle+1])["minute"])
+
+        inp_template = 'tiegcm_res'+str(self.resolution)+'.inp.template'
+        readFile = open(os.path.join(dart_dir(), "models/tiegcm/shell_scripts", 
+                        self.batch_script_templates_dir, self.inp_template))
+        data = readFile.read()
+        readFile.close()
+
+        data = data.replace("{start_year}", start_year)
+        data = data.replace("{start_yday}", start_yday)
+        data = data.replace("{start_hour}", start_hour)
+        data = data.replace("{start_minute}", start_minute)
+
+        data = data.replace("{stop_year}", stop_year)
+        data = data.replace("{stop_yday}", stop_yday)
+        data = data.replace("{stop_hour}", stop_hour)
+        data = data.replace("{stop_minute}", stop_minute)
+
+        writeFile = open(tiegcm_inp, "w")
+        writeFile.write(data)
+        writeFile.close()
+
+
+
 
 class FreeRun(Experiment): 
     """ Free run cyle of TIEGCM """
@@ -140,21 +183,31 @@ class FreeRun(Experiment):
         shutil.copy(self.exe, "mem.setup/") # cp tiegcm.exe
         shutil.copytree("mem.setup", os.path.join(self.exp_directory, self.mem_single))
 
-    def run(self, num_cycles):
-        """ Submit tiegcm jobs """
+    def run(self):
+        """ Submit tiegcm Free Run jobs 
+
+        """
 
         self.assert_setup()
         print("self.tiegcm_pbs_file", self.tiegcm_pbs_file)
 
         os.chdir(self.exp_directory)
-        result = subprocess.run(['qsub', self.tiegcm_pbs_file], stdout=subprocess.PIPE)
-        model_run = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
 
-        for cycle in range(num_cycles):
-            jobarg = ['qsub', '-W', model_run, self.tiegcm_pbs_file]
+        self.set_tiegcm_stop_start(os.path.join(self.mem_single,self.inp), 0) 
+
+        jobarg = ['qsub', self.tiegcm_pbs_file]
+
+        result = subprocess.run(jobarg, stdout=subprocess.PIPE)
+
+        print("number of cycles", self.win.num_cycles)
+
+        for cycle in range(1,self.win.num_cycles):
+
+            print("Cycle #",cycle)
+
+            if_model_ok = f"depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
+            jobarg = ['qsub', '-W', if_model_ok, self.tiegcm_pbs_file]
             result = subprocess.run(jobarg, stdout=subprocess.PIPE)
-            model_run = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
-
 
 
 class PerfectModelObs(Experiment):
