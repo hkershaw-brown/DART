@@ -12,6 +12,7 @@ class Experiment:
     model = "TIEGCM"
     batch_script_templates_dir = "batch_script_templates"
     tiegcm_pbs_file = "run-tiegcm.pbs"
+    mem_single = "mem.single" 
  
 
     def __init__(self, root, exe, data, account, resolution, cycle_delta, initial_time, end_time):
@@ -119,10 +120,33 @@ class Experiment:
             sys.exit()
 
 
+class FreeRun(Experiment): 
+    """ Free run cyle of TIEGCM """
+
+    def __init__(self, root, exe, data, account, resolution,
+                 cycle_delta, initial_time, end_time, free_run):
+        super().__init__(root, exe, data, account, resolution, cycle_delta, initial_time, end_time)
+        self.free_run = free_run
+
+
+    def setup(self, directory):
+        """ Setup a Free Run experiment for TIEGCM 
+
+            directory - to be created for the experiment
+        """
+        super().setup(directory)
+
+        # populate experiment directory
+        shutil.copy(self.exe, "mem.setup/") # cp tiegcm.exe
+        shutil.copytree("mem.setup", os.path.join(self.exp_directory, self.mem_single))
+
     def run(self, num_cycles):
         """ Submit tiegcm jobs """
 
         self.assert_setup()
+        print("self.tiegcm_pbs_file", self.tiegcm_pbs_file)
+
+        os.chdir(self.exp_directory)
         result = subprocess.run(['qsub', self.tiegcm_pbs_file], stdout=subprocess.PIPE)
         model_run = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
 
@@ -130,7 +154,7 @@ class Experiment:
             jobarg = ['qsub', '-W', model_run, self.tiegcm_pbs_file]
             result = subprocess.run(jobarg, stdout=subprocess.PIPE)
             model_run = f"depend=afterok:{result.stdout.strip().decode('utf8')}"
-        
+
 
 
 class PerfectModelObs(Experiment):
@@ -154,7 +178,7 @@ class PerfectModelObs(Experiment):
 
         # populate experiment dirctory
         shutil.copy(self.exe, "mem.setup/") # cp tiegcm.exe
-        shutil.copytree("mem.setup", os.path.join(self.exp_directory, "mem.pmo"))
+        shutil.copytree("mem.setup", os.path.join(self.exp_directory, self.mem_single))
         self.work = os.path.join(dart_dir(), "models/tiegcm/work")
         os.makedirs(os.path.join(self.exp_directory, self.obs_seq_dir))
         self.observations = os.path.join(self.exp_directory, self.obs_seq_dir)
