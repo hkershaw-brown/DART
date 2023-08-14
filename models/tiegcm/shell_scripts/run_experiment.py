@@ -11,8 +11,8 @@ tiegcm_data = '/glade/work/hkershaw/tiegcm/tiegcm-data/tiegcm_res5.0_data'
 account = 'P86850054'
 resolution = 5.0 # degrees
 delta_time = 1 # hour
-intial_time = '2010-12-22 23:55:59'
-end_time = '2010-12-23 00:56:50'
+intial_time = '2002-03-21 00:00:00'
+end_time = '2002-03-21 02:00:00'
 
 
 ex1 = FreeRun(tiegcm_root, tiegcm_exe, tiegcm_data, account, resolution, delta_time, intial_time, end_time, 'free_run')
