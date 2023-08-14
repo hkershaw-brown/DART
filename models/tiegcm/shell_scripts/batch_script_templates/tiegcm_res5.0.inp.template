@@ -8,7 +8,7 @@
  START = {start_yday} {start_hour} {start_minute}
  STOP  = {stop_yday} {stop_hour} {stop_minute}
  STEP  = 60
- HIST = 1 0 0
+ HIST = 0 1 0
  OUTPUT = 'tiegcm_res5.0_mareqx_smin_prim_001.nc'
  MXHIST_PRIM = 10
  SECSTART = {start_yday} {start_hour} {start_minute}
