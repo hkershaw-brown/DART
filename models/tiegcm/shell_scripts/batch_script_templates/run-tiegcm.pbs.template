@@ -32,6 +32,3 @@ $TIEGCM_ROOT/scripts/mklogs tiegcm_res{res}_${JOBID}.out     # break stdout into
 tar -cf /glade/scratch/${USER}/DART/TIEGCM/tiegcm2.0/tiegcm_res{res}_${JOBID}.out.tar *task*.out 
 rm *task*.out
 
-# increment the start,stop in tiegcm_res{res}.inp
-./overwrite.py
-

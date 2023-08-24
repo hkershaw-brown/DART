@@ -135,10 +135,10 @@ class Experiment:
         start_hour = str(self.tiegcm_time(self.win.model_times[cycle])["hour"])
         start_minute = str(self.tiegcm_time(self.win.model_times[cycle])["minute"])
 
-        stop_year = str(self.tiegcm_time(self.win.model_times[cycle+1])["year"])
-        stop_yday = str(self.tiegcm_time(self.win.model_times[cycle+1])["yday"])
-        stop_hour = str(self.tiegcm_time(self.win.model_times[cycle+1])["hour"])
-        stop_minute = str(self.tiegcm_time(self.win.model_times[cycle+1])["minute"])
+        stop_year = str(self.tiegcm_time(self.win.model_end_times[cycle])["year"])
+        stop_yday = str(self.tiegcm_time(self.win.model_end_times[cycle])["yday"])
+        stop_hour = str(self.tiegcm_time(self.win.model_end_times[cycle])["hour"])
+        stop_minute = str(self.tiegcm_time(self.win.model_end_times[cycle])["minute"])
 
         inp_template = 'tiegcm_res'+str(self.resolution)+'.inp.template'
         readFile = open(os.path.join(dart_dir(), "models/tiegcm/shell_scripts", 
@@ -194,20 +194,24 @@ class FreeRun(Experiment):
         os.chdir(self.exp_directory)
 
         self.set_tiegcm_stop_start(os.path.join(self.mem_single,self.inp), 0) 
-
         jobarg = ['qsub', self.tiegcm_pbs_file]
 
         result = subprocess.run(jobarg, stdout=subprocess.PIPE)
 
         print("number of cycles", self.win.num_cycles)
+        print("Cycle #", 1 , "of ", self.win.num_cycles)
+        os.system("cat mem.single/tiegcm_res5.0.inp")
 
         for cycle in range(1,self.win.num_cycles):
 
-            print("Cycle #",cycle)
+            print("Cycle #",cycle+1, "of ", self.win.num_cycles)
 
-            if_model_ok = f"depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
-            jobarg = ['qsub', '-W', if_model_ok, self.tiegcm_pbs_file]
-            result = subprocess.run(jobarg, stdout=subprocess.PIPE)
+            self.set_tiegcm_stop_start(os.path.join(self.mem_single,self.inp), cycle) 
+
+            os.system("cat mem.single/tiegcm_res5.0.inp")
+            #if_model_ok = f"depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
+            #jobarg = ['qsub', '-W', if_model_ok, self.tiegcm_pbs_file]
+            #result = subprocess.run(jobarg, stdout=subprocess.PIPE)
 
 
 class PerfectModelObs(Experiment):

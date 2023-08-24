@@ -35,20 +35,26 @@ class TimeWindow:
         self.window_start_times = [ self.start_time-timedelta(hours=self.delta_half)+x*timedelta(hours=self.delta) for x in range(runtime_hours)]
         
         self.window_end_times = [x+timedelta(hours=self.delta) for x in self.window_start_times]
-        self.model_times = [x+timedelta(hours=self.delta_half) for x in self.window_start_times]
         self.window_start_times = [ x+timedelta(seconds=1) for x in self.window_start_times] # +1 second to window start
         
+        self.model_times = [x+timedelta(hours=self.delta_half) for x in self.window_start_times]
+        self.model_end_times = [x+timedelta(hours=self.delta_half)+timedelta(hours=self.delta) for x in self.window_start_times]
+
         self.num_cycles = len(self.model_times)
+        #print("win num_cycles", self.num_cycles)
         #print("win start  ", self.window_start_times[0])
         #print("model time ", self.model_times[0])
+        #print("model end ", self.model_end_times[0])
         #print("win end    ", self.window_end_times[0])
         
         #print("win start  ", self.window_start_times[1])
         #print("model time ", self.model_times[1])
+        #print("model end time ", self.model_end_times[1])
         #print("win end    ", self.window_end_times[1])
         
 
         #print("win start  ", self.window_start_times[-1])
         #print("model time ", self.model_times[-1])
-        #print("win emd   ", self.window_end_times[-1])
+        #print("model end time ", self.model_end_times[-1])
+        #print("win end   ", self.window_end_times[-1])
         
