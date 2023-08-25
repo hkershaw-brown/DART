@@ -36,9 +36,9 @@ ex1.info()
 #ex3.info()
 
 
-#ex1.setup("Cycle_2.5")
+ex1.setup("Cycle_2.5")
 #ex2.setup("PMO")
 #ex3.setup("Assimilation")
 
-#ex1.run()
+ex1.run()
 #ex2.run()

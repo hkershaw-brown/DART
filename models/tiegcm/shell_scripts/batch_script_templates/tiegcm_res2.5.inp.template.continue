@@ -6,12 +6,12 @@
  START = {start_yday} {start_hour} {start_minute}
  STOP  = {stop_yday} {stop_hour} {stop_minute}
  STEP  = 30
- HIST = 0 1 0
+ HIST = 0 0 30
  OUTPUT = 'tiegcm2.0_res2.5_mareqx_smin_prim_001.nc'
  MXHIST_PRIM = 10
  SECSTART = {start_yday} {start_hour} {start_minute}
  SECSTOP  = {stop_yday} {stop_hour} {stop_minute}
- SECHIST  =  0 1 0
+ SECHIST  =  0 0 30
  SECOUT   = 'tiegcm2.0_res2.5_mareqx_smin_sech_001.nc'
  MXHIST_SECH = 24
  SECFLDS = 'TN' 'UN' 'VN' 'WN' 'O2' 'O1' 'N2' 'NO' 'N4S' 'HE' 'NE' 
