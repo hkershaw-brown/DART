@@ -4,11 +4,11 @@
  START_DAY  = {start_yday}
  CALENDAR_ADVANCE = 1
  SOURCE = '$TGCMDATA/tiegcm_res2.5_mareqx_smin_prim.nc'
- SOURCE_START = {source_start_yday} {source_start_hour} {source_start_minute}
+ SOURCE_START = {start_yday} {start_hour} {start_minute}
  START = {start_yday} {start_hour} {start_minute}
  STOP  = {stop_yday} {stop_hour} {stop_minute}
  STEP  = 30
- HIST = 1 0 0
+ HIST = 0 1 0
  OUTPUT = 'tiegcm2.0_res2.5_mareqx_smin_prim_001.nc'
  MXHIST_PRIM = 10
  SECSTART = {start_yday} {start_hour} {start_minute}
