@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#PBS -A {account}
+#PBS -N pmo
+#PBS -l walltime=00:10:00
+#PBS -q regular
+#PBS -j oe
+#PBS -k eod
+#PBS -l select=1:ncpus=32:mpiprocs=32:ompthreads=1
+
+# obs sequence file
+unlink obs_seq.in
+
+ln -s $OBS_SEQ obs_seq.in
+mpiexec_mpt ./perfect_model_obs
+
+
+if [ "$?" -eq "0" ]; then  # PMO run was sucessful
+
+   echo "PMO successful"
+   filename=$(basename -- "$OBS_SEQ")
+   extension="${filename##*.}"
+
+   mv obs_seq.out obs_seq.out.$extension
+
+fi 
