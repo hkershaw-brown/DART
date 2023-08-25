@@ -47,6 +47,7 @@ class Experiment:
     def info(self):
         """ Print out all the variables of the experiment """
         pprint(vars(self))
+        self.win.info()
  
     def tiegcm_time(self, t):
         """ TIEGCM times

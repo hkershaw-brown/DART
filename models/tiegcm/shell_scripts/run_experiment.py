@@ -17,7 +17,7 @@ tiegcm_data = '/glade/work/hkershaw/tiegcm/tiegcm-data/tiegcm_res2.5_data'
 account = 'P86850054'
 #resolution = 5.0 # degrees
 resolution = 2.5 # degrees
-delta_time = 1 # hour
+delta_time = 0.5 # hours (decimal 0.5 for 30 minutes)
 intial_time = '2002-03-21 00:00:00'
 end_time = '2002-03-21 02:00:00'
 
@@ -36,9 +36,9 @@ ex1.info()
 #ex3.info()
 
 
-ex1.setup("Cycle_2.5")
+#ex1.setup("Cycle_2.5")
 #ex2.setup("PMO")
 #ex3.setup("Assimilation")
 
-ex1.run()
+#ex1.run()
 #ex2.run()
