@@ -21,7 +21,7 @@ cd $mem
 JOBID=`echo ${PBS_JOBID} | cut -d'.' -f1 | cut -d'[' -f1` 
 
 # Execute:
- mpiexec_mpt ./tiegcm.exe tiegcm_res{res}.inp &> tiegcm_res{res}_${JOBID}.out
+ mpiexec_mpt ./tiegcm.exe tiegcm_res{res}.inp-${CYCLE} &> tiegcm_res{res}_${JOBID}.out
 
 
 # Save stdout:

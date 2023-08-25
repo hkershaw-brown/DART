@@ -1,18 +1,16 @@
 &tgcm_input
  LABEL = 'tiegcm res=2.5'
- START_YEAR = 2002
- START_DAY  = 80
+ START_YEAR = {start_year}
+ START_DAY  = {start_yday}
  CALENDAR_ADVANCE = 1
- SOURCE = '$TGCMDATA/tiegcm_res2.5_mareqx_smin_prim.nc'
- SOURCE_START = 80 0 0
- START = 80 0 0
- STOP  = 81 0 0
+ START = {start_yday} {start_hour} {start_minute}
+ STOP  = {stop_yday} {stop_hour} {stop_minute}
  STEP  = 30
  HIST = 1 0 0
  OUTPUT = 'tiegcm2.0_res2.5_mareqx_smin_prim_001.nc'
  MXHIST_PRIM = 10
- SECSTART = 80 1 0
- SECSTOP  = 81 0 0
+ SECSTART = {start_yday} {start_hour} {start_minute}
+ SECSTOP  = {stop_yday} {stop_hour} {stop_minute}
  SECHIST  =  0 1 0
  SECOUT   = 'tiegcm2.0_res2.5_mareqx_smin_sech_001.nc'
  MXHIST_SECH = 24

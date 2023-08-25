@@ -39,6 +39,7 @@ class Experiment:
        self.exp_directory = ""
        self.tiegcm_pbs_template = "run-tiegcm.pbs.template"
        self.inp_template = "tiegcm_res"+str(resolution)+".inp.template"
+       self.inp_template_continue = self.inp_template+".continue"
        self.inp = "tiegcm_res"+str(resolution)+".inp"
 
        self.win = TimeWindow(self.initial_time, self.end_time, self.cycle_delta)
@@ -121,12 +122,13 @@ class Experiment:
             print("Error : need to call setup before run")
             sys.exit()
 
-    def set_tiegcm_stop_start(self,tiegcm_inp,cycle):
+    def set_tiegcm_stop_start(self,tiegcm_inp,cycle, continue_run):
         """ Create a tiegcm_inp file with start and stop times
             for a cycle
 
             tiegcm_inp - .inp file to be created
-            cycle - 0:n-1 which step of the experiment
+            cycle - 0:n which step of the experiment
+            continue_run - Boolean. False to use tiegcm.inp with SOURCE and SOURCE_START
 
         """
 
@@ -141,8 +143,13 @@ class Experiment:
         stop_minute = str(self.tiegcm_time(self.win.model_end_times[cycle])["minute"])
 
         inp_template = 'tiegcm_res'+str(self.resolution)+'.inp.template'
+        if continue_run:
+            template = self.inp_template_continue
+        else:
+            template = self.inp_template
+
         readFile = open(os.path.join(dart_dir(), "models/tiegcm/shell_scripts", 
-                        self.batch_script_templates_dir, self.inp_template))
+                        self.batch_script_templates_dir, template))
         data = readFile.read()
         readFile.close()
 
@@ -193,25 +200,23 @@ class FreeRun(Experiment):
 
         os.chdir(self.exp_directory)
 
-        self.set_tiegcm_stop_start(os.path.join(self.mem_single,self.inp), 0) 
-        jobarg = ['qsub', self.tiegcm_pbs_file]
+        self.set_tiegcm_stop_start(os.path.join(self.mem_single,self.inp+'-'+str(0)), 0, continue_run=False) 
+        jobarg = ['qsub', '-v', 'CYCLE=0', self.tiegcm_pbs_file]
 
         result = subprocess.run(jobarg, stdout=subprocess.PIPE)
 
         print("number of cycles", self.win.num_cycles)
-        print("Cycle #", 1 , "of ", self.win.num_cycles)
-        os.system("cat mem.single/tiegcm_res5.0.inp")
+        print("Cycle #", 0 , "of ", self.win.num_cycles)
 
         for cycle in range(1,self.win.num_cycles):
 
-            print("Cycle #",cycle+1, "of ", self.win.num_cycles)
+            print("Cycle #",cycle, "of ", self.win.num_cycles)
 
-            self.set_tiegcm_stop_start(os.path.join(self.mem_single,self.inp), cycle) 
+            self.set_tiegcm_stop_start(os.path.join(self.mem_single,self.inp+'-'+str(cycle)), cycle, continue_run=True) 
 
-            os.system("cat mem.single/tiegcm_res5.0.inp")
-            #if_model_ok = f"depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
-            #jobarg = ['qsub', '-W', if_model_ok, self.tiegcm_pbs_file]
-            #result = subprocess.run(jobarg, stdout=subprocess.PIPE)
+            if_model_ok = f"depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
+            jobarg = ['qsub', '-v', 'CYCLE='+str(cycle), '-W', if_model_ok, self.tiegcm_pbs_file]
+            result = subprocess.run(jobarg, stdout=subprocess.PIPE)
 
 
 class PerfectModelObs(Experiment):
