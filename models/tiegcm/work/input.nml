@@ -29,7 +29,7 @@
    trace_execution            = .true.
    output_timestamps          = .false.
    print_every_nth_obs        = -1
-   output_forward_op_errors   = .true.
+   output_forward_op_errors   = .false.
    silence                    = .false.
    /
 

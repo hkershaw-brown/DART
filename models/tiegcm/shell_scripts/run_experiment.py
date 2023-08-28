@@ -23,23 +23,23 @@ account = 'P86850054'
 intial_time = '2002-03-21 00:00:00'
 end_time = '2002-03-21 02:00:00'
 
-ex1 = FreeRun(tiegcm_root, tiegcm_exe, tiegcm_data, account, resolution, delta_time, intial_time, end_time, 'free_run')
+#ex1 = FreeRun(tiegcm_root, tiegcm_exe, tiegcm_data, account, resolution, delta_time, intial_time, end_time, 'free_run')
 
-#n_profiles = 10
-#ex2 = PerfectModelObs(tiegcm_root, tiegcm_exe, tiegcm_data, account, resolution, delta_time, intial_time, end_time, n_profiles)
+n_profiles = 10
+ex2 = PerfectModelObs(tiegcm_root, tiegcm_exe, tiegcm_data, account, resolution, delta_time, intial_time, end_time, n_profiles)
 
 #obs_seq_dir = '/obs/seq/dir'
 #ens_size = 20
 #ex3 = Filter(tiegcm_root, tiegcm_exe, tiegcm_data, account, resolution, delta_time, intial_time, end_time, obs_seq_dir, ens_size)
 
-ex1.info()
-#ex2.info()
+#ex1.info()
+ex2.info()
 #ex3.info()
 
 
-ex1.setup("Cycle")
-#ex2.setup("PMO")
+#ex1.setup("Cycle")
+ex2.setup("PMO")
 #ex3.setup("Assimilation")
 
-ex1.run()
-#ex2.run()
+#ex1.run()
+ex2.run()

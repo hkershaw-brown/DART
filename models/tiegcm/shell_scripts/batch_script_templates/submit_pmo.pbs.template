@@ -8,19 +8,22 @@
 #PBS -k eod
 #PBS -l select=1:ncpus=32:mpiprocs=32:ompthreads=1
 
+cd Observations
+
 # obs sequence file
 unlink obs_seq.in
 
 ln -s $OBS_SEQ obs_seq.in
 mpiexec_mpt ./perfect_model_obs
 
+pmo_exit=$?
+if [ $pmo_exit -eq "0" ]; then  # PMO run was sucessful
 
-if [ "$?" -eq "0" ]; then  # PMO run was sucessful
-
-   echo "PMO successful"
    filename=$(basename -- "$OBS_SEQ")
    extension="${filename##*.}"
 
    mv obs_seq.out obs_seq.out.$extension
 
+else
+  exit $pmo_exit
 fi 
