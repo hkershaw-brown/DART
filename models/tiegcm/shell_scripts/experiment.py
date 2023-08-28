@@ -275,7 +275,7 @@ class PerfectModelObs(Experiment):
         os.chdir(self.observations)
         create_obs_seq_definition(self.n_profiles)
                        
-        for cycle in range(self.win.num_cycles):
+        for cycle in range(1,self.win.num_cycles):
 
             try:
                 run_create_fixed_network_seq(self.win.model_times[cycle], self.win.delta, cycles=1)
