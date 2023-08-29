@@ -357,7 +357,8 @@ class Filter(Experiment):
             directory - to be created for the experiment
         """
         super().setup(directory)
-        
+       
+        self.setup_called = False 
         # TIGCM array job file
         pbs_file = os.path.join(self.exp_directory, self.tiegcm_pbs_file)
         readFile = open(pbs_file)
@@ -384,12 +385,12 @@ class Filter(Experiment):
             sys.exit()
         
         # list of input and output members
-        primary = [ "../mem{:03d}/tiegcm_restart_p.nc".format(x+1) for x in range(self.ens_size)]
+        primary = [ "../mem{:03d}/".format(x+1)+self.primary for x in range(self.ens_size)]
         with open(os.path.join(assim, "restart_p_files.txt"), 'w') as f:
             for item in primary:
                  f.write(item + '\n')
 
-        secondary = [ "../mem{:03d}/tiegcm_s.nc".format(x+1) for x in range(self.ens_size)]
+        secondary = [ "../mem{:03d}/".format(x+1)+self.secondary for x in range(self.ens_size)]
         with open(os.path.join(assim, "secondary_files.txt"), 'w') as f:
             for item in secondary:
                  f.write(item + '\n')
@@ -397,11 +398,12 @@ class Filter(Experiment):
         # output files same as input
         shutil.copy(os.path.join(assim, "restart_p_files.txt"), os.path.join(assim, "out_restart_p_files.txt"))
         shutil.copy(os.path.join(assim, "secondary_files.txt"), os.path.join(assim, "out_secondary_files.txt"))
+
+        # set up links to tiegcm output 
+        os.symlink(os.path.join(self.exp_directory,"mem001",self.primary), os.path.join(self.exp_directory,self.assim_dir, "tiegcm_restart_p.nc") )
+        os.symlink(os.path.join(self.exp_directory,"mem001",self.secondary), os.path.join(self.exp_directory,self.assim_dir, "tiegcm_s.nc") )
  
-        print("--------------------------")
-        print("Filter experiment set up:")
-        self.info()
-        print("--------------------------")
+        self.setup_called = True
         
     def setup_filter_pbs(self):
         """ create PBS file for submitting filter from template"""
@@ -413,7 +415,18 @@ class Filter(Experiment):
         
         # copy tiegcm.exe to the mem.setup directory
         shutil.copy(self.exe, "mem.setup/")
+
+        # tiegcm input for each step of the cycle
+        self.set_tiegcm_stop_start(os.path.join("mem.setup/",self.inp+'-'+str(0)), 0, continue_run=False)
+        for cycle in range(1,self.win.num_cycles): 
+            self.set_tiegcm_stop_start(os.path.join("mem.setup/",self.inp+'-'+str(cycle)), cycle, continue_run=True)
+
         [ self.copy_mem(x+1) for x in range(self.ens_size)]
+
+        # remove tiegcm_.inp-cycle from mem.setup
+        for cycle in range(self.win.num_cycles):
+            temp_file = os.path.join("mem.setup/",self.inp+'-'+str(cycle)) 
+            os.remove(temp_file)
         
     def copy_mem(self, x):
         mem = "mem{:03d}".format(x)
@@ -423,18 +436,17 @@ class Filter(Experiment):
         """ Submit filter experiment """
         self.assert_setup()
         os.chdir(self.exp_directory)
-        print(os.getcwd())
 
-        result = subprocess.run(['qsub', self.tiegcm_pbs_file], stdout=subprocess.PIPE)
-        print('result: ', result)
+        jobarg = ['qsub', '-v', 'CYCLE=0', self.tiegcm_pbs_file] 
+        result = subprocess.run(jobarg, stdout=subprocess.PIPE)
 
-        for cycle in range(self.win.num_cycles):
-         
+        print("Cycle #", 0 , "of ", self.win.num_cycles)
+
+        for cycle in range(1,self.win.num_cycles):
+        
+            print("Cycle #",cycle, "of ", self.win.num_cycles)
+ 
             obs_seq = 'obs_seq.out.' + self.win.model_times[cycle].strftime('%Y%m%d-%H')
-            tgcm_year = str(self.tiegcm_time(self.win.model_times[cycle])["year"])
-            tgcm_yday = str(self.tiegcm_time(self.win.model_times[cycle])["yday"])
-            tgcm_hour = str(self.tiegcm_time(self.win.model_times[cycle])["hour"])
-            tgcm_minute = str(self.tiegcm_time(self.win.model_times[cycle])["minute"])
        
             if_model_ok = f"depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
             filter_jobarg = ['qsub', '-v', 
@@ -444,11 +456,6 @@ class Filter(Experiment):
             result = subprocess.run(filter_jobarg, stdout=subprocess.PIPE)
            
             if_filter_ok = f"depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
-            model_jobarg = ['qsub', '-v',
-                              ' YEAR='+tgcm_year 
-                             +' YDAY='+tgcm_yday 
-                             +' HOUR='+tgcm_hour 
-                             +' MIN='+tgcm_minute,
-                            '-W', if_filter_ok, self.tiegcm_pbs_file]
+            model_jobarg = ['qsub', '-v', 'CYCLE='+str(cycle), '-W', if_filter_ok, self.tiegcm_pbs_file]
             result = subprocess.run(model_jobarg, stdout=subprocess.PIPE)
 

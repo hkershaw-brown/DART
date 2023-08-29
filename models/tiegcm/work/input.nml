@@ -59,7 +59,7 @@
    write_all_stages_at_end      = .false.
    compute_posterior            = .true.
 
-   ens_size                     = 20,
+   ens_size                     = 3,
    num_groups                   = 1,
    distributed_state            = .true.
 
@@ -155,7 +155,7 @@
                'TI',    'QTY_TEMPERATURE_ION',           'NA',      'NA',      'restart',    'UPDATE',
                'TE',    'QTY_TEMPERATURE_ELECTRON',      'NA',      'NA',      'restart',    'UPDATE',
                'OP_NM', 'QTY_DENSITY_ION_OP',            'NA',      'NA',      'restart',    'UPDATE',
-	       'O1',    'QTY_ATOMIC_OXYGEN_MIXING_RATIO','0.00001', '0.99999', 'restart',    'NO_COPY_BACK',
+	       'O1',    'QTY_ATOMIC_OXYGEN_MIXING_RATIO','0.00001', '0.99999', 'restart',    'UPDATE',
                'O2',    'QTY_MOLEC_OXYGEN_MIXING_RATIO', '0.00001', '0.99999', 'restart',    'UPDATE',
                'TN',    'QTY_TEMPERATURE',               '0.0',     '6000.0',  'restart',    'UPDATE',
                'ZG',    'QTY_GEOMETRIC_HEIGHT',          'NA',      'NA',      'secondary',  'NO_COPY_BACK',
