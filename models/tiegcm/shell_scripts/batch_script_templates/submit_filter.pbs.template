@@ -24,6 +24,20 @@ if [ $filter_exit -eq "0" ]; then  # filter run was sucessful
 
    mv obs_seq.final obs_seq.final.$extension
 
+   netcdf_files=(\
+   output_mean_d01.nc
+   output_mean_d02.nc
+   output_sd_d01.nc
+   output_sd_d02.nc \
+   )
+
+   for f in "${netcdf_files[@]}"
+   do 
+      if [ -f "$f" ]; then
+         mv $f $f.$extension
+      fi
+   done
+
 else
   exit $filter_exit
 fi
