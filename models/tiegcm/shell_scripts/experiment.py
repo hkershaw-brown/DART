@@ -1,3 +1,19 @@
+"""
+
+FreeRun  - cycle a single instance of TIEGCM without DART
+PerfectModelObs - create synthetic observation sequences 
+Filter - run an assimilation experiment
+
+To use:
+ - initalize an experiment by initalizing FreeRun, PerfectModelObs, or Filter
+   For example, a FreeRun:
+   ex1 = FreeRun(tiegcm_root, tiegcm_exe, tiegcm_data, account, resolution, delta_time, intial_time, end_time, 'free_run')
+ - ex.info() will print out what has been entered for the experiment
+ - ex.setup('run_dir') will setup the experiment, staging any files needed in 'run_dir'
+ - ex.run() will run the experiment
+
+"""
+
 from pprint import pprint
 import subprocess
 import os

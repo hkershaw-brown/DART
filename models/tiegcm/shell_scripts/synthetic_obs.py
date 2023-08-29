@@ -93,7 +93,7 @@ def run_create_fixed_network_seq(start_time, delta_time, cycles):
     """ create an obs_seq.in for perfect_model_obs 
 
          start_time - datetime object: start of experiment
-         delta_time - int: cycle period for the experiment in hours
+         delta_time - cycle period for the experiment in hours
          cycles - number of cycles. Use 1 for non-subroutine callable models.
 
     """
