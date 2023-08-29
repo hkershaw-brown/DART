@@ -43,7 +43,7 @@
    input_state_file_list        = 'restart_p_files.txt', 'secondary_files.txt'
    init_time_days               = -1,
    init_time_seconds            = -1,
-   perturb_from_single_instance = .true.,
+   perturb_from_single_instance = .false.,
    perturbation_amplitude       = 0.2,
 
    stages_to_write              = 'output'
