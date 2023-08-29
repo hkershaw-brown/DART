@@ -283,7 +283,7 @@ class PerfectModelObs(Experiment):
                  print("create_fixed_network_seq FAILED")
                  sys.exit()
 
-            obs_seq = 'obs_seq.in.' + self.win.model_times[cycle].strftime('%Y%m%d-%H')
+            obs_seq = 'obs_seq.in.' + self.win.model_times[cycle].strftime('%Y%m%d-%H-%M')
             os.rename('obs_seq.in', obs_seq)
 
         self.setup_called = True
@@ -316,7 +316,7 @@ class PerfectModelObs(Experiment):
 
             # link obs_seq.in
             # run perfect_model_obs
-            # mv obs_seq.out obs_seq.out.'%Y%m%d-%H'
+            # mv obs_seq.out obs_seq.out.'%Y%m%d-%H-%M'
      
             print("Cycle #",cycle, "of ", self.win.num_cycles)
 
@@ -446,7 +446,7 @@ class Filter(Experiment):
         
             print("Cycle #",cycle, "of ", self.win.num_cycles)
  
-            obs_seq = 'obs_seq.out.' + self.win.model_times[cycle].strftime('%Y%m%d-%H')
+            obs_seq = 'obs_seq.out.' + self.win.model_times[cycle].strftime('%Y%m%d-%H-%M')
        
             if_model_ok = f"depend=afterok:{result.stdout.strip().decode('utf8').strip()}"
             filter_jobarg = ['qsub', '-v', 
