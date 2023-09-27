@@ -311,7 +311,7 @@ endif
 call fill_cam_stagger_info(grid_stagger)
 
 if (debug_level > 100) call state_structure_info(domain_id)
-if (debug_level > 100) call state_structure_info(gw_domain_id)
+if (debug_level > 100 .and. estimate_tau) call state_structure_info(gw_domain_id)
 
 ! convert from string in namelist to integer (e.g. VERTISxxx)
 ! and tell the dart code which vertical type we want to localize in.
@@ -360,7 +360,8 @@ integer(i8) :: get_model_size
 
 if ( .not. module_initialized ) call static_init_model
 
-get_model_size = get_domain_size(domain_id)+1
+get_model_size = get_domain_size(domain_id)
+if (estimate_tau) get_model_size = get_model_size + get_domain_size(gw_domain_id)
 
 end function get_model_size
 
@@ -580,15 +581,24 @@ integer :: dom_id
 
 varid = get_varid_from_kind(domain_id, qty)
 dom_id = domain_id
-if (varid < 0) then
-   varid = get_varid_from_kind(gw_domain_id, qty)
-   dom_id = gw_domain_id
+
+if (estimate_tau) then ! check the gw_tau domain
    if (varid < 0) then
-     vals(:) = MISSING_R8
-     my_status = 12
-     return
+      varid = get_varid_from_kind(gw_domain_id, qty)
+      dom_id = gw_domain_id
+      if (varid < 0) then
+        vals(:) = MISSING_R8
+        my_status = 12
+        return
+      endif
    endif
-endif
+else
+    if (varid < 0) then
+       vals(:) = MISSING_R8
+       my_status = 12
+       return
+    endif
+endif 
 
 state_indx = get_dart_vector_index(lon_index, lat_index, lev_index, dom_id, varid)
 if (state_indx < 1 .or. state_indx > get_domain_size(dom_id)) then
@@ -649,13 +659,22 @@ do i=1, ens_size
    state_indx = get_dart_vector_index(lon_index, lat_index, lev_index(i), domain_id, varid)
 
    if (state_indx < 0) then
-      state_indx = get_dart_vector_index(lon_index, lat_index, lev_index(i), gw_domain_id, varid)
-      if (state_indx < 0) then
+
+      if (estimate_tau) then ! check gw_tau domain
+         state_indx = get_dart_vector_index(lon_index, lat_index, lev_index(i), gw_domain_id, varid)
+          if (state_indx < 0) then
+             write(string1,*) 'Should not happen: could not find dart state index from '
+             write(string2,*) 'lon, lat, and lev index :', lon_index, lat_index, lev_index
+             call error_handler(E_ERR,routine,string1,source,revision,revdate,text2=string2)
+             return
+          endif    
+      else
           write(string1,*) 'Should not happen: could not find dart state index from '
           write(string2,*) 'lon, lat, and lev index :', lon_index, lat_index, lev_index
           call error_handler(E_ERR,routine,string1,source,revision,revdate,text2=string2)
           return
       endif    
+
    endif
 
    temp_vals(:) = get_state(state_indx, ens_handle)    ! all the ensemble members for level (i)
