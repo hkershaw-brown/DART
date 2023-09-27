@@ -294,7 +294,6 @@ csuppress_grid_info_in_output = suppress_grid_info_in_output
 call set_calendar_type('GREGORIAN')
 
 call read_grid_info(cam_template_filename)
-call read_grid_info(tau_file_name)
 ! This non-state variable is used to compute surface elevation.
 call read_cam_phis_array(cam_phis_filename)
 call setup_interpolation() !grid is global
