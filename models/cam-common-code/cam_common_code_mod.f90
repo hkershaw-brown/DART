@@ -634,11 +634,8 @@ varid = get_varid_from_kind(domain_id, obs_qty)
 
 ! in the state vector
 if (varid > 0) then
-   varid = get_varid_from_kind(gw_domain_id, obs_qty)
-   if (varid > 0) then
-      my_status = 0
-      return
-  endif
+   my_status = 0
+   return
 endif
 
 ! add any quantities that can be interpolated to this list if they
