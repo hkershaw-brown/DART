@@ -166,6 +166,7 @@ logical            :: use_variable_mean_mass          = .false.
 
 character(len=256) :: tau_file_name                   = 'GW_tau.nc'
 logical            :: estimate_tau                    = .true.
+real(r8)           :: gw_tau_vert                     = 5000.0_r8 ! HK todo need to set something sensible here
 
 ! in converting to scale height for the vertical: 
 !  set this to .true. to compute the log of the pressure.  
@@ -398,11 +399,14 @@ call get_model_variable_indices(index_in, iloc, jloc, vloc, var_id=myvarid, dom_
 
 nd = get_num_dims(mydom, myvarid)
 if (get_variable_name(mydom, myvarid) == 'gw_tau') then
-   location = set_location(0.0_r8, 0.0_r8, 1.0D-4 ,VERTISUNDEF)
-   return
-endif
+   ! vertical location set from the namelist option gw_tau_vert.
+   ! The vertical coordinate is set to whatever you are localizing in, e.g. pressure, scaleheight
+   location = set_location(0.0_r8, 0.0_r8, gw_tau_vert, vertical_localization_type)  
+else
 
-location = get_location_from_index(iloc, jloc, vloc, myqty, nd)
+   location = get_location_from_index(iloc, jloc, vloc, myqty, nd)
+
+endif
 
 ! return state quantity for this index if requested
 if (present(var_type)) var_type = myqty
@@ -2333,7 +2337,7 @@ end subroutine get_close_obs
 
 !----------------------------------------------------------------------------
 
-subroutine get_close_state(gc, base_loc, base_type, locs, loc_qtys, loc_indx, &
+subroutine get_close_state(gc, base_loc, base_type, locs_in, loc_qtys, loc_indx, &
                            num_close, close_ind, dist, ens_handle)
 
 ! The specific type of the base observation, plus the generic kinds list
@@ -2341,7 +2345,7 @@ subroutine get_close_state(gc, base_loc, base_type, locs, loc_qtys, loc_indx, &
 ! distance computation is needed.
 
 type(get_close_type),          intent(in)  :: gc
-type(location_type),           intent(inout)  :: base_loc, locs(:)
+type(location_type),           intent(inout)  :: base_loc, locs_in(:)
 integer,                       intent(in)  :: base_type, loc_qtys(:)
 integer(i8),                   intent(in)  :: loc_indx(:)
 integer,                       intent(out) :: num_close, close_ind(:)
@@ -2353,6 +2357,32 @@ character(len=*), parameter :: routine = 'get_close_state'
 integer :: i, status, this, vert_type, q_ind
 real(r8) :: vert_value, extra_damping_dist
 real(r8), parameter :: LARGE_DIST = 999999.0  ! positive and large
+
+integer :: idx(1) ! gw_tau index in loc_qtys
+real(r8) :: lon_lat_vert(3), observation_lon_lat_vert(3)
+type(location_type) :: locs(size(locs_in))
+
+! --- Set tau_gw location equal to the observation location in the horizontal ---
+locs(:) = locs_in(:)  ! have to make a copy insisde this subroutine to change a location
+
+idx = findloc(loc_qtys, QTY_1D_PARAMETER)
+if (idx(1) > 0) then 
+
+   ! unpack the location type into an array(lon,lat,vertical)
+   lon_lat_vert = get_location(locs(idx(1)))
+   observation_lon_lat_vert = get_location(base_loc)
+
+   ! lon, lat are set to the location of the observation. This gives you
+   !  an infinite localization radius in the horizontal by ensuring that
+   !  the horizontal distance from an observation to gw_tau is always = 0
+   locs(idx(1)) = set_location(observation_lon_lat_vert(1), &  ! set lon of gw_tau equal to observation
+                               observation_lon_lat_vert(2), &  ! set lat of gw_tau equal to observation
+                               gw_tau_vert,                 &  ! vertical value from namelist
+                               vertical_localization_type)     ! coordiate you are localizing in, e.g. pressure, scaleheight    
+
+!call write_location(-1, locs(idx(1)))  ! uncomment this if you want to print out the location of gw_tau
+endif
+!---------------------------------------------------------------------------------
 
 ! if absolute distances aren't needed, or vertical localization isn't on,
 ! the default version works fine since no conversion will be needed and
@@ -2417,16 +2447,6 @@ do i=1, num_close
       dist(i) = dist(i) + extra_damping_dist
    endif
 enddo
-
-
-if (estimate_tau) then
-   do i=1, num_close
-     q_ind= close_ind(i)
-       if (loc_qtys(q_ind)== QTY_1D_PARAMETER) then
-         dist(i) = dist(i) * 0.8_r8
-       endif
-    enddo
-endif 
 
 end subroutine get_close_state
 
