@@ -2,7 +2,6 @@
 ! by UCAR, "as is", without charge, subject to all terms of use at
 ! http://www.image.ucar.edu/DAReS/DART/DART_download
 !
-! $Id$
 
 module obs_err_mod
 
@@ -533,6 +532,10 @@ end function prof_wind_error
 
 ! uses global obs_prs() array.  assumes order of pressure values in
 ! the array starts at the top and ends at the surface.
+
+! the return weight is 1 at the lower elevation (higher array index)
+! and 0 at the higher elevation (lower array index).
+
 subroutine find_pressure_level_weight(pres, zloc, wght)
 
 real(r8), intent(in)  :: pres
@@ -544,6 +547,15 @@ integer :: k
 if ( pres < obs_prs(1) .or. pres > obs_prs(nobs_level) ) then
   print*,'bad pressure level',pres
   stop
+end if
+
+! this code assumes that obs_prs(1) == 0.  it will have to
+! change if not.  this block here prevents the code in the
+! loop below from taking the log of 0.
+if (pres <= obs_prs(2)) then
+  zloc = 1
+  wght = obs_prs(2) - pres
+  return
 end if
 
 do k = 2, nobs_level
@@ -562,8 +574,3 @@ end subroutine find_pressure_level_weight
 
 end module obs_err_mod
 
-! <next few lines under version control, do not edit>
-! $URL$
-! $Id$
-! $Revision$
-! $Date$
