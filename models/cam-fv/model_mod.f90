@@ -206,7 +206,8 @@ namelist /model_nml/  &
    using_chemistry,                     &
    debug_level,                         &
    estimate_tau,                        &
-   tau_file_name
+   tau_file_name,                       &
+   gw_tau_vert
 
 ! global variables
 character(len=512) :: string1, string2, string3
@@ -2359,15 +2360,17 @@ real(r8) :: vert_value, extra_damping_dist
 real(r8), parameter :: LARGE_DIST = 999999.0  ! positive and large
 
 integer :: idx(1) ! gw_tau index in loc_qtys
+logical :: gw_tau_found ! gw_tau found by loc_get_close_state
 real(r8) :: lon_lat_vert(3), observation_lon_lat_vert(3)
 type(location_type) :: locs(size(locs_in))
 
+
+dist(:) = LARGE_DIST
 ! --- Set tau_gw location equal to the observation location in the horizontal ---
 locs(:) = locs_in(:)  ! have to make a copy insisde this subroutine to change a location
 
 idx = findloc(loc_qtys, QTY_1D_PARAMETER)
 if (idx(1) > 0) then 
-
    ! unpack the location type into an array(lon,lat,vertical)
    lon_lat_vert = get_location(locs(idx(1)))
    observation_lon_lat_vert = get_location(base_loc)
@@ -2417,10 +2420,11 @@ endif
 call loc_get_close_state(gc, base_loc, base_type, locs, loc_qtys, loc_indx, &
                          num_close, close_ind)
 
+gw_tau_found = .false.
 ! compute distances, converting vertical first if need be.
 do i=1, num_close
    this = close_ind(i)
-
+   if (this == idx(1) ) gw_tau_found = .true.
    vert_type = query_location(locs(this))
 !print *, 'close_s, vval, vtype = ', i, query_location(locs(this), 'VLOC'), vert_type
 
@@ -2447,6 +2451,20 @@ do i=1, num_close
       dist(i) = dist(i) + extra_damping_dist
    endif
 enddo
+
+if (idx(1) > 0) then  ! gw_tau on this processor
+   if (gw_tau_found) then ! recalcualte distance using horiz obslocation
+     dist(idx(1)) =  get_dist(base_loc, locs(idx(1)))
+   else ! add to num_close and calculate distance using obs location
+     num_close = num_close + 1
+     close_ind(num_close) = idx(1)
+     dist(num_close) =  get_dist(base_loc, locs(idx(1)))
+   endif
+
+   print*, 'gw_tau distance', dist(num_close)
+   call write_location(-1, locs(idx(1)))
+   call write_location(-1,base_loc)
+endif
 
 end subroutine get_close_state
 

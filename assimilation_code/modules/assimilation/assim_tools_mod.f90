@@ -28,7 +28,8 @@ use          obs_def_mod, only : obs_def_type, get_obs_def_location, get_obs_def
                                  get_obs_def_error_variance, get_obs_def_type_of_obs
 
 use         obs_kind_mod, only : get_num_types_of_obs, get_index_for_type_of_obs,                   &
-                                 get_quantity_for_type_of_obs, assimilate_this_type_of_obs
+                                 get_quantity_for_type_of_obs, assimilate_this_type_of_obs, &
+                                 QTY_1D_PARAMETER
 
 use       cov_cutoff_mod, only : comp_cov_factor
 
@@ -370,6 +371,8 @@ logical :: local_varying_ss_inflate
 logical :: local_ss_inflate
 logical :: local_obs_inflate
 
+integer :: idx(1)
+
 ! allocate rather than dump all this on the stack
 allocate(close_obs_dist(     obs_ens_handle%my_num_vars), &
          close_obs_ind(      obs_ens_handle%my_num_vars), &
@@ -689,9 +692,11 @@ SEQUENTIAL_OBS: do i = 1, obs_ens_handle%num_vars
       num_close_states_calls_made)
    !call test_close_obs_dist(close_state_dist, num_close_states, i)
 
+   idx = findloc(my_state_kind, QTY_1D_PARAMETER)
    ! Loop through to update each of my state variables that is potentially close
    STATE_UPDATE: do j = 1, num_close_states
       state_index = close_state_ind(j)
+      if (state_index == idx(1)) print*, 'updating gw_tau'
 
       if ( allow_missing_in_state ) then
          ! Don't allow update of state ensemble with any missing values
@@ -701,7 +706,7 @@ SEQUENTIAL_OBS: do i = 1, obs_ens_handle%num_vars
       ! Compute the covariance localization and adjust_obs_impact factors (module storage)
       final_factor = cov_and_impact_factors(base_obs_loc, base_obs_type, my_state_loc(state_index), &
          my_state_kind(state_index), close_state_dist(j), cutoff_rev)
-
+      if (state_index == idx(1)) print*, 'final factor = ', final_factor, 'dist = ', close_state_dist(j)
       if(final_factor <= 0.0_r8) cycle STATE_UPDATE
       
       call obs_updates_ens(ens_size, num_groups, ens_handle%copies(1:ens_size, state_index), &
