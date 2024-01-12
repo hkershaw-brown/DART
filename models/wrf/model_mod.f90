@@ -13,7 +13,7 @@ use time_manager_mod, only : time_type, set_time, GREGORIAN, set_date, &
 
 use     location_mod, only : location_type, get_close_type, &
                              set_location, set_location_missing, &
-                             set_vertical_localization_coord, &
+                             set_vertical_localization_coord, set_vertical, &
                              VERTISHEIGHT, VERTISLEVEL, VERTISPRESSURE, &
                              VERTISSURFACE, VERTISUNDEF, VERTISSCALEHEIGHT, &
                              loc_get_close => get_close, get_location, &
@@ -1883,7 +1883,7 @@ do i = 1, num
    
    endif
 
-   locs(i) = set_location(lon_lat_vert(1), lon_lat_vert(2), vert, which_vert)
+   call set_vertical(locs(i), vert, which_vert)
 
 enddo
 
@@ -1939,13 +1939,15 @@ do ob = 1, num
    endif
    
    if (lon_lat_vert(3) == MISSING_R8) then ! vertical is missing, no conversion
-      istatus(ob) = 0  ! HK todo original code does not set success for this
+      call set_vertical(locs(ob), MISSING_R8, which_vert)
+      istatus(ob) = 1  ! HK todo original code does not set success for this
       cycle
    endif
    
    ! convert to which_vert
    call get_domain_info(lon_lat_vert(1),lon_lat_vert(2),id,xloc,yloc)
    if (id == 0) then
+      call set_vertical(locs(ob), MISSING_R8, which_vert) !HK original code - why set to missing?
       istatus(ob) = NOT_IN_ANY_DOMAIN
       cycle
    endif
@@ -1955,6 +1957,7 @@ do ob = 1, num
    call toGrid(yloc,j,dy,dym)
    
    if ( .not. within_bounds_horizontal(i, j, id, loc_qtys(ob)) ) then
+      call set_vertical(locs(ob), MISSING_R8, which_vert)
       istatus(ob) = FAILED_BOUNDS_CHECK
       cycle
    endif
@@ -2054,7 +2057,8 @@ do ob = 1, num
         
 
    end select
-
+ 
+   !HK original code uses set_location, you could use set_vertical here see #621
    locs(ob) = set_location(lon_lat_vert(1), lon_lat_vert(2), zout(1), which_vert)
    istatus(ob) = 0
 
