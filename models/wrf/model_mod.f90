@@ -1846,17 +1846,24 @@ integer(i8),         intent(in)    :: loc_indx(num) ! index into the state vecto
 integer,             intent(in)    :: which_vert  ! vertical coordinate to be converted to
 integer,             intent(out)   :: istatus
 
-real(r8) :: lon_lat_vert(3)
 integer  :: ip, jp, kp, id ! x,y,z of state index
 integer  :: var_id, state_id
 real(r8) :: vert ! vertical after conversion
 integer  :: i
+integer  :: vert_coord_in
+real(r8) :: lon_lat_vert(3)
 
 istatus = 0 ! can not fail
 
 do i = 1, num
 
    lon_lat_vert = get_location(locs(i))
+   vert_coord_in = nint(query_location(locs(i)))
+
+   if (vert_coord_in == which_vert) then ! conversion is already done
+      cycle
+   endif
+
    call get_model_variable_indices(loc_indx(i), ip, jp, kp, var_id=var_id, dom_id=state_id)
    id = get_wrf_domain(state_id)
 
