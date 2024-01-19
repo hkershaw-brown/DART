@@ -17,6 +17,7 @@ TEST="io"
 LOCATION="threed_sphere"
 
 programs=(
+test_write_single_file
 test_cf_conventions
 test_diag_structure
 test_read_write_restarts

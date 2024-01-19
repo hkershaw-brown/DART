@@ -1,3 +1,12 @@
+&filter_nml
+ input_state_files = 'nonsense'
+ output_state_files = 'one','two'
+/
+
+&model_nml
+template_file = 'write_one.nc'
+/
+
 &utilities_nml
    module_details = .false.
    write_nml = 'none'

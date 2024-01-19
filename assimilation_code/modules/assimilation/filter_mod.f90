@@ -101,10 +101,11 @@ private
 
 public :: filter_sync_keys_time, &
           filter_set_initial_time, &
-          filter_main
+          filter_main, &
+          initialize_file_information
 
 character(len=*), parameter :: source = 'filter_mod.f90'
-
+logical :: module_initialized = .false.
 ! Some convenient global storage items
 character(len=512)      :: msgstring
 
@@ -314,6 +315,19 @@ namelist /filter_nml/ async,     &
 
 contains
 
+subroutine initialize_module()
+
+integer :: iunit, io
+
+! Read the namelist entry
+call find_namelist_in_file("input.nml", "filter_nml", iunit)
+read(iunit, nml = filter_nml, iostat = io)
+call check_namelist_read(iunit, io, "filter_nml")
+
+module_initialized = .true.
+
+end subroutine initialize_module
+
 !----------------------------------------------------------------
 !> The code does not use %vars arrays except:
 !> * Task 0 still writes the obs_sequence file, so there is a transpose (copies to vars)
@@ -330,7 +344,7 @@ type(time_type)             :: curr_ens_time, next_ens_time, window_time
 
 integer,    allocatable :: keys(:)
 integer(i8)             :: model_size
-integer                 :: iunit, io, time_step_number, num_obs_in_set, ntimes
+integer                 :: time_step_number, num_obs_in_set, ntimes
 integer                 :: last_key_used, key_bounds(2)
 integer                 :: in_obs_copy, obs_val_index
 integer                 :: prior_obs_mean_index, posterior_obs_mean_index
@@ -361,10 +375,7 @@ real(r8), allocatable   :: prior_qc_copy(:)
 
 call filter_initialize_modules_used() ! static_init_model called in here
 
-! Read the namelist entry
-call find_namelist_in_file("input.nml", "filter_nml", iunit)
-read(iunit, nml = filter_nml, iostat = io)
-call check_namelist_read(iunit, io, "filter_nml")
+call initialize_module()
 
 ! Record the namelist values used for the run ...
 if (do_nml_file()) write(nmlfileunit, nml=filter_nml)
@@ -2607,6 +2618,8 @@ type(file_info_type), intent(out) :: file_info_output
 integer :: noutput_members, ninput_files, noutput_files, ndomains
 character(len=256), allocatable :: file_array_input(:,:), file_array_output(:,:)
 
+if (.not. module_initialized ) call initialize_module()
+
 ! local variable to shorten the name for function input
 noutput_members = num_output_state_members 
 ndomains        = get_num_domains()
@@ -2646,6 +2659,7 @@ call io_filenames_init(file_info_input,                       &
                        single_file   = single_file_in,        &
                        restart_files = file_array_input,      &
                        root_name     = 'input')
+
 
 ! Output Files (we construct the filenames)
 call io_filenames_init(file_info_mean_sd,   ncopies, has_cycling, single_file_out, root_name='input')
