@@ -102,7 +102,9 @@ private
 public :: filter_sync_keys_time, &
           filter_set_initial_time, &
           filter_main, &
-          initialize_file_information
+          initialize_file_information, &
+          finalize_single_file_io, &
+          ens_size, count_state_ens_copies
 
 character(len=*), parameter :: source = 'filter_mod.f90'
 logical :: module_initialized = .false.

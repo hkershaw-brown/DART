@@ -1,6 +1,11 @@
+# need to set both single_file_in/out to .true. to get single file io 
 &filter_nml
+ single_file_in = .true.
+ single_file_out = .true.
  input_state_files = 'nonsense'
- output_state_files = 'one','two'
+ output_state_files = 'one.nc'
+ ens_size = 5
+ num_output_state_members = 5
 /
 
 &model_nml
