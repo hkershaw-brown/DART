@@ -45,6 +45,7 @@ use mpi_utilities_mod,    only : initialize_mpi_utilities, task_count, &
 use ensemble_manager_mod, only : ensemble_type, init_ensemble_manager, compute_copy_mean, &
                                  get_my_num_vars, end_ensemble_manager
 
+
 implicit none
 
 character(len=*), parameter :: source = 'perturb_single_instance.f90'
@@ -182,7 +183,7 @@ enddo
 ! Read the ensemble from files
 !----------------------------------------------------------------------
 member_time = set_time_missing()
-call read_state(ens_handle, file_info_input, read_time_from_file=.true., model_time=member_time)
+call read_state(ens_handle, file_info_input, read_time_from_file=.false., model_time=member_time)
 
 !----------------------------------------------------------------------
 ! Copy from ensemble member 1 to the other copies
@@ -191,10 +192,7 @@ do i = 1, get_my_num_vars(ens_handle)
    ens_handle%copies(2:ens_size, i) = ens_handle%copies(1, i)
 enddo
 
-call pert_model_copies(ens_handle, ens_size, perturbation_amplitude, interf_provided)
-if (.not. interf_provided) then
-   call error_handler(E_ERR, 'model_mod::pert_model_copies interface required', source)
-endif 
+call perturb_copies(ens_handle, perturbation_amplitude)
 
 
 !----------------------------------------------------------------------
@@ -266,4 +264,33 @@ call finalize_mpi_utilities()
 !----------------------------------------------------------------
 
 end program perturb_single_instance
+
+
+!----------------------------------------------------------------
+subroutine perturb_copies(state_ens_handle, pert_amp)
+
+use random_seq_mod,           only : init_random_seq, random_gaussian, random_seq_type
+use ensemble_manager_mod,     only : ensemble_type
+use types_mod,                only : r8
+use mpi_utilities_mod,        only : my_task_id
+
+type(ensemble_type), intent(inout) :: state_ens_handle
+real(r8),            intent(in)    :: pert_amp
+
+type(random_seq_type) :: random_seq
+
+logical :: interf_provided = .false.
+
+integer :: i, j
+
+call init_random_seq(random_seq, my_task_id())
+do i=1,state_ens_handle%my_num_vars
+   do j=1,state_ens_handle%num_copies
+      if (state_ens_handle%copies(j,i) /= MISSING_R8) then
+        state_ens_handle%copies(j,i) = random_gaussian(random_seq, state_ens_handle%copies(j,i), pert_amp)
+      endif
+   enddo
+enddo
+
+end subroutine perturb_copies
 
