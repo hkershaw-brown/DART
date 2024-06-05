@@ -1,12 +1,13 @@
 &probit_transform_nml
+fix_bound_violations = .false.
    /
 
 &algorithm_info_nml
-   qceff_table_filename = ''
+   qceff_table_filename = 'all_bnrhf_qceff_table.csv'
    /
 
 &perfect_model_obs_nml
-   read_input_state_from_file = .false.,
+   read_input_state_from_file = .true.,
    single_file_in             = .true.
    input_state_files          = "perfect_input.nc"
 
@@ -60,7 +61,7 @@
    async                        = 0,
    adv_ens_command              = "./advance_model.csh",
 
-   obs_sequence_in_name         = "obs_seq.out",
+   obs_sequence_in_name         = "obs_seq.out.2",
    obs_sequence_out_name        = "obs_seq.final",
    num_output_obs_members       = 80,
    init_time_days               = 0,

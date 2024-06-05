@@ -706,7 +706,6 @@ real(r8), parameter :: egregious_bound_threshold = 1.0e-12_r8
 
 ! Default behavior is to leave x unchanged
 fix_bounds = x
-
 ! Fail here on egregious violations; this could be removed 
 if(bounded_below) then
    if(lower_bound - x > egregious_bound_threshold) then

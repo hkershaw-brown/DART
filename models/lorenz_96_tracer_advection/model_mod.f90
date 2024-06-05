@@ -407,6 +407,9 @@ lctnfrac = lctn - int(lctn)
 if (itype == QTY_STATE_VARIABLE) then
    offset = var_offset
 else if (itype == QTY_TRACER_CONCENTRATION) then
+   print*, 'hello Helen ',  -0.1*lctn
+   expected_obs(:) = -0.1*lctn ! HK give an out-of-bounds fail
+   return
    offset = conc_offset
 else if (itype == QTY_TRACER_SOURCE) then
    offset = source_offset
