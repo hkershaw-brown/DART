@@ -38,10 +38,11 @@ jobs:
       - name: Build preprocess
       # Build preprocess once
         run: |
-          pp_dir=${{ github.workspace }}/assimilation_code/programs/preprocess
+          export DART=$(git rev-parse --show-toplevel)
+          pp_dir=$DART/assimilation_code/programs/preprocess
           cd $pp_dir 
-          ${{ github.workspace }}/build_templates/mkmf -x -p $pp_dir/preprocess \
-                                     -a ${{ github.workspace }} $pp_dir/path_names_preprocess
+          $DART/build_templates/mkmf -x -p $pp_dir/preprocess \
+                                     -a $DART $pp_dir/path_names_preprocess
           cd -
 
       - name: Modify input.nml files
