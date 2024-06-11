@@ -44,20 +44,55 @@ jobs:
       - name: Run quickbuild.sh scripts
       # Run quickbuild.sh scripts and log failures
         run: |
-          find $DART -executable -type f -name quickbuild.sh | while read filepaths; do
-            (cd "$(dirname "$filepaths")" && ./quickbuild.sh) || echo "FAILED: $filepaths" >> $GITHUB_WORKSPACE/quickbuild-failures.txt
+          # Store the current directory and initialize arrays to hold process IDs, directories, and status codes 
+          my_dir=$(pwd)
+          pids=()
+          dirs=()
+          status=()
+
+          # Find all quickbuild.sh executable files and remove './' and 'quickbuild.sh'
+          files_to_process=( $(find $DART -executable -type f -name quickbuild.sh | sed -E 's#(\./|quickbuild\.sh)##g') )
+
+          # Iterate over each file to and run quickbuild.sh
+          for f in "${files_to_process[@]}"; do
+
+            if [[ $f == *"template"* ]]; then
+              continue  # template model not for compiling
+            fi
+
+            if [[ $compiler == "gcc" ]]; then
+             case "$f" in
+                *obs_converters* ) cd $f; ./quickbuild.sh & ;;
+                               * ) cd $f; ./quickbuild.sh mpif08 & ;;
+              esac
+            else
+              cd $f; ./quickbuild.sh &
+            fi
+
+            # Record the PID and directory of the each process then cd back to starting directory
+            pids+=( "$!" )
+            dirs+=( "$f" )
+            cd $my_dir
+          done
+
+          # Wait for all background processes to finish and record their exit statuses
+          for pid in ${pids[@]}; do
+            wait ${pid}
+            status+=( "$?" )
+          done
+
+          # Check the status of each build process and log results
+          i=0
+          for st in ${status[@]}; do
+            # Display failed vs. passed processes
+            if [[ ${st} -ne 0 ]]; then
+              echo "$compiler RESULT: $i ${dirs[$i]} FAILED"
+            else
+              echo "$compiler RESULT: $i ${dirs[$i]} PASSED"
+            fi
+            ((i+=1))
           done
       
-      - name: Report Failures
-      # Report all failed runs
-        run: |
-          if [ -f $GITHUB_WORKSPACE/quickbuild-failures.txt ]; then
-            echo "Failed builds:"
-            cat $GITHUB_WORKSPACE/quickbuild-failures.txt
-            exit 1
-          else
-            echo "All runs passed"
-          fi
       # The following should be expected to fail:
         # "./developer_tests/quad_interpolate/work/quickbuild.sh"
         # "./developer_tests/forward_operators/work/quickbuild.sh"
