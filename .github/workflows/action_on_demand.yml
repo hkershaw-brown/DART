@@ -45,7 +45,7 @@ jobs:
       # Run quickbuild.sh scripts and log failures
         run: |
           # Store the current directory and initialize arrays to hold process IDs, directories, and status codes 
-          my_dir=$(pwd)
+          #my_dir=$(pwd)
           pids=()
           dirs=()
           status=()
