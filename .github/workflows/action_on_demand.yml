@@ -72,7 +72,7 @@ jobs:
             continue  # template model not for compiling
           fi
 
-          cd $f; echo $f & #./quickbuild.sh &
+          cd $f; ./quickbuild.sh &
           
           # Record the PID and directory of the each process then cd back to starting directory
           pids+=( "$!" )
