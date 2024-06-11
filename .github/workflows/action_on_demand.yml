@@ -93,7 +93,7 @@ jobs:
             #   fi
             #   ((i+=1))
             # done
-      
+        shell: bash
       # The following should be expected to fail:
         # "./developer_tests/quad_interpolate/work/quickbuild.sh"
         # "./developer_tests/forward_operators/work/quickbuild.sh"
