@@ -62,15 +62,8 @@ jobs:
             continue  # template model not for compiling
           fi
 
-          if [[ $compiler == "gcc" ]]; then
-            case "$f" in
-            *obs_converters* ) cd $f; ./quickbuild.sh & ;;
-                      * ) cd $f; ./quickbuild.sh mpif08 & ;;
-            esac
-          else
-            cd $f; ./quickbuild.sh &
-          fi
-
+          cd $f; ./quickbuild.sh &
+          
           # Record the PID and directory of the each process then cd back to starting directory
           pids+=( "$!" )
           dirs+=( "$f" )
