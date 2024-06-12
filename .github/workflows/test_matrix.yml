@@ -33,5 +33,11 @@ jobs:
       matrix:
         value: ${{fromJSON(needs.setup.outputs.matrix)}}
     steps:
-      - run: |
-          echo "${{ matrix.value }}"
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Set checked out repo as a safe git directory
+        run: git config --global --add safe.directory /__w/${{ github.event.repository.name }}/${{ github.event.repository.name }}
+      - name: Run quickbuild.sh script
+        run: |
+          cd ${{ matrix.value }}
+          ./quickbuild.sh
