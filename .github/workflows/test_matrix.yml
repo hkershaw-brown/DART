@@ -8,8 +8,7 @@ jobs:
     # Deploy container on top of runner instance
     container: 
       image: hkershaw/dart-dep:1.0
-      options: "--cap-add=SYS_PTRACE"
-    
+      options: "--cap-add=SYS_PTRACE"    
     outputs:
       matrix: ${{ steps.matrix.outputs.value }}
     steps:
@@ -29,6 +28,7 @@ jobs:
 
           echo "value=[ $joined_items ]" >> $GITHUB_OUTPUT
           #echo "value=[\"/home/runner/work/DART/DART/developer_tests/preprocess/work/\"]" >> $GITHUB_OUTPUT
+        shell: bash
       - run: |
           echo "${{ steps.matrix.outputs.value }}"
   build:
@@ -47,7 +47,9 @@ jobs:
           cd build_templates
           cp mkmf.template.gfortran mkmf.template
           echo 'FFLAGS = -g -Wuninitialized -Wunused -ffree-line-length-none -fbounds-check -fbacktrace -ffpe-trap=invalid,zero,overflow $(INCS)' >> mkmf.template
+        shell: bash
       - name: Run quickbuild.sh script
         run: |
           cd ${{ matrix.value }}
           ./quickbuild.sh
+        shell: bash
