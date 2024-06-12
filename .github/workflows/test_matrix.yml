@@ -12,8 +12,7 @@ jobs:
       - id: matrix
         run: |
           files_to_process=( $(find $GITHUB_WORKSPACE -executable -type f -name quickbuild.sh | sed -E 's#(\./|quickbuild\.sh)##g') )
-          json_array=$(printf '[ %s ]' "$(IFS=,; printf '\"%s\"' "${files_to_process[@]}")" | jq -R . | jq -s .)
-          echo "value=$json_array" >> $GITHUB_OUTPUT
+          echo "value=$(printf '[ %s ]\n' "$(IFS=,; printf '\"%s\"' "${files_to_process[@]}")" | jq -R . | jq -s .)" >> $GITHUB_OUTPUT
       - run: |
           echo "${{ steps.matrix.outputs.value }}"
   build:
