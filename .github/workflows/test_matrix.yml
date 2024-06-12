@@ -5,6 +5,11 @@ on:
 jobs:
   setup:
     runs-on: ubuntu-latest
+    # Deploy container on top of runner instance
+    container: 
+      image: hkershaw/dart-dep:1.0
+      options: "--cap-add=SYS_PTRACE"
+    
     outputs:
       matrix: ${{ steps.matrix.outputs.value }}
     steps:
