@@ -15,6 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - id: matrix
         run: |
+          git config --global --add safe.directory /__w/${{ github.event.repository.name }}/${{ github.event.repository.name }}
           DART=$(git rev-parse --show-toplevel)
           files_to_process=( $(find $DART -executable -type f -name quickbuild.sh | sed -E 's#(\./|quickbuild\.sh)##g') )
           joined_items=""
