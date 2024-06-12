@@ -22,7 +22,7 @@ jobs:
           for item in "${files_to_process[@]}"; do
             # Append the quoted item and a comma to the string
             echo $item
-            stripped_item=${item#/__w/${{ github.event.repository.name }}/${{ github.event.repository.name }}}  # removes /__w/DART/DART
+            stripped_item=${item#/__w/${{ github.event.repository.name }}/${{ github.event.repository.name }}/}  # removes /__w/DART/DART
             joined_items+="\"$stripped_item\","
           done
 
