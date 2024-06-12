@@ -8,9 +8,12 @@ jobs:
     outputs:
       matrix: ${{ steps.matrix.outputs.value }}
     steps:
+      - uses: actions/checkout@v4
       - id: matrix
         run: |
-          echo "value=[\"a\", \"b\", \"c\"]" >> $GITHUB_OUTPUT
+          files_to_process=( $(find $DART -executable -type f -name quickbuild.sh | sed -E 's#(\./|quickbuild\.sh)##g') )
+          json_array=$(printf '%s\n' "${files_to_process[@]}" | jq -R . | jq -s .)
+          echo "value=$json_array" >> $GITHUB_OUTPUT
       - run: |
           echo "${{ steps.matrix.outputs.value }}"
   build:
@@ -22,3 +25,4 @@ jobs:
     steps:
       - run: |
           echo "${{ matrix.value }}"
+          
