@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - id: matrix
         run: |
-          files_to_process=( $(find $GITHUB_WORKSPACE -executable -type f -name quickbuild.sh | sed -E 's#(\./|quickbuild\.sh)##g') )
+          files_to_process=( $(find ${{ github.workspace }} -executable -type f -name quickbuild.sh | sed -E 's#(\./|quickbuild\.sh)##g') )
           joined_items=""
           for item in "${files_to_process[@]}"; do
             # Append the quoted item and a comma to the string
@@ -27,7 +27,6 @@ jobs:
           joined_items="${joined_items%,}"
 
           echo "value=[ $joined_items ]" >> $GITHUB_OUTPUT
-          #echo "value=[\"/home/runner/work/DART/DART/developer_tests/preprocess/work/\"]" >> $GITHUB_OUTPUT
         shell: bash
       - run: |
           echo "${{ steps.matrix.outputs.value }}"
