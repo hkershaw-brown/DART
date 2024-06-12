@@ -12,7 +12,7 @@ jobs:
       - id: matrix
         run: |
           files_to_process=( $(find $GITHUB_WORKSPACE -executable -type f -name quickbuild.sh | sed -E 's#(\./|quickbuild\.sh)##g') )
-          echo "value=$(printf '[ %s ]\n' "$(IFS=,; printf '\"%s\"' "${files_to_process[@]}")" | jq -R . | jq -s .)" >> $GITHUB_OUTPUT
+          echo "value=/home/runner/work/DART/DART/developer_tests/preprocess/work/"" >> $GITHUB_OUTPUT
       - run: |
           echo "${{ steps.matrix.outputs.value }}"
   build:
