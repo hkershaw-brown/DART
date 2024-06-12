@@ -13,7 +13,6 @@ jobs:
         run: |
           files_to_process=( $(find $GITHUB_WORKSPACE -executable -type f -name quickbuild.sh | sed -E 's#(\./|quickbuild\.sh)##g') )
           joined_items=""
-          files_to_process=(helen matt bob linda)
           for item in "${files_to_process[@]}"; do
             # Append the quoted item and a comma to the string
             echo $item
