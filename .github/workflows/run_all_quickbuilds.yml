@@ -54,7 +54,7 @@ jobs:
           sed -i 's|exec '\''make'\'', '\''-f'\'', \$opt_m if \$opt_x;|exec '\''make'\'', '\''-j'\'', '\''4'\'', '\''-f'\'', \$opt_m if \$opt_x;|' mkmf
           case ${{ matrix.value }} in
             *quikscat*)
-              cp mkmf.template.quikscat.gfortran mkmf.template
+              cp ~/mkmf.template mkmf.template
               ;;
             *AIRS*)
               cp ~/mkmf.template mkmf.template
@@ -64,9 +64,9 @@ jobs:
               ;;
             *)
               cp mkmf.template.gfortran mkmf.template
+              echo 'FFLAGS = -g -Wuninitialized -Wunused -ffree-line-length-none -fbounds-check -fbacktrace -ffpe-trap=invalid,zero,overflow $(INCS)' >> mkmf.template
               ;;
           esac
-          echo 'FFLAGS = -g -Wuninitialized -Wunused -ffree-line-length-none -fbounds-check -fbacktrace -ffpe-trap=invalid,zero,overflow $(INCS)' >> mkmf.template
         shell: bash
       - name: Run quickbuild.sh script
         run: |
