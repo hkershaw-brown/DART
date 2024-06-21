@@ -59,7 +59,7 @@ jobs:
             *AIRS*)
               cp /home/mkmf.template.AIRS.gfortran mkmf.template
               ;;
-            *GMI* | *GOES* | *forward_operators* )
+            *GMI* | *GOES* | *forward_operators* | *NSIDC* )
               cp /home/mkmf.template.rttov.gfortran  mkmf.template
               ;;
             *)
