@@ -6,7 +6,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     container: 
-      image: hkershaw/dart-dep:1.0
+      image: hkershaw/dart-dep-external:2.0
       options: "--cap-add=SYS_PTRACE"    
     outputs:
       matrix: ${{ steps.matrix.outputs.value }}
@@ -37,7 +37,7 @@ jobs:
     needs: [ setup ]
     runs-on: ubuntu-latest
     container: 
-      image: hkershaw/dart-dep:1.0
+      image: hkershaw/dart-dep-external:2.0
       options: "--cap-add=SYS_PTRACE"    
     strategy:
       fail-fast: false 
@@ -57,10 +57,10 @@ jobs:
               cp mkmf.template.quikscat.gfortran mkmf.template
               ;;
             *AIRS*)
-              cp mkmf.template.AIRS.gfortran mkmf.template
+              cp ~/mkmf.template mkmf.template
               ;;
             *GMI* | *GEOS*)
-              cp mkmf.template.rttov.gfortran mkmf.template
+              cp ~/mkmf.template  mkmf.template
               ;;
             *)
               cp mkmf.template.gfortran mkmf.template
