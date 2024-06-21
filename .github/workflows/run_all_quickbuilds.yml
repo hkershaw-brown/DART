@@ -54,13 +54,13 @@ jobs:
           sed -i 's|exec '\''make'\'', '\''-f'\'', \$opt_m if \$opt_x;|exec '\''make'\'', '\''-j'\'', '\''4'\'', '\''-f'\'', \$opt_m if \$opt_x;|' mkmf
           case ${{ matrix.value }} in
             *quikscat*)
-              cp ~/mkmf.template mkmf.template
+              cp ~/mkmf.template.quikscat.gfortran mkmf.template
               ;;
             *AIRS*)
-              cp ~/mkmf.template mkmf.template
+              cp ~/mkmf.template.AIRS.gfortran mkmf.template
               ;;
-            *GMI* | *GEOS*)
-              cp ~/mkmf.template  mkmf.template
+            *GMI* | *GEOS* | *forward_operators* )
+              cp ~/mkmf.template.rttov.gfortran  mkmf.template
               ;;
             *)
               cp mkmf.template.gfortran mkmf.template
