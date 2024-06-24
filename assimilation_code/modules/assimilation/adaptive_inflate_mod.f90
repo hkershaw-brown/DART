@@ -43,7 +43,7 @@ integer, parameter :: RELAXATION_TO_PRIOR_SPREAD = 4
 integer, parameter :: ENHANCED_SS_INFLATION      = 5
 
 ! Type that defines the parameter setting for an application of inflation
-type adaptive_inflate_type
+type adaptive_inflate_type  !HK: why not have have the handle know whether it is prior or posterior?
    private
    integer               :: flavor
    logical               :: deterministic
@@ -54,7 +54,7 @@ type adaptive_inflate_type
    real(r8)              :: sd_lower_bound 
    real(r8)              :: sd_max_change
    real(r8)              :: damping
-   real(r8)              :: rtps_relaxation
+   real(r8)              :: rtps_relaxation !HK: this does not apply to every inflation flavor
    ! Include a random sequence type in case non-deterministic inflation is used
    type(random_seq_type) :: ran_seq
 end type adaptive_inflate_type
@@ -72,7 +72,7 @@ real(r8), parameter    :: small = epsilon(1.0_r8)   ! threshold for avoiding NaN
 !----------------------------------------------------------------
 ! Namelist input with default values
 !
-integer  :: flavor                       = NO_INFLATION
+integer  :: flavor                       = NO_INFLATION  ! HK: this is not in the namelist
 logical  :: deterministic                = .true.
 real(r8) :: initial_mean                 = 1.0_r8
 real(r8) :: initial_sd                   = 0.0_r8
@@ -83,6 +83,8 @@ real(r8) :: sd_max_change                = 1.05_r8
 real(r8) :: damping                      = 1.0_r8
 real(r8) :: rtps_relaxation              = 1.0_r8
 
+! HK: one namelist but 2 inflation handles
+! HK: why not a prior and posterior namelist?
 namelist /adaptive_inflate_nml/ flavor, &
    sd_max_change,                       &
    deterministic,                       &
@@ -405,7 +407,7 @@ type(adaptive_inflate_type), intent(inout) :: inflate_handle
 real(r8),                    intent(inout) :: ens(:)
 real(r8),                    intent(in)    :: mean 
 real(r8),                    intent(inout) :: inflate
-real(r8), optional,          intent(in)    :: var_in
+real(r8), optional,          intent(in)    :: var_in  ! HK: optinal argumens - overload instead
 real(r8), optional,          intent(in)    :: fsprd, asprd
 
 integer  :: i, ens_size
@@ -500,7 +502,7 @@ integer,                     intent(in)    :: ens_size
 real(r8),                    intent(in)    :: obs, obs_var, gamma_corr
 
 real(r8) :: new_inflate, new_inflate_sd
-integer :: inf_type
+integer :: inf_type !HK: inf_type is not used
 
 ! If the inflate_sd not positive, keep everything the same
 if(inflate_sd <= 0.0_r8) return
@@ -587,7 +589,7 @@ subroutine bayes_cov_inflate(ens_size, inf_type, x_p, sigma_p_2, y_o, sigma_o_2,
                  lambda_mean, lambda_sd, gamma_corr, inflate_handle, &
                  new_cov_inflate, new_cov_inflate_sd)
 
-integer , intent(in)  :: ens_size, inf_type
+integer , intent(in)  :: ens_size, inf_type  ! HK: inf_type is not used
 real(r8), intent(in)  :: x_p, sigma_p_2, y_o, sigma_o_2, lambda_mean, lambda_sd
 real(r8), intent(in)  :: gamma_corr
 type(adaptive_inflate_type), intent(in) :: inflate_handle

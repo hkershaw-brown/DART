@@ -302,7 +302,7 @@ call log_namelist_selections(num_special_cutoff, cache_override)
 end subroutine assim_tools_init
 
 !-------------------------------------------------------------
-
+!HK why are forward operators in filter_assim?
 subroutine filter_assim(ens_handle, ens_copies, obs_ens_handle, f, obs_seq, keys,           &
    num_groups, inflate, ENS_INF_COPY, ENS_INF_SD_COPY, inflate_only)
 

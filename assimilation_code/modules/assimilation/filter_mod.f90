@@ -137,6 +137,7 @@ logical  :: single_file_out = .false. ! all copies written to 1 file
 ! optimization option:
 logical :: compute_posterior   = .true. ! set to false to not compute posterior values
 
+!HK why do you have all your file options here when you have a filter_io_diag module?
 ! Specify which diagnostic stages should be output
 logical :: output_forecast_diags  = .true.
 logical :: output_preassim_diags  = .true.
@@ -321,6 +322,7 @@ AdvanceTime : do time_step_number = 0, huge(time_step_number)
    ! No more observations available so exit the time loop
    if(key_bounds(1) < 0) exit AdvanceTime
 
+   !HK: 
    call filter_update(state_ens_handle, ens_copies, prior_inflate, post_inflate, seq, &
       forward_op_ens_info, num_obs_in_set, keys, key_bounds, compute_posterior, has_cycling, &
       output_forecast_diags,  'forecast',  file_info_forecast,  &
@@ -679,6 +681,8 @@ call forward_operators(forward_op_ens_info, state_ens_handle, obs_fwd_op_ens_han
    num_output_obs_members, compute_posterior, isprior = .true.)
 
 ! Need to save the forward operator ensemble for smoothers
+!HK why do you have to duplicate the forward operators, are you redoing the assimilation 
+! calculation in the smoother? 
 call init_ensemble_manager(save_fwd_op_ens_handle, forward_op_ens_info%TOTAL_COPIES, &
    int(num_obs_in_set, i8), 1, transpose_type_in = 2)
 call duplicate_state_copies(obs_fwd_op_ens_handle, save_fwd_op_ens_handle, .true.)
@@ -712,6 +716,8 @@ else
 endif
       
 ! Compute the adaptive state space posterior inflation
+! HK: why is inflation wrapped up in filter assim? Why not have an inflate function rather
+!     than calling filter_assim with inflate_only = .true.?
 if(do_ss_inflate(post_inflate) .and. ( .not. do_rtps_inflate(post_inflate)) )                  &
    call filter_assim(state_ens_handle, ens_copies, obs_fwd_op_ens_handle, forward_op_ens_info, &
       seq, keys, num_groups, post_inflate, &
@@ -732,7 +738,7 @@ end subroutine filter_update
 !------------------------------------------------------------------
 
 ! Does prior inflation, forward operators, assimilation, posterior inflation 
-
+! HK this is not doing forward operators or inflation.
 subroutine smoother_update(state_ens_handle, ens_copies, inflate, seq, forward_op_ens_info, &
    obs_fwd_op_ens_handle, num_obs_in_set, keys, key_bounds, lag, has_cycling,               &
    output_preassim_diags,  filename_preassim,  file_info_preassim,                          &
@@ -766,6 +772,9 @@ if(output_preassim_diags) &
       file_info_preassim, single_file_out, has_cycling, output_mean, output_sd,           &
       output_members, .false., .false.)
 
+!HK this is redoing horizontal get_close. It is also using the mean of the lag vs the mean of
+! the ensemble. Is this what you want? 
+! Also redoing the probit transform for the foward operators. 
 call filter_assim(state_ens_handle, ens_copies, obs_fwd_op_ens_handle, forward_op_ens_info, &
    seq, keys, num_groups, inflate, ens_copies%PRIOR_INF_COPY, ens_copies%PRIOR_INF_SD_COPY, &
    inflate_only = .false.)

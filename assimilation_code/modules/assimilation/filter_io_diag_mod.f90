@@ -2,7 +2,7 @@
 ! by UCAR, "as is", without charge, subject to all terms of use at
 ! http://www.image.ucar.edu/DAReS/DART/DART_download
       
-module filter_io_diag_mod
+module filter_io_diag_mod !HK: why is this filter only? Other programs need to write state.
      
 !------------------------------------------------------------------------------
 
@@ -44,7 +44,9 @@ public ::  create_ensemble_from_single_file, ens_copies_type, &
 !------------------------------------------------------------------------------
 
 ! Some of these are redundant with variables in ensemble_type; that should be removed
-type ens_copies_type
+!HK: why is this separate from ensemble_type? state_typs: ensemble_type, copies_type
+!     the copies are not solely for IO. 
+   type ens_copies_type  
    integer           :: ens_size 
    integer           :: num_state_ens_copies
    integer           :: num_extras
@@ -62,7 +64,7 @@ type ens_copies_type
    integer           :: RTPS_PRIOR_SPREAD_COPY = COPY_NOT_PRESENT
 
    ! Pointers to where different copies are stored in array
-   integer            :: ENS_START    = 1
+   integer            :: ENS_START    = 1     !HK: these are not parameters.  They are variables.
    integer            :: ENS_END      = 2
    integer            :: ENS_MEAN     = 3
    integer            :: ENS_SD       = 4
@@ -72,7 +74,7 @@ type ens_copies_type
    integer            :: POST_INF_SD  = 8 
 
    ! Data structure for different diag and output stages
-   integer            :: DIAG_FILE_COPIES(1:8)     = COPY_NOT_PRESENT
+   integer            :: DIAG_FILE_COPIES(1:8)     = COPY_NOT_PRESENT !HK: why 1:8 and not just 8?
 end type ens_copies_type
                                   
 !------------------------------------------------------------------------------
@@ -144,7 +146,7 @@ end subroutine create_ensemble_from_single_file
 !------------------------------------------------------------------------------
 ! Perturb the copies array in a way that is bitwise reproducible
 ! no matter how many task you run on.
-
+!HK: Not an IO operation. 
 subroutine perturb_copies_task_bitwise(ens_handle, ens_size, perturbation_amplitude)
 
 type(ensemble_type), intent(inout) :: ens_handle
@@ -187,6 +189,7 @@ end subroutine perturb_copies_task_bitwise
 ! Assign the indices to the storage in the ensemble manager
 ! Initialize indices for where diagnostic copies are found
 
+!HK this is mixing IO and the ensemble. 
 subroutine init_state_ens(ens_handle, ens_copies, ens_size, output_mean, output_sd, &
    do_prior_inflate, do_posterior_inflate, posterior_inflate, num_output_state_members,     &
    distributed_state)
@@ -196,7 +199,7 @@ type(ens_copies_type),       intent(inout) :: ens_copies
 integer,                     intent(in)    :: ens_size
 logical,                     intent(in)    :: output_mean, output_sd
 logical,                     intent(in)    :: do_prior_inflate, do_posterior_inflate
-type(adaptive_inflate_type), intent(in)    :: posterior_inflate
+type(adaptive_inflate_type), intent(in)    :: posterior_inflate  ! HK: why only posterior?
 integer,                     intent(in)    :: num_output_state_members
 logical,                     intent(in)    :: distributed_state
 
@@ -210,7 +213,7 @@ ens_copies%ENS_START_COPY = 1
 ens_copies%ENS_END_COPY    = ens_size
 
 ! Filter Extra Copies For Assimilation
-ens_copies%ENS_MEAN_COPY        = ens_size + 1
+ens_copies%ENS_MEAN_COPY        = ens_size + 1 
 ens_copies%ENS_SD_COPY          = ens_size + 2
 ens_copies%PRIOR_INF_COPY       = ens_size + 3
 ens_copies%PRIOR_INF_SD_COPY    = ens_size + 4
@@ -229,6 +232,7 @@ endif
 ens_copies%num_extras = ens_copies%num_state_ens_copies - ens_size
 
 ! Specifying copies to be output for state diagnostics files
+! HK what is the point of ens_copies%DIAG_FILE_COPIES?
 ens_copies%DIAG_FILE_COPIES(ens_copies%ENS_START) = ens_copies%ENS_START_COPY
 ens_copies%DIAG_FILE_COPIES(ens_copies%ENS_END)   = ens_copies%ENS_END_COPY
 if(output_mean) then
@@ -267,12 +271,12 @@ endif
 call set_num_extra_copies(ens_handle, ens_copies% num_extras)
 
 ! Allocate the storage if not already done
-call allocate_vars(ens_handle)
-
+call allocate_vars(ens_handle) !HK why are you allocating vars here? Should not do this, you will run out of memory for large models.
+                               ! you are doing it for every lag in the smoother as well. 
 end subroutine init_state_ens
 
 !------------------------------------------------------------------------------
-
+!HK: filename_info is really badly designed. 
 !> Set file name information.  For members restarts can be read from
 !> an input_state_file_list or constructed using a stage name and
 !> num_ens.  The file_info handle knows whether or not there is an
@@ -317,7 +321,7 @@ subroutine read_state_and_inflation(ens_copies, state_ens_handle, single_file_in
    posterior_inflate, do_posterior_inflate, posterior_inflate_from_restart, file_info_input, &
    read_time_from_file, time1)
                                 
-type(ens_copies_type),intent(inout)  :: ens_copies 
+type(ens_copies_type),intent(inout)  :: ens_copies  !HK is this changing (inout)?
 type(ensemble_type),  intent(inout) :: state_ens_handle
 type(file_info_type), intent(out) :: file_info_input
 logical,              intent(in)  :: single_file_in
@@ -372,7 +376,7 @@ call set_input_file_info( file_info_input, ens_copies, perturb_from_single_insta
 
 ! Do the reading
 call read_state(state_ens_handle, file_info_input, read_time_from_file, time1,      &
-                ens_copies%PRIOR_INF_COPY, ens_copies%PRIOR_INF_SD_COPY, &
+                ens_copies%PRIOR_INF_COPY, ens_copies%PRIOR_INF_SD_COPY, & !HK: why are you passing these if you have created a public type?
                 ens_copies%POST_INF_COPY, ens_copies%POST_INF_SD_COPY, &
                 prior_inflate, posterior_inflate,                                   &
                 prior_inflate_from_restart, posterior_inflate_from_restart,         &         
@@ -395,7 +399,7 @@ logical,              intent(in)    ::  posterior_inflate_from_restart
      
 if ( perturb_from_single_instance ) then
    ! Only reading a single ensemble member, the first one                             
-   call set_io_copy_flag(file_info, ens_copies%DIAG_FILE_COPIES(ens_copies%ENS_START), READ_COPY)                       
+   call set_io_copy_flag(file_info, ens_copies%DIAG_FILE_COPIES(ens_copies%ENS_START), READ_COPY)   !HK this is reading a diagnostic file?                    
 else                              
    ! Will read all the ensemble members
    call set_io_copy_flag(file_info, ens_copies%DIAG_FILE_COPIES(ens_copies%ENS_START), &
@@ -477,7 +481,7 @@ character(len=*),     intent(in)  :: output_file_name
 type(ensemble_type),  intent(in)  :: state_ens_handle
 type(ens_copies_type),intent(inout)  :: ens_copies
 type(file_info_type), intent(out) :: file_info
-character(len=256),   intent(inout)  :: output_state_files(:)
+character(len=256),   intent(inout)  :: output_state_files(:) !HK why in and out?
 character(len=256),   intent(in)  :: output_state_file_list(:)
 logical,              intent(in)  :: single_file_out
 logical,              intent(in)  :: has_cycling

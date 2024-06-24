@@ -57,6 +57,7 @@ private
 
 ! This type keeps track of meta data associated with the ensemble of forward operators
 ! Explicitly deals with possible group filter application
+!HK this is totally public, and not parameters. Any callling code can edit these values. 
 type forward_op_info_type
    integer               :: in_obs_copy
    integer               :: obs_val_index
