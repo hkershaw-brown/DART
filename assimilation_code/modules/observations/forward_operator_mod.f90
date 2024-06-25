@@ -58,6 +58,11 @@ private
 ! This type keeps track of meta data associated with the ensemble of forward operators
 ! Explicitly deals with possible group filter application
 !HK this is totally public, and not parameters. Any callling code can edit these values. 
+!HK I do not think this is a good idea to have this type in this module. 
+!    The info on copies is separate from the ensemble storage. 
+!    There is an implicit link between this copy meta data and the copy
+!    meta data for the state (first n are acutaly state copies, and in the same order)
+!    I think we should rethink the extra copies design for DART.
 type forward_op_info_type
    integer               :: in_obs_copy
    integer               :: obs_val_index
@@ -321,6 +326,7 @@ endif
 call free_state_window(ens_handle, obs_fwd_op_ens_handle, qc_ens_handle)
 
 
+!HK QC should be in the qc_module.
 ! QC Section:
 ! * Consolidate QC for non-distributed forward operator
 ! * Check outlier threshold (prior only)
@@ -572,16 +578,18 @@ logical,                    intent(in)    :: isprior
 ! Compute forward operators and handle data structures for the observations and the qc
 integer :: obs_mean_index, obs_spread_index, obs_copy_offset
 
-! Initialization required only for prior observation operator computation
-if(isprior) then
+! Initialization required only for prior observation operator computation 
+! HK: Forward operator should be indepent of the calling code. Prior or not does not mean anything
+!     in the context of perfect_model_obs. 
+if(isprior) then  
 
-   f%ERR_VAR_COPY   = ens_size + 1
-   f%VAL_COPY       = ens_size + 2
+   f%ERR_VAR_COPY   = ens_size + 1  !HK: non of this is information needed to caclulate
+   f%VAL_COPY       = ens_size + 2  !    forward operorators.
    f%KEY_COPY       = ens_size + 3
    f%GLOBAL_QC_COPY = ens_size + 4
    f%EXTRA_QC_COPY  = ens_size + 5
    f%MEAN_START     = ens_size + 6
-   f%MEAN_END       = f%MEAN_START + num_groups -1 
+   f%MEAN_END       = f%MEAN_START + num_groups -1  
    f%VAR_START      = f%MEAN_END + 1
    f%VAR_END        = f%VAR_START + num_groups - 1
    f%TOTAL_COPIES   = ens_size + 5 + 2*num_groups
@@ -621,12 +629,13 @@ else
 endif
 
 ! Do prior observation space diagnostics and associated quality control
+! HK not the forwad operator, this is updating the obs_sequuence. 
 call obs_space_diagnostics(f, obs_fwd_op_ens_handle, qc_ens_handle, ens_size, seq, keys, &
    isprior, num_output_obs_members, obs_copy_offset, &
    obs_mean_index, obs_spread_index, num_obs_in_set, compute_posterior)
 
 ! Free up the prior_qc_copy if this is being called fopr posterior (all done with it)
-if(.not. isprior) deallocate(f%prior_qc_copy)
+if(.not. isprior) deallocate(f%prior_qc_copy)  !HK again, bad idea to have this in the forward operator
 
 end subroutine forward_operators
 
@@ -809,7 +818,9 @@ deallocate(obs_temp)
 end subroutine obs_space_sync_QCs
 
 !-------------------------------------------------------------------------
-
+! HK: why is this routine in the forward operator module?
+!     Seems like it has been stuffed in there to 'tidy up' filter.  
+!     need to separate the forward operator from the obs_sequence
 subroutine filter_setup_obs_sequence(f, seq, num_output_obs_members, &
    obs_sequence_in_name, do_post)
 
@@ -1024,7 +1035,7 @@ call error_handler(E_ERR,'get_obs_copy_index', &
 end function get_obs_copy_index
 
 !-------------------------------------------------------------------------
-
+!HK this is obs_space_diagnostics
 subroutine filter_generate_copy_meta_data(f, seq, num_output_obs_members, &
    do_post)
 
@@ -1044,8 +1055,8 @@ integer :: i, num_obs_copies
 ! instead, set the copy numbers to an illegal value
 ! so we'll trap if they're used, and return early.
 if (my_task_id() /= 0) then
-   f%prior_obs_mean_index  = -1
-   f%posterior_obs_mean_index = -1
+   f%prior_obs_mean_index  = -1    !HK: what happens when you call the forward operator again but with prior=.false.
+   f%posterior_obs_mean_index = -1 !     are these values still -1 in 'f'
    f%prior_obs_spread_index  = -1
    f%posterior_obs_spread_index = -1
    return

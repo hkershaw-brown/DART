@@ -43,8 +43,14 @@ integer, parameter :: RELAXATION_TO_PRIOR_SPREAD = 4
 integer, parameter :: ENHANCED_SS_INFLATION      = 5
 
 ! Type that defines the parameter setting for an application of inflation
+!HK suggest one type per inflation flavor. Have the methods in the type (type bound procedures)
+!   Goals:
+!      -  not to have so many if statements in each method in this module
+!      -  to have the type know how to validate itself
+!      -  can test each type methods in isolation
+! HK also it would be worth thinking about storing the data in the type. 
 type adaptive_inflate_type  !HK: why not have have the handle know whether it is prior or posterior?
-   private
+private
    integer               :: flavor
    logical               :: deterministic
    real(r8)              :: initial_mean
@@ -85,6 +91,7 @@ real(r8) :: rtps_relaxation              = 1.0_r8
 
 ! HK: one namelist but 2 inflation handles
 ! HK: why not a prior and posterior namelist?
+! HK: inflation options different between domains (see Xueli's dart@ucar.edu email)
 namelist /adaptive_inflate_nml/ flavor, &
    sd_max_change,                       &
    deterministic,                       &

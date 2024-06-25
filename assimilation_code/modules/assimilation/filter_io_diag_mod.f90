@@ -96,7 +96,7 @@ contains
 !> allowed the locations of missing_r8s are stored before the perturb,
 !> then the missing_r8s are put back in after the perturb.
 
-subroutine create_ensemble_from_single_file(ens_handle, ens_size, &
+subroutine create_ensemble_from_single_file(ens_handle, ens_size, & !HK nothing about a single file in here, this is perturbing an ensemble member to get an ensemble
    perturbation_amplitude, time, missing_ok)
 
 type(ensemble_type), intent(inout) :: ens_handle
@@ -232,7 +232,10 @@ endif
 ens_copies%num_extras = ens_copies%num_state_ens_copies - ens_size
 
 ! Specifying copies to be output for state diagnostics files
-! HK what is the point of ens_copies%DIAG_FILE_COPIES?
+! HK: what is the point of ens_copies%DIAG_FILE_COPIES?
+!     Any 'write at the end' abstraction should be in the state_vector_io_mod
+!     The calling code should call write_state.  Whether the state is written
+!     imediately or at the end should be transparent (invisible) to the calloing code
 ens_copies%DIAG_FILE_COPIES(ens_copies%ENS_START) = ens_copies%ENS_START_COPY
 ens_copies%DIAG_FILE_COPIES(ens_copies%ENS_END)   = ens_copies%ENS_END_COPY
 if(output_mean) then
@@ -342,7 +345,7 @@ character(len=256), allocatable :: file_array_input(:,:)
 integer :: ninput_files
 
 ! Best to fail if already initialized
-!!!if(.not. file_info_input%initialized) then
+!!!if(.not. file_info_input%initialized) then  !HK your output_file has an intialization.
 
 ! Determine number of files
 if (single_file_in .or. perturb_from_single_instance)  then
@@ -541,7 +544,7 @@ logical,              intent(in)  :: do_prior_inflate, do_posterior_inflate
    
 integer :: noutput_files, ndomains
            
-! Don't need to initialize if already done
+! Don't need to initialize if already done  !HK: file_info type is a bad design. 
 if(.not. file_info%initialized) then
      
    ! local variable to shorten the name for function input

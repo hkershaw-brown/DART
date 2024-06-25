@@ -229,7 +229,7 @@ type(ens_copies_type) :: lag_copies
 ! Prior and posterior inflation metadata
 type(adaptive_inflate_type) :: prior_inflate, post_inflate
 ! No inflation for smoothers, but still need a structure that indicates that for now
-type(adaptive_inflate_type) :: lag_inflate
+type(adaptive_inflate_type) :: lag_inflate  !HK: this is for all lags. Would you want to inflate as function of lag?
 
 ! Observation sequence and metadata for copies
 type(obs_sequence_type)     :: seq
@@ -242,8 +242,8 @@ type(file_info_type)              :: file_info_preassim
 type(file_info_type)              :: file_info_postassim
 type(file_info_type)              :: file_info_analysis
 type(file_info_type)              :: file_info_output
-type(file_info_type), allocatable :: lag_info_preassim(:)
-type(file_info_type), allocatable :: lag_info_postassim(:)
+type(file_info_type), allocatable :: lag_info_preassim(:)  !HK: do you need to store this for each lag? It is a function of the lag.
+type(file_info_type), allocatable :: lag_info_postassim(:) ! HK: again, nutty that filter is storing this information on file_info_type
 
 type(time_type)         :: time1, curr_ens_time, next_ens_time
 integer                 :: time_step_number, num_obs_in_set, i
@@ -306,13 +306,14 @@ do i = 1, num_lags
 end do
 
 ! Loop through timesteps until observations are exhausted
-AdvanceTime : do time_step_number = 0, huge(time_step_number)
+AdvanceTime : do time_step_number = 0, huge(time_step_number) !HK: infinte loop
 
-   ! Propoagate the lags
+   ! Propoagate the lags  
+   !HK do you need to copy the data, can you just change the index to the lag?
    do i = num_lags, 2, -1
       call duplicate_state_copies(lag_ens_handle(i-1), lag_ens_handle(i), .true.)
    end do
-   call duplicate_state_copies(state_ens_handle, lag_ens_handle(1), .true.)
+   call duplicate_state_copies(state_ens_handle, lag_ens_handle(1), .true.) !HK what if someone sets num_lags = 0?
 
    ! Advance the model to make the window include the next available observation.
    call advance_model(state_ens_handle, ens_size, seq, key_bounds, num_obs_in_set, &
@@ -322,10 +323,10 @@ AdvanceTime : do time_step_number = 0, huge(time_step_number)
    ! No more observations available so exit the time loop
    if(key_bounds(1) < 0) exit AdvanceTime
 
-   !HK: 
+   !HK: this just stuffs a bunch of routines into filter_update.
    call filter_update(state_ens_handle, ens_copies, prior_inflate, post_inflate, seq, &
       forward_op_ens_info, num_obs_in_set, keys, key_bounds, compute_posterior, has_cycling, &
-      output_forecast_diags,  'forecast',  file_info_forecast,  &
+      output_forecast_diags,  'forecast',  file_info_forecast,  &  !HK these are all module variables you are passing in
       output_preassim_diags,  'preassim',  file_info_preassim,  &
       output_postassim_diags, 'postassim', file_info_postassim, &
       output_analysis_diags,  'analysis',  file_info_analysis,  &
@@ -333,6 +334,7 @@ AdvanceTime : do time_step_number = 0, huge(time_step_number)
 
    ! Let current observations impact each lag
    do i = 1, num_lags
+      ! HK would you want different localizations depenent on the lag?
       call smoother_update(lag_ens_handle(i), lag_copies, lag_inflate, seq, forward_op_ens_info, &
          obs_fwd_op_ens_handle, num_obs_in_set, keys, key_bounds, i, has_cycling,         &
          output_preassim_diags,  'lag_preassim',  lag_info_preassim(i),             &
@@ -570,7 +572,7 @@ call error_handler(E_MSG,'filter_main:', msgstring, source)
 call set_missing_ok_status(allow_missing_clm)
    
 ! 'has_cycling' set to 'single_file_out'; only allowing cycling if writing to a single file.
-has_cycling = single_file_out
+has_cycling = single_file_out  !HK:  needs to be fixed to allow cycling with multiple files
 
 ! Can't output more ensemble members than exist
 if(num_output_obs_members   > ens_size) num_output_obs_members   = ens_size
@@ -620,7 +622,8 @@ endif
 
 end subroutine trim_obs_sequence
 !------------------------------------------------------------------
-
+! HK: this is just subroutine stuffing to 'tidy up' the main filter subroutine.
+!     There is no gain here for modularity or readabily. 
 ! Does prior inflation, forward operators, assimilation, posterior inflation 
 
 subroutine filter_update(state_ens_handle, ens_copies, prior_inflate, post_inflate, &
@@ -692,7 +695,7 @@ call filter_assim(state_ens_handle, ens_copies, obs_fwd_op_ens_handle, forward_o
    inflate_only = .false.)
 
 ! Write out postassim diagnostic files if requested.  This contains the assimilated ensemble 
-! JLA DEVELOPMENT: This used to output the damped inflation. NO LONGER.
+! JLA DEVELOPMENT: This used to output the damped inflation. NO LONGER. !HK: explain this, is this a filter_assim change?
 if(output_postassim_diags) &
    call output_diagnostics(filename_postassim, state_ens_handle, ens_copies, &
       file_info_postassim, single_file_out, has_cycling, output_mean, output_sd,           &
@@ -774,7 +777,8 @@ if(output_preassim_diags) &
 
 !HK this is redoing horizontal get_close. It is also using the mean of the lag vs the mean of
 ! the ensemble. Is this what you want? 
-! Also redoing the probit transform for the foward operators. 
+! Also redoing the probit transform for the foward operators. CONSTANT COST each step
+! of seq_obs_do * number of lags.
 call filter_assim(state_ens_handle, ens_copies, obs_fwd_op_ens_handle, forward_op_ens_info, &
    seq, keys, num_groups, inflate, ens_copies%PRIOR_INF_COPY, ens_copies%PRIOR_INF_SD_COPY, &
    inflate_only = .false.)
