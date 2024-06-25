@@ -460,6 +460,7 @@ integer,                     intent(in)    :: INF_MEAN_COPY, INF_SD_COPY
 character(len=32)  :: label
 
 ! if not doing inflation set inf_mean = 1, inf_sd = 0
+! HK why not check for no inflation?
 if (.not. do_ss_inflate(inflate_handle) .and. .not. do_rtps_inflate(inflate_handle)) then
    ens_handle%copies(INF_MEAN_COPY, :) = 1.0_r8
    ens_handle%copies(INF_SD_COPY, :)   = 0.0_r8

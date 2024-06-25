@@ -598,6 +598,8 @@ logical,             intent(in)             :: duplicate_time
 ! If duplicate_time is false, the times in ens2 are left unchanged.
 
 ! Error checking
+!HK VALID_X routines were no-ops and have been removed:
+!  https://github.com/NCAR/DART/issues/620
 if (ens1%valid /= VALID_VARS .and. ens1%valid /= VALID_BOTH) then
    call error_handler(E_ERR, 'duplicate_ens', &
         'last access not var-complete for source ensemble', source)

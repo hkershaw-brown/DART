@@ -556,7 +556,7 @@ if (do_nml_term()) write(     *     , nml=filter_nml)
                                   
 if (task_count() == 1) distributed_state = .true.
 
-call set_debug_fwd_op(output_forward_op_errors)
+call set_debug_fwd_op(output_forward_op_errors) !HK should be a forward operator namelist option. 
 call set_trace(trace_execution, output_timestamps, silence)
 
 ! Make sure ensemble size is at least 2 (NEED MANY OTHER CHECKS)
@@ -569,7 +569,7 @@ endif
 write(msgstring, '(A,I5)') 'running with an ensemble size of ', ens_size
 call error_handler(E_MSG,'filter_main:', msgstring, source)
    
-call set_missing_ok_status(allow_missing_clm)
+call set_missing_ok_status(allow_missing_clm) !HK: hate this. 
    
 ! 'has_cycling' set to 'single_file_out'; only allowing cycling if writing to a single file.
 has_cycling = single_file_out  !HK:  needs to be fixed to allow cycling with multiple files
