@@ -1,15 +1,17 @@
 ! three required subroutines for ESMX
 module dart
 
+use mpi_utilities_mod, only: initialize_mpi_utilities, &
+                             finalize_mpi_utilities
+
 implicit none
-
 public :: init, run, finalize
-
 contains
 
 !-----------------
 subroutine init()
 
+call initialize_mpi_utilities()
 print*, 'Hello Anh from init'
 
 ! example of initializing a dart module
@@ -28,6 +30,7 @@ end subroutine run
 subroutine finalize
 
 print*, 'Hello Anh from finalize' 
+call finalize_mpi_utilities()
 
 end subroutine finalize
 
