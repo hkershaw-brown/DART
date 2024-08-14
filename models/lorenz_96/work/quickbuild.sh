@@ -31,6 +31,10 @@ obs_diag
 obs_sequence_tool
 )
 
+model_serial_programs=(
+cheesecake
+)
+
 # quickbuild arguments
 arguments "$@"
 
