@@ -2040,6 +2040,9 @@ if (istatus1 == 0) then
               location_arr(1) = local_obs_loc
               call convert_vert_distrib_state(state_handle, 1, location_arr, loc_qtys(t_ind), &
                                               loc_indx(t_ind), vert_localization_coord, istat_arr)
+              if (local_obs_which == VERTISSURFACE) then
+                print*, 'HK istat_arr(1)', istat_arr(1)
+              endif
               istatus2 = istat_arr(1)
               locs(t_ind) = location_arr(1)
               if(istatus2 /= 0 .and. debug > 9 .and. do_output()) then
@@ -4889,6 +4892,12 @@ weights = 0.0_r8
 ! or if the vert is 'undef' which means no specifically defined
 ! vertical coordinate, return now.
 ztypein  = nint(query_location(location(1), 'which_vert'))
+
+if (ztypeout == VERTISHEIGHT .and. ztypein == VERTISSURFACE) then  ! already in m
+   istatus = 0
+   return
+endif
+
 if ((ztypein == ztypeout) .or. (ztypein == VERTISUNDEF)) then
    istatus = 0
    return
