@@ -4559,7 +4559,8 @@ endif
 ztypein  = nint(query_location(location(1), 'which_vert'))
 if ((ztypein == ztypeout) .or. (ztypein == VERTISUNDEF)) then
    istatus = 0
-   return
+   print*, "HK skipping early return ztypein == ztypeout == VERTISHIEGHT"
+   !return
 else
    if (debug > 9 .and. do_output()) then
       write(string1,'(A,3X,2I3)') 'ztypein, ztypeout:',ztypein,ztypeout
@@ -4683,6 +4684,19 @@ select case (ztypeout)
       return
    endif
 
+print*, "HK location lon", llv_loc(1,:)
+print*, "HK location lat", llv_loc(2,:)
+print*, "HK location vert", llv_loc(3,:)
+
+
+print*, "HK convert_vert_distrib k_low, k_up", k_low, k_up
+
+print*, "HK zGridFace(k_low(i, :)", zGridFace(k_low(1, :), c(1))
+print*, "HK zGridFace(k_up(i, :)", zGridFace(k_up(1, :), c(1))
+
+print*, "HK zGridCenter(k_low(i, :)", zGridCenter(k_low(1, :), c(1))
+print*, "HK zGridCenter(k_up(i, :)", zGridCenter(k_up(1, :), c(1))
+
    fdata = 0.0_r8
    do i = 1, n
       where (istatus == 0)
@@ -4700,6 +4714,9 @@ select case (ztypeout)
          zout(e) = missing_r8
       endif
    enddo
+
+print*, "HK zin(:) ", zin(:)
+print*, "HK zout(:)", zout(:)
 
    if (debug > 9 .and. do_output()) then
       write(string2,'("zout_in_height [m] for member 1:",F10.2)') zout(1)
@@ -5324,6 +5341,8 @@ lon  = llv(1)
 lat  = llv(2)
 vert = llv(3)
 verttype = nint(query_location(loc))
+
+print*, "HK verttype", verttype
 
 ! these first 3 types need no cell/edge location information.
 if ((debug > 9) .and. do_output()) then
