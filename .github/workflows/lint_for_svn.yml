@@ -16,10 +16,44 @@ jobs:
       id: changed-files
       uses: tj-actions/changed-files@v34
 
-    - name: Run script on changed files
+    - name: Generate and run script on changed files
       run: |
-        # Save the script to a file
-        echo '$(cat check_lines.sh)' > check_lines.sh
+        # Generate the check_lines.sh script
+        cat << 'EOF' > check_lines.sh
+        #!/bin/bash
+
+        # List of lines to check
+        lines_to_check=(
+          "DART \$Id\$"
+          "% <next few lines under version control, do not edit>"
+          "% \$URL\$"
+          "% \$Revision\$"
+          "% \$Date\$"
+        )
+
+        # Function to check if any of the lines are in the file
+        check_lines_in_file() {
+          local file=\$1
+          for line in "\${lines_to_check[@]}"; do
+            if grep -qF "\$line" "\$file"; then
+              echo "Found '\$line' in \$file"
+              return 0
+            fi
+          done
+          return 1
+        }
+
+        # Iterate over the changed files
+        for file in "\$@"; do
+          if check_lines_in_file "\$file"; then
+            echo "One or more lines found in \$file"
+          else
+            echo "No lines found in \$file"
+          fi
+        done
+        EOF
+
+        # Make the script executable
         chmod +x check_lines.sh
 
         # Run the script on each changed file
