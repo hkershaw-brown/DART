@@ -1,3 +1,6 @@
+
+% Hello helen
+
 function oned_model_inf
 %% ONED_MODEL_INF simple ensemble data assimilation example.
 %
@@ -42,7 +45,6 @@ function oned_model_inf
 % by UCAR, "as is", without charge, subject to all terms of use at
 % http://www.image.ucar.edu/DAReS/DART/DART_download
 %
-% DART $Id$
 
 help oned_model_inf
 
