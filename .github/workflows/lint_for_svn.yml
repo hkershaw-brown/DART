@@ -33,32 +33,37 @@ jobs:
 
         # Function to check if any of the lines are in the file
         check_lines_in_file() {
-          local file=\$1
-          for line in "\${lines_to_check[@]}"; do
+        local file=\$1
+        for line in "\${lines_to_check[@]}"; do
             if grep -qF "\$line" "\$file"; then
-              echo "Found '\$line' in \$file"
-              return 0
+            echo "Found '\$line' in \$file"
+            return 0
             fi
-          done
-          return 1
+        done
+        return 1
         }
 
         # Iterate over the changed files
+        found_files=()
         for file in "\$@"; do
-          if check_lines_in_file "\$file"; then
-            echo "One or more lines found in \$file"
-          else
-            echo "No lines found in \$file"
-          fi
+        if check_lines_in_file "\$file"; then
+            found_files+=("\$file")
+        fi
         done
+
+        if [ \${#found_files[@]} -ne 0 ]; then
+        echo "The following files contain the specified lines:"
+        for file in "\${found_files[@]}"; do
+            echo "\$file"
+        done
+        exit 1
+        else
+        echo "No lines found in any of the changed files."
+        fi
         EOF
 
         # Make the script executable
         chmod +x check_lines.sh
-        echo "Here is the script"
-        cat check_lines.sh
 
         # Run the script on each changed file
-        for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-          ./check_lines.sh "$file"
-        done
+        ./check_lines.sh ${{ steps.changed-files.outputs.all_changed_files }}
