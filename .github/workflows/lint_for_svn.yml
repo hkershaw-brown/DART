@@ -19,7 +19,7 @@ jobs:
     - name: Generate and run script on changed files
       run: |
         # Generate the check_lines.sh script
-        cat << 'EOF' > check_lines.sh
+        cat << EOF > check_lines.sh
         #!/bin/bash
 
         # List of lines to check
