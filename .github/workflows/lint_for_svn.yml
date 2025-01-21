@@ -35,10 +35,10 @@ jobs:
         check_lines_in_file() {
         local file=\$1
         for line in "\${lines_to_check[@]}"; do
-            if grep -qF "\$line" "\$file"; then
-                echo "Found '\$line' in \$file"
+          if grep -qF "\$line" "\$file"; then
+            echo "Found '\$line' in \$file"
             return 0
-            fi
+          fi
         done
         return 1
         }
@@ -46,22 +46,22 @@ jobs:
         # Iterate over the changed files
         found_files=()
         for file in "\$@"; do
-            if [[ "\$file" == ".github/workflows/lint_for_svn.yml" ]]; then
-                continue
-                fi
-            if check_lines_in_file "\$file"; then
-                found_files+=("\$file")
-            fi
+          if [[ "\$file" == ".github/workflows/lint_for_svn.yml" ]]; then
+            continue
+          fi
+          if check_lines_in_file "\$file"; then
+            found_files+=("\$file")
+          fi
         done
 
         if [ \${#found_files[@]} -ne 0 ]; then
             echo "The following files contain the specified lines:"
             for file in "\${found_files[@]}"; do
-                echo "\$file"
+              echo "\$file"
             done
             exit 1
             else
-            echo "No lines found in any of the changed files."
+              echo "No lines found in any of the changed files."
             fi
         EOF
 
