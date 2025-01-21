@@ -66,6 +66,7 @@ jobs:
         EOF
 
         # Make the script executable
+        cat check_lines.sh
         chmod +x check_lines.sh
 
         # Run the script on each changed file
