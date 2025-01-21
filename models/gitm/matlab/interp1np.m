@@ -1,3 +1,5 @@
+more edits
+
 function ln = interp1np(t,l,tn)
 % Linear lon interpolation and EXTRAPOLATION (enabled by default) (uses interp1 calling convention)
 % FOR PROGRADE ORBITS ONLY!! (like can't use this for subsolar point, since it moves in decreasing longitude direction as viewed in Earth-fixed frame!)
