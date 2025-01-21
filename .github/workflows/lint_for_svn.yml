@@ -55,6 +55,7 @@ jobs:
 
         # Make the script executable
         chmod +x check_lines.sh
+        echo "Here is the script"
         cat check_lines.sh
 
         # Run the script on each changed file
