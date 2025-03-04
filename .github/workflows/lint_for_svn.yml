@@ -25,6 +25,7 @@ jobs:
         # List of lines to check
         lines_to_check=(
           "DART \\\$Id\\\$"
+          "\\\$Id\\\$"
           "<next few lines under version control, do not edit>"
           "\\\$URL\\\$"
           "\\\$Revision\\\$"
