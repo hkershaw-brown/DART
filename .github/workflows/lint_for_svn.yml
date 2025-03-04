@@ -67,6 +67,7 @@ jobs:
 
         # Make the script executable
         chmod +x check_lines.sh
-
+        cat check_lines.sh
+ 
         # Run the script on each changed file
         ./check_lines.sh ${{ steps.changed-files.outputs.all_changed_files }}
