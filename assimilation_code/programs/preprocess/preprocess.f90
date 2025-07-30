@@ -607,21 +607,21 @@ ITEMS: do i = 1, NUM_SECTIONS
 
    ! Insert the code for this ITEM from each requested obs_def 'modules'
    do j = 1, num_obs_type_files
-      if (.not. file_has_usercode(j)) then
-         if (i == MODULE_ITEM) then
-            call write_separator_line(obs_def_out_unit)
-            write(obs_def_out_unit, '(2A)') &
-               '!No module code needed for ', trim(obs_type_files(j))
-            call write_separator_line(obs_def_out_unit)
-         endif
+      !if (.not. file_has_usercode(j)) then
+         !if (i == MODULE_ITEM) then
+         !   call write_separator_line(obs_def_out_unit)
+         !   write(obs_def_out_unit, '(2A)') &
+         !      '!No module code needed for ', trim(obs_type_files(j))
+         !   call write_separator_line(obs_def_out_unit)
+         !endif
          !if (i == USE_ITEM) then
          !   call write_separator_line(obs_def_out_unit)
          !   write(obs_def_out_unit, '(2A)') &
          !      '!No use statements needed for ', trim(obs_type_files(j))
          !   call write_separator_line(obs_def_out_unit)
          !endif
-         cycle
-      endif
+         !cycle
+      !endif
 
       ! Since there might someday be a lot of these, 
       ! open and close them each time needed
