@@ -70,7 +70,7 @@ double precision   :: start !< for timing
 
 ! Default values
 integer  :: my_num_obs  = 100 !< number of observations my processor owns
-integer  :: obs_to_assimilate = 1  !< number of observations being assimilated
+integer  :: obs_to_assimilate = 1000  !< number of observations being assimilated
 integer  :: num_repeats = 1 !< how many times to run get_close_obs
 integer  :: lon_start   = 0 !< longitude boundary
 integer  :: lon_end     = 359 !< longitude boundary
