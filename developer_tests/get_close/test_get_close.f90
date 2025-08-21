@@ -65,13 +65,12 @@ integer               :: which_vert !< vertical location - ignoring this for now
 real(r8)              :: lon !< longitude
 real(r8)              :: lat !< latitude
 
-double precision   :: start !< for timing
+double precision   :: start, finish !< for timing
 
 
 ! Default values
-integer  :: my_num_obs  = 100 !< number of observations my processor owns
+integer  :: my_num_state  = 100 !< number of observations my processor owns
 integer  :: obs_to_assimilate = 1000  !< number of observations being assimilated
-integer  :: num_repeats = 1 !< how many times to run get_close_obs
 integer  :: lon_start   = 0 !< longitude boundary
 integer  :: lon_end     = 359 !< longitude boundary
 integer  :: lat_start   = -80 !< latitude boundary
@@ -80,19 +79,31 @@ real(r8) :: cutoff      = 0.15 !< cutoff in radians
 
 call initialize_mpi_utilities('test_get_close') ! only have mpi for mpi_wtime
 
-! Parse command line argument for my_num_obs (first argument)
+! Parse command line argument for my_num_state (first argument)
 call get_command_argument(1, arg_val, status=stat)
 if (stat == 0) then
-   read(arg_val, *, iostat=stat) my_num_obs
+   read(arg_val, *, iostat=stat) my_num_state
    if (stat /= 0) then
-      if (my_task_id() == 0) print *, 'Invalid my_num_obs argument, using default:', my_num_obs
+      if (my_task_id() == 0) print *, 'Invalid my_num_state argument, using default:', my_num_state
    endif
 else
-   if (my_task_id() == 0) print *, 'No my_num_obs argument provided, using default:', my_num_obs
+   if (my_task_id() == 0) print *, 'No my_num_state argument provided, using default:', my_num_state
+endif
+
+! Parse command line argument for obs_to_assimilate (second argument)
+call get_command_argument(2, arg_val, status=stat)
+if (stat == 0) then
+   read(arg_val, *, iostat=stat) obs_to_assimilate
+   if (stat /= 0) then
+      if (my_task_id() == 0) print *, 'Invalid obs_to_assimilate argument, using default:', obs_to_assimilate
+   endif
+else
+   if (my_task_id() == 0) print *, 'No obs_to_assimilate argument provided, using default:', obs_to_assimilate
 endif
 
 if (my_task_id() == 0) then
-   print*, 'num_obs', my_num_obs
+   print*, 'num_obs', my_num_state
+   print*, 'obs_to_assimilate', obs_to_assimilate
    print*, 'lon_start', lon_start
    print*, 'lon_end', lon_end
    print*, 'lat_start', lat_start
@@ -116,11 +127,11 @@ which_vert = VERTISUNDEF
 vert_loc = 0
 
 ! set up arrays
-allocate(my_obs_loc(my_num_obs), my_obs_kind(my_num_obs), my_obs_type(my_num_obs))
-allocate(close_obs_dist(my_num_obs), close_obs_ind(my_num_obs))
+allocate(my_obs_loc(my_num_state), my_obs_kind(my_num_state), my_obs_type(my_num_state))
+allocate(close_obs_dist(my_num_state), close_obs_ind(my_num_state))
 
 ! fill observation locations
-do i = 1, my_num_obs
+do i = 1, my_num_state
    x = random_uniform(r)
    y = random_uniform(r)
    z = random_uniform(r)
@@ -130,31 +141,29 @@ do i = 1, my_num_obs
    my_obs_kind(i) = 1
 enddo
 
-start = mpi_wtime()
 base_obs_type = 1   ! guaranteed to exist
 
-do i = 1, num_repeats
+! set up close_obs structure
+! cufoff_list is multiple radii
+!call get_close_init(gc_gc, my_num_state, 2.0_r8*cutoff, my_state_loc, 2.0_r8*cutoff_list)
+call get_close_init(gc_obs, my_num_state, 2.0_r8*cutoff, my_obs_loc)
 
-   ! set up close_obs structure
-   ! cufoff_list is multiple radii
-   !call get_close_init(gc_gc, my_num_obs, 2.0_r8*cutoff, my_state_loc, 2.0_r8*cutoff_list)
-   call get_close_init(gc_obs, my_num_obs, 2.0_r8*cutoff, my_obs_loc)
-
-   do obs = 1, obs_to_assimilate
-     ! Note filter assim caches results if (obs location == previous obs location) if cutoff_list is not used
-     call get_close_obs(gc_obs, base_obs_loc, base_obs_type, my_obs_loc, &
-                     my_obs_kind, my_obs_type, num_close_obs, close_obs_ind)
-   enddo
-
-   call get_close_destroy(gc_obs) ! destroy structure
-
+start = mpi_wtime()
+do obs = 1, obs_to_assimilate
+  ! Note filter assim caches results if (obs location == previous obs location) if cutoff_list is not used
+  call get_close_obs(gc_obs, base_obs_loc, base_obs_type, my_obs_loc, &
+                  my_obs_kind, my_obs_type, num_close_obs, close_obs_ind)
 enddo
+finish = mpi_wtime()
+
+call get_close_destroy(gc_obs) ! destroy structure
+
 
 if(my_task_id()==0) then
-   print*, 'Time for ', num_repeats, 'repeats  of get_close_obs for ', obs_to_assimilate, &
-            'assimilation steps', mpi_wtime() - start
-   print*, 'Time per get_close_obs', (mpi_wtime() - start) / num_repeats
-   write(0,*) my_num_obs, (mpi_wtime() - start) / num_repeats
+   print*, 'Time for  get_close_obs for ', obs_to_assimilate, &
+            'assimilation steps', finish - start
+   print*, 'Time', finish - start
+   write(0,*) obs_to_assimilate, my_num_state, finish - start
 endif
 
 
