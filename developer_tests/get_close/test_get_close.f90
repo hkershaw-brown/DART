@@ -43,6 +43,9 @@ use mpi
 
 implicit none
 
+integer :: arg_count, arg_len, stat
+character(len=32) :: arg_val
+
 type(get_close_type)              :: gc_obs
 type(location_type)               :: base_obs_loc
 type(location_type), allocatable  :: my_obs_loc(:)
@@ -61,44 +64,32 @@ real(r8)              :: vert_loc !< vertical location - ignoring this for now
 integer               :: which_vert !< vertical location - ignoring this for now
 real(r8)              :: lon !< longitude
 real(r8)              :: lat !< latitude
-integer               :: f1 !< file handle
 
 double precision   :: start !< for timing
-character(len=129) :: close_obs_index_file !< for output checking
 
-integer :: iunit !< file handle for input.nml
-integer :: io !< status for namelist read
 
-! namelist with default values
+! Default values
 integer  :: my_num_obs  = 100 !< number of observations my processor owns
 integer  :: obs_to_assimilate = 1  !< number of observations being assimilated
 integer  :: num_repeats = 1 !< how many times to run get_close_obs
 integer  :: lon_start   = 0 !< longitude boundary
 integer  :: lon_end     = 359 !< longitude boundary
-integer  :: lat_start   = -80 !< lattitude boundary
-integer  :: lat_end     = 80 !< lattitude boundary
+integer  :: lat_start   = -80 !< latitude boundary
+integer  :: lat_end     = 80 !< latitude boundary
 real(r8) :: cutoff      = 0.15 !< cutoff in radians 
-
-! cutoff is in radians; for the earth, 0.05 is about 300 km. 
-! cutoff is defined to be the half-width of the localization radius,
-! so 0.05 radians for cutoff is about an 600 km effective
-! localization radius, where the influence of an obs decreases
-! to ~half at 300 km, and ~0 at the edges of the area.
-! example cutoffs:
-!  cam 0.15
-!  wrf 0.05
-!  mpas 0.1
-!  pop 0.2
-
-namelist /test_get_close_obs_nml/ my_num_obs, obs_to_assimilate, num_repeats, lon_start, lon_end, lat_start, lat_end, cutoff
 
 call initialize_mpi_utilities('test_get_close') ! only have mpi for mpi_wtime
 
-! Read the namelist entry
-call find_namelist_in_file("input.nml", "test_get_close_obs_nml", iunit)
-read(iunit, nml = test_get_close_obs_nml, iostat = io)
-call check_namelist_read(iunit, io, "test_get_close_obs_nml")
-
+! Parse command line argument for my_num_obs (first argument)
+call get_command_argument(1, arg_val, status=stat)
+if (stat == 0) then
+   read(arg_val, *, iostat=stat) my_num_obs
+   if (stat /= 0) then
+      if (my_task_id() == 0) print *, 'Invalid my_num_obs argument, using default:', my_num_obs
+   endif
+else
+   if (my_task_id() == 0) print *, 'No my_num_obs argument provided, using default:', my_num_obs
+endif
 
 if (my_task_id() == 0) then
    print*, 'num_obs', my_num_obs
@@ -163,16 +154,9 @@ if(my_task_id()==0) then
    print*, 'Time for ', num_repeats, 'repeats  of get_close_obs for ', obs_to_assimilate, &
             'assimilation steps', mpi_wtime() - start
    print*, 'Time per get_close_obs', (mpi_wtime() - start) / num_repeats
+   write(0,*) my_num_obs, (mpi_wtime() - start) / num_repeats
 endif
 
-! dump results
-write(close_obs_index_file, '(A,i4.4, A)') 'close_obs_ind_', my_task_id(), '.out'
-f1 = open_file(close_obs_index_file, action='write')
-write(f1,'(A,i4)') 'num close obs', num_close_obs 
-do i = 1, num_close_obs
-  write(f1, *) close_obs_ind(i), close_obs_dist(i)
-enddo
-close(f1)
 
 deallocate(my_obs_loc, my_obs_kind, my_obs_type, close_obs_dist, close_obs_ind)
 
