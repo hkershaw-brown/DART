@@ -152,8 +152,7 @@ do i = 1, num_repeats
    do obs = 1, obs_to_assimilate
      ! Note filter assim caches results if (obs location == previous obs location) if cutoff_list is not used
      call get_close_obs(gc_obs, base_obs_loc, base_obs_type, my_obs_loc, &
-                     my_obs_kind, my_obs_type, num_close_obs, close_obs_ind,&
-                     close_obs_dist) 
+                     my_obs_kind, my_obs_type, num_close_obs, close_obs_ind)
    enddo
 
    call get_close_destroy(gc_obs) ! destroy structure

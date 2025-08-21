@@ -1,5 +1,5 @@
 &test_get_close_obs_nml
-  my_num_obs = 1000000
+  my_num_obs = 832388
   obs_to_assimilate = 10000
 /
 
