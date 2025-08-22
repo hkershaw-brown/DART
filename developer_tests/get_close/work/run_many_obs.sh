@@ -1,6 +1,17 @@
 #!/bin/bash
 # Script to run test_get_close with different my_num_state values
 
+# Derecho compute node
+#hkershaw@dec2443:/glade/derecho/scratch/hkershaw/Perf/get_close/runs$ lscpu | egrep 'Model name|L1d|L2|L3'
+#Model name:                         AMD EPYC 7763 64-Core Processor
+#L1d cache:                          4 MiB (128 instances)
+#L2 cache:                           64 MiB (128 instances)
+#L3 cache:                           512 MiB (16 instances)
+#hkershaw@dec2443:/glade/derecho/scratch/hkershaw/Perf/get_close/runs$ getconf PAGESIZE
+#4096
+
+
+
 # List of my_num_state values to test
 #state_list=(10 100 1000 10000 100000 1000000 10000000 20000000 40000000 80000000 100000000 200000000 400000000 800000000 1000000000)
 #state_list=(10 100 1000 10000 100000 1000000 10000000 20000000 40000000 80000000)
