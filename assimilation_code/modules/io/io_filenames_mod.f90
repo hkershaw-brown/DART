@@ -88,7 +88,9 @@ public :: io_filenames_init, &
           assert_restart_names_initialized, &
           file_info_dump, &
           combine_file_info, &
-          check_file_info_variable_shape
+          check_file_info_variable_shape, &
+          check_attribute_value_r4, &
+          check_attribute_value_r8
 
 ! Accessor functions:
 public :: get_restart_filename, &

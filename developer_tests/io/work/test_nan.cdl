@@ -1,0 +1,10 @@
+netcdf test_check_attribute_value_r4 {
+dimensions:
+	dim = 1 ;
+variables:
+	float testvar(dim) ;
+		testvar:missing_value = NaN ;
+data:
+
+ testvar = _ ;
+}
