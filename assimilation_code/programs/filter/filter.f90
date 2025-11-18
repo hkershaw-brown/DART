@@ -16,7 +16,7 @@ implicit none
 !----------------------------------------------------------------
 
 call initialize_mpi_utilities('Filter')
-
+stop
 call filter_main()
 
 call finalize_mpi_utilities()
