@@ -110,6 +110,12 @@ use         map_utils, only : latlon_to_ij, &
 use netcdf ! no get_char in netcdf_utilities_mod
 
 implicit none
+public :: test_get_wrf_domain
+   interface
+      module subroutine test_get_wrf_domain()
+      end subroutine
+   end interface
+
 private
 
 ! routines required by DART code - will be called from filter and other
@@ -1983,7 +1989,7 @@ integer :: i
 
 do i = 1, num_state_domains()
    if (wrf_dom(i) == state_id) then
-      get_wrf_domain = i
+      get_wrf_domain = mod(i, num_domains)
       return
    endif
 enddo
@@ -2977,11 +2983,14 @@ real(r8) :: long, lat, lev
 integer :: dom_id
 
 dom_id = get_wrf_domain(state_id)
+if (dom_id > 3) then
+   print*, 'dom_id = ', dom_id, ' state_id = ', state_id
+endif
 
-if ( on_u_grid(state_id, var_id) ) then
+if ( on_u_grid(dom_id, var_id) ) then
    long = grid(dom_id)%longitude_u(i,j)
    lat = grid(dom_id)%latitude_u(i,j)
-elseif ( on_v_grid(state_id, var_id) ) then
+elseif ( on_v_grid(dom_id, var_id) ) then
    long = grid(dom_id)%longitude_v(i,j)
    lat = grid(dom_id)%latitude_v(i,j)
 else ! on mass grid

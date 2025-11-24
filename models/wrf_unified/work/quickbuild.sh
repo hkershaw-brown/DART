@@ -23,6 +23,7 @@ perfect_model_obs
 
 serial_programs=(
 #radiance_obs_seq_to_netcdf  # needs rttov
+test_me
 fill_inflation_restart
 obs_diag
 obs_sequence_tool
