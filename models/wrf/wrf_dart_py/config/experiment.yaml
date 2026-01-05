@@ -1,0 +1,135 @@
+# Example WRF-DART Experiment Configuration
+
+experiment:
+  name: "wrf_dart_conus"
+  description: "CONUS domain WRF-DART cycling experiment"
+  start_date: "2017-04-27T06:00:00"
+  end_date: "2017-04-27T12:00:00"
+
+ensemble:
+  size: 50
+  
+assimilation:
+  window_hours: 6
+  num_domains: 1
+  adaptive_inflation: true
+  
+  # Variables to extract for analysis increment
+  increment_vars:
+    - U
+    - V
+    - W
+    - PH
+    - T
+    - MU
+    - QVAPOR
+    - QCLOUD
+    - QRAIN
+    - QICE
+    - QSNOW
+    - QGRAUP
+    - U10
+    - V10
+    - T2
+    - Q2
+    - PSFC
+
+paths:
+  # Base directory for experiment (supports environment variable expansion)
+  base_dir: "/glade/scratch/${USER}/wrf_dart"
+  
+  # Output directory for cycle results
+  output_dir: "${base_dir}/output"
+  
+  # Run directory for temporary files
+  run_dir: "${base_dir}/rundir"
+  
+  # DART installation directory
+  dart_dir: "/glade/work/${USER}/DART"
+  
+  # WRF installation directory (for executables)
+  wrf_dir: "/glade/work/${USER}/WRF"
+  
+  # Shell scripts directory (for legacy scripts if needed)
+  shell_scripts_dir: "${dart_dir}/models/wrf/shell_scripts"
+
+batch:
+  scheduler: "slurm"  # Options: slurm, pbs, lsf, mock
+  account: "P86850054"
+  email: "user@ucar.edu"
+  
+  # Initial condition preparation
+  ic_prep:
+    queue: "main"
+    nodes: 1
+    ntasks_per_node: 1
+    memory: "5GB"
+    walltime: "00:05:00"
+    
+  # DART filter assimilation
+  filter:
+    queue: "main"
+    nodes: 2
+    ntasks_per_node: 64
+    memory: "235GB"
+    walltime: "00:35:00"
+    priority: "regular"
+    
+  # Model advancement (WRF forecast)
+  advance:
+    queue: "main"
+    nodes: 1
+    ntasks_per_node: 128
+    memory: "235GB"
+    walltime: "00:20:00"
+    priority: "regular"
+    
+  # Observation diagnostics
+  diagnostics:
+    queue: "main"
+    nodes: 1
+    ntasks_per_node: 1
+    memory: "20GB"
+    walltime: "00:10:00"
+
+dart:
+  # DART executables
+  executables:
+    filter: "${dart_dir}/models/wrf/work/filter"
+    advance_time: "${dart_dir}/models/wrf/work/advance_time"
+    obs_diag: "${dart_dir}/assimilation_code/programs/obs_diag/work/obs_diag"
+    
+  # DART namelists
+  namelists:
+    filter: "${run_dir}/input.nml"
+
+wrf:
+  # WRF namelist template
+  namelist_template: "${wrf_dir}/run/namelist.input"
+  
+  # WRF executables
+  executables:
+    wrf: "${wrf_dir}/run/wrf.exe"
+    real: "${wrf_dir}/run/real.exe"
+
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "${run_dir}/wrf_dart.log"
+  
+advanced:
+  # Retry failed ensemble members
+  max_retries: 2
+  
+  # Timeout multiplier (relative to walltime)
+  timeout_multiplier: 1.1
+  
+  # Cleanup temporary files
+  cleanup_temp: true
+  
+  # Archive settings
+  archive:
+    enabled: true
+    compression: "gzip"
+    keep_priors: true
+    keep_logs: true

@@ -1,0 +1,59 @@
+# Default Configuration Values
+# These are merged with user configuration
+
+experiment:
+  description: ""
+
+ensemble:
+  size: 50
+
+assimilation:
+  window_hours: 6
+  num_domains: 1
+  adaptive_inflation: true
+  increment_vars:
+    - U
+    - V
+    - W
+    - PH
+    - T
+    - MU
+    - QVAPOR
+
+batch:
+  scheduler: "slurm"
+  email: null
+  
+  ic_prep:
+    queue: "main"
+    nodes: 1
+    ntasks_per_node: 1
+    memory: "5GB"
+    walltime: "00:05:00"
+    
+  filter:
+    priority: "regular"
+    
+  advance:
+    priority: "regular"
+    
+  diagnostics:
+    queue: "main"
+    nodes: 1
+    ntasks_per_node: 1
+    memory: "20GB"
+    walltime: "00:10:00"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+advanced:
+  max_retries: 2
+  timeout_multiplier: 1.1
+  cleanup_temp: true
+  archive:
+    enabled: true
+    compression: "gzip"
+    keep_priors: true
+    keep_logs: true
