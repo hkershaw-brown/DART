@@ -18,6 +18,7 @@ programs=(
 closest_member_tool
 filter
 model_mod_check
+model_mod_check_gc
 perfect_model_obs
 perturb_single_instance
 wakeup_filter

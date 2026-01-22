@@ -11,12 +11,14 @@ source "$DART"/build_templates/buildfunctions.sh
 
 MODEL=wrf_unified
 LOCATION=threed_sphere
+EXCLUDE=py-env
 
 programs=(
 closest_member_tool
 filter
 model_mod_check
 perfect_model_obs
+model_mod_check_gc
 )
 
 serial_programs=(
@@ -27,8 +29,6 @@ obs_sequence_tool
 )
 
 
-model_serial_programs=(
-)
 
 arguments "$@"
 

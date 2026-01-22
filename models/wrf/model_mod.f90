@@ -1058,17 +1058,16 @@ istatus(:) = 0
 fld(:,:) = missing_r8
 expected_obs(:) = missing_r8  !< array of obs_vals
 failedcopies(:) = 1
-
 ! If identity observation (obs_kind < 0), then no need to interpolate
 if ( obs_kind < 0 ) then
 
    ! identity observation -> -(obs_kind)=DART state vector index
    ! obtain state value directly from index
    expected_obs(:) = get_state(int(-1*obs_kind, i8), state_handle)
-
+   istatus(:) = 55 ! CANNOT_INTERPOLATE_QTY for testing against wrf_unified
+   return
 ! Otherwise, we need to do interpolation
 else
-
    ! Is this a valid kind to interpolate?  Set up in the static_init_model code,
    ! based on entries in wrf_state_vector namelist item.
    if (.not. in_state_vector(obs_kind)) then
@@ -1277,7 +1276,10 @@ else
                                  dy*( dxm*wrf%dom(id)%hgt(ul(1), ul(2)) + &
                                        dx*wrf%dom(id)%hgt(ur(1), ur(2)) )
          endif
-         if ( .not. height_diff_check(sfc_elev_max_diff,xyz_loc(3),mod_sfc_elevation) ) zloc = missing_r8
+         if ( .not. height_diff_check(sfc_elev_max_diff,xyz_loc(3),mod_sfc_elevation) ) then 
+            zloc = missing_r8
+            istatus(:) = 2
+         endif
       endif
 
    elseif(is_vertical(location,"UNDEFINED")) then
@@ -1310,6 +1312,15 @@ else
    !   return
    !endif
    ! ********* endof bail out early code ********
+
+select case (obs_kind)
+   case (QTY_10M_U_WIND_COMPONENT, QTY_10M_V_WIND_COMPONENT, QTY_SURFACE_ELEVATION, QTY_SKIN_TEMPERATURE, &
+         QTY_2M_TEMPERATURE, QTY_2M_SPECIFIC_HUMIDITY, QTY_SURFACE_PRESSURE, QTY_LANDMASK, QTY_SURFACE_TYPE)
+      ! These 2m and 10m variables are always at the surface
+      ! so override any zloc value to be 1.0
+      zloc(:) = 1.0_r8
+      surf_var = .true.
+end select
 
    do e = 1, ens_size
       if(zloc(e) == missing_r8) then
@@ -1466,7 +1477,6 @@ else
 
      ! This is for 3D wind fields -- surface winds later
       if(.not. surf_var) then
-
          if ( ( wrf%dom(id)%type_u >= 0 ) .and. ( wrf%dom(id)%type_v >= 0 ) ) then
 
             ! xloc and yloc are indices on mass-grid.  If we are on a periodic longitude domain,
@@ -1505,8 +1515,9 @@ else
                   call getCorners(i_u, j, id, wrf%dom(id)%type_u, ll, ul, lr, ur, rc )
                   if ( rc .ne. 0 ) &
                        print*, 'model_mod.f90 :: model_interpolate :: getCorners U rc = ', rc
-               
+               print*, 'corners U: ', ll, ul, lr, ur
                   call getCorners(i, j_v, id, wrf%dom(id)%type_v, ll_v, ul_v, lr_v, ur_v, rc )
+               print*, 'corners V: ', ll_v, ul_v, lr_v, ur_v
                   if ( rc .ne. 0 ) &
                        print*, 'model_mod.f90 :: model_interpolate :: getCorners V rc = ', rc
 
@@ -1611,7 +1622,6 @@ else
                x_ilr = get_state(ilr, state_handle)
 
                vgrid = dym*( dxm*x_ill + dx*x_ilr ) + dy*( dxm*x_iul + dx*x_iur )
-
                do e = 1, ens_size
                   call gridwind_to_truewind(xyz_loc(1), wrf%dom(id)%proj, ugrid(e), vgrid(e), &
                        utrue(e), vtrue(e))
@@ -1633,7 +1643,6 @@ else
 
    elseif (obs_kind == QTY_10M_U_WIND_COMPONENT .or. obs_kind == QTY_10M_V_WIND_COMPONENT) then
       if ( ( wrf%dom(id)%type_u10 >= 0 ) .and. ( wrf%dom(id)%type_v10 >= 0 ) ) then
-
    ! JPH -- should test this for doubly periodic
    ! JPH -- does not pass for SCM config, so just do it below
          ! Check to make sure retrieved integer gridpoints are in valid range
@@ -1655,9 +1664,8 @@ else
             x_iul = get_state(iul, state_handle)
             x_ilr = get_state(ilr, state_handle)
             x_iur = get_state(iur, state_handle)
-
             ugrid = dym*( dxm*x_ill + dx*x_ilr ) + dy*( dxm*x_iul + dx*x_iur )
-
+ 
             ! Interpolation for the V10 field
             ill = get_dart_vector_index(ll(1), ll(2), 1, domain_id(id), wrf%dom(id)%type_v10)
             iul = get_dart_vector_index(ul(1), ul(2), 1, domain_id(id), wrf%dom(id)%type_v10)
@@ -1668,7 +1676,6 @@ else
             x_iul = get_state(iul, state_handle)
             x_iur = get_state(iur, state_handle)
             x_ilr = get_state(ilr, state_handle)
-
             vgrid = dym*( dxm*x_ill + dx*x_ilr ) + dy*( dxm*x_iul + dx*x_iur )
 
             do e = 1, ens_size
@@ -1691,7 +1698,6 @@ else
    elseif ( obs_kind == QTY_TEMPERATURE ) then
       ! This is for 3D temperature field -- surface temps later
       if(.not. surf_var) then
-
         if ( wrf%dom(id)%type_t >= 0 ) then
 
            do uk = 1, count ! for the different ks
@@ -1718,7 +1724,6 @@ else
 
                  ! In terms of perturbation potential temperature
                  a1 = dym*( dxm*x_ill + dx*x_ilr ) + dy*( dxm*x_iul + dx*x_iur )
-
                  pres1 = model_pressure_t_distrib(ll(1), ll(2), uniquek(uk), id, state_handle, ens_size)
                  pres2 = model_pressure_t_distrib(lr(1), lr(2), uniquek(uk), id, state_handle, ens_size)
                  pres3 = model_pressure_t_distrib(ul(1), ul(2), uniquek(uk), id, state_handle, ens_size)
@@ -1733,7 +1738,6 @@ else
                        fld(1, e) = (ts0 + a1(e))*(pres(e)/ps0)**kappa
                     endif
                  enddo
-
                  ! Interpolation for T field at level k+1
                  ill = get_dart_vector_index(ll(1), ll(2), uniquek(uk)+1, domain_id(id), wrf%dom(id)%type_t)
                  iul = get_dart_vector_index(ul(1), ul(2), uniquek(uk)+1, domain_id(id), wrf%dom(id)%type_t)
@@ -1794,7 +1798,6 @@ else
    elseif ( obs_kind == QTY_POTENTIAL_TEMPERATURE ) then
       ! This is for 3D potential temperature field -- surface pot temps later
       if(.not. surf_var) then
-
          if ( wrf%dom(id)%type_t >= 0 ) then
 
             do uk = 1, count
@@ -1821,7 +1824,7 @@ else
 
                do e = 1, ens_size
                   if ( k(e) == uniquek(uk) ) then
-                     fld(1, e) = ts0 + dym*( dxm*x_ill(e) + dx*x_ilr(e)) + dy*( dxm*x_iul(e) + dx*x_iur(e) )
+                     fld(1, e) = dym*( dxm*x_ill(e) + dx*x_ilr(e)) + dy*( dxm*x_iul(e) + dx*x_iur(e) ) + ts0
                   endif
                enddo
    
@@ -1832,13 +1835,13 @@ else
                iur = get_dart_vector_index(ur(1), ur(2), uniquek(uk)+1, domain_id(id), wrf%dom(id)%type_t)
 
                x_ill = get_state(ill, state_handle)
-               x_ill = get_state(ill, state_handle)
+               x_iul = get_state(iul, state_handle)
                x_ilr = get_state(ilr, state_handle)
                x_iur = get_state(iur, state_handle)
 
                do e = 1, ens_size
                   if ( k(e) == uniquek(uk) ) then
-                    fld(2, e) = ts0 + dym*( dxm*x_ill(e) + dx*x_ilr(e) ) + dy*( dxm*x_iul(e) + dx*x_iur(e) )
+                    fld(2, e) = dym*( dxm*x_ill(e) + dx*x_ilr(e) ) + dy*( dxm*x_iul(e) + dx*x_iur(e) ) +ts0
                  endif
                enddo
              endif
@@ -1847,7 +1850,6 @@ else
 
       ! This is for surface potential temperature (TH2)
       else
-         
          if ( wrf%dom(id)%type_th2 >= 0 ) then
 
             call surface_interp_distrib(fld, wrf, id, i, j, obs_kind, wrf%dom(id)%type_th2, dxm, dx, dy, dym, ens_size, state_handle)
@@ -2056,6 +2058,8 @@ else
             !HK I am not sure what the type should be
             call surface_interp_distrib(fld, wrf, id, i, j, obs_kind, wrf%dom(id)%type_q2, dxm, dx, dy, dym, ens_size, state_handle)
             if (all(fld == missing_r8)) goto 200
+         else
+            goto 200 ! HK using goto 200 to follow existing code structure
          endif
       endif
 
@@ -2755,7 +2759,6 @@ else
          ! Adjust zloc for staggered ZNW grid (or W-grid, as compared to ZNU or M-grid)
          zloc = zloc + 0.5_r8
          k = max(1,int(zloc))  ! Only 1 value of k across the ensemble?
-
          deallocate(uniquek)
          ! Re-find the unique k values
          ksort = sort(k)
@@ -2775,7 +2778,6 @@ else
                uk = uk + 1
             endif
          enddo
-
          ! Check to make sure retrieved integer gridpoints are in valid range
          if ( boundsCheck( i, wrf%dom(id)%periodic_x, id, dim=1, type=wrf%dom(id)%type_gz ) .and. &
               boundsCheck( j, wrf%dom(id)%polar,      id, dim=2, type=wrf%dom(id)%type_gz ) .and. &
@@ -2796,12 +2798,12 @@ else
             x_iur = get_state(iur, state_handle)
             x_ilr = get_state(ilr, state_handle)
 
-            fld(1,:) = ( dym*( dxm*x_ill + dx*x_ilr ) + dy*( dxm*x_iul + dx*x_iur ) + &
-                       dym*( dxm*wrf%dom(id)%phb(ll(1), ll(2), k)   + &
-                             dx *wrf%dom(id)%phb(lr(1), lr(2), k) ) + &
-                       dy *( dxm*wrf%dom(id)%phb(ul(1), ul(2), k)   + &
-                             dx *wrf%dom(id)%phb(ur(1), ur(2), k) ) )  / gravity
-            
+           fld(1,:) = ( dym*( dxm*x_ill + dx*x_ilr ) + dy*( dxm*x_iul + dx*x_iur ) + &
+                       dym*( dxm*wrf%dom(id)%phb(ll(1), ll(2), k(1))   + &
+                             dx *wrf%dom(id)%phb(lr(1), lr(2), k(1)) ) + &
+                       dy *( dxm*wrf%dom(id)%phb(ul(1), ul(2), k(1))   + &
+                             dx *wrf%dom(id)%phb(ur(1), ur(2), k(1)) ) )  / gravity
+
             ! Interpolation for GZ field at level k+1
             ill = get_dart_vector_index(ll(1), ll(2), k(1)+1, domain_id(id), wrf%dom(id)%type_gz)
             iul = get_dart_vector_index(ul(1), ul(2), k(1)+1, domain_id(id), wrf%dom(id)%type_gz)
@@ -2813,12 +2815,12 @@ else
             x_iur = get_state(iur, state_handle)
             x_ilr = get_state(ilr, state_handle)
 
+
             fld(2, :) = ( dym*( dxm*x_ill + dx*x_ilr ) + dy*( dxm*x_iul + dx*x_iur ) + &
                        dym*( dxm*wrf%dom(id)%phb(ll(1), ll(2), k(1)+1)   + &
                              dx *wrf%dom(id)%phb(lr(1), lr(2), k(1)+1) ) + &
                        dy *( dxm*wrf%dom(id)%phb(ul(1), ul(2), k(1)+1)   + &
                              dx *wrf%dom(id)%phb(ur(1), ur(2), k(1)+1) ) )  / gravity
-   
          endif
       endif
 
@@ -2828,7 +2830,6 @@ else
    ! Surface Elevation has been added by Ryan Torn to accommodate altimeter observations.
    !   HGT is not in the dart_ind vector, so get it from wrf%dom(id)%hgt.
    else if( obs_kind == QTY_SURFACE_ELEVATION ) then
-
       if ( debug ) print*,'Getting surface elevation'
 
       ! Check to make sure retrieved integer gridpoints are in valid range
@@ -2949,7 +2950,6 @@ else
          ! If a surface variable, or a variable with no particular vertical location
          ! (basically the entire column) then no need to do any vertical interpolation
          if ( surf_var .or. is_vertical(location,"UNDEFINED") ) then
-
             !obs_val = fld(1)
              expected_obs(e) = fld(1,e) !HK
 
@@ -3163,6 +3163,7 @@ real(r8), allocatable, dimension(:) :: v_p !< only need the mean value
 real(r8)            :: pres1, pres2, pres3, pres4
 real(r8)            :: presa, presb, psurf
 real(r8)            :: hgt1, hgt2, hgt3, hgt4, hgta, hgtb
+real(r8) :: hgt_k, hgt_k1
 
 !HK
 real(r8) :: zk
@@ -3195,6 +3196,7 @@ endif
 ! we do need to convert the vertical.  start by
 ! extracting the location lat/lon/vert values.
 xyz_loc = get_location(location)
+print*, 'HK xyz_loc in vert convert: ', xyz_loc
 
 !if(my_task_id() == 0) write(10, *) xyz_loc
 
@@ -3208,7 +3210,7 @@ zout = missing_r8
 ! with the requested type as out.
 if (zin == missing_r8) then
    location = set_location(xyz_loc(1),xyz_loc(2),missing_r8,ztypeout)
-   !print*, 'missing rank', my_task_id()
+   print*, 'missing rank', my_task_id()
    return
 endif
 
@@ -3225,7 +3227,7 @@ endif
 ! but using requested vertical coord.  istatus already set above.
 if (id==0) then
    location = set_location(xyz_loc(1),xyz_loc(2),missing_r8,ztypeout)
-   !print*, 'can not find domain rank', my_task_id()
+   print*, 'can not find domain rank', my_task_id()
 
    return
 endif
@@ -3240,7 +3242,7 @@ call toGrid(yloc,j,dy,dym)
 if ( .not. boundsCheck( i, wrf%dom(id)%periodic_x, id, dim=1, type=wrf%dom(id)%type_t ) .or. &
      .not. boundsCheck( j, wrf%dom(id)%polar,      id, dim=2, type=wrf%dom(id)%type_t ) ) then
    location = set_location(xyz_loc(1),xyz_loc(2),missing_r8,ztypeout)
-   !print*, 'out of bounds rank', my_task_id()
+   print*, 'out of bounds rank', my_task_id()
 
    return
 endif
@@ -3279,10 +3281,8 @@ case (VERTISLEVEL)
    ! outgoing vertical coordinate should be 'pressure' in Pa
    ! -------------------------------------------------------
    case (VERTISPRESSURE)
-
       ! get neighboring mass level indices & compute weights to zin
       call toGrid(zin,k,dz,dzm)
-
       ! Check that integer height index is in valid range.  if not, bail to end
       if(.not. boundsCheck(k, .false., id, dim=3, type=wrf%dom(id)%type_t)) goto 100
 
@@ -3300,7 +3300,6 @@ case (VERTISLEVEL)
       presb = scalar(model_pressure_t_distrib(ur(1), ur(2), k+1,id, state_handle,1))
       pres4 = dzm*presa + dz*presb
       zout = dym*( dxm*pres1 + dx*pres2 ) + dy*( dxm*pres3 + dx*pres4 )
-
 
    ! -------------------------------------------------------
    ! incoming vertical coordinate is 'model level number'
@@ -3336,6 +3335,7 @@ case (VERTISLEVEL)
       hgtb = model_height_w_distrib(ur(1), ur(2), k+1,id,state_handle)
       hgt4 = dzm*hgta + dz*hgtb
       zout = dym*( dxm*hgt1 + dx*hgt2 ) + dy*( dxm*hgt3 + dx*hgt4 )
+
 
    ! -------------------------------------------------------
    ! incoming vertical coordinate is 'model level number'
@@ -6500,7 +6500,6 @@ if (istatus1 == 0) then
 
    ! Loop over potentially close subset of obs priors or state variables
    do k = 1, num_close
-
       t_ind = close_ind(k)
       local_loc   = locs(t_ind)
       local_which = nint(query_location(local_loc))
@@ -6517,9 +6516,11 @@ if (istatus1 == 0) then
       ! contains the correct vertical coordinate (filter_assim's call to get_state_meta_data).
       if (vertical_localization_on()) then
          if (local_which /= wrf%dom(1)%localization_coord) then
-            call vert_convert(state_handle, local_loc, loc_qtys(t_ind), istatus2)
+            print*, 'HK locs(t_ind) before', local_loc
+             call vert_convert(state_handle, local_loc, loc_qtys(t_ind), istatus2)
             ! Store the "new" location into the original full local array
-            locs(t_ind) = local_loc !HK Overwritting the location
+            print*, 'HK locs(t_ind)  after', local_loc
+            !locs(t_ind) = local_loc !HK Overwritting the location
          else
             istatus2 = 0
          endif
@@ -6530,6 +6531,8 @@ if (istatus1 == 0) then
          ! or vert_convert returned error (istatus2=1)
          local_array = get_location(local_loc)
          if (((vertical_localization_on()).and.(local_array(3) == missing_r8)).or.(istatus2 == 1)) then
+            print*, 'Hello Helen',local_loc%lon, local_loc%lat, local_loc%vloc, local_loc%which_vert, istatus2
+            stop
             dist(k) = 1.0e9
          else
             dist(k) = get_dist(base_loc, local_loc, base_type, loc_qtys(t_ind))
