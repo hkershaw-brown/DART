@@ -53,6 +53,7 @@ If adding a new model, add its short name mapping:
 declare -A MODEL_SHORT_NAMES
 MODEL_SHORT_NAMES["cam-fv"]="camfv"
 MODEL_SHORT_NAMES["wrf"]="wrf"
+MODEL_SHORT_NAMES["ROMS_rutgers"]="romsrutgers"
 MODEL_SHORT_NAMES["my-new-model"]="mynew"  # Add new mapping
 ```
 
@@ -76,7 +77,7 @@ MODELS=(cam-fv wrf)  # Default: cam-fv and wrf
 You can include any number of models (not limited to 2):
 
 ```bash
-MODELS=(cam-fv wrf lorenz_96)  # Three models
+MODELS=(cam-fv wrf ROMS_rutgers)  # Three models
 ```
 
 ### Model Short Names
@@ -86,6 +87,7 @@ Each model needs a short name for variable prefixes. These are defined in the `M
 ```bash
 MODEL_SHORT_NAMES["cam-fv"]="camfv"   # directory name -> short name
 MODEL_SHORT_NAMES["wrf"]="wrf"
+MODEL_SHORT_NAMES["ROMS_rutgers"]="romsrutgers"
 ```
 
 The short name should be:
@@ -174,8 +176,7 @@ model_config.sh**:
    ./quickbuild.sh
    ```
 
-The `assim_model_mod.f90` file is now **auto-generated** based on your configuration, so you don't need to manually edit it when adding new models.uickbuild.sh
-   ```
+The `assim_model_mod.f90` file is now **auto-generated** based on your configuration, so you don't need to manually edit it when adding new models
 
 ## Current Limitations
 
@@ -209,22 +210,6 @@ When implementing these features, consider:
    - Should observations in one model affect another?
    - How to handle different model resolutions?
 
-## Example: Building with cam-fv and wrf
-
-```bash
-cd $DART/models/xmodel/work
-
-# Default configuration includes cam-fv and wrf
-./quickbuild.sh
-
-# The build process will:
-# 1. Preprocess models/cam-fv/model_mod.f90 -> work/preprocessed/camfv_model_mod.f90
-# 2. Preprocess models/wrf/model_mod.f90 -> work/preprocessed/wrf_model_mod.f90
-# 3. Create .cppdefs with -DUSE_CAMFV -DUSE_WRF
-# 4. Compile all sources
-# 5. Build executables: filter, perfect_model_obs, etc.
-```
-
 ## Testing
 
 To verify the multi-model build:
@@ -232,53 +217,16 @@ To verify the multi-model build:
 1. Check that preprocessing creates renamed modules:
    ```bash
    ls work/preprocessed/
-   # Should show: camfv_model_mod.f90  wrf_model_mod.f90
+   # Should show: camfv_model_mod.f90  wrf_model_mod.f90  romsrutgers_model_mod.f90
    ```
 
-2. Check preprocessor definitions:
-   ```bash
-   cat work/.cppdefs
-   # Should show: -DUSE_CAMFV -DUSE_WRF
-   ```
-
-3. Run a test executable:
+2. Run a test executable:
    ```bash
    ./model_mod_check
    # Should initialize both models and report their sizes
    ```
 
-## Troubleshooting
-
-### Problem: "No short name mapping for model"
-
-**Solution**: Add the model to the `MODEL_SHORT_NAMES` array in quickbuild.sh
-
-### Problem: "Cannot find model_mod.f90"
-
-**Solution**: Verify the model name matches the directory name in `$DART/models/`
-
-### Problem: Compilation errors about undefined symbols
-
-**Solution**: 
-- Check that `.cppdefs` has the correct `-DUSE_*` flags
-- Verify assim_model_mod.f90 has `#ifdef` blocks for your models
-- Ensure preprocessed model_mod files were created
-
 ### Problem: Location module incompatibility
 
 **Solution**: All models must use the same location module. Check each model's requirements.
 
-## Future Enhancements
-
-Potential improvements:
-
-1. **Configuration file**: Move model selection to a namelist instead of editing quickbuild.sh
-2. **Automatic model detection**: Scan for available models
-3. **Model coupling**: Support for coupled model systems
-4. **Split states**: Support for models on different grids/domains
-5. **Selective assimilation**: Control which obs go to which models
-6. **Complete implementation**: Finish stub routines for full functionality
-
-## Contact
-
-For questions or issues with the multi-model system, contact the DART development team.

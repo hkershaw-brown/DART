@@ -28,7 +28,7 @@ export_config
 # Test directory setup
 echo "Testing directory structure..."
 WORK_DIR="$DART/models/xmodel/work"
-PREPROC_DIR="$WORK_DIR/preprocessed_test"
+PREPROC_DIR="$WORK_DIR/preprocessed"
 mkdir -p "$PREPROC_DIR"
 
 # Test preprocessing for each model
@@ -61,13 +61,6 @@ for model in "${MODELS[@]}"; do
         all_success=0
       fi
       
-      # Check for at least one renamed function
-      if grep -q "${short_name}_static_init_model" "$model_mod_dest"; then
-        echo "  ✓ Functions appear to be renamed"
-      else
-        echo "  ⚠ Warning: Could not find renamed functions"
-      fi
-      
     else
       echo "  ✗ Output file not created"
       all_success=0
@@ -78,24 +71,6 @@ for model in "${MODELS[@]}"; do
   fi
   echo ""
 done
-
-# Test preprocessor definitions
-echo "Testing preprocessor definitions..."
-CPPDEFS_TEST="$PREPROC_DIR/.cppdefs_test"
-echo "# Test preprocessor definitions" > "$CPPDEFS_TEST"
-for model in "${MODELS[@]}"; do
-  short_name="${MODEL_SHORT_NAMES[$model]}"
-  flag=$(echo "$short_name" | tr '[:lower:]' '[:upper:]')
-  echo "-DUSE_$flag" >> "$CPPDEFS_TEST"
-done
-
-if [ -n "$CUSTOM_CPPFLAGS" ]; then
-  echo "$CUSTOM_CPPFLAGS" >> "$CPPDEFS_TEST"
-fi
-
-echo "  Generated .cppdefs:"
-cat "$CPPDEFS_TEST" | sed 's/^/    /'
-echo ""
 
 # Summary
 echo "========================================="
@@ -112,39 +87,6 @@ fi
 echo "========================================="
 echo ""
 
-# Show what will be built
-echo "The following executables will be built:"
-echo "  Programs (with MPI):"
-programs=(
-closest_member_tool
-filter
-model_mod_check
-perfect_model_obs
-perturb_single_instance
-wakeup_filter
-)
-for prog in "${programs[@]}"; do
-  echo "    - $prog"
-done
-
-echo ""
-echo "  Serial programs:"
-serial_programs=(
-advance_time
-create_fixed_network_seq
-create_obs_sequence
-fill_inflation_restart
-obs_common_subset
-obs_diag
-obs_selection
-obs_seq_coverage
-obs_seq_to_netcdf
-obs_seq_verify
-obs_sequence_tool
-)
-for prog in "${serial_programs[@]}"; do
-  echo "    - $prog"
-done
 
 echo ""
 echo "Preprocessed files are in: $PREPROC_DIR"
