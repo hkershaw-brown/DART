@@ -1,0 +1,212 @@
+#!/usr/bin/env bash
+
+# DART Multi-Model Configuration Template
+# Copy this file and customize for your specific multi-model setup
+
+# =============================================================================
+# MODEL SELECTION
+# =============================================================================
+# List the models you want to include in this build
+# Model names must match directory names in $DART/models/
+# Examples:
+#   MODELS=(cam-fv wrf)                    # Two atmospheric models
+#   MODELS=(lorenz_96 lorenz_63)          # Two simple models
+#   MODELS=(cam-fv wrf lorenz_96)         # Three models
+# =============================================================================
+
+MODELS=(cam-fv wrf)
+
+# =============================================================================
+# MODEL SHORT NAMES
+# =============================================================================
+# Define short names for each model (used for variable prefixes)
+# Format: MODEL_SHORT_NAMES["directory-name"]="shortname"
+# 
+# Short names should be:
+#   - Lowercase
+#   - No hyphens or special characters
+#   - Unique across all models
+#
+# These will be used for:
+#   - Preprocessor flags: -DUSE_SHORTNAME (uppercase)
+#   - Module names: shortname_model_mod
+#   - Function names: shortname_function_name
+# =============================================================================
+
+declare -A MODEL_SHORT_NAMES
+
+# Atmospheric models
+MODEL_SHORT_NAMES["cam-fv"]="camfv"
+MODEL_SHORT_NAMES["cam-se"]="camse"
+MODEL_SHORT_NAMES["wrf"]="wrf"
+MODEL_SHORT_NAMES["mpas_atm"]="mpasatm"
+
+# Ocean models
+MODEL_SHORT_NAMES["MOM6"]="mom6"
+MODEL_SHORT_NAMES["POP"]="pop"
+MODEL_SHORT_NAMES["ROMS_rutgers"]="romsrutgers"
+MODEL_SHORT_NAMES["mpas_ocn"]="mpasocn"
+
+# Land models
+MODEL_SHORT_NAMES["clm"]="clm"
+MODEL_SHORT_NAMES["noah"]="noah"
+
+# Simple/test models
+MODEL_SHORT_NAMES["lorenz_63"]="l63"
+MODEL_SHORT_NAMES["lorenz_96"]="l96"
+MODEL_SHORT_NAMES["lorenz_04"]="l04"
+MODEL_SHORT_NAMES["lorenz_96_2scale"]="l96_2s"
+
+# Add your custom models here:
+# MODEL_SHORT_NAMES["my-model"]="mymod"
+
+# =============================================================================
+# LOCATION MODULE
+# =============================================================================
+# All models in a multi-model build must use the same location module
+# Common options:
+#   - oned               : 1D locations
+#   - threed_sphere      : 3D locations on a sphere (lat/lon/vertical)
+#   - threed_cartesian   : 3D Cartesian coordinates
+#   - channel            : Channel geometry
+# =============================================================================
+
+LOCATION=threed_sphere
+
+# =============================================================================
+# MODEL-SPECIFIC DEPENDENCIES
+# =============================================================================
+# Some models require additional source files from other directories
+# Add them here as needed
+#
+# Example: CAM-FV needs cam-common-code
+# =============================================================================
+
+declare -A MODEL_EXTRAS
+
+# CAM models need common code
+MODEL_EXTRAS["cam-fv"]="$DART/models/cam-common-code"
+MODEL_EXTRAS["cam-se"]="$DART/models/cam-common-code"
+
+# Add dependencies for your models here:
+# MODEL_EXTRAS["my-model"]="$DART/models/my-model-support $DART/other/path"
+
+# =============================================================================
+# BUILD CONFIGURATION
+# =============================================================================
+
+# Directories to exclude from automatic source file collection
+# (Space-separated list for each model if needed)
+declare -A MODEL_EXCLUDES
+
+# Example: WRF excludes some experimental directories
+MODEL_EXCLUDES["wrf"]="experiments"
+
+# Add exclusions for your models:
+# MODEL_EXCLUDES["my-model"]="tests documentation"
+
+# =============================================================================
+# ADVANCED OPTIONS
+# =============================================================================
+
+# Custom preprocessor flags (space-separated)
+# These will be added to .cppdefs in addition to the automatic USE_MODEL flags
+CUSTOM_CPPFLAGS=""
+
+# Example:
+# CUSTOM_CPPFLAGS="-DDEBUG_MODE -DVERBOSE_OUTPUT"
+
+# =============================================================================
+# VALIDATION
+# =============================================================================
+
+function validate_config() {
+  local errors=0
+  
+  echo "Validating configuration..."
+  
+  # Check that we have at least one model
+  if [ ${#MODELS[@]} -eq 0 ]; then
+    echo "ERROR: No models specified in MODELS array"
+    errors=$((errors + 1))
+  fi
+  
+  # Check that each model has a short name
+  for model in "${MODELS[@]}"; do
+    if [ -z "${MODEL_SHORT_NAMES[$model]}" ]; then
+      echo "ERROR: No short name defined for model '$model'"
+      echo "       Add it to MODEL_SHORT_NAMES array"
+      errors=$((errors + 1))
+    fi
+    
+    # Check that model directory exists
+    if [ ! -d "$DART/models/$model" ]; then
+      echo "ERROR: Model directory not found: $DART/models/$model"
+      errors=$((errors + 1))
+    fi
+    
+    # Check that model_mod.f90 exists
+    if [ ! -f "$DART/models/$model/model_mod.f90" ]; then
+      echo "ERROR: model_mod.f90 not found for model '$model'"
+      echo "       Expected at: $DART/models/$model/model_mod.f90"
+      errors=$((errors + 1))
+    fi
+  done
+  
+  # Check for duplicate short names
+  declare -A seen_short_names
+  for model in "${MODELS[@]}"; do
+    short="${MODEL_SHORT_NAMES[$model]}"
+    if [ -n "${seen_short_names[$short]}" ]; then
+      echo "ERROR: Duplicate short name '$short' used for models:"
+      echo "       ${seen_short_names[$short]} and $model"
+      errors=$((errors + 1))
+    fi
+    seen_short_names[$short]=$model
+  done
+  
+  if [ $errors -eq 0 ]; then
+    echo "Configuration is valid!"
+    return 0
+  else
+    echo "Configuration has $errors error(s)"
+    return 1
+  fi
+}
+
+# =============================================================================
+# CONFIGURATION SUMMARY
+# =============================================================================
+
+function print_config_summary() {
+  echo ""
+  echo "========================================="
+  echo "Multi-Model Build Configuration Summary"
+  echo "========================================="
+  echo ""
+  echo "Models to include (${#MODELS[@]}):"
+  for model in "${MODELS[@]}"; do
+    short="${MODEL_SHORT_NAMES[$model]}"
+    echo "  - $model (short name: $short)"
+    if [ -n "${MODEL_EXTRAS[$model]}" ]; then
+      echo "    Extras: ${MODEL_EXTRAS[$model]}"
+    fi
+    if [ -n "${MODEL_EXCLUDES[$model]}" ]; then
+      echo "    Excludes: ${MODEL_EXCLUDES[$model]}"
+    fi
+  done
+  echo ""
+  echo "Location module: $LOCATION"
+  if [ -n "$CUSTOM_CPPFLAGS" ]; then
+    echo "Custom preprocessor flags: $CUSTOM_CPPFLAGS"
+  fi
+  echo ""
+  echo "========================================="
+  echo ""
+}
+
+# Export configuration (called by quickbuild.sh)
+function export_config() {
+  validate_config || exit 1
+  print_config_summary
+}
