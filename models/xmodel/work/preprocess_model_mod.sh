@@ -36,9 +36,13 @@ cp "$MODEL_MOD_PATH" "$OUTPUT_PATH"
 sed -i.bak "s/^module model_mod$/module ${MODEL_NAME}_model_mod/g" "$OUTPUT_PATH"
 sed -i.bak "s/^end module model_mod$/end module ${MODEL_NAME}_model_mod/g" "$OUTPUT_PATH"
 
+# Replace namelist name: model_nml -> {model}_model_nml
+sed -i.bak "s/model_nml/${MODEL_NAME}_model_nml/g" "$OUTPUT_PATH"
+
 # Clean up backup files
 rm -f "${OUTPUT_PATH}.bak"
 
 echo "Preprocessing complete!"
 echo "Module renamed to: ${MODEL_NAME}_model_mod"
+echo "Namelist renamed to: ${MODEL_NAME}_model_nml"
 echo "All public routines prefixed with: ${MODEL_NAME}_"

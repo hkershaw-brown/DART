@@ -61,6 +61,14 @@ for model in "${MODELS[@]}"; do
         all_success=0
       fi
       
+      # Check for renamed namelist
+      if grep -q "${short_name}_model_nml" "$model_mod_dest"; then
+        echo "  ✓ Namelist renamed correctly"
+      else
+        echo "  ✗ Namelist rename failed"
+        all_success=0
+      fi
+      
     else
       echo "  ✗ Output file not created"
       all_success=0
