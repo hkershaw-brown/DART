@@ -34,26 +34,11 @@ MODEL=xmodel
 
 # Programs to build (standard DART programs)
 programs=(
-closest_member_tool
 filter
 model_mod_check
-perfect_model_obs
-perturb_single_instance
-wakeup_filter
 )
 
 serial_programs=(
-advance_time
-create_fixed_network_seq
-create_obs_sequence
-fill_inflation_restart
-obs_common_subset
-obs_diag
-obs_selection
-obs_seq_coverage
-obs_seq_to_netcdf
-obs_seq_verify
-obs_sequence_tool
 )
 
 # Model-specific programs can be included here if needed
@@ -132,14 +117,19 @@ cat "$CPPDEFS_FILE"
 echo ""
 
 # Copy the multi-model assim_model_mod to work directory
-cp "$DART/models/xmodel/assim_model_mod.f90" "$WORK_DIR/"
+cp "$DART/models/xmodel/assim_model_mod.F90" "$WORK_DIR/"
 
+#-----
+# I do not think this is needed
 # Add assim_model_mod.f90 from xmodel to EXTRA
-EXTRA="$EXTRA $WORK_DIR/assim_model_mod.f90"
+#EXTRA="$EXTRA $WORK_DIR/assim_model_mod.f90"
+#-----
 
-# For each model, add its directory to the source search
+# For each model, add only top-level .f90 files to avoid pulling in
+# subdirectory programs (which have their own main() functions and cause
+# duplicate symbol errors)
 for model in "${MODELS[@]}"; do
-  EXTRA="$EXTRA $DART/models/$model"
+  EXTRA="$EXTRA $DART/models/$model/*.f90"
 done
 
 echo "Building preprocess..."

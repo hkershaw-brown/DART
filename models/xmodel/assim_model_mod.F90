@@ -12,7 +12,7 @@
 
 module assim_model_mod
 
-use    types_mod, only : r8
+use    types_mod, only : r8, i8
 
 use time_manager_mod, only : time_type,                                            &
                              operator(<), operator(>), operator(+), operator(-),   &
@@ -198,9 +198,9 @@ subroutine get_state_meta_data(index_in, location, var_type)
 
 integer(i8),         intent(in)  :: index_in
 type(location_type), intent(out) :: location
-integer,             intent(out) :: var_type
+integer, optional,   intent(out) :: var_type
 
-integer :: model_idx, local_index
+integer(i8) :: model_idx, local_index
 
 ! Find which model owns this state index
 call find_model_for_index(index_in, model_idx, local_index)
@@ -343,7 +343,7 @@ subroutine find_model_for_index(index_in, model_idx, local_index)
 !----------------------------------------------------------------------
 
 integer(i8), intent(in)  :: index_in
-integer,     intent(out) :: model_idx
+integer(i8),     intent(out) :: model_idx
 integer(i8), intent(out) :: local_index
 
 integer :: i
@@ -411,7 +411,7 @@ end subroutine pert_model_copies
 
 !======================================================================
 
-subroutine get_close_obs(gc, base_loc, base_type, locs, kinds, num_close, &
+subroutine get_close_obs(gc, base_loc, base_type, locs, qtys, types, num_close, &
                          close_ind, distances, state_handle)
 !----------------------------------------------------------------------
 use location_mod, only : get_close_type
@@ -421,7 +421,8 @@ type(get_close_type),          intent(in)    :: gc
 type(location_type),           intent(inout) :: base_loc
 integer,                       intent(in)    :: base_type
 type(location_type),           intent(inout) :: locs(:)
-integer,                       intent(in)    :: kinds(:)
+integer,                       intent(in)    :: qtys(:)
+integer,                       intent(in)    :: types(:)
 integer,                       intent(out)   :: num_close
 integer,                       intent(out)   :: close_ind(:)
 real(r8),            optional, intent(out)   :: distances(:)
@@ -434,7 +435,7 @@ end subroutine get_close_obs
 
 !======================================================================
 
-subroutine get_close_state(gc, base_loc, base_type, locs, kinds, num_close, &
+subroutine get_close_state(gc, base_loc, base_type, locs, qtys, indx, num_close, &
                           close_ind, distances, state_handle)
 !----------------------------------------------------------------------
 use location_mod, only : get_close_type
@@ -444,7 +445,8 @@ type(get_close_type),          intent(in)    :: gc
 type(location_type),           intent(inout) :: base_loc
 integer,                       intent(in)    :: base_type
 type(location_type),           intent(inout) :: locs(:)
-integer,                       intent(in)    :: kinds(:)
+integer,                       intent(in)    :: qtys(:)
+integer(i8),                   intent(in)    :: indx(:)
 integer,                       intent(out)   :: num_close
 integer,                       intent(out)   :: close_ind(:)
 real(r8),            optional, intent(out)   :: distances(:)
@@ -482,11 +484,11 @@ subroutine convert_vertical_state(ens_handle, num, locs, loc_qtys, loc_indx, &
 use ensemble_manager_mod, only : ensemble_type
 type(ensemble_type), intent(in)    :: ens_handle
 integer,             intent(in)    :: num
-type(location_type), intent(inout) :: locs(:)
-integer,             intent(in)    :: loc_qtys(:)
-integer(i8),         intent(in)    :: loc_indx(:)
+type(location_type), intent(inout) :: locs(num)
+integer,             intent(in)    :: loc_qtys(num)
+integer(i8),         intent(in)    :: loc_indx(num)
 integer,             intent(in)    :: which_vert
-integer,             intent(out)   :: status(:)
+integer,             intent(out)   :: status
 
 call error_handler(E_ERR, 'convert_vertical_state', &
      'Multi-model vertical conversion not yet implemented', source, revision, revdate)
@@ -495,10 +497,10 @@ end subroutine convert_vertical_state
 
 !======================================================================
 
-subroutine read_model_time(filename, model_time)
+function read_model_time(filename)
 !----------------------------------------------------------------------
 character(len=*),  intent(in)  :: filename
-type(time_type),   intent(out) :: model_time
+type(time_type) :: read_model_time
 
 ! For now, read from first model
 #ifdef USE_CAMFV
@@ -507,21 +509,20 @@ call camfv_read_model_time(filename, model_time)
 call wrf_read_model_time(filename, model_time)
 #endif
 
-end subroutine read_model_time
+end function read_model_time
 
 !======================================================================
 
-subroutine write_model_time(ncid, model_time, adv_to_time)
+subroutine write_model_time(ncid, model_time)
 !----------------------------------------------------------------------
 integer,         intent(in) :: ncid
 type(time_type), intent(in) :: model_time
-type(time_type), intent(in) :: adv_to_time
 
 ! For now, write from first model
 #ifdef USE_CAMFV
-call camfv_write_model_time(ncid, model_time, adv_to_time)
+call camfv_write_model_time(ncid, model_time)
 #elif defined USE_WRF
-call wrf_write_model_time(ncid, model_time, adv_to_time)
+call wrf_write_model_time(ncid, model_time)
 #endif
 
 end subroutine write_model_time
