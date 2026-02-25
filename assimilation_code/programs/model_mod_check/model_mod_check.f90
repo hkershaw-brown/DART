@@ -42,7 +42,7 @@ use      io_filenames_mod, only : io_filenames_init, file_info_type,       &
 
 use distributed_state_mod, only : create_state_window, free_state_window
 
-use             model_mod, only : get_model_size, get_state_meta_data
+use       assim_model_mod, only : get_model_size, get_state_meta_data
 
 use  test_interpolate_mod, only : test_interpolate_single, &
                                   test_interpolate_range, &
