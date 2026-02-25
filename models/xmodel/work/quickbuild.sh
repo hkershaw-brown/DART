@@ -117,6 +117,8 @@ cat "$CPPDEFS_FILE"
 echo ""
 
 # Copy the multi-model assim_model_mod to work directory
+# This is because findsrc is only searching for .f90 in the 
+# model directories, vs. everything in work dir. 
 cp "$DART/models/xmodel/assim_model_mod.F90" "$WORK_DIR/"
 
 #-----
@@ -145,6 +147,11 @@ for model in "${MODELS[@]}"; do
     EXCLUDE="$EXCLUDE ${MODEL_EXCLUDES[$model]}"
   fi
 done
+
+# exclude assim_model_mod.f90 from assimilation_code/modules/assimilation since 
+# we are using the xmodel version
+EXCLUDE="$EXCLUDE $DART/assimilation_code/modules/assimilation/assim_model_mod.f90"
+
 
 # Build DART
 buildit
