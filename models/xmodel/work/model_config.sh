@@ -11,7 +11,7 @@
 # Examples:
 #   MODELS=(cam-fv wrf)                    # Two atmospheric models
 #   MODELS=(lorenz_96 lorenz_63)          # Two simple models
-#   MODELS=(cam-fv wrf lorenz_96)         # Three models
+#   MODELS=(cam-fv wrf ROMS_rutgers)       # Three models
 # =============================================================================
 
 MODELS=(cam-fv wrf ROMS_rutgers)
@@ -106,7 +106,8 @@ MODEL_EXCLUDES["wrf"]="experiments"
 # MODEL_EXCLUDES["my-model"]="tests documentation"
 
 # =============================================================================
-# ADVANCED OPTIONS
+# ADVANCED OPTIONS - HK I do no think cpps will work with the current
+#  way buildfunctions is setup. 
 # =============================================================================
 
 # Custom preprocessor flags (space-separated)

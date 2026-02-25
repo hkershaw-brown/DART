@@ -35,6 +35,7 @@ MODEL=xmodel
 # Programs to build (standard DART programs)
 programs=(
 filter
+model_mod_check
 )
 
 serial_programs=(
@@ -127,11 +128,6 @@ for model in "${MODELS[@]}"; do
     EXCLUDE="$EXCLUDE ${MODEL_EXCLUDES[$model]}"
   fi
 done
-
-# exclude assim_model_mod.f90 from assimilation_code/modules/assimilation since 
-# we are using the xmodel version
-#EXCLUDE="$EXCLUDE assimilation_code/modules/assimilation/assim_model_mod.f90"
-
 
 # Build DART
 buildit
