@@ -35,7 +35,6 @@ MODEL=xmodel
 # Programs to build (standard DART programs)
 programs=(
 filter
-model_mod_check
 )
 
 serial_programs=(
@@ -96,27 +95,8 @@ for model in "${MODELS[@]}"; do
   EXTRA="$EXTRA $model_mod_dest"
 done
 
-# Create .cppdefs file with preprocessor flags for enabled models
-CPPDEFS_FILE="$WORK_DIR/.cppdefs"
-echo "# Multi-model preprocessor definitions" > "$CPPDEFS_FILE"
-for model in "${MODELS[@]}"; do
-  short_name="${MODEL_SHORT_NAMES[$model]}"
-  # Convert to uppercase for preprocessor flag
-  flag=$(echo "$short_name" | tr '[:lower:]' '[:upper:]')
-  echo "-DUSE_$flag" >> "$CPPDEFS_FILE"
-done
-
-# Add any custom preprocessor flags
-if [ -n "$CUSTOM_CPPFLAGS" ]; then
-  echo "$CUSTOM_CPPFLAGS" >> "$CPPDEFS_FILE"
-fi
-
-echo ""
-echo "Preprocessor flags (from .cppdefs):"
-cat "$CPPDEFS_FILE"
-echo ""
-
 # Generate assim_model_mod.f90 for the selected models
+echo ""
 echo "Generating assim_model_mod.f90..."
 bash "$WORK_DIR/generate_assim_model_mod.sh" "$WORK_DIR/assim_model_mod.f90"
 
@@ -124,6 +104,8 @@ if [ $? -ne 0 ]; then
   echo "ERROR: Failed to generate assim_model_mod.f90"
   exit 1
 fi
+echo "Generated assim_model_mod.f90 for models: ${MODELS[@]}"
+echo ""
 
 # For each model, add only top-level .f90 files to avoid pulling in
 # subdirectory programs (which have their own main() functions and cause
@@ -148,7 +130,7 @@ done
 
 # exclude assim_model_mod.f90 from assimilation_code/modules/assimilation since 
 # we are using the xmodel version
-EXCLUDE="$EXCLUDE $DART/assimilation_code/modules/assimilation/assim_model_mod.f90"
+#EXCLUDE="$EXCLUDE assimilation_code/modules/assimilation/assim_model_mod.f90"
 
 
 # Build DART
