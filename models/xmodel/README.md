@@ -19,6 +19,7 @@ The `xmodel` directory provides infrastructure for compiling multiple DART model
    - All public routines: `routine_name` → `{model}_routine_name`
    
 2. The multi-model `assim_model_mod.f90`:
+   - **Auto-generated** from models listed in `model_config.sh`
    - Imports all model_mods with renamed interfaces
    - Tracks state vector indices for each model
    - Routes calls to the appropriate model_mod based on state index
@@ -26,6 +27,7 @@ The `xmodel` directory provides infrastructure for compiling multiple DART model
 
 3. The build system:
    - Preprocesses each model's model_mod.f90
+   - Auto-generates assim_model_mod.f90 for selected models
    - Sets preprocessor flags for enabled models
    - Compiles all sources together
 
@@ -123,13 +125,15 @@ models/xmodel/
 ├── README.md                 # This file
 ├── QUICKSTART.md            # Quick start guide (5 steps)
 ├── SUMMARY.md               # Implementation summary
-├── assim_model_mod.f90      # Multi-model assim_model_mod
+├── assim_model_mod.f90      # Template (overwritten during build)
 └── work/
     ├── quickbuild.sh         # Main build script
     ├── model_config.sh       # Model selection configuration
+    ├── generate_assim_model_mod.sh  # Auto-generates assim_model_mod.f90
     ├── preprocess_model_mod.sh  # Model_mod preprocessing script
     ├── verify_setup.sh       # Pre-build verification
     ├── show_config.sh        # Display current configuration
+    ├── assim_model_mod.f90   # Auto-generated during build
     └── preprocessed/         # Generated during build
         ├── camfv_model_mod.f90  # Preprocessed cam-fv model_mod
         └── wrf_model_mod.f90    # Preprocessed wrf model_mod
@@ -141,17 +145,17 @@ The `work/` directory contains several helper scripts:
 
 - **quickbuild.sh** - Main build script (builds all executables)
 - **model_config.sh** - Configuration file (edit this to select models)
+- **generate_assim_model_mod.sh** - Auto-generates assim_model_mod.f90 (called by quickbuild.sh)
+- **preprocess_model_mod.sh** - Preprocesses individual model_mod files (called by quickbuild.sh)
 - **verify_setup.sh** - Tests configuration before building
 - **show_config.sh** - Displays current configuration
-- **preprocess_model_mod.sh** - Preprocesses individual model_mod files (called by quickbuild.sh)
 
 ## Adding a New Model
 
 To add a new model to the multi-model system:
 
 1. **Verify compatibility**: Ensure the model uses a compatible location module
-
-2. **Add to quickbuild.sh**:
+model_config.sh**:
    ```bash
    # Add to MODELS array
    MODELS=(cam-fv wrf mynewmodel)
@@ -160,49 +164,17 @@ To add a new model to the multi-model system:
    MODEL_SHORT_NAMES["mynewmodel"]="mnm"
    
    # Add any extra dependencies if needed
-   case $model in
-     mynewmodel)
-       EXTRA="$EXTRA $DART/models/mynewmodel/support"
-       ;;
-   esac
+   MODEL_EXTRAS["mynewmodel"]="$DART/models/mynewmodel/support"
    ```
 
-3. **Add to assim_model_mod.f90**:
-   ```fortran
-   #ifdef USE_MNM
-   use mnm_model_mod, only : &
-       mnm_get_model_size => get_model_size, &
-       mnm_static_init_model => static_init_model, &
-       ! ... other interfaces
-   #endif
-   ```
-   
-   Then add initialization code in `static_init_assim_model()`:
-   ```fortran
-   #ifdef USE_MNM
-   num_models = num_models + 1
-   #endif
-   
-   ! ... later in the routine:
-   #ifdef USE_MNM
-   model_idx = model_idx + 1
-   model_names(model_idx) = 'mnm'
-   call mnm_static_init_model()
-   model_sizes(model_idx) = mnm_get_model_size()
-   model_offsets(model_idx) = total_model_size + 1
-   total_model_size = total_model_size + model_sizes(model_idx)
-   #endif
-   ```
-
-4. **Update stub routines**: Add handling for the new model in routines like:
-   - `get_state_meta_data()`
-   - `get_model_time_step()`
-   - Other model-specific routines
-
-5. **Build and test**:
+3. **Build**: That's it! The system will auto-generate assim_model_mod.f90
    ```bash
    cd $DART/models/xmodel/work
+   ./verify_setup.sh
    ./quickbuild.sh
+   ```
+
+The `assim_model_mod.f90` file is now **auto-generated** based on your configuration, so you don't need to manually edit it when adding new models.uickbuild.sh
    ```
 
 ## Current Limitations

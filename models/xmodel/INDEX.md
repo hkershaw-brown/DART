@@ -99,6 +99,7 @@ During the build, the following are created in `work/`:
 | verify_setup.sh | Test configuration | Before building |
 | show_config.sh | Display config | Check current settings |
 | model_config.sh | Configure models | Changing which models to include |
+| generate_assim_model_mod.sh | Auto-generate wrapper | Called automatically by quickbuild |
 | preprocess_model_mod.sh | Rename model_mod | Called automatically by quickbuild |
 
 ## Typical Workflow

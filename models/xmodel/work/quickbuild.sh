@@ -116,16 +116,14 @@ echo "Preprocessor flags (from .cppdefs):"
 cat "$CPPDEFS_FILE"
 echo ""
 
-# Copy the multi-model assim_model_mod to work directory
-# This is because findsrc is only searching for .f90 in the 
-# model directories, vs. everything in work dir. 
-cp "$DART/models/xmodel/assim_model_mod.F90" "$WORK_DIR/"
+# Generate assim_model_mod.f90 for the selected models
+echo "Generating assim_model_mod.f90..."
+bash "$WORK_DIR/generate_assim_model_mod.sh" "$WORK_DIR/assim_model_mod.f90"
 
-#-----
-# I do not think this is needed
-# Add assim_model_mod.f90 from xmodel to EXTRA
-#EXTRA="$EXTRA $WORK_DIR/assim_model_mod.f90"
-#-----
+if [ $? -ne 0 ]; then
+  echo "ERROR: Failed to generate assim_model_mod.f90"
+  exit 1
+fi
 
 # For each model, add only top-level .f90 files to avoid pulling in
 # subdirectory programs (which have their own main() functions and cause

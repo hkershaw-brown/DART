@@ -27,12 +27,17 @@ models/xmodel/
    - All public routines get model-specific prefixes
    - Example: `static_init_model` → `camfv_static_init_model`
 
-3. **Conditional Compilation**
+3. **Auto-Generated Multi-Model Wrapper**
+   - `assim_model_mod.f90` is generated from `model_config.sh`
+   - No manual editing required when adding new models
+   - Automatically creates all necessary `#ifdef` blocks
+
+4. **Conditional Compilation**
    - Uses preprocessor directives (`#ifdef USE_CAMFV`, etc.)
    - Only enabled models are compiled
    - Preprocessor flags generated automatically from configuration
 
-4. **State Vector Management**
+5. **State Vector Management**
    - Combined state vector includes all models
    - Tracks offsets and sizes for each model
    - Routes function calls to appropriate model based on state index
@@ -58,6 +63,13 @@ MODELS=(lorenz_96 lorenz_63)
 # or
 MODELS=(cam-fv wrf lorenz_96)  # Three models
 ```
+
+Then rebuild:
+```bash
+./quickbuild.sh
+```
+
+The system automatically generates `assim_model_mod.f90` for whatever models you specify.
 
 **To Add a New Model:**
 
@@ -117,7 +129,8 @@ MODELS=(cam-fv wrf lorenz_96)
 LOCATION=threed_sphere
 ```
 
-### Current Status
+### Auto-generation of assim_model_mod.f90
+- ✅ Current Status
 
 **Implemented:**
 - ✅ Directory structure
