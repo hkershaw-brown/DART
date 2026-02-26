@@ -501,13 +501,13 @@ end subroutine adv_1step
 
 !======================================================================
 
-subroutine interpolate(state_handle, ens_size, location, obs_type, expected_obs, istatus)
+subroutine interpolate(state_handle, ens_size, location, qty, expected_obs, istatus)
 !----------------------------------------------------------------------
 use ensemble_manager_mod, only : ensemble_type
 integer,             intent(in) :: ens_size
 type(ensemble_type), intent(in) :: state_handle
 type(location_type), intent(in) :: location
-integer,             intent(in) :: obs_type
+integer,             intent(in) :: qty
 real(r8),           intent(out) :: expected_obs(ens_size)
 integer,            intent(out) :: istatus(ens_size)
 
