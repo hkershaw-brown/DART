@@ -74,6 +74,33 @@ MODEL_SHORT_NAMES["lorenz_96_2scale"]="l96_2s"
 LOCATION=threed_sphere
 
 # =============================================================================
+# OBSERVATION QUANTITY ROUTING
+# =============================================================================
+# Configure which model should handle which observation quantities (QTYs)
+# for the interpolate() routine.
+#
+# DEFAULT_INTERPOLATE_MODEL: Model to use when QTY is not explicitly mapped
+# MODEL_QTYS: Space-separated list of QTY names each model should handle
+#
+# QTY names come from obs_kind_mod (e.g., QTY_TEMPERATURE, QTY_U_WIND_COMPONENT)
+# Use the exact names as defined in assimilation_code/modules/observations/obs_kind_mod.f90
+# =============================================================================
+
+# Default model for unmapped quantities
+DEFAULT_INTERPOLATE_MODEL="camfv"
+
+declare -A MODEL_QTYS
+
+# Example: CAM-FV handles atmospheric quantities
+MODEL_QTYS["camfv"]="QTY_TEMPERATURE QTY_U_WIND_COMPONENT QTY_V_WIND_COMPONENT QTY_SURFACE_PRESSURE QTY_SPECIFIC_HUMIDITY QTY_PRESSURE"
+
+# Example: WRF handles additional atmospheric quantities
+MODEL_QTYS["wrf"]="QTY_VERTICAL_VELOCITY QTY_RAINWATER_MIXING_RATIO QTY_GRAUPEL_MIXING_RATIO"
+
+# Add your model's QTYs here:
+# MODEL_QTYS["my-model"]="QTY_SALINITY QTY_SEA_SURFACE_HEIGHT"
+
+# =============================================================================
 # MODEL-SPECIFIC DEPENDENCIES
 # =============================================================================
 # Some models require additional source files from other directories

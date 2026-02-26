@@ -95,6 +95,8 @@ use location_mod, only : location_type
 
 use state_structure_mod, only : get_num_domains
 
+use obs_kind_mod, only : get_num_quantities, get_index_for_quantity
+
 EOF
 
 # Generate use statements for each model
@@ -164,6 +166,10 @@ integer :: domain_to_model(MAX_DOMAINS)
 integer :: num_domains
 integer, allocatable :: model_domain_start(:)  ! First domain_id for each model
 integer, allocatable :: model_domain_count(:)  ! Number of domains for each model
+
+! QTY routing - maps observation quantity to model_idx for interpolate
+integer, allocatable :: qty_to_model(:)
+integer :: default_interp_model  ! Model index for unmapped quantities
 
 ! version controlled file description
 character(len=*), parameter :: source   = 'xmodel/assim_model_mod.f90'
@@ -274,7 +280,105 @@ enddo
 write(*, *) '==============================='
 write(*, *) ''
 
+! Initialize observation quantity routing for interpolate
+call init_qty_routing()
+
 end subroutine static_init_assim_model
+
+!======================================================================
+
+subroutine init_qty_routing()
+!----------------------------------------------------------------------
+! Initialize mapping from observation quantities to models
+! Based on configuration from model_config.sh
+!----------------------------------------------------------------------
+integer :: num_qtys, qty_index, model_idx
+integer :: i
+
+num_qtys = get_num_quantities()
+allocate(qty_to_model(num_qtys))
+
+! Initialize all to default model
+EOF
+
+# Determine default model index
+default_model_found=0
+default_idx=1
+for i in "${!MODELS[@]}"; do
+  model="${MODELS[$i]}"
+  short_name="${MODEL_SHORT_NAMES[$model]}"
+  idx=$((i + 1))
+  if [ "$short_name" == "$DEFAULT_INTERPOLATE_MODEL" ]; then
+    default_model_found=1
+    default_idx=$idx
+    break
+  fi
+done
+
+if [ $default_model_found -eq 0 ]; then
+  echo "WARNING: DEFAULT_INTERPOLATE_MODEL '$DEFAULT_INTERPOLATE_MODEL' not found in MODELS"
+  echo "         Using first model as default"
+  default_idx=1
+fi
+
+cat >> "$OUTPUT_FILE" <<EOF
+default_interp_model = ${default_idx}
+qty_to_model(:) = default_interp_model
+
+write(*, *) ''
+write(*, *) '=== QUANTITY TO MODEL ROUTING ==='
+write(*, *) 'Default interpolate model: ', trim(model_names(default_interp_model))
+write(*, *) ''
+
+EOF
+
+# Generate qty mapping for each model
+for model in "${MODELS[@]}"; do
+  short_name="${MODEL_SHORT_NAMES[$model]}"
+  qtys="${MODEL_QTYS[$short_name]}"
+  
+  if [ -z "$qtys" ]; then
+    continue  # Skip models with no explicit QTYs
+  fi
+  
+  # Get model index
+  model_idx=0
+  for i in "${!MODELS[@]}"; do
+    if [ "${MODELS[$i]}" == "$model" ]; then
+      model_idx=$((i + 1))
+      break
+    fi
+  done
+  
+  cat >> "$OUTPUT_FILE" <<EOF
+! Assign QTYs to model: ${short_name}
+write(*, *) 'Model ${short_name} handles:'
+EOF
+  
+  # Process each QTY for this model
+  for qty in $qtys; do
+    cat >> "$OUTPUT_FILE" <<EOF
+qty_index = get_index_for_quantity('${qty}')
+if (qty_index > 0 .and. qty_index <= num_qtys) then
+   qty_to_model(qty_index) = ${model_idx}
+   write(*, *) '  - ${qty}'
+else
+   call error_handler(E_MSG, 'init_qty_routing', &
+        'Unknown QTY: ${qty}', source, revision, revdate)
+endif
+EOF
+  done
+  
+  cat >> "$OUTPUT_FILE" <<EOF
+
+EOF
+done
+
+cat >> "$OUTPUT_FILE" <<'EOF'
+write(*, *) '====================================='
+write(*, *) ''
+
+end subroutine init_qty_routing
 
 !======================================================================
 
@@ -511,8 +615,48 @@ integer,             intent(in) :: qty
 real(r8),           intent(out) :: expected_obs(ens_size)
 integer,            intent(out) :: istatus(ens_size)
 
-call error_handler(E_ERR, 'interpolate', &
-     'Multi-model interpolation not yet implemented', source, revision, revdate)
+integer :: model_idx
+integer :: num_qtys
+
+num_qtys = get_num_quantities()
+
+! Determine which model should handle this quantity
+if (qty < 1 .or. qty > num_qtys) then
+   call error_handler(E_ERR, 'interpolate', 'Invalid quantity index', source, revision, revdate)
+endif
+
+model_idx = qty_to_model(qty)
+
+if (model_idx < 1 .or. model_idx > num_models) then
+   call error_handler(E_ERR, 'interpolate', 'Invalid model_idx from qty routing', source, revision, revdate)
+endif
+
+! Route to the appropriate model's interpolate
+EOF
+
+# Generate routing based on model_idx
+model_count=0
+for model in "${MODELS[@]}"; do
+  model_count=$((model_count + 1))
+  short_name="${MODEL_SHORT_NAMES[$model]}"
+  
+  if [ $model_count -eq 1 ]; then
+    cat >> "$OUTPUT_FILE" <<EOF
+if (model_idx == ${model_count}) then
+   call ${short_name}_model_interpolate(state_handle, ens_size, location, qty, expected_obs, istatus)
+EOF
+  else
+    cat >> "$OUTPUT_FILE" <<EOF
+else if (model_idx == ${model_count}) then
+   call ${short_name}_model_interpolate(state_handle, ens_size, location, qty, expected_obs, istatus)
+EOF
+  fi
+done
+
+cat >> "$OUTPUT_FILE" <<'EOF'
+else
+   call error_handler(E_ERR, 'interpolate', 'Invalid model_idx', source, revision, revdate)
+endif
 
 end subroutine interpolate
 
