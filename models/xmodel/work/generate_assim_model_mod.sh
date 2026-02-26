@@ -302,7 +302,6 @@ type(location_type), intent(out) :: location
 integer, optional,   intent(out) :: var_type
 
 integer :: model_idx, i
-integer(i8) :: local_index
 
 ! Find which model owns this state index
 model_idx = -1
@@ -310,7 +309,6 @@ do i = 1, num_models
    if (index_in >= model_offsets(i) .and. &
        index_in < model_offsets(i) + model_sizes(i)) then
       model_idx = i
-      local_index = index_in - model_offsets(i) + 1
       exit
    endif
 enddo
@@ -332,12 +330,12 @@ for model in "${MODELS[@]}"; do
   if [ $model_count -eq 1 ]; then
     cat >> "$OUTPUT_FILE" <<EOF
 if (model_idx == ${model_count}) then
-   call ${short_name}_get_state_meta_data(local_index, location, var_type)
+   call ${short_name}_get_state_meta_data(index_in, location, var_type)
 EOF
   else
     cat >> "$OUTPUT_FILE" <<EOF
 else if (model_idx == ${model_count}) then
-   call ${short_name}_get_state_meta_data(local_index, location, var_type)
+   call ${short_name}_get_state_meta_data(index_in, location, var_type)
 EOF
   fi
 done
