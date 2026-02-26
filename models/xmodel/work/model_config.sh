@@ -14,7 +14,7 @@
 #   MODELS=(cam-fv wrf ROMS_rutgers)       # Three models
 # =============================================================================
 
-MODELS=(cam-fv wrf ROMS_rutgers)
+MODELS=(cam-fv wrf)
 
 # =============================================================================
 # MODEL SHORT NAMES

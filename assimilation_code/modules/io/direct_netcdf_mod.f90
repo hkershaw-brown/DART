@@ -102,10 +102,8 @@ use io_filenames_mod,     only : get_restart_filename, inherit_copy_units, &
                                  netcdf_file_type, READ_COPY, WRITE_COPY, &
                                  noutput_state_variables
 
-use assim_model_mod,      only : get_model_size, read_model_time, write_model_time
-
-!>@todo FIXME : should move to assim_model_mod.f90
-use model_mod,            only : nc_write_model_atts
+use assim_model_mod,      only : get_model_size, read_model_time, write_model_time, &
+                                 nc_write_model_atts
 
 use typesizes
 
@@ -1014,7 +1012,7 @@ COPIES: do copy = 1, state_ens_handle%my_num_copies
          if (overwrite_time_in_output_file) then
             call get_copy_owner_index(state_ens_handle, copy, time_owner, time_owner_index)
             call get_ensemble_time(state_ens_handle, time_owner_index, dart_time)
-            call write_model_time(ncfile_out, dart_time)
+            call write_model_time(ncfile_out, dart_time, domain)
          endif
 
       else ! create and open file
@@ -1334,7 +1332,7 @@ COPIES : do c = 1, ens_size
             if (overwrite_time_in_output_file) then
                call get_copy_owner_index(state_ens_handle, my_copy, time_owner, time_owner_index)
                call get_ensemble_time(state_ens_handle, time_owner_index, dart_time)
-               call write_model_time(ncfile_out, dart_time)
+               call write_model_time(ncfile_out, dart_time, domain)
             endif
 
          else ! create and open output file
@@ -1750,7 +1748,7 @@ enddo
 ret = nf90_enddef(ncfile_out)
 call nc_check(ret, routine, 'nf90_enddef end define mode')
 
-call write_model_time(ncfile_out, dart_time)
+call write_model_time(ncfile_out, dart_time, dom_id)
 
 end function create_and_open_state_output
 
