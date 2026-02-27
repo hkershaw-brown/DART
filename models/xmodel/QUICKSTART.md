@@ -14,11 +14,27 @@ cd $DART/models/xmodel/work
 
 ### 2. Review the configuration
 
-Open `model_config.sh` and check the `MODELS` array:
+Open `model_config.sh` and check:
 
+**Which models to include:**
 ```bash
 # Default configuration
 MODELS=(cam-fv wrf)
+```
+
+**How observations are routed:**
+```bash
+# Default model for unmapped observation quantities
+DEFAULT_INTERPOLATE_MODEL="camfv"
+
+# Which quantities each model handles
+MODEL_QTYS["camfv"]="QTY_TEMPERATURE QTY_U_WIND_COMPONENT ..."
+MODEL_QTYS["wrf"]="QTY_VERTICAL_VELOCITY ..."
+```
+
+You can view the full configuration with:
+```bash
+./show_config.sh
 ```
 
 ### 3. Verify the setup
@@ -87,6 +103,29 @@ cp model_config.sh my_custom_config.sh
 ```
 
 Edit `my_custom_config.sh` to your needs, then modify `quickbuild.sh` to source it.
+
+## Configuring Observation Routing
+
+The system routes observations to models based on observation quantity (QTY). Configure this in `model_config.sh`:
+
+```bash
+# Default model for any unmapped quantities
+DEFAULT_INTERPOLATE_MODEL="camfv"
+
+# Assign specific quantities to each model
+declare -A MODEL_QTYS
+
+# Atmospheric model handles atmospheric quantities
+MODEL_QTYS["camfv"]="QTY_TEMPERATURE QTY_U_WIND_COMPONENT QTY_V_WIND_COMPONENT QTY_SURFACE_PRESSURE"
+
+# WRF handles hydrometeor quantities
+MODEL_QTYS["wrf"]="QTY_RAINWATER_MIXING_RATIO QTY_GRAUPEL_MIXING_RATIO"
+```
+
+**Key points:**
+- QTY names must match those in `obs_kind_mod.f90`
+- Quantities not explicitly mapped use the default model
+- The system prints the routing table during initialization
 
 ## Common Use Cases
 

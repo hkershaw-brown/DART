@@ -229,6 +229,22 @@ function print_config_summary() {
     echo "Custom preprocessor flags: $CUSTOM_CPPFLAGS"
   fi
   echo ""
+  echo "Observation quantity routing:"
+  echo "  Default interpolate model: $DEFAULT_INTERPOLATE_MODEL"
+  echo ""
+  echo "  Model-specific quantities:"
+  for model in "${MODELS[@]}"; do
+    short="${MODEL_SHORT_NAMES[$model]}"
+    qtys="${MODEL_QTYS[$short]}"
+    if [ -n "$qtys" ]; then
+      echo "    $short:"
+      # Print QTYs in a more readable format
+      for qty in $qtys; do
+        echo "      - $qty"
+      done
+    fi
+  done
+  echo ""
   echo "========================================="
   echo ""
 }

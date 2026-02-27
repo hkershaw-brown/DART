@@ -22,7 +22,11 @@ The `xmodel` directory provides infrastructure for compiling multiple DART model
    - **Auto-generated** from models listed in `model_config.sh`
    - Imports all model_mods with renamed interfaces
    - Tracks state vector indices for each model
-   - Routes calls to the appropriate model_mod based on state index
+   - **Automatically tracks domains** added by each model during initialization
+   - Routes calls to the appropriate model_mod based on:
+     - State vector index (for state-related functions)
+     - Domain ID (for file I/O operations)
+     - Observation quantity (for forward operator)
    - Combines outputs from multiple models
 
 3. The build system:
@@ -30,6 +34,17 @@ The `xmodel` directory provides infrastructure for compiling multiple DART model
    - Auto-generates assim_model_mod.f90 for selected models
    - Sets preprocessor flags for enabled models
    - Compiles all sources together
+
+4. **Domain Tracking** (automatic):
+   - Each model calls `add_domain()` during its `static_init_model()`
+   - The wrapper automatically tracks which domains belong to which model
+   - File I/O operations (`write_model_time`, `nc_write_model_atts`) route based on domain
+   - No manual domain registration required
+
+5. **Observation Routing** (configured):
+   - Map observation quantities (QTYs) to models in `model_config.sh`
+   - `interpolate()` automatically routes each observation to the correct model
+   - Supports default fallback model for unmapped quantities
 
 ## Quick Start
 
@@ -100,8 +115,27 @@ The short name should be:
 All models must be compatible with the same location module:
 
 ```bash
-LOCATION=threed_sphere  # Set in quickbuild.sh
+LOCATION=threed_sphere  # Set in model_config.sh
 ```
+
+### Observation Quantity Routing
+
+Configure which model should handle which observation quantities for the `interpolate()` function:
+
+```bash
+# Default model for unmapped quantities
+DEFAULT_INTERPOLATE_MODEL="camfv"
+
+# Assign specific quantities to each model
+declare -A MODEL_QTYS
+MODEL_QTYS["camfv"]="QTY_TEMPERATURE QTY_U_WIND_COMPONENT QTY_V_WIND_COMPONENT QTY_SURFACE_PRESSURE"
+MODEL_QTYS["wrf"]="QTY_VERTICAL_VELOCITY QTY_RAINWATER_MIXING_RATIO QTY_GRAUPEL_MIXING_RATIO"
+```
+
+QTY names must match those defined in `obs_kind_mod.f90`. During initialization, the system:
+- Creates a lookup table mapping each QTY to its responsible model
+- Uses `DEFAULT_INTERPOLATE_MODEL` for any unmapped quantities
+- Prints the complete QTY routing table for verification
 
 ### Extra Dependencies
 
@@ -157,13 +191,17 @@ The `work/` directory contains several helper scripts:
 To add a new model to the multi-model system:
 
 1. **Verify compatibility**: Ensure the model uses a compatible location module
-model_config.sh**:
+
+2. **Edit model_config.sh**:
    ```bash
    # Add to MODELS array
    MODELS=(cam-fv wrf mynewmodel)
    
    # Add short name mapping
    MODEL_SHORT_NAMES["mynewmodel"]="mnm"
+   
+   # Configure which observation quantities it handles
+   MODEL_QTYS["mnm"]="QTY_SALINITY QTY_SEA_SURFACE_HEIGHT"
    
    # Add any extra dependencies if needed
    MODEL_EXTRAS["mynewmodel"]="$DART/models/mynewmodel/support"
@@ -176,19 +214,49 @@ model_config.sh**:
    ./quickbuild.sh
    ```
 
+The system automatically:
+- Preprocesses your model's model_mod.f90
+- Generates the multi-model wrapper
+- Tracks domains your model creates
+- Routes observations based on your QTY configuration
+
 The `assim_model_mod.f90` file is now **auto-generated** based on your configuration, so you don't need to manually edit it when adding new models
 
 ## Current Limitations
 
+### Fully Implemented Features
+
+The following features are **fully implemented** in the multi-model system:
+
+1. **State vector management** - Combined state from all models with proper offset tracking
+2. **Model initialization** (`static_init_model`) - Initializes all models and tracks their state
+3. **Domain tracking** - Automatic registration of domains to models during initialization
+4. **File I/O routing** - `write_model_time` and `nc_write_model_atts` route to correct model based on domain
+5. **Forward operator** (`interpolate`) - Routes observations to models based on quantity (QTY) type
+6. **Metadata access** (`get_state_meta_data`) - Routes based on state vector index
+
+### QTY-Based Observation Routing
+
+The `interpolate()` function now routes observations to models based on observation quantity:
+
+```bash
+# In model_config.sh
+DEFAULT_INTERPOLATE_MODEL="camfv"  # Default for unmapped QTYs
+
+MODEL_QTYS["camfv"]="QTY_TEMPERATURE QTY_U_WIND_COMPONENT QTY_V_WIND_COMPONENT"
+MODEL_QTYS["wrf"]="QTY_VERTICAL_VELOCITY QTY_RAINWATER_MIXING_RATIO"
+```
+
+During initialization, the system builds a lookup table mapping each QTY to its responsible model.
+
 ### Not Yet Implemented
 
-The following features are not yet fully implemented in the multi-model system:
+The following features still need implementation:
 
 1. **Model advance** (`adv_1step`) - Advancing multiple models simultaneously
-2. **Forward operator** (`interpolate`) - Needs to route obs to correct model
-3. **Perturbations** (`pert_model_copies`) - Perturbing multiple model states
-4. **Get close** (`get_close_obs`, `get_close_state`) - Spatial localization across models
-5. **Vertical conversion** - Converting between vertical coordinates
+2. **Perturbations** (`pert_model_copies`) - Perturbing multiple model states
+3. **Get close** (`get_close_obs`, `get_close_state`) - Spatial localization across models
+4. **Vertical conversion** - Converting between vertical coordinates
 
 These are currently stubs that return errors. They need to be implemented based on specific multi-model requirements.
 
@@ -197,7 +265,7 @@ These are currently stubs that return errors. They need to be implemented based 
 When implementing these features, consider:
 
 1. **Which model handles which observations?**
-   - Based on observation location?
+   - Now handled via QTY-based routing in `interpolate()`
    - Based on observation type?
    - Based on user configuration?
 

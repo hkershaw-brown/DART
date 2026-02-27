@@ -12,6 +12,15 @@ Welcome to the DART multi-model system! This directory contains everything you n
 
 **Implementation details**: See [SUMMARY.md](SUMMARY.md) - technical summary of the design and implementation.
 
+## Key Features
+
+✅ **Auto-generated multi-model wrapper** - No manual editing required  
+✅ **Automatic domain tracking** - Monitors which domains belong to which model  
+✅ **QTY-based observation routing** - Configure which model handles which observations  
+✅ **Multi-domain file I/O** - Each model writes its own files correctly  
+✅ **Flexible configuration** - Easy to add/remove models  
+✅ **Build verification** - Catch configuration errors before building
+
 ## Quick Links
 
 ### Getting Started
@@ -22,6 +31,7 @@ Welcome to the DART multi-model system! This directory contains everything you n
 ### Configuration
 - [Model selection](README.md#configuration-details)
 - [Model short names](README.md#model-short-names)
+- [Observation quantity routing](README.md#observation-quantity-routing)
 - [Location module](README.md#location-module)
 - [Extra dependencies](README.md#extra-dependencies)
 

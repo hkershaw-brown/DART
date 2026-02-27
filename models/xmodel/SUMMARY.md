@@ -30,12 +30,28 @@ models/xmodel/
 3. **Auto-Generated Multi-Model Wrapper**
    - `assim_model_mod.f90` is generated from `generate_assim_model_mod.sh`
    - No manual editing required when adding new models
-
+   - Automatically includes all configured models
 
 4. **State Vector Management**
    - Combined state vector includes all models
    - Tracks offsets and sizes for each model
    - Routes function calls to appropriate model based on state index
+
+5. **Automatic Domain Tracking**
+   - Monitors `add_domain()` calls during each model's initialization
+   - Tracks which domains belong to which model
+   - Routes file I/O operations based on domain ID
+   - No manual domain registration needed
+
+6. **Observation Quantity Routing**
+   - Configurable QTY-to-model mapping for `interpolate()`
+   - Supports default fallback model for unmapped quantities
+   - Debug output shows complete routing table
+
+7. **Multi-Domain File I/O**
+   - `write_model_time` routes based on domain
+   - `nc_write_model_atts` routes based on domain
+   - Each model writes its own file structure
 
 ### How to Use
 
@@ -59,6 +75,18 @@ MODELS=(lorenz_96 lorenz_63)
 MODELS=(cam-fv wrf ROMS_rutgers)  # Three models
 ```
 
+**To Configure Observation Routing:**
+
+Edit `model_config.sh`:
+```bash
+# Set default model for unmapped quantities
+DEFAULT_INTERPOLATE_MODEL="camfv"
+
+# Assign quantities to models
+MODEL_QTYS["camfv"]="QTY_TEMPERATURE QTY_U_WIND_COMPONENT"
+MODEL_QTYS["wrf"]="QTY_RAINWATER_MIXING_RATIO"
+```
+
 Then rebuild:
 ```bash
 ./quickbuild.sh
@@ -70,8 +98,17 @@ The system automatically generates `assim_model_mod.f90` for whatever models you
 
 1. Add to `MODELS` array
 2. Add short name mapping to `MODEL_SHORT_NAMES`
-3. Add model-specific code to `assim_model_mod.f90` (see README.md)
-4. Run `./verify_setup.sh` and `./quickbuild.sh`
+3. Configure which observation quantities it handles in `MODEL_QTYS`
+4. Add any extra dependencies to `MODEL_EXTRAS` if needed
+5. Run `./verify_setup.sh` and `./quickbuild.sh`
+
+Example in `model_config.sh`:
+```bash
+MODELS=(cam-fv wrf my-ocean-model)
+MODEL_SHORT_NAMES["my-ocean-model"]="ocean"
+MODEL_QTYS["ocean"]="QTY_SALINITY QTY_SEA_SURFACE_HEIGHT"
+MODEL_EXTRAS["my-ocean-model"]="$DART/models/ocean-support"
+```
 
 ### Design Pattern
 
@@ -93,7 +130,6 @@ The system uses a **preprocess-and-rename** pattern:
 
 
 ### Auto-generation of assim_model_mod.f90
-- ✅ Current Status
 
 **Implemented:**
 - ✅ Directory structure
@@ -104,8 +140,20 @@ The system uses a **preprocess-and-rename** pattern:
 - ✅ Documentation
 - ✅ Basic assim_model_mod wrapper
 - ✅ State vector management
-- ✅ Model initialization
-- ✅ Model size tracking
+- ✅ Model initialization (`static_init_model`)
+- ✅ Model size tracking (`get_model_size`)
+- ✅ State metadata access (`get_state_meta_data`)
+- ✅ Automatic domain tracking
+- ✅ Domain-based file I/O routing (`write_model_time`, `nc_write_model_atts`)
+- ✅ QTY-based observation routing (`interpolate`)
+- ✅ Initial conditions (`init_conditions`, `init_time`)
+- ✅ Time management (`read_model_time`, `get_model_time_step`)
+
+**Not Yet Implemented:**
+- ❌ Model advance (`adv_1step`)
+- ❌ Perturbations (`pert_model_copies`)
+- ❌ Spatial localization (`get_close_obs`, `get_close_state`)
+- ❌ Vertical coordinate conversion
 
 
 ### Testing
