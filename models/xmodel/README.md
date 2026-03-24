@@ -249,6 +249,9 @@ MODEL_QTYS["wrf"]="QTY_VERTICAL_VELOCITY QTY_RAINWATER_MIXING_RATIO"
 
 During initialization, the system builds a lookup table mapping each QTY to its responsible model.
 
+### Time
+The first model in the `MODELS` array is considered the "primary" model for time management. The `assim_model_mod` uses this model's time for read_model_time.
+
 ### Not Yet Implemented
 
 The following features still need implementation:

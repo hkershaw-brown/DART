@@ -147,7 +147,7 @@ The system uses a **preprocess-and-rename** pattern:
 - ✅ Domain-based file I/O routing (`write_model_time`, `nc_write_model_atts`)
 - ✅ QTY-based observation routing (`interpolate`)
 - ✅ Initial conditions (`init_conditions`, `init_time`)
-- ✅ Time management (`read_model_time`, `get_model_time_step`)
+- ✅ Time management (`read_model_time`, `get_model_time_step`) **Note the first model's time is used as the dart time**
 
 **Not Yet Implemented:**
 - ❌ Model advance (`adv_1step`)

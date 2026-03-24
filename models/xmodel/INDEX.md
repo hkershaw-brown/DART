@@ -78,16 +78,14 @@ Welcome to the DART multi-model system! This directory contains everything you n
 ./quickbuild.sh filter
 ```
 
-## Configuration Files
+## Configuration File
 
 - **model_config.sh** - Main configuration file (edit this to select models)
-- **.cppdefs** - Generated preprocessor flags (created during build)
 
 ## Generated Files
 
 During the build, the following are created in `work/`:
 - **preprocessed/** - Directory containing renamed model_mod files
-- **.cppdefs** - Preprocessor flags for conditional compilation
 - **assim_model_mod.f90** - Copied from parent directory
 - **executables** - Built DART programs (filter, perfect_model_obs, etc.)
 
@@ -164,6 +162,3 @@ When adding new models or features:
 3. Test with `verify_setup.sh`
 4. Document any special requirements in README.md
 
-## License
-
-DART software - Copyright UCAR. This open source software is provided by UCAR, "as is", without charge, subject to all terms of use at http://www.image.ucar.edu/DAReS/DART/DART_download

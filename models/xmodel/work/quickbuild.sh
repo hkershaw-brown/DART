@@ -36,6 +36,7 @@ MODEL=xmodel
 programs=(
 filter
 model_mod_check
+perfect_model_obs
 )
 
 serial_programs=(
@@ -141,8 +142,8 @@ echo "Multi-model build complete!"
 echo "================================================"
 echo "Models included: ${MODELS[@]}"
 echo ""
-echo "To change which models are included, edit the"
-echo "MODELS array at the top of this script."
+echo "To change which models are included, edit "
+echo "model_config.sh"
 echo "================================================"
 
 }

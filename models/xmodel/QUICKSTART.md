@@ -79,7 +79,7 @@ ls -1 filter model_mod_check perfect_model_obs
 
 ## Changing Which Models to Include
 
-### Option 1: Edit model_config.sh
+### Edit model_config.sh
 
 Edit the `MODELS` array:
 
@@ -93,16 +93,6 @@ MODELS=(cam-fv wrf lorenz_96)
 # Different models
 MODELS=(lorenz_96 lorenz_63)
 ```
-
-### Option 2: Create a custom config
-
-Copy the configuration template:
-
-```bash
-cp model_config.sh my_custom_config.sh
-```
-
-Edit `my_custom_config.sh` to your needs, then modify `quickbuild.sh` to source it.
 
 ## Configuring Observation Routing
 
@@ -185,9 +175,8 @@ MODEL_SHORT_NAMES["mymodel"]="mymod"
 
 **Solutions**:
 1. Run `./verify_setup.sh` first to catch configuration issues
-2. Check `.cppdefs` has correct preprocessor flags
-3. Check `preprocessed/` directory has renamed model_mod files
-4. Review error messages for missing files or undefined symbols
+2. Check `preprocessed/` directory has renamed model_mod files
+3. Review error messages for missing files or undefined symbols
 
 ## Understanding the Build Process
 
@@ -211,22 +200,9 @@ module camfv_model_mod
   subroutine camfv_static_init_model()
 ```
 
-### Step 2: Preprocessor Flags
-
-Creates `.cppdefs` with flags for each model:
-
-```
--DUSE_CAMFV
--DUSE_WRF
-```
-
-These control which models are compiled into assim_model_mod.
-
 ### Step 3: Compilation
 
 The multi-model `assim_model_mod.f90`:
-- Uses `#ifdef USE_CAMFV` to conditionally include cam-fv code
-- Uses `#ifdef USE_WRF` to conditionally include wrf code
 - Tracks state vector indices for each model
 - Routes function calls to the appropriate model_mod
 
@@ -307,7 +283,6 @@ cd $DART/models/xmodel/work
 - **Check README.md** for detailed documentation
 - **Run verify_setup.sh** to diagnose configuration issues  
 - **Examine preprocessed/** directory to see renamed files
-- **Check .cppdefs** to verify preprocessor flags
 - **Review build output** for specific error messages
 
 ## File Reference
@@ -328,7 +303,7 @@ models/xmodel/
 ## Tips
 
 1. **Always run verify_setup.sh first** - catches most issues before building
-2. **Start simple** - test with 2 models before adding more
+2. **Start simple** - test with 1 or 2 models before adding more
 3. **Check compatibility** - ensure models use the same location module
 4. **Clean between builds** - `./quickbuild.sh clean` if you change configuration
 5. **Examine preprocessed files** - helps understand what the scripts are doing
@@ -336,9 +311,8 @@ models/xmodel/
 ## Philosophy
 
 The multi-model system is designed to be:
-- **Flexible**: Not limited to 2 models - include as many as needed
+- **Flexible**: Not limited to 1 or 2 models - include as many as needed
 - **Declarative**: Specify models in configuration, not hard-coded
 - **Modular**: Each model_mod is preprocessed independently
 - **Extensible**: Easy to add new models without changing existing code
 
-The key insight is using preprocessor directives (`#ifdef`) and renamed modules to allow multiple model_mods to coexist in one executable.
