@@ -139,19 +139,22 @@ QTY names must match those defined in `obs_kind_mod.f90`. During initialization,
 
 ### Extra Dependencies
 
-If a model requires additional source files, add them in the loop:
+If a model requires additional source files, add them to MODEL_EXTRAS
+in `model_config.sh`, e.g.:
 
 ```bash
-for model in "${MODELS[@]}"; do
-  case $model in
-    cam-fv)
-      EXTRA="$EXTRA $DART/models/cam-common-code"
-      ;;
-    my-model)
-      EXTRA="$EXTRA $DART/models/my-model-support"
-      ;;
-  esac
-done
+# CAM models need common code
+MODEL_EXTRAS["cam-fv"]="$DART/models/cam-common-code"
+MODEL_EXTRAS["cam-se"]="$DART/models/cam-common-code"
+```
+
+### Excludes
+
+Similarly if a model has files that should be excluded from the build, you can specify those in MODEL_EXCLUDES.
+
+```bash
+# Example: WRF excludes some experimental directories
+MODEL_EXCLUDES["wrf"]="experiments"
 ```
 
 ## File Structure
