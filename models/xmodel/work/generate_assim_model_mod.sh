@@ -66,8 +66,8 @@ cat > "$OUTPUT_FILE" <<'EOF'
 !> Edit model_config.sh to change which models are included
 !>
 !> DOMAIN MANAGEMENT:
-!> Each model can have one or more domains. After each model calls
-!> add_domain() assim_model_mod tracks which domains belong to which model.
+!> Each model can have one or more domains. After calling static_init_model
+!> for each model, assim_model_mod tracks which domains belong to which model.
 !> This allows write_model_time() to route to the correct model
 !> based on the domain parameter.
 
@@ -81,7 +81,7 @@ use time_manager_mod, only : time_type,                                         
 
 use ensemble_manager_mod, only : ensemble_type
 
-use utilities_mod, only : register_module, error_handler, E_ERR, E_MSG
+use utilities_mod, only : error_handler, E_ERR, E_MSG
 
 use location_mod, only : location_type
 
@@ -164,8 +164,6 @@ integer :: default_interp_model  ! Model index for unmapped quantities
 
 ! version controlled file description
 character(len=*), parameter :: source   = 'xmodel/assim_model_mod.f90'
-character(len=*), parameter :: revision = ''
-character(len=*), parameter :: revdate  = ''
 
 !-------------------------------------------------------------
 
@@ -186,8 +184,6 @@ integer :: domains_before, domains_after, domain_idx
 ! only execute this code once, even if called multiple times.
 if (module_initialized) return
 
-call register_module(source, revision, revdate)
-
 module_initialized = .true.
 
 EOF
@@ -201,7 +197,7 @@ cat >> "$OUTPUT_FILE" <<'EOF'
 
 if (num_models == 0) then
    call error_handler(E_ERR, 'static_init_assim_model', &
-        'No models enabled', source, revision, revdate)
+        'No models enabled', source)
 endif
 
 allocate(model_sizes(num_models))
@@ -355,7 +351,7 @@ if (qty_index > 0 .and. qty_index <= num_qtys) then
    write(*, *) '  - ${qty}'
 else
    call error_handler(E_MSG, 'init_qty_routing', &
-        'Unknown QTY: ${qty}', source, revision, revdate)
+        'Unknown QTY: ${qty}', source)
 endif
 EOF
   done
@@ -410,7 +406,7 @@ enddo
 
 if (model_idx == -1) then
    call error_handler(E_ERR, 'get_state_meta_data', &
-        'Index not found in any model', source, revision, revdate)
+        'Index not found in any model', source)
 endif
 
 ! Call the appropriate model's get_state_meta_data based on model_idx
@@ -438,7 +434,7 @@ done
 cat >> "$OUTPUT_FILE" <<'EOF'
 else
    call error_handler(E_ERR, 'get_state_meta_data', &
-        'Invalid model_idx', source, revision, revdate)
+        'Invalid model_idx', source)
 endif
 
 end subroutine get_state_meta_data
@@ -590,7 +586,7 @@ real(r8),        intent(inout) :: x(:)
 type(time_type), intent(in)    :: time
 
 call error_handler(E_ERR, 'adv_1step', &
-     'Multi-model advance not yet implemented', source, revision, revdate)
+     'Multi-model advance not yet implemented', source)
 
 end subroutine adv_1step
 
@@ -613,13 +609,13 @@ num_qtys = get_num_quantities()
 
 ! Determine which model should handle this quantity
 if (qty < 1 .or. qty > num_qtys) then
-   call error_handler(E_ERR, 'interpolate', 'Invalid quantity index', source, revision, revdate)
+   call error_handler(E_ERR, 'interpolate', 'Invalid quantity index', source)
 endif
 
 model_idx = qty_to_model(qty)
 
 if (model_idx < 1 .or. model_idx > num_models) then
-   call error_handler(E_ERR, 'interpolate', 'Invalid model_idx from qty routing', source, revision, revdate)
+   call error_handler(E_ERR, 'interpolate', 'Invalid model_idx from qty routing', source)
 endif
 
 ! Route to the appropriate model's interpolate
@@ -646,7 +642,7 @@ done
 
 cat >> "$OUTPUT_FILE" <<'EOF'
 else
-   call error_handler(E_ERR, 'interpolate', 'Invalid model_idx', source, revision, revdate)
+   call error_handler(E_ERR, 'interpolate', 'Invalid model_idx', source)
 endif
 
 end subroutine interpolate
@@ -662,7 +658,7 @@ real(r8),            intent(in)    :: pert_amp
 logical,             intent(out)   :: interf_provided
 
 call error_handler(E_ERR, 'pert_model_copies', &
-     'Multi-model perturbation not yet implemented', source, revision, revdate)
+     'Multi-model perturbation not yet implemented', source)
 
 end subroutine pert_model_copies
 
@@ -686,7 +682,7 @@ real(r8),            optional, intent(out)   :: distances(:)
 type(ensemble_type), optional, intent(in)    :: state_handle
 
 call error_handler(E_ERR, 'get_close_obs', &
-     'Multi-model get_close_obs not yet implemented', source, revision, revdate)
+     'Multi-model get_close_obs not yet implemented', source)
 
 end subroutine get_close_obs
 
@@ -710,7 +706,7 @@ real(r8),            optional, intent(out)   :: distances(:)
 type(ensemble_type), optional, intent(in)    :: state_handle
 
 call error_handler(E_ERR, 'get_close_state', &
-     'Multi-model get_close_state not yet implemented', source, revision, revdate)
+     'Multi-model get_close_state not yet implemented', source)
 
 end subroutine get_close_state
 
@@ -729,7 +725,7 @@ integer,             intent(in)    :: which_vert
 integer,             intent(out)   :: status(:)
 
 call error_handler(E_ERR, 'convert_vertical_obs', &
-     'Multi-model vertical conversion not yet implemented', source, revision, revdate)
+     'Multi-model vertical conversion not yet implemented', source)
 
 end subroutine convert_vertical_obs
 
@@ -748,7 +744,7 @@ integer,             intent(in)    :: which_vert
 integer,             intent(out)   :: status
 
 call error_handler(E_ERR, 'convert_vertical_state', &
-     'Multi-model vertical conversion not yet implemented', source, revision, revdate)
+     'Multi-model vertical conversion not yet implemented', source)
 
 end subroutine convert_vertical_state
 
@@ -799,7 +795,7 @@ cat >> "$OUTPUT_FILE" <<'EOF'
 else
    ! Look up which model owns this domain
    if (domain_id < 1 .or. domain_id > MAX_DOMAINS) then
-      call error_handler(E_ERR, 'write_model_time', 'Invalid domain_id', source, revision, revdate)
+      call error_handler(E_ERR, 'write_model_time', 'Invalid domain_id', source)
    endif
    
    model_idx = domain_to_model(domain_id)
@@ -807,7 +803,7 @@ else
    
    if (model_idx < 1 .or. model_idx > num_models) then
       write(*, *) 'ERROR: model_idx out of range. num_models =', num_models
-      call error_handler(E_ERR, 'write_model_time', 'Domain not registered to any model', source, revision, revdate)
+      call error_handler(E_ERR, 'write_model_time', 'Domain not registered to any model', source)
    endif
    
    write(*, *) 'DEBUG: Calling write_model_time for model:', trim(model_names(model_idx))
@@ -836,7 +832,7 @@ done
 
 cat >> "$OUTPUT_FILE" <<'EOF'
    else
-      call error_handler(E_ERR, 'write_model_time', 'Invalid model_idx', source, revision, revdate)
+      call error_handler(E_ERR, 'write_model_time', 'Invalid model_idx', source)
    endif
 endif
 
@@ -853,7 +849,7 @@ integer :: model_idx
 
 ! Look up which model owns this domain
 if (domain_id < 1 .or. domain_id > MAX_DOMAINS) then
-   call error_handler(E_ERR, 'nc_write_model_atts', 'Invalid domain_id', source, revision, revdate)
+   call error_handler(E_ERR, 'nc_write_model_atts', 'Invalid domain_id', source)
 endif
 
 model_idx = domain_to_model(domain_id)
@@ -861,7 +857,7 @@ write(*, *) 'DEBUG nc_write_model_atts: domain_id =', domain_id, 'maps to model_
 
 if (model_idx < 1 .or. model_idx > num_models) then
    write(*, *) 'ERROR: model_idx out of range. num_models =', num_models
-   call error_handler(E_ERR, 'nc_write_model_atts', 'Domain not registered to any model', source, revision, revdate)
+   call error_handler(E_ERR, 'nc_write_model_atts', 'Domain not registered to any model', source)
 endif
 
 write(*, *) 'DEBUG: Calling nc_write_model_atts for model:', trim(model_names(model_idx))
@@ -890,7 +886,7 @@ done
 
 cat >> "$OUTPUT_FILE" <<'EOF'
 else
-   call error_handler(E_ERR, 'nc_write_model_atts', 'Invalid model_idx', source, revision, revdate)
+   call error_handler(E_ERR, 'nc_write_model_atts', 'Invalid model_idx', source)
 endif
 
 end subroutine nc_write_model_atts
