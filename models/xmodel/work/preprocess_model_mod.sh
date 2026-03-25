@@ -40,9 +40,8 @@ sed -i.bak "s/^end module model_mod$/end module ${MODEL_NAME}_model_mod/g" "$OUT
 sed -i.bak "s/model_nml/${MODEL_NAME}_model_nml/g" "$OUTPUT_PATH"
 
 # Clean up backup files
-rm -f "${OUTPUT_PATH}.bak"
+\rm -f "${OUTPUT_PATH}.bak"
 
-echo "Preprocessing complete!"
+echo "Preprocessing ${MODEL_NAME} complete!"
 echo "Module renamed to: ${MODEL_NAME}_model_mod"
 echo "Namelist renamed to: ${MODEL_NAME}_model_nml"
-echo "All public routines prefixed with: ${MODEL_NAME}_"

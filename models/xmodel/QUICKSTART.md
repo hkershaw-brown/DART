@@ -22,7 +22,7 @@ Open `model_config.sh` and check:
 MODELS=(cam-fv wrf)
 ```
 
-**How observations are routed:**
+**How quantities are routed:**
 ```bash
 # Default model for unmapped observation quantities
 DEFAULT_INTERPOLATE_MODEL="camfv"
@@ -63,7 +63,7 @@ This will:
 - Preprocess each model's model_mod.f90 with model-specific prefixes
 - Generate preprocessor flags
 - Compile all sources
-- Build executables (filter, perfect_model_obs, etc.)
+- Build executables (filter, perfect_model_obs, model_mod_check)
 
 ### 5. Check the results
 
@@ -71,10 +71,9 @@ After building, you should have:
 
 ```bash
 ls -1 filter model_mod_check perfect_model_obs
-# filter
-# model_mod_check  
-# perfect_model_obs
-# ... and other executables
+filter
+model_mod_check  
+perfect_model_obs
 ```
 
 ## Changing Which Models to Include
@@ -88,7 +87,7 @@ Edit the `MODELS` array:
 MODELS=(cam-fv wrf)
 
 # Three models
-MODELS=(cam-fv wrf lorenz_96)
+MODELS=(cam-fv wrf ROMS_rutgers)
 
 # Different models
 MODELS=(lorenz_96 lorenz_63)
@@ -127,7 +126,7 @@ MODELS=(cam-fv wrf)
 LOCATION=threed_sphere
 ```
 
-### Case 2: Simple Test Models
+### Case 2: 1D Toy Models
 
 ```bash
 # In model_config.sh

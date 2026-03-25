@@ -18,8 +18,8 @@ source "$DART"/build_templates/buildfunctions.sh
 XMODEL_DIR="$DART/models/xmodel/work"
 source "$XMODEL_DIR/model_config.sh"
 
-# Export and validate configuration
-export_config
+# verify configuration and print for the user:
+verify_config
 
 # Build EXTRA from model configurations
 EXTRA=""
@@ -48,12 +48,11 @@ model_serial_programs=(
 
 arguments "$@"
 
-# Create work directory for preprocessed model_mod files
+# Set work/preprocessed directory for preprocessed model_mod files
 WORK_DIR="$DART/models/xmodel/work"
 PREPROC_DIR="$WORK_DIR/preprocessed"
-mkdir -p "$PREPROC_DIR"
 
-# Clean the directory
+# Clean the work directory, create preprocessed directory
 \rm -f -- *.o *.mod Makefile .cppdefs
 \rm -rf "$PREPROC_DIR"
 mkdir -p "$PREPROC_DIR"

@@ -30,6 +30,22 @@ Models to include (2):
 
 Location module: threed_sphere
 
+Observation quantity routing:
+  Default interpolate model: camfv
+
+  Model-specific quantities:
+    camfv:
+      - QTY_TEMPERATURE
+      - QTY_U_WIND_COMPONENT
+      - QTY_V_WIND_COMPONENT
+      - QTY_SURFACE_PRESSURE
+      - QTY_SPECIFIC_HUMIDITY
+      - QTY_PRESSURE
+    wrf:
+      - QTY_VERTICAL_VELOCITY
+      - QTY_RAINWATER_MIXING_RATIO
+      - QTY_GRAUPEL_MIXING_RATIO
+
 =========================================
 ```
 
@@ -45,8 +61,6 @@ This will:
 1. Validate the configuration
 2. Test preprocessing of each model_mod.f90
 3. Check that renamed modules are created correctly
-4. Generate test preprocessor definitions
-5. Show what executables will be built
 
 Expected output (abbreviated):
 ```
@@ -70,12 +84,6 @@ Processing: wrf -> wrf_model_mod.f90
   ✓ Output file created
   ✓ Module renamed correctly
   ✓ Functions appear to be renamed
-
-Testing preprocessor definitions...
-  Generated .cppdefs:
-    # Test preprocessor definitions
-    -DUSE_CAMFV
-    -DUSE_WRF
 
 =========================================
 ✓ All tests passed!
@@ -129,26 +137,18 @@ Module renamed to: wrf_model_mod
 All public routines prefixed with: wrf_
 ```
 
-3. **Create preprocessor definitions**
-```
-Preprocessor flags (from .cppdefs):
-# Multi-model preprocessor definitions
--DUSE_CAMFV
--DUSE_WRF
-```
-
-4. **Build preprocess**
+3. **Build preprocess**
 ```
 Building preprocess...
 ```
 
-5. **Compile and link**
+4. **Compile and link**
 ```
 Building DART executables with multiple models...
 [compilation output...]
 ```
 
-6. **Report completion**
+5. **Report completion**
 ```
 ================================================
 Multi-model build complete!
@@ -177,18 +177,29 @@ Expected output:
 
 ### Step 7: Test model initialization
 
+input.nml will need to be created with appropriate namelist settings for both models. For example:
+
+```fortran
+&wrf_model_nml
+...
+/
+
+&camfv_model_nml
+...
+/
+
+&model_mod_check_nml
+  input_state_files     = 'caminput.nc', 'wrfinput_d01'
+  output_state_files    = 'mmc_output1.nc', 'mmc_output2.nc'
+/
+
+```
+
 ```bash
 ./model_mod_check
 ```
 
-This should initialize both models and display:
-```
-Model  1 :  camfv  Size:  XXXXX  Offset:  1
-Model  2 :  wrf    Size:  YYYYY  Offset:  XXXXX+1
-Multi-model initialization complete
-Number of models:  2
-Total state size:  XXXXX+YYYYY
-```
+
 
 ## Changing Configuration
 
@@ -199,12 +210,15 @@ Total state size:  XXXXX+YYYYY
 vim model_config.sh
 
 # Change MODELS array:
-# From: MODELS=(cam-fv wrf)
-# To:   MODELS=(lorenz_96 lorenz_63)
+MODELS=(cam-fv wrf)
 
 # Also update LOCATION if needed:
-# From: LOCATION=threed_sphere
-# To:   LOCATION=oned
+LOCATION=threed_sphere
+
+# And the observation quantity routing if needed:
+DEFAULT_INTERPOLATE_MODEL="camfv"
+MODEL_QTYS["camfv"]=...
+MODEL_QTYS["wrf"]=...
 ```
 
 ### Verify new configuration
@@ -219,58 +233,6 @@ vim model_config.sh
 ```bash
 ./quickbuild.sh clean
 ./quickbuild.sh
-```
-
-## Common Scenarios
-
-### Scenario 1: Add a third model
-
-```bash
-# Edit model_config.sh
-# Change: MODELS=(cam-fv wrf)
-# To:     MODELS=(cam-fv wrf lorenz_96)
-
-# Verify
-./verify_setup.sh
-
-# Build
-./quickbuild.sh clean
-./quickbuild.sh
-```
-
-### Scenario 2: Build only simple models for testing
-
-```bash
-# Edit model_config.sh
-# Change: MODELS=(cam-fv wrf)
-# To:     MODELS=(lorenz_96 lorenz_63)
-# Change: LOCATION=threed_sphere
-# To:     LOCATION=oned
-
-# Verify
-./verify_setup.sh
-
-# Build
-./quickbuild.sh clean
-./quickbuild.sh
-```
-
-### Scenario 3: Build without MPI
-
-```bash
-./quickbuild.sh nompi
-```
-
-### Scenario 4: Build only one program
-
-```bash
-./quickbuild.sh filter
-```
-
-### Scenario 5: Build one program without MPI
-
-```bash
-./quickbuild.sh nompi filter
 ```
 
 ## Troubleshooting Workflow
@@ -304,30 +266,19 @@ vim model_config.sh
    ```bash
    ls preprocessed/
    ```
-4. **Check .cppdefs has correct flags**:
-   ```bash
-   cat .cppdefs
-   ```
-5. **Review compilation errors** for specific issues
+4. **Review compilation errors** for specific issues
 
 ## File Locations After Build
 
 ```
 work/
-├── .cppdefs                      # Preprocessor flags
-├── assim_model_mod.f90           # Copied from parent directory
-├── preprocessed/                 # Preprocessed model_mod files
+├── assim_model_mod.f90           # generated during build ├── preprocessed/                     # Preprocessed model_mod files
 │   ├── camfv_model_mod.f90
 │   └── wrf_model_mod.f90
-├── *.o                          # Object files
-├── *.mod                        # Module files
-└── executables:
-    ├── filter
-    ├── model_mod_check
-    ├── perfect_model_obs
-    ├── advance_time
-    ├── obs_sequence_tool
-    └── ... (and others)
+├── filter
+├── model_mod_check
+├── perfect_model_obs
+└── ... (and others if added to quickbuild.sh)
 ```
 
 ## Next Steps
@@ -356,8 +307,3 @@ cd $DART/models/xmodel/work
 # 2. Repeat the above steps
 ```
 
-This modular approach makes it easy to:
-- Switch between different model combinations
-- Test configurations before building
-- Understand what's being built
-- Diagnose problems when they occur
