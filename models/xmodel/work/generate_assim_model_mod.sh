@@ -24,6 +24,7 @@ XMODEL_DIR="$DART/models/xmodel/work"
 
 # Load configuration
 source "$XMODEL_DIR/model_config.sh"
+setup_lags
 
 echo "Generating assim_model_mod.f90 for models: ${MODELS[@]}"
 
@@ -707,6 +708,8 @@ type(ensemble_type), optional, intent(in)    :: state_handle
 
 call error_handler(E_ERR, 'get_close_state', &
      'Multi-model get_close_state not yet implemented', source)
+
+! todo, the indexes will be the same for each lag. 
 
 end subroutine get_close_state
 

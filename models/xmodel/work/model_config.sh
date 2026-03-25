@@ -197,18 +197,6 @@ function setup_lags() {
 }
 
 # =============================================================================
-# ADVANCED OPTIONS - HK I do no think cpps will work with the current
-#  way buildfunctions is setup. 
-# =============================================================================
-
-# Custom preprocessor flags (space-separated)
-# These will be added to .cppdefs in addition to the automatic USE_MODEL flags
-CUSTOM_CPPFLAGS=""
-
-# Example:
-# CUSTOM_CPPFLAGS="-DDEBUG_MODE -DVERBOSE_OUTPUT"
-
-# =============================================================================
 # VALIDATION
 # =============================================================================
 

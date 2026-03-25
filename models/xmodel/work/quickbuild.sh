@@ -18,7 +18,7 @@ source "$DART"/build_templates/buildfunctions.sh
 XMODEL_DIR="$DART/models/xmodel/work"
 source "$XMODEL_DIR/model_config.sh"
 
-# verify configuration and print for the user:
+# verify configuration, setup lags and print for the user:
 verify_config
 
 # Build EXTRA from model configurations
