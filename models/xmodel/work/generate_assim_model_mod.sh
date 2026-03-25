@@ -1,4 +1,3 @@
-TODO fix register_model_domain, do this in static init
 #!/usr/bin/env bash
 
 # DART software - Copyright UCAR. This open source software is provided
@@ -8,12 +7,6 @@ TODO fix register_model_domain, do this in static init
 #-------------------------
 # Auto-generate assim_model_mod.f90 for multiple models
 # This creates a multi-model wrapper based on model_config.sh
-#
-# DOMAIN TRACKING:
-# Each model can have multiple domains. The generated code includes
-# register_model_domain() which models should call after add_domain()
-# to register domain ownership. This allows write_model_time() to 
-# route to the correct model based on the domain parameter.
 #-------------------------
 
 set -e
@@ -74,8 +67,7 @@ cat > "$OUTPUT_FILE" <<'EOF'
 !>
 !> DOMAIN MANAGEMENT:
 !> Each model can have one or more domains. After each model calls
-!> add_domain() in its static_init_model, it should call:
-!>   call register_model_domain('model_name', domain_id)
+!> add_domain() assim_model_mod tracks which domains belong to which model.
 !> This allows write_model_time() to route to the correct model
 !> based on the domain parameter.
 
@@ -145,8 +137,7 @@ public :: static_init_assim_model, &
           convert_vertical_state, &
           read_model_time, &
           write_model_time, &
-          nc_write_model_atts, &
-          register_model_domain
+          nc_write_model_atts
 
 ! Ensure init code is called exactly once
 logical :: module_initialized = .false.
@@ -781,43 +772,6 @@ EOF
 cat >> "$OUTPUT_FILE" <<'EOF'
 
 end function read_model_time
-
-!======================================================================
-
-subroutine register_model_domain(model_name, domain_id)
-!----------------------------------------------------------------------
-! Register that a specific domain belongs to a specific model
-! This should be called after add_domain() for each domain
-!----------------------------------------------------------------------
-character(len=*), intent(in) :: model_name
-integer,          intent(in) :: domain_id
-
-integer :: model_idx, i
-
-! Find the model index by name
-model_idx = -1
-do i = 1, num_models
-   if (trim(model_names(i)) == trim(model_name)) then
-      model_idx = i
-      exit
-   endif
-enddo
-
-if (model_idx == -1) then
-   call error_handler(E_ERR, 'register_model_domain', 'Unknown model name: '//trim(model_name), source, revision, revdate)
-endif
-
-if (domain_id < 1 .or. domain_id > MAX_DOMAINS) then
-   call error_handler(E_ERR, 'register_model_domain', 'Invalid domain_id', source, revision, revdate)
-endif
-
-! Register the mapping
-domain_to_model(domain_id) = model_idx
-num_domains = max(num_domains, domain_id)
-
-write(*, *) 'Registered domain ', domain_id, ' to model: ', trim(model_name)
-
-end subroutine register_model_domain
 
 !======================================================================
 
