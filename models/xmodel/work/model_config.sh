@@ -14,7 +14,8 @@
 #   MODELS=(cam-fv wrf ROMS_rutgers)       # Three models
 # =============================================================================
 
-MODELS=(cam-fv wrf)
+MODELS=(cam-fv)
+#MODELS=(lorenz_96 lorenz_63)
 
 # =============================================================================
 # MODEL SHORT NAMES
@@ -133,6 +134,81 @@ MODEL_EXCLUDES["wrf"]="experiments"
 # MODEL_EXCLUDES["my-model"]="tests documentation"
 
 # =============================================================================
+# LAG CONFIGURATION
+# =============================================================================
+# To add lagged copies of a model to the state, set LAG_MODELS and NLAGS.
+# For each model in LAG_MODELS, NLAGS lagged entries are added automatically:
+#   - Symlinks are created: $DART/models/<model>_lag1 -> $DART/models/<model>
+#   - MODELS array is extended with the lag directory names
+#   - MODEL_SHORT_NAMES, MODEL_EXTRAS, and MODEL_EXCLUDES are propagated
+#     from the base model to each lag instance
+#
+# Example (add 2 lagged WRF instances alongside the primary WRF):
+#   MODELS=(cam-fv wrf)
+#   LAG_MODELS=(wrf)
+#   NLAGS=2
+# This produces models: cam-fv  wrf  wrf_lag1  wrf_lag2
+# with short names:     camfv   wrf  wrflag1   wrflag2
+# =============================================================================
+
+LAG_MODELS=(cam-fv)   # Models to add lagged copies of, e.g. LAG_MODELS=(wrf)
+NLAGS=1         # Number of lags per model (0 = disabled)
+
+# Internal: expand lag entries into MODELS, MODEL_SHORT_NAMES, EXTRAS, EXCLUDES
+function setup_lags() {
+  if [ ${#LAG_MODELS[@]} -eq 0 ] || [ "$NLAGS" -le 0 ]; then
+    return
+  fi
+
+  for base_model in "${LAG_MODELS[@]}"; do
+    local base_short="${MODEL_SHORT_NAMES[$base_model]}"
+    if [ -z "$base_short" ]; then
+      echo "ERROR: No short name defined for lag base model '$base_model'"
+      exit 1
+    fi
+
+    for i in $(seq 1 "$NLAGS"); do
+      local lag_dir="${base_model}_lag${i}"
+      local lag_short="${base_short}lag${i}"
+
+      # Create symlink in $DART/models/ pointing to the base model directory
+      if [ ! -e "$DART/models/$lag_dir" ]; then
+        echo "Creating symlink: $DART/models/$lag_dir -> $DART/models/$base_model"
+        ln -s "$DART/models/$base_model" "$DART/models/$lag_dir"
+      fi
+
+      # Extend the MODELS array
+      MODELS+=("$lag_dir")
+
+      # Register short name
+      MODEL_SHORT_NAMES["$lag_dir"]="$lag_short"
+
+      # Propagate EXTRAS from base model to this lag
+      if [ -n "${MODEL_EXTRAS[$base_model]}" ]; then
+        MODEL_EXTRAS["$lag_dir"]="${MODEL_EXTRAS[$base_model]}"
+      fi
+
+      # Propagate EXCLUDES from base model to this lag
+      if [ -n "${MODEL_EXCLUDES[$base_model]}" ]; then
+        MODEL_EXCLUDES["$lag_dir"]="${MODEL_EXCLUDES[$base_model]}"
+      fi
+    done
+  done
+}
+
+# =============================================================================
+# ADVANCED OPTIONS - HK I do no think cpps will work with the current
+#  way buildfunctions is setup. 
+# =============================================================================
+
+# Custom preprocessor flags (space-separated)
+# These will be added to .cppdefs in addition to the automatic USE_MODEL flags
+CUSTOM_CPPFLAGS=""
+
+# Example:
+# CUSTOM_CPPFLAGS="-DDEBUG_MODE -DVERBOSE_OUTPUT"
+
+# =============================================================================
 # VALIDATION
 # =============================================================================
 
@@ -239,6 +315,7 @@ function print_config_summary() {
 
 # Export configuration (called by quickbuild.sh)
 function verify_config() {
+  setup_lags
   validate_config || exit 1
   print_config_summary
 }
