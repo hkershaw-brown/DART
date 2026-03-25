@@ -23,7 +23,7 @@ echo "========================================="
 echo ""
 
 # Validate configuration
-export_config
+verify_config
 
 # Test directory setup
 echo "Testing directory structure..."
