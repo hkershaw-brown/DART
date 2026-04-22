@@ -289,11 +289,15 @@ allocate(qty_to_model(num_qtys))
 ! Initialize all to default model
 EOF
 
-# Determine default model index
+# Determine default model index - lag models are never used for interpolation
 default_model_found=0
 default_idx=1
 for i in "${!MODELS[@]}"; do
   model="${MODELS[$i]}"
+  # Skip lag models - interpolate always routes to the base model
+  if [[ "$model" =~ _lag[0-9]+$ ]]; then
+    continue
+  fi
   short_name="${MODEL_SHORT_NAMES[$model]}"
   idx=$((i + 1))
   if [ "$short_name" == "$DEFAULT_INTERPOLATE_MODEL" ]; then
@@ -320,8 +324,12 @@ write(*, *) ''
 
 EOF
 
-# Generate qty mapping for each model
+# Generate qty mapping for each model - lag models are never used for interpolation
 for model in "${MODELS[@]}"; do
+  # Skip lag models - interpolate always routes to the base model
+  if [[ "$model" =~ _lag[0-9]+$ ]]; then
+    continue
+  fi
   short_name="${MODEL_SHORT_NAMES[$model]}"
   qtys="${MODEL_QTYS[$short_name]}"
   
