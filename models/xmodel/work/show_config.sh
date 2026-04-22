@@ -14,6 +14,7 @@ export DART=$(git rev-parse --show-toplevel)
 XMODEL_DIR="$DART/models/xmodel/work"
 source "$XMODEL_DIR/model_config.sh"
 
+setup_lags
 print_config_summary
 
 echo "Configuration file: $XMODEL_DIR/model_config.sh"

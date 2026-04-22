@@ -281,6 +281,16 @@ function print_config_summary() {
     echo "Custom preprocessor flags: $CUSTOM_CPPFLAGS"
   fi
   echo ""
+  echo "Lag configuration:"
+  if [ ${#LAG_MODELS[@]} -gt 0 ] && [ "$NLAGS" -gt 0 ]; then
+    echo "  Lagged models (${#LAG_MODELS[@]}):"
+    for model in "${LAG_MODELS[@]}"; do
+      echo "    - $model: $NLAGS lag(s)"
+    done
+  else
+    echo "  No lags configured (NLAGS=$NLAGS)"
+  fi
+  echo ""
   echo "Observation quantity routing:"
   echo "  Default interpolate model: $DEFAULT_INTERPOLATE_MODEL"
   echo ""
