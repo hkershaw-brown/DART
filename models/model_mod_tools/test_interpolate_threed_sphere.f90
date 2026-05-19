@@ -34,7 +34,7 @@ use model_check_utilities_mod, only : test_single_interpolation, &
                                       count_error_codes, &
                                       verify_consistent_istatus
 
-use           assim_model_mod, only : get_model_size, &
+use       assim_model_mod, only : get_model_size, &
                                   get_state_meta_data, &
                                   interpolate
 

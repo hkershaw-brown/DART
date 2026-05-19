@@ -106,7 +106,6 @@ use assim_model_mod,      only : get_model_size, read_model_time, write_model_ti
                                  nc_write_model_atts
 
 use typesizes
-
 use netcdf
 
 implicit none
