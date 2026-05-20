@@ -30,6 +30,10 @@ obs_diag
 obs_sequence_tool
 )
 
+model_serial_programs=(
+test_missing_location
+)
+
 # quickbuild arguments
 arguments "$@"
 
