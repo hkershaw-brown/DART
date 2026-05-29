@@ -77,16 +77,16 @@ routines.
 
 ---
 
-## Lag distance scaling
+## Lag "distance" scaling
 
-For a smoother, lag copies of a model are earlier time windows. Older lags should
-contribute less to the analysis — this is expressed by widening their effective
-localisation radius, achieved by scaling their distances upward.
+For a smoother, lag copies of a model are earlier time windows. Should older lags have difference localization?. More lag => greater "distance" from the obs? 
 
 ### Lag models in the generated code
 
 The generator emits a dedicated modifier for each lag model. It first delegates to the
 base model's modifier, then applies a lag-number penalty:
+
+Note the modifier is the get_close modifier mentioned above. Thinking about multiple models, multiple lags.
 
 ```fortran
 subroutine camfvlag2_modify_close_state_distances(...)

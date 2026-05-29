@@ -14,7 +14,7 @@
 #   MODELS=(cam-fv wrf ROMS_rutgers)       # Three models
 # =============================================================================
 
-MODELS=(cam-fv)
+MODELS=(cam-fv wrf)
 #MODELS=(lorenz_96 lorenz_63)
 
 # =============================================================================
@@ -151,8 +151,8 @@ MODEL_EXCLUDES["wrf"]="experiments"
 # with short names:     camfv   wrf  wrflag1   wrflag2
 # =============================================================================
 
-LAG_MODELS=(cam-fv)   # Models to add lagged copies of, e.g. LAG_MODELS=(wrf)
-NLAGS=1         # Number of lags per model (0 = disabled)
+LAG_MODELS=()   # Models to add lagged copies of, e.g. LAG_MODELS=(wrf)
+NLAGS=0         # Number of lags per model (0 = disabled)
 
 # Internal: expand lag entries into MODELS, MODEL_SHORT_NAMES, EXTRAS, EXCLUDES
 function setup_lags() {
