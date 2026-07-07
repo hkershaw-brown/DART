@@ -106,20 +106,65 @@ type(time_type), intent(in)    :: time
 
 real(r8), dimension(size(x)) :: x1, x2, x3, x4, dx, inter
 
+if (maxval(abs(x)) > 50.0) then
+   write(*,*) 'STATE BIGGER THAN 50 in adv_1step'
+   write(*,*) 'max(abs(x)) = ', maxval(abs(x))
+   write(*,*) 'location = ', maxloc(abs(x))
+   !write(*,*) 'x = '
+   !write(*,'(10f12.4)') x
+   !error stop
+endif
+
 call comp_dt(x, dx)        !  Compute the first intermediate step
 x1    = delta_t * dx
 inter = x + x1 / 2.0_r8
+
+if (maxval(abs(inter)) > 1.0d6) then
+   write(*,*) 'STATE BLOWUP in adv_1step STEP 1'
+   write(*,*) 'max(abs(inter)) = ', maxval(abs(inter))
+   write(*,*) 'location = ', maxloc(abs(inter))
+   write(*,*) 'inter = '
+   write(*,'(10f12.4)') inter
+   error stop
+endif
 
 call comp_dt(inter, dx)    !  Compute the second intermediate step
 x2    = delta_t * dx
 inter = x + x2 / 2.0_r8
 
+if (maxval(abs(inter)) > 1.0d6) then
+   write(*,*) 'STATE BLOWUP in adv_1step STEP 2'
+   write(*,*) 'max(abs(inter)) = ', maxval(abs(inter))
+   write(*,*) 'location = ', maxloc(abs(inter))
+   write(*,*) 'inter = '
+   write(*,'(10f12.4)') inter
+   error stop
+endif
+
 call comp_dt(inter, dx)    !  Compute the third intermediate step
 x3    = delta_t * dx
 inter = x + x3
 
+if (maxval(abs(inter)) > 1.0d6) then
+   write(*,*) 'STATE BLOWUP in adv_1step STEP 3'
+   write(*,*) 'max(abs(inter)) = ', maxval(abs(inter))
+   write(*,*) 'location = ', maxloc(abs(inter))
+   write(*,*) 'inter = '
+   write(*,'(10f12.4)') inter
+   error stop
+endif
+
 call comp_dt(inter, dx)    !  Compute fourth intermediate step
 x4 = delta_t * dx
+
+if (maxval(abs(x4)) > 1.0d6) then
+   write(*,*) 'STATE BLOWUP in adv_1step STEP 4'
+   write(*,*) 'max(abs(x4)) = ', maxval(abs(x4))
+   write(*,*) 'location = ', maxloc(abs(x4))
+   write(*,*) 'x4 = '
+   write(*,'(10f12.4)') x4
+   error stop
+endif
 
 !  Compute new value for x
 
@@ -141,6 +186,24 @@ integer :: j, jp1, jm1, jm2, ms
 ! being used as loop indices.
 ms = model_size
 do j = 1, ms
+
+!if (maxval(abs(x)) > 1.0d6) then
+!   write(*,*) 'STATE BLOWUP in comp_dt'
+!   write(*,*) 'max(abs(x)) = ', maxval(abs(x))
+!   write(*,*) 'location = ', maxloc(abs(x))
+!   write(*,*) 'value = ', x(maxloc(abs(x)))
+!   error stop
+!endif
+
+if (maxval(abs(x)) > 1.0d6) then
+   write(*,*) 'STATE BLOWUP in comp_dt'
+   write(*,*) 'max(abs(x)) = ', maxval(abs(x))
+   write(*,*) 'location = ', maxloc(abs(x))
+   write(*,*) 'x = '
+   write(*,'(10f12.4)') x
+   error stop
+endif
+
    jp1 = j + 1
    if(jp1 > ms) jp1 = 1
    jm2 = j - 2
