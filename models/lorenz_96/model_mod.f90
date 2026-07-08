@@ -106,20 +106,38 @@ type(time_type), intent(in)    :: time
 
 real(r8), dimension(size(x)) :: x1, x2, x3, x4, dx, inter
 
+real(r8) :: bigger_than
+
+bigger_than = 5_r8
+
+if (maxval(abs(x)) > bigger_than) then
+ print*, 'adv1_step STATE BIGGER THAN', bigger_than
+ print*, 'max(abs(x)) =', maxval(abs(x))
+endif 
+
+
 call comp_dt(x, dx)        !  Compute the first intermediate step
 x1    = delta_t * dx
 inter = x + x1 / 2.0_r8
+
+if (maxval(abs(x)) > bigger_than) print*, 'x1 dx', maxval(abs(dx))
 
 call comp_dt(inter, dx)    !  Compute the second intermediate step
 x2    = delta_t * dx
 inter = x + x2 / 2.0_r8
 
+if (maxval(abs(x)) > bigger_than) print*, 'x2 dx', maxval(abs(dx))
+
 call comp_dt(inter, dx)    !  Compute the third intermediate step
 x3    = delta_t * dx
 inter = x + x3
 
+if (maxval(abs(x)) > bigger_than) print*, 'x3 dx', maxval(abs(dx))
+
 call comp_dt(inter, dx)    !  Compute fourth intermediate step
 x4 = delta_t * dx
+
+if (maxval(abs(x)) > bigger_than) print*, 'x4 dx', maxval(abs(dx))
 
 !  Compute new value for x
 
