@@ -13,7 +13,7 @@ module model_mod
 
 use             types_mod,  only : MISSING_R8, MISSING_I, i8, r8, vtablenamelength, &
                                    gravity, DEG2RAD
-use      time_manager_mod,  only : set_calendar_type
+use      time_manager_mod,  only : set_calendar_type, time_type, set_time
 use          location_mod,  only : location_type, set_vertical, set_location, &
                                    get_location, write_location, is_vertical, &
                                    VERTISUNDEF, VERTISSURFACE, VERTISLEVEL, &
@@ -85,29 +85,17 @@ use     default_model_mod,  only : adv_1step, nc_write_model_vars, &
                                    parse_variables_clamp, &
                                    MAX_STATE_VARIABLE_FIELDS_CLAMP
 
-use    cam_common_code_mod, only : above_ramp_start, are_damping, build_cam_pressure_columns, build_heights, &
-                                   cam_grid, cdebug_level, check_good_levels, cno_normalization_of_scale_heights, &
-                                   pert_model_copies, cuse_log_vertical_scale, discarding_high_obs, &
-                                   free_cam_grid, free_std_atm_tables, generic_height_to_pressure, &
-                                   gph2gmh, grid_data, height_to_level, init_damping_ramp_info, &
-                                   init_discard_high_obs, init_globals, init_sign_of_vert_units, &
-                                   is_surface_field, obs_too_high, ok_to_interpolate, pressure_to_level, ramp_end, &
-                                   read_model_time, ref_model_top_pressure, ref_nlevels, scale_height, &
-                                   set_vert_localization, vert_interp, vertical_localization_type, write_model_time
-
-use cam_common_code_mod, only : nc_write_model_atts, grid_data, read_grid_info, &
-                                MAX_PERT, &
-                                shortest_time_between_assimilations, domain_id, &
-                                cuse_log_vertical_scale, &
-                                cno_normalization_of_scale_heights, &
-                                cdebug_level, &
-                                ccustom_routine_to_generate_ensemble, &
-                                cfields_to_perturb, &
-                                cperturbation_amplitude, &
-                                cassimilation_period_days, &
-                                cassimilation_period_seconds, &
-                                csuppress_grid_info_in_output, &
-                                common_initialized
+use         cam_grid_mod,  only : cam_grid, read_grid_info, free_cam_grid
+use     cam_vertical_mod,  only : build_cam_pressure_columns, build_heights, check_good_levels, &
+                                  gph2gmh, height_to_level, pressure_to_level, scale_height, &
+                                  vert_interp
+use     cam_vert_loc_mod,  only : cam_vert_config, above_ramp_start, set_vert_localization, &
+                                  init_damping_ramp_info, init_discard_high_obs, &
+                                  init_sign_of_vert_units, free_vert_config
+use     cam_vert_loc_mod,  only : cam_obs_too_high => obs_too_high
+use         cam_qty_mod,   only : is_surface_field, ok_to_interpolate
+use         cam_io_mod,    only : nc_write_cam_atts, write_model_time, read_model_time
+use     cam_perturb_mod,   only : cam_pert_model_copies, MAX_PERT
 
 implicit none
 private
@@ -206,6 +194,12 @@ namelist /model_nml/  &
 character(len=512) :: string1, string2, string3
 logical, save      :: module_initialized = .false.
 
+! the grid, the vertical localization settings and the state structure id
+! belong to this model_mod; the shared cam code gets them as arguments.
+type(cam_grid)        :: grid_data
+type(cam_vert_config) :: vcfg
+integer               :: domain_id = -1
+
 integer, parameter :: STAGGER_NONE = -1
 integer, parameter :: STAGGER_U    =  1
 integer, parameter :: STAGGER_V    =  2
@@ -263,7 +257,6 @@ if ( module_initialized ) return
 call register_module(source, revision, revdate)
 
 module_initialized = .true.
-common_initialized = .true.
 
 ! Read the DART namelist for this model
 call find_namelist_in_file('input.nml', 'model_nml', iunit)
@@ -274,27 +267,19 @@ call check_namelist_read(iunit, io, 'model_nml')
 if (do_nml_file()) write(nmlfileunit, nml=model_nml)
 if (do_nml_term()) write(     *     , nml=model_nml)
 
-! Set values from namelist in cam_common_code_mod
-cuse_log_vertical_scale = use_log_vertical_scale
-cno_normalization_of_scale_heights = no_normalization_of_scale_heights
-cdebug_level = debug_level
-ccustom_routine_to_generate_ensemble = custom_routine_to_generate_ensemble
-cfields_to_perturb = fields_to_perturb
-cperturbation_amplitude = perturbation_amplitude
-cassimilation_period_days = assimilation_period_days
-cassimilation_period_seconds = assimilation_period_seconds
-csuppress_grid_info_in_output = suppress_grid_info_in_output
+! the shared vertical localization code does not see the namelist; give it
+! the two values it needs.
+vcfg%use_log_vertical_scale            = use_log_vertical_scale
+vcfg%no_normalization_of_scale_heights = no_normalization_of_scale_heights
 
 
 call set_calendar_type('GREGORIAN')
 
-call read_grid_info(cam_template_filename)
+call read_grid_info(cam_template_filename, grid_data, debug_level)
 ! This non-state variable is used to compute surface elevation.
 call read_cam_phis_array(cam_phis_filename)
 call setup_interpolation() !grid is global
 
-! initialize global values that are used frequently
-call init_globals()
 
 ! parse_variables converts the character table that was read in from
 ! model_nml:state_variables into a state_var_type that can be
@@ -311,7 +296,7 @@ if (debug_level > 100) call state_structure_info(domain_id)
 
 ! convert from string in namelist to integer (e.g. VERTISxxx)
 ! and tell the dart code which vertical type we want to localize in.
-call set_vert_localization(vertical_localization_coord)
+call set_vert_localization(vcfg, vertical_localization_coord)
 
 ! if you have chemistry variables in the model state, set
 ! this namelist variable so we can initialize the proper tables
@@ -323,8 +308,7 @@ if (using_chemistry) call init_chem_tables()
 ! choosing not to support this.)
 if (model_damping_ends_at_level > 0) then
    if (vertical_localization_on()) then
-      call init_damping_ramp_info(model_damping_ends_at_level)
-      are_damping = .true.
+      call init_damping_ramp_info(vcfg, grid_data, model_damping_ends_at_level)
    else
       string1='cannot support model top damping unless also using vertical localization'
       string2='set "model_damping_ends_at_level = -1" in &model_nml, OR' 
@@ -336,14 +320,93 @@ endif
 
 ! set top limit where obs are discarded.  -1 to disable.
 if (no_obs_assim_above_level > 0) then
-   call init_discard_high_obs(no_obs_assim_above_level)
-   discarding_high_obs = .true.
+   call init_discard_high_obs(vcfg, grid_data, no_obs_assim_above_level)
 endif
 
 ! set a flag based on the vertical localization coordinate selected
-call init_sign_of_vert_units()
+call init_sign_of_vert_units(vcfg)
 
 end subroutine static_init_model
+
+!-----------------------------------------------------------------------
+!> Writes the model-specific attributes to a DART 'diagnostic' netCDF file.
+!> The work is in the shared cam_io_mod; this supplies the grid and the
+!> namelist setting.
+!>
+!> @param ncid    the netCDF handle of the DART diagnostic file opened by
+!>                assim_model_mod:init_diag_output
+!> @param dom_id  not used since there is only one domain
+
+subroutine nc_write_model_atts(ncid, dom_id)
+
+integer, intent(in) :: ncid
+integer, intent(in) :: dom_id
+
+if ( .not. module_initialized ) call static_init_model
+
+call nc_write_cam_atts(ncid, grid_data, suppress_grid_info_in_output)
+
+end subroutine nc_write_model_atts
+
+!-----------------------------------------------------------------------
+!> if the namelist is set to not use the custom routine, the default
+!> dart routine will add 'pert_amp' of noise to every field in the state
+!> to generate an ensemble from a single member.  if it is set to true
+!> the shared cam routine perturbs the namelist list of quantities by the
+!> namelist amplitudes instead; pert_amp is ignored in that case.
+
+subroutine pert_model_copies(state_ens_handle, ens_size, pert_amp, interf_provided)
+
+type(ensemble_type), intent(inout) :: state_ens_handle
+integer,             intent(in)    :: ens_size
+real(r8),            intent(in)    :: pert_amp   ! ignored in this version
+logical,             intent(out)   :: interf_provided
+
+if ( .not. module_initialized ) call static_init_model
+
+call cam_pert_model_copies(state_ens_handle, ens_size, custom_routine_to_generate_ensemble, &
+                           fields_to_perturb, perturbation_amplitude, interf_provided)
+
+end subroutine pert_model_copies
+
+!-----------------------------------------------------------------------
+!> Set the desired minimum model advance time. This is generally NOT the
+!> dynamical timestep of the model, but rather the shortest forecast length
+!> you are willing to make. This impacts how frequently the observations
+!> may be assimilated.
+
+function shortest_time_between_assimilations()
+
+character(len=*), parameter :: routine = 'shortest_time_between_assimilations:'
+
+type(time_type) :: shortest_time_between_assimilations
+
+if ( .not. module_initialized ) call static_init_model
+
+shortest_time_between_assimilations = set_time(assimilation_period_seconds, &
+                                               assimilation_period_days)
+
+write(string1,*)'assimilation period is ',assimilation_period_days,   ' days ', &
+                                          assimilation_period_seconds,' seconds'
+call error_handler(E_MSG,routine,string1,source,revision,revdate)
+
+end function shortest_time_between_assimilations
+
+!-----------------------------------------------------------------------
+!> return my_status /= 0 if obs is above the user-defined threshold
+!> (no_obs_assim_above_level).  public for use by utility programs.
+
+subroutine obs_too_high(vert_value, which_vert, my_status)
+
+real(r8), intent(in)  :: vert_value
+integer,  intent(in)  :: which_vert
+integer,  intent(out) :: my_status
+
+if ( .not. module_initialized ) call static_init_model
+
+call cam_obs_too_high(vcfg, vert_value, which_vert, my_status)
+
+end subroutine obs_too_high
 
 
 !-----------------------------------------------------------------------
@@ -673,7 +736,7 @@ real(r8),             intent(out) :: vals(ens_size)
 integer,              intent(out) :: my_status(ens_size)
 
 integer  :: imember
-real(r8) :: vals_array(ref_nlevels,ens_size)
+real(r8) :: vals_array(grid_data%ref_nlevels,ens_size)
 
 character(len=*), parameter :: routine = 'get_values_from_nonstate_fields:'
 
@@ -683,7 +746,7 @@ my_status(:) = 99
 select case (obs_quantity) 
    case (QTY_PRESSURE)
       call cam_pressure_levels(ens_handle, ens_size, &
-                               lon_index, lat_index, ref_nlevels, &
+                               lon_index, lat_index, grid_data%ref_nlevels, &
                                obs_quantity, vals_array, my_status)
       if (any(my_status /= 0)) return
 
@@ -766,7 +829,7 @@ interp_vals(:) = MISSING_R8
 istatus(:)     = 99
 
 ! do we know how to interpolate this quantity?
-call ok_to_interpolate(obs_qty, varid, status1)
+call ok_to_interpolate(domain_id, obs_qty, varid, status1)
 
 if (status1 /= 0) then  
    if(debug_level > 12) then
@@ -794,8 +857,8 @@ if (status1 /= 0) then
 endif
 
 ! if we are avoiding assimilating obs above a given pressure, test here and return.
-if (discarding_high_obs) then
-   call obs_too_high(lon_lat_vert(3), which_vert, status1)
+if (vcfg%discarding_high_obs) then
+   call cam_obs_too_high(vcfg, lon_lat_vert(3), which_vert, status1)
    if (status1 /= 0) then
       istatus(:) = status1
       return
@@ -1202,8 +1265,8 @@ character(len=*), parameter :: routine = 'find_vertical_levels:'
 integer  :: l1, l2, imember, level_one, status1, k
 real(r8) :: fract1
 real(r8) :: surf_pressure (  ens_size )
-real(r8) :: pressure_array( ref_nlevels, ens_size )
-real(r8) :: height_array  ( ref_nlevels, ens_size )
+real(r8) :: pressure_array( grid_data%ref_nlevels, ens_size )
+real(r8) :: height_array  ( grid_data%ref_nlevels, ens_size )
 
 ! assume the worst
 levs1(:)    = MISSING_I
@@ -1211,7 +1274,7 @@ levs2(:)    = MISSING_I
 vert_fracts(:) = MISSING_R8
 my_status(:)   = 98
 
-! ref_nlevels is the number of vertical levels (midlayer points)
+! grid_data%ref_nlevels is the number of vertical levels (midlayer points)
 
 level_one = 1
 
@@ -1228,10 +1291,11 @@ select case (which_vert)
          return
       endif
 
-      call build_cam_pressure_columns(ens_size, surf_pressure, ref_nlevels, pressure_array)
+      call build_cam_pressure_columns(ens_size, surf_pressure, grid_data%ref_nlevels, grid_data%ref_surface_pressure, &
+                                grid_data%hyam%vals, grid_data%hybm%vals, pressure_array)
 
       do imember=1, ens_size
-         call pressure_to_level(ref_nlevels, pressure_array(:, imember), vert_val, & 
+         call pressure_to_level(grid_data%ref_nlevels, pressure_array(:, imember), vert_val, use_log_vertical_scale, & 
                                 levs1(imember), levs2(imember), &
                                 vert_fracts(imember), my_status(imember))
 
@@ -1247,20 +1311,20 @@ select case (which_vert)
    case(VERTISHEIGHT)
       ! construct a height column here and find the model levels
       ! that enclose this value
-      call cam_height_levels(ens_handle, ens_size, lon_index, lat_index, ref_nlevels, obs_qty, &
+      call cam_height_levels(ens_handle, ens_size, lon_index, lat_index, grid_data%ref_nlevels, obs_qty, &
                              height_array, my_status)
 
       !>@todo FIXME let successful members continue?
       if (any(my_status /= 0)) return
 
       if (debug_level > 400) then
-         do k = 1,ref_nlevels
+         do k = 1,grid_data%ref_nlevels
             print*, 'ISHEIGHT: ', k, height_array(k,1)
          enddo
       endif
 
       do imember=1, ens_size
-         call height_to_level(ref_nlevels, height_array(:, imember), vert_val, & 
+         call height_to_level(grid_data%ref_nlevels, height_array(:, imember), vert_val, & 
                              levs1(imember), levs2(imember), vert_fracts(imember), &
                              my_status(imember))
       enddo
@@ -1277,7 +1341,7 @@ select case (which_vert)
       
    case(VERTISLEVEL)
       ! this routine returns false if the level number is out of range.
-      if (.not. check_good_levels(vert_val, ref_nlevels, l1, l2, fract1)) then
+      if (.not. check_good_levels(vert_val, grid_data%ref_nlevels, l1, l2, fract1)) then
          my_status(:) = 8
          return
       endif
@@ -1299,8 +1363,8 @@ select case (which_vert)
    ! 2d fields
    case(VERTISUNDEF, VERTISSURFACE)
       if (get_dims_from_qty(obs_qty, var_id) == 2) then
-         levs1(:) = ref_nlevels - 1
-         levs2(:) = ref_nlevels
+         levs1(:) = grid_data%ref_nlevels - 1
+         levs2(:) = grid_data%ref_nlevels
          vert_fracts(:) = 1.0_r8
          my_status(:) = 0
       else
@@ -1356,7 +1420,8 @@ if (status1 /= 0) then
 endif
 
 ! Build the pressure columns for the entire ensemble
-call build_cam_pressure_columns(ens_size, surface_pressure, nlevels, pressure)
+call build_cam_pressure_columns(ens_size, surface_pressure, nlevels, grid_data%ref_surface_pressure, &
+                                grid_data%hyam%vals, grid_data%hybm%vals, pressure)
 
 if (use_variable_mean_mass) then
    call compute_mean_mass(ens_handle, ens_size, lon_index, lat_index, nlevels, qty, mbar, status1)
@@ -1369,6 +1434,7 @@ if (use_variable_mean_mass) then
    ! compute the height columns for each ensemble member - passing mbar() array in.
    do imember = 1, ens_size
       call build_heights(nlevels, surface_pressure(imember), surface_elevation(1), &
+                         grid_data%hybi%vals(nlevels+1), &
                          pressure(:, imember), tv(:, imember), height_array(:, imember), mbar=mbar(:, imember))
    enddo
 
@@ -1378,6 +1444,7 @@ else
    ! in the variable mean mass case.)
    do imember = 1, ens_size
       call build_heights(nlevels, surface_pressure(imember), surface_elevation(1), &
+                         grid_data%hybi%vals(nlevels+1), &
                          pressure(:, imember), tv(:, imember), height_array(:, imember))
    enddo
 endif
@@ -1457,7 +1524,7 @@ call free_cam_grid(grid_data)
 
 deallocate(phis)
 
-call free_std_atm_tables()
+call free_vert_config(vcfg)
 
 call finalize_quad_interp(interp_nonstaggered)
 call finalize_quad_interp(interp_u_staggered)
@@ -1747,7 +1814,7 @@ integer,             intent(in)    :: qty
 
 integer  :: iloc, jloc, vloc, myqty, level_one, status1
 integer  :: my_status(ens_size)
-real(r8) :: pressure_array(ref_nlevels), surface_pressure(ens_size)
+real(r8) :: pressure_array(grid_data%ref_nlevels), surface_pressure(ens_size)
 
 
 call get_model_variable_indices(location_indx, iloc, jloc, vloc, kind_index=myqty)
@@ -1763,7 +1830,7 @@ if (is_surface_field(myqty)) then
    endif
    call set_vertical(location, surface_pressure(1), VERTISPRESSURE)
 else
-   call cam_pressure_levels(ens_handle, ens_size, iloc, jloc, ref_nlevels, &
+   call cam_pressure_levels(ens_handle, ens_size, iloc, jloc, grid_data%ref_nlevels, &
                             qty, pressure_array, my_status)
 
    call set_vertical(location, pressure_array(vloc), VERTISPRESSURE)
@@ -1781,12 +1848,12 @@ integer(i8),         intent(in)    :: location_indx
 integer,             intent(in)    :: qty
 
 integer  :: iloc, jloc, vloc, my_status(ens_size)
-real(r8) :: height_array(ref_nlevels, ens_size)
+real(r8) :: height_array(grid_data%ref_nlevels, ens_size)
 
 ! build a height column and a pressure column and find the levels
 call get_model_variable_indices(location_indx, iloc, jloc, vloc)
 
-call cam_height_levels(ens_handle, ens_size, iloc, jloc, ref_nlevels, &
+call cam_height_levels(ens_handle, ens_size, iloc, jloc, grid_data%ref_nlevels, &
                        qty, height_array, my_status) 
 
 !>@todo FIXME this can only be used if ensemble size is 1
@@ -1804,7 +1871,7 @@ integer(i8),         intent(in)    :: location_indx
 integer,             intent(in)    :: qty
 
 integer  :: iloc, jloc, vloc, level_one, status1, my_status(ens_size)
-real(r8) :: pressure_array(ref_nlevels)
+real(r8) :: pressure_array(grid_data%ref_nlevels)
 real(r8) :: surface_pressure(1), scaleheight_val
 
 !> this is currently only called with an ensemble size of 1 for
@@ -1833,7 +1900,7 @@ if (no_normalization_of_scale_heights) then
       ! build a pressure column and and find the levels
       call get_model_variable_indices(location_indx, iloc, jloc, vloc)
 
-      call cam_pressure_levels(ens_handle, ens_size, iloc, jloc, ref_nlevels, &
+      call cam_pressure_levels(ens_handle, ens_size, iloc, jloc, grid_data%ref_nlevels, &
                                qty, pressure_array, my_status)
       if (any(my_status /= 0)) goto 200
    
@@ -1853,7 +1920,7 @@ else
       ! build a pressure column and and find the levels
       call get_model_variable_indices(location_indx, iloc, jloc, vloc)
 
-      call cam_pressure_levels(ens_handle, ens_size, iloc, jloc, ref_nlevels, &
+      call cam_pressure_levels(ens_handle, ens_size, iloc, jloc, grid_data%ref_nlevels, &
                                qty, pressure_array, my_status)
       if (any(my_status /= 0)) goto 200
 
@@ -1926,8 +1993,8 @@ if (status1 /= 0) then
    return
 endif
 
-call build_cam_pressure_columns(ens_size, surface_pressure, ref_nlevels, &
-                               pressure_array)
+call build_cam_pressure_columns(ens_size, surface_pressure, grid_data%ref_nlevels, grid_data%ref_surface_pressure, &
+                                grid_data%hyam%vals, grid_data%hybm%vals, pressure_array)
 my_status(:) = 0
 
 end subroutine cam_pressure_levels
@@ -1984,7 +2051,7 @@ type(location_type), intent(inout) :: location
 integer,             intent(out)   :: my_status
 
 integer  :: varid, ens_size, status(1), qty
-real(r8) :: pressure_array(ref_nlevels)
+real(r8) :: pressure_array(grid_data%ref_nlevels)
 
 character(len=*), parameter :: routine = 'obs_vertical_to_pressure'
 
@@ -1995,7 +2062,7 @@ if (query_location(location) == VERTISSURFACE) then
    qty = QTY_SURFACE_PRESSURE
 endif
 
-call ok_to_interpolate(qty, varid, my_status)
+call ok_to_interpolate(domain_id, qty, varid, my_status)
 if (my_status /= 0) return
 
 call interpolate_values(ens_handle, ens_size, location, &
@@ -2027,7 +2094,7 @@ character(len=*), parameter :: routine = 'obs_vertical_to_height'
 
 ens_size = 1
 
-call ok_to_interpolate(QTY_GEOMETRIC_HEIGHT, varid, my_status)
+call ok_to_interpolate(domain_id, QTY_GEOMETRIC_HEIGHT, varid, my_status)
 if (my_status /= 0) return
 
 call interpolate_values(ens_handle, ens_size, location, &
@@ -2099,7 +2166,7 @@ if (no_normalization_of_scale_heights) then
 
    ! take log of pressure, either surface pressure or regular pressure
    
-   call ok_to_interpolate(ptype, varid1, my_status)
+   call ok_to_interpolate(domain_id, ptype, varid1, my_status)
    if (my_status /= 0) return
       
    !>@todo FIXME IFF the obs location is already pressure, we can take it at
@@ -2130,7 +2197,7 @@ else
 
    else
 
-      call ok_to_interpolate(QTY_PRESSURE, varid1, my_status)
+      call ok_to_interpolate(domain_id, QTY_PRESSURE, varid1, my_status)
       if (my_status /= 0) return
    
       !>@todo FIXME IFF the obs location is already pressure, we can take it at
@@ -2150,7 +2217,7 @@ else
          endif
       endif
                                  
-      call ok_to_interpolate(QTY_SURFACE_PRESSURE, varid2, my_status)
+      call ok_to_interpolate(domain_id, QTY_SURFACE_PRESSURE, varid2, my_status)
       if (my_status /= 0) return
       
       call interpolate_values(ens_handle, ens_size, location, QTY_SURFACE_PRESSURE, varid2, &
@@ -2240,9 +2307,9 @@ endif
 ! does the base obs need conversion first?
 vert_type = query_location(base_loc)
 
-if (vert_type /= vertical_localization_type) then
+if (vert_type /= vcfg%localization_type) then
    call convert_vert_one_obs(ens_handle, base_loc, base_type, &
-                             vertical_localization_type, status(1))
+                             vcfg%localization_type, status(1))
    if (status(1) /= 0) then
       num_close = 0
       return
@@ -2268,10 +2335,10 @@ do i=1, num_close
    vert_type = query_location(locs(this))
 !print *, 'close_o, vval, vtype = ', i, query_location(locs(this), 'VLOC'), vert_type
 
-   if (vert_type /= vertical_localization_type) then
+   if (vert_type /= vcfg%localization_type) then
       call convert_vertical_obs(ens_handle, 1, locs(this:this), &
                                 loc_qtys(this:this), loc_types(this:this), &
-                                vertical_localization_type, status)
+                                vcfg%localization_type, status)
       if (status(1) /= 0) then
          dist(i) = LARGE_DIST
          cycle
@@ -2284,10 +2351,10 @@ do i=1, num_close
    ! do not try to damp impacts when obs has "vert is undefined".  
    ! the impact will go all the way to the model top.  
    ! this is the agreed-on functionality.
-   if (.not. are_damping .or. vert_type == VERTISUNDEF) cycle
+   if (.not. vcfg%are_damping .or. vert_type == VERTISUNDEF) cycle
 
    vert_value = query_location(locs(this), 'VLOC')
-   if (above_ramp_start(vert_value, gc, base_type, ramp_end, dist(i), extra_damping_dist)) then
+   if (above_ramp_start(vcfg, vert_value, gc, base_type, dist(i), extra_damping_dist)) then
       dist(i) = dist(i) + extra_damping_dist
    endif
 enddo
@@ -2335,9 +2402,9 @@ endif
 ! does the base obs need conversion first?
 vert_type = query_location(base_loc)
 
-if (vert_type /= vertical_localization_type) then
+if (vert_type /= vcfg%localization_type) then
    call convert_vert_one_obs(ens_handle, base_loc, base_type, &
-                             vertical_localization_type, status)
+                             vcfg%localization_type, status)
    if (status /= 0) then
       num_close = 0
       return
@@ -2357,10 +2424,10 @@ do i=1, num_close
    vert_type = query_location(locs(this))
 !print *, 'close_s, vval, vtype = ', i, query_location(locs(this), 'VLOC'), vert_type
 
-   if (vert_type /= vertical_localization_type) then
+   if (vert_type /= vcfg%localization_type) then
       call convert_vertical_state(ens_handle, 1, locs(this:this), &
                                  loc_qtys(this:this), loc_indx(this:this), &
-                                 vertical_localization_type, status)
+                                 vcfg%localization_type, status)
       if (status /= 0) then
          dist(i) = LARGE_DIST
          cycle
@@ -2373,10 +2440,10 @@ do i=1, num_close
    ! do not try to damp impacts when obs has "vert is undefined".  
    ! the impact will go all the way to the model top.  
    ! this is the agreed-on functionality.
-   if (.not. are_damping .or. vert_type == VERTISUNDEF) cycle
+   if (.not. vcfg%are_damping .or. vert_type == VERTISUNDEF) cycle
 
    vert_value = query_location(locs(this), 'VLOC')
-   if (above_ramp_start(vert_value, gc, base_type, ramp_end, dist(i), extra_damping_dist)) then
+   if (above_ramp_start(vcfg, vert_value, gc, base_type, dist(i), extra_damping_dist)) then
       dist(i) = dist(i) + extra_damping_dist
    endif
 enddo
