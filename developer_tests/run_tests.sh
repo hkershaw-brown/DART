@@ -123,6 +123,13 @@ locof() {  # location module of suite $1 (loc=... in tests.list; default threed_
   echo threed_sphere
 }
 
+suite_extra() {  # sources in a suite's quickbuild.sh EXTRA that the library lacks
+  # (the library already has models/template/{oned,threed}_model_mod.f90)
+  sed -n '/^EXTRA=/,/[^\\]$/p' "$here/$1/work/quickbuild.sh" | tr -d '\\"' | tr ' \t' '\n\n' \
+    | sed -e 's/^EXTRA=//' -e "s|\$DART|$DART|" -e 's|\${DART}|'"$DART"'|' \
+    | grep '\.f90$' | grep -v 'models/template/' | tr '\n' ' '
+}
+
 # ---- build ----
 t_start=$SECONDS
 failed_builds=" "   # suites whose build failed; their tests are failed below
@@ -186,12 +193,6 @@ if [ $build -eq 1 ]; then
     if [ $cov -eq 1 ]; then
       FFLAGS="${FFLAGS//-O[0-3s]/} -O0 -g --coverage"; LIBS="$LIBS --coverage"
     fi
-    suite_extra() {  # sources in a suite's quickbuild.sh EXTRA that the library lacks
-      # (the library already has models/template/{oned,threed}_model_mod.f90)
-      sed -n '/^EXTRA=/,/[^\\]$/p' "$here/$1/work/quickbuild.sh" | tr -d '\\"' | tr ' \t' '\n\n' \
-        | sed -e 's/^EXTRA=//' -e "s|\$DART|$DART|" -e 's|\${DART}|'"$DART"'|' \
-        | grep '\.f90$' | grep -v 'models/template/' | tr '\n' ' '
-    }
     compile_one() {  # suite prog loc
       local s=$1 p=$2 l=$3 d="$out/$1/build"
       local extra; extra=$(suite_extra "$s")   # suite-specific sources, compiled with the program
@@ -320,11 +321,22 @@ coverage_report() {
   gc=${GCOV:-gcov}
   command -v "$gc" >/dev/null 2>&1 || { echo "# coverage: gcov not found" >&2; return; }
   rm -rf "$cdir"; mkdir -p "$cdir"
+  # source directories to report: DART core, the template model_mod built into
+  # the library, plus the directory of every EXTRA source in the selected suites
+  local dirs=("$DART/assimilation_code" "$DART/models/template") sdir x
+  for x in "${want[@]}"; do
+    for f in $(suite_extra "$x"); do
+      sdir=$(dirname "$f")
+      case " ${dirs[*]} " in *" $sdir "*) ;; *) dirs+=("$sdir") ;; esac
+    done
+  done
+  local fargs=() re=""
+  for d in "${dirs[@]}"; do fargs+=(--filter "$d"); re="${re:+$re|}${d#$DART/}"; done
   if [ $nogcovr -eq 0 ] && command -v gcovr >/dev/null 2>&1; then
     # --include-internal-functions: gfortran names module procedures __mod_MOD_x,
     # which gcovr would otherwise drop as compiler-generated (giving 0 lines)
-    gcovr -r "$DART" --gcov-executable "$gc" --include-internal-functions --filter "$DART/assimilation_code" \
-      --filter "$DART/models/template" --html-details "$cdir/index.html" \
+    gcovr -r "$DART" --gcov-executable "$gc" --include-internal-functions "${fargs[@]}" \
+      --html-details "$cdir/index.html" \
       --txt "$cdir/summary.txt" "$here/lib" "$out" > "$cdir/gcovr.log" 2>&1
     # gcovr tags 0% as coverage-none but colors it like coverage-low; make it
     # stand out (edit the colors here)
@@ -340,14 +352,14 @@ CSS
     return
   fi
   # fallback: plain gcov on the library objects; sources are DART core only
-  for d in "$here"/lib/*/; do
+  for d in "$here"/lib/*/ "$out"/*/build/; do
     ls "$d"*.gcda >/dev/null 2>&1 || continue
-    mkdir -p "$cdir/$(basename "$d")"
-    ( cd "$cdir/$(basename "$d")" && for f in "$d"*.gcda; do "$gc" -o "$d" "$f"; done ) > "$cdir/$(basename "$d").gcov.log" 2>&1
+    n=$(basename "$(dirname "$d")")_$(basename "$d"); mkdir -p "$cdir/$n"
+    ( cd "$cdir/$n" && for f in "$d"*.gcda; do "$gc" -o "$d" "$f"; done ) > "$cdir/$n.gcov.log" 2>&1
   done
   # per-source "Lines executed" summary (skip system headers and test support)
-  awk '/^File /{gsub(/\x27/,"",$2); file=$2}
-       /^Lines executed:/{ if (file ~ /assimilation_code|models\/template/ && file !~ /testanything/) {
+  awk -v re="$re" '/^File /{gsub(/\x27/,"",$2); file=$2}
+       /^Lines executed:/{ if (file ~ re && file !~ /testanything/) {
          split($0,a,/[:% ]+/); print a[3] "%  of " a[5] " lines  " file } }' \
     "$cdir"/*.gcov.log | sort -u > "$cdir/summary.txt"
   echo "# coverage (line %, lines, file) -- $cdir/summary.txt" >&2
