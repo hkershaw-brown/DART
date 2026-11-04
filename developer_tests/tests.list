@@ -46,3 +46,4 @@ random_seq        test_hist                    manual
 random_seq        test_reseed                  manual
 forward_operators rttov_unit_tests             manual  needs=rttov
 forward_operators rttov_test                   manual  needs=rttov
+cam_common        test_cam_common              tap
